@@ -1,0 +1,49 @@
+#################################################################################################
+#
+# Program:	glnd_baseline.in
+#
+# Purpose:	Produce recruitment and baseline  results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+f.top("report",
+ prepare.date=date(),
+ asof.date="Jan 22, 2007",
+ report.type="Recruitment and Baseline",
+ meet.date="Mar 6, 2007",
+ header="GLND DSMC Report - Recruitment and Baseline")
+
+lib="/glnd/sas"
+#cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+
+### Baseline patient characteristics 
+
+base_pat_char <- f.sas.get(library=lib,member="basedemo",
+                           format.library=lib,formats=T)
+
+f.tab(file="report",
+      x=base_pat_char[,c("gender","race","hispanic","center","apache.id",
+                         "ards","mech.vent","age","bmi","in.sicu.choice"),
+      drop=F],
+     
+      caption="Patient Characteristics", 
+      append=T, zero=F, 
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+### Recruitment by Center
+
+
+
+### Finish
+
+f.bottom("report")
+unix("laps report",output=F)
+unix("laps report",output=F)
+unix("lapdf report",output=F)
+unix("lapdf report",output=F)

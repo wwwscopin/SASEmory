@@ -1,0 +1,86 @@
+#################################################################################################
+#
+# Program:	glnd_baseline.in
+#
+# Purpose:	Produce recruitment and baseline  results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+#||||||||||||||||||||||||||||||||
+# ERROR in percent_iv_lipid, percent_iv_dex
+#basedsmc from libs not from frozen!!!!!!!
+################################################################################################
+
+source("start.in")
+#lib="/glnd/sas/reporting"
+lib="/glnd/sas/dsmc/20101011"
+#libr="/glnd/sas/reporting"
+libr="/glnd/sas/dsmc/20101011/reporting"
+ libs="/glnd/sas"
+#libdf="/glnd/sas/reporting/df_reporting" 
+libdf="/glnd/sas/dsmc/20101011/reporting/df_reporting"
+
+
+
+f.top("mrf",
+ prepare.date=date(),
+ asof.date="October 11, 2010",
+ report.type="Recruitment, Baseline, and Follow-up  OPEN SESSION",
+ meet.date=" Nov 16, 2010",
+ header="GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SESSION")
+
+
+#lib="/glnd/sas/reporting"
+lib="/glnd/sas/dsmc/20101011"
+#libr="/glnd/sas/reporting"
+libr="/glnd/sas/dsmc/20101011/reporting"
+ libs="/glnd/sas"
+#libdf="/glnd/sas/reporting/df_reporting" 
+libdf="/glnd/sas/dsmc/20101011/reporting/df_reporting"
+
+
+  mrfcod<- f.sas.get(library=libr,member="mrfcod",
+                            format.library=lib,formats=T)
+
+#immed_cause_desc1  immed_cause_desc2  under_cause_desc1 under_cause_desc2
+
+
+tmp.tab=mrfcod[,c("id","under.cause.desc1","under.cause.desc2",
+                  "immed.cause.desc1","immed.cause.desc2")]
+
+f.list(file="mrf", x=tmp.tab,
+       caption="Central Mortality Review" ,append=T,
+       pos=c("l","p{1.2in}","p{0.8in}","p{1.4in}","p{1.2in}"))
+
+
+
+ ccod<- f.sas.get(library=libr,member="ccod",
+                            format.library=lib,formats=T)
+tmp.tab=ccod[,c("id","ccause1","ccause2")]
+         
+
+f.list(file="mrf", x=tmp.tab,
+       caption="Mortality Review Contributing Cause of Death" ,append=T,
+       pos=c("l","p{1.75in}","p{1.75in}"))
+       
+       
+  wc<- f.sas.get(library=libr,member="wc",
+                            format.library=lib,formats=T)
+tmp.tab=wc[,c("id","withdraw.care1","withdraw.care2","dnr.ordered1","dnr.ordered2")]
+         
+
+f.list(file="mrf", x=tmp.tab,
+       caption="Withdrawal of Care" ,append=T,
+       pos=c("l","p{1.0in}","p{1.0in}","p{1.0in}","p{1.0in}"))
+
+cat("\\clearpage",sep="\n",file="mrf.tex",append=T)
+ 
+ 
+### Finish
+
+f.bottom("mrf")
+unix("/home/gcotson/bin/laps mrf",output=F)
+unix("/home/gcotson/bin/laps mrf",output=F)
+unix("/home/gcotson/bin/lapdf mrf",output=F)
+unix("/home/gcotson/bin/lapdf mrf",output=F)

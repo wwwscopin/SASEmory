@@ -1,0 +1,269 @@
+                                              Incident infection totals - treatment 1             14:45 Tuesday, October 5, 2010   1
+
+                                                        The MEANS Procedure
+
+                                               Analysis Variable : incident Incident
+ 
+                                                new_
+                                                site_      N
+                                                code     Obs      N             Sum
+                                                -----------------------------------
+                                                BSI       21     21      18.0000000
+
+                                                CVS        2      2       1.0000000
+
+                                                GI         5      5       3.0000000
+
+                                                LRI       19     19       9.0000000
+
+                                                SSI       10     10       5.0000000
+
+                                                UTI        9      9       9.0000000
+                                                -----------------------------------
+                                              Incident infection totals - treatment 1             14:45 Tuesday, October 5, 2010   2
+
+                                                        The MEANS Procedure
+
+                                                Analysis Variable : incident Incident
+ 
+                                                 new_
+                                                 site_      N
+                                                 code     Obs     N             Sum
+                                                 ----------------------------------
+                                                 BSI       17    17      17.0000000
+
+                                                 CVS        1     1       1.0000000
+
+                                                 GI         3     3       3.0000000
+
+                                                 LRI        9     9       9.0000000
+
+                                                 SSI        4     4       4.0000000
+
+                                                 UTI        9     9       9.0000000
+                                                 ----------------------------------
+                                              Incident infection totals - treatment 1             14:45 Tuesday, October 5, 2010   3
+
+                                           new_
+                                           site_                        incident_    incident_
+                                    Obs    code     _TYPE_    _FREQ_    cases_sum    people_sum
+
+                                     1      BSI        1        17          18           17    
+                                     2      CVS        1         1         Yes          Yes    
+                                     3      GI         1         3           3            3    
+                                     4      LRI        1         9           9            9    
+                                     5      SSI        1         4           5            4    
+                                     6      UTI        1         9           9            9    
+                                              Incident infection totals - treatment 1             14:45 Tuesday, October 5, 2010   4
+
+                                                        The MEANS Procedure
+
+                                               Analysis Variable : incident Incident
+ 
+                                                          N             Sum
+                                                        -------------------
+                                                         48      30.0000000
+                                                        -------------------
+                                              Incident infection totals - treatment 1             14:45 Tuesday, October 5, 2010   5
+
+                                                        The MEANS Procedure
+
+                                                Analysis Variable : incident Incident
+ 
+                                                          N             Sum
+                                                         ------------------
+                                                         20      20.0000000
+                                                         ------------------
+                                              Incident infection totals - treatment 1             14:45 Tuesday, October 5, 2010   6
+
+                                                                    incident_    incident_
+                                         Obs    _TYPE_    _FREQ_    cases_sum    people_sum
+
+                                          1        0        20         30            20    
+                                              Incident infection totals - treatment 1             14:45 Tuesday, October 5, 2010   7
+
+                                                        The MEANS Procedure
+
+                                               Analysis Variable : incident Incident
+ 
+                                                          N             Sum
+                                                        -------------------
+                                                         69      48.0000000
+                                                        -------------------
+                                              Incident infection totals - treatment 1             14:45 Tuesday, October 5, 2010   8
+
+                                                        The MEANS Procedure
+
+                                                Analysis Variable : incident Incident
+ 
+                                                          N             Sum
+                                                         ------------------
+                                                         28      28.0000000
+                                                         ------------------
+                                              Incident infection totals - treatment 1             14:45 Tuesday, October 5, 2010   9
+
+                                                                    incident_    incident_
+                                         Obs    _TYPE_    _FREQ_    cases_sum    people_sum
+
+                                          1        0        28         48            28    
+                                              Incident infection totals - treatment 1             14:45 Tuesday, October 5, 2010  10
+
+                                                        The MEANS Procedure
+
+                          Analysis Variable : days_hosp_post_entry Days in the hospital after study entry
+ 
+                                                  N             Sum          Median
+                                                -----------------------------------
+                                                 63         1447.00      19.0000000
+                                                -----------------------------------
+                                              Incident infection totals - treatment 2             14:45 Tuesday, October 5, 2010  11
+
+                                                        The MEANS Procedure
+
+                                               Analysis Variable : incident Incident
+ 
+                                                new_
+                                                site_      N
+                                                code     Obs      N             Sum
+                                                -----------------------------------
+                                                BSI       16     16      11.0000000
+
+                                                GI         2      2       1.0000000
+
+                                                LRI       19     19      10.0000000
+
+                                                SSI        9      9       3.0000000
+
+                                                UTI        8      8       7.0000000
+                                                -----------------------------------
+                                              Incident infection totals - treatment 2             14:45 Tuesday, October 5, 2010  12
+
+                                                        The MEANS Procedure
+
+                                                Analysis Variable : incident Incident
+ 
+                                                 new_
+                                                 site_      N
+                                                 code     Obs     N             Sum
+                                                 ----------------------------------
+                                                 BSI        9     9       9.0000000
+
+                                                 GI         1     1       1.0000000
+
+                                                 LRI       10    10      10.0000000
+
+                                                 SSI        3     3       3.0000000
+
+                                                 UTI        6     6       6.0000000
+                                                 ----------------------------------
+                                              Incident infection totals - treatment 2             14:45 Tuesday, October 5, 2010  13
+
+                                           new_
+                                           site_                        incident_    incident_
+                                    Obs    code     _TYPE_    _FREQ_    cases_sum    people_sum
+
+                                     1      BSI        1         9          11            9    
+                                     2      GI         1         1         Yes          Yes    
+                                     3      LRI        1        10          10           10    
+                                     4      SSI        1         3           3            3    
+                                     5      UTI        1         6           7            6    
+                                              Incident infection totals - treatment 2             14:45 Tuesday, October 5, 2010  14
+
+                                                        The MEANS Procedure
+
+                                               Analysis Variable : incident Incident
+ 
+                                                          N             Sum
+                                                        -------------------
+                                                         43      23.0000000
+                                                        -------------------
+                                              Incident infection totals - treatment 2             14:45 Tuesday, October 5, 2010  15
+
+                                                        The MEANS Procedure
+
+                                                Analysis Variable : incident Incident
+ 
+                                                          N             Sum
+                                                         ------------------
+                                                         18      18.0000000
+                                                         ------------------
+                                              Incident infection totals - treatment 2             14:45 Tuesday, October 5, 2010  16
+
+                                                                    incident_    incident_
+                                         Obs    _TYPE_    _FREQ_    cases_sum    people_sum
+
+                                          1        0        18         23            18    
+                                              Incident infection totals - treatment 2             14:45 Tuesday, October 5, 2010  17
+
+                                                        The MEANS Procedure
+
+                                               Analysis Variable : incident Incident
+ 
+                                                          N             Sum
+                                                        -------------------
+                                                         59      34.0000000
+                                                        -------------------
+                                              Incident infection totals - treatment 2             14:45 Tuesday, October 5, 2010  18
+
+                                                        The MEANS Procedure
+
+                                                Analysis Variable : incident Incident
+ 
+                                                          N             Sum
+                                                         ------------------
+                                                         20      20.0000000
+                                                         ------------------
+                                              Incident infection totals - treatment 2             14:45 Tuesday, October 5, 2010  19
+
+                                                                    incident_    incident_
+                                         Obs    _TYPE_    _FREQ_    cases_sum    people_sum
+
+                                          1        0        20         34            20    
+                                              Incident infection totals - treatment 2             14:45 Tuesday, October 5, 2010  20
+
+                                                        The MEANS Procedure
+
+                          Analysis Variable : days_hosp_post_entry Days in the hospital after study entry
+ 
+                                                  N             Sum          Median
+                                                -----------------------------------
+                                                 65         1282.00      16.0000000
+                                                -----------------------------------
+                                              Incident infection totals - treatment 2             14:45 Tuesday, October 5, 2010  21
+
+                                                        The MEANS Procedure
+
+                          Analysis Variable : days_hosp_post_entry Days in the hospital after study entry
+ 
+                                                  N             Sum          Median
+                                                -----------------------------------
+                                                 63         1447.00      19.0000000
+                                                -----------------------------------
+                                              Incident infection totals - treatment 2             14:45 Tuesday, October 5, 2010  22
+
+                                                        The MEANS Procedure
+
+                          Analysis Variable : days_hosp_post_entry Days in the hospital after study entry
+ 
+                                                  N             Sum          Median
+                                                -----------------------------------
+                                                 65         1282.00      16.0000000
+                                                -----------------------------------
+                               Incident infection rates: Trt. A =  63 patients, Trt. B =  65 patients
+                              (Patient hospital days observed: Trt. A = 1447 days, Trt. B = 1282 days)
+
+                                                                      A                                          B
+                                                                  infec. /                                   infec. /
+                                                       A          1000 hosp.      A               B          1000 hosp.      B
+.                                              # infec. (# pat.)    days       95% CI *   # infec. (# pat.)    days       95% CI *
+
+== Specific Infections ==                                                                                                           
+Bloodstream Infection                             18 (17/63)        12.4     [7.4, 19.7]     11 (9/65)         8.6      [4.3, 15.4] 
+Cardiovascular System Infection                   1 (1/63)          0.7      [0.0, 3.9]                                             
+Gastrointestinal System Infection                 3 (3/63)          2.1      [0.4, 6.1]      1 (1/65)          0.8      [0.0, 4.3]  
+Pneumonia or Lower Respiratory Tract Infection    9 (9/63)          6.2      [2.8, 11.8]     10 (10/65)        7.8      [3.7, 14.3] 
+Surgical Site Infection                           5 (4/63)          3.5      [1.1, 8.1]      3 (3/65)          2.3      [0.5, 6.8]  
+Urinary Tract Infection                           9 (9/63)          6.2      [2.8, 11.8]     7 (6/65)          5.5      [2.2, 11.3] 
+===================                                                                                                                 
+Any non-BSI infection                             30 (20/63)        20.7     [14.0, 29.6]    23 (18/65)        17.9     [11.4, 26.9]
+Any infection                                     48 (28/63)        33.2     [24.5, 44.0]    34 (20/65)        26.5     [18.4, 37.1]

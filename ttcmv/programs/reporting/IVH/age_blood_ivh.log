@@ -1,0 +1,741 @@
+1                                                          The SAS System                                14:59 Tuesday, May 21, 2013
+
+NOTE: Copyright (c) 2002-2010 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.3 (TS1M0) 
+      Licensed to EMORY UNIVERSITY-T&R, Site 70088042.
+NOTE: This session is executing on the SunOS 5.10 (SUN X64) platform.
+
+
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is /dfax/ttcmv/sas/programs/reporting/baohua/IVH/autoexec.sas.
+
+NOTE: Libref CMV was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/data/monthly_freeze_2013.05.01
+NOTE: Library CMV_REP does not exist.
+NOTE: Library CMV_QC does not exist.
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/data
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: AUTOEXEC processing completed.
+
+1          
+2          
+3          options orientation=portrait nobyline nodate nonumber /*papersize=("7" "8")*/;
+4          
+5          libname wbh "/ttcmv/sas/programs";
+NOTE: Libref WBH was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/programs
+6          
+                                                           The SAS System
+
+7          /*proc contents data=cmv.plate_001_bu;run;*/
+8          
+9          proc format;
+10         	
+10       !  value group
+11         		1="Type of unit"
+12         		2="ABO group"
+13         		3="Rh group"
+14         		4="Special processing"
+15         		5="Unit CMV Serostatus"
+16         		6="Storage solution"
+17         		7="Platelet type"
+18         		99=" "
+19         		;
+NOTE: Format GROUP has been output.
+20         	
+20       !  value item
+21         		1="Voume of parent unit (ml)"
+22         		2="Date unit issued to NICU - Date blood donated"
+23         		3="Date unit irradiated at the Red Cross - Date blood donated"
+24         		4="Date transfer of unit segments to PERL - Date blood donated"
+25         		5="Date received and stored - Date blood donated"
+26         		;
+NOTE: Format ITEM has been output.
+27         run;
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+28         
+29         data donor0;
+30         	set cmv.plate_001_bu;
+31         	if bloodunittype = 1;
+32         	keep DonorUnitId BloodUnitType DateDonated UnitVolume DateFirstIssued ABOGroup RhGroup DateIrradiated Leukoreduced
+32       ! Washed 							VolReduced UnitSeroStatus unitstorage plt_type TransferDate UnitReceivedDate DCCUnitId;
+33         	rename BloodUnitType=but ABOGroup=abo RhGroup=rh UnitSeroStatus=sero unitstorage=storage Plt_type=plt;
+34         	format BloodUnitType but. ABOGroup abo. RhGroup rh. UnitSeroStatus sero. unitstorage storage. plt_type plt.
+35         			  Leukoreduced Washed VolReduced na.;
+36         run;
+
+NOTE: There were 946 observations read from the data set CMV.PLATE_001_BU.
+NOTE: The data set WORK.DONOR0 has 643 observations and 17 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+37         
+38         data donor1;
+39         	set donor0;
+40         	day_issue=DateFirstIssued-DateDonated;
+41         	day_irrad=DateIrradiated-DateDonated;
+42         	day_trans=TransferDate-DateDonated;
+43         	day_receive=UnitReceivedDate-DateDonated;
+44         	keep DonorUnitId DateDonated DateIrradiated but UnitVolume day_issue day_irrad day_trans day_receive ABO Rh Leukoreduced
+44       !  Washed VolReduced sero storage plt DCCUnitId;
+                                                           The SAS System
+
+45         run;
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      2 at 40:27     214 at 41:26   17 at 42:24    86 at 43:30    
+NOTE: There were 643 observations read from the data set WORK.DONOR0.
+NOTE: The data set WORK.DONOR1 has 643 observations and 18 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+46         
+47         
+48         data tx_id;
+49         	set cmv.plate_031(keep=id DonorUnitId DateTransfusion rbc_TxStartTime)
+50         			/*cmv.plate_033(keep=id DonorUnitId DateTransfusion plt_TxStartTime)
+51         			cmv.plate_035(keep=id DonorUnitId DateTransfusion ffp_TxStartTime)
+52         			cmv.plate_037(keep=id DonorUnitId DateTransfusion cryo_TxStartTime)
+53         			cmv.plate_039(keep=id )*/
+54         		;
+55         run;
+
+NOTE: There were 1405 observations read from the data set CMV.PLATE_031.
+NOTE: The data set WORK.TX_ID has 1405 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+56         
+57         
+58         data ivh;
+59         	merge cmv.plate_068(keep=id IVHDiagDate)
+60         			cmv.ivh_image(keep=id ImageDate LeftIVHGrade RightIVHGrade)
+61         			cmv.completedstudylist(in=comp);
+62         	by id;
+63         	if comp;
+64             retain x_date;
+65         	if first.id then x_date=imagedate;
+66         	if ivhdiagdate=. then ivhdiagdate=x_date;
+67         	
+68         	if LeftIVHGrade in(1,2,3,4) or RightIVHGrade in(1,2,3,4);
+69         	if LeftIVHGrade in(2,3,4) or RightIVHGrade in (2,3,4) then ivh=1; else ivh=0;
+70         run;
+
+NOTE: There were 189 observations read from the data set CMV.PLATE_068.
+NOTE: There were 603 observations read from the data set CMV.IVH_IMAGE.
+NOTE: There were 471 observations read from the data set CMV.COMPLETEDSTUDYLIST.
+NOTE: The data set WORK.IVH has 414 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.00 seconds
+      
+
+71         
+72         proc sort; by id imagedate;run;
+
+                                                           The SAS System
+
+NOTE: There were 414 observations read from the data set WORK.IVH.
+NOTE: The data set WORK.IVH has 414 observations and 11 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.02 seconds
+      
+
+73         
+74         data ivh2;
+75             set ivh(where=(ivh=1)); by id imagedate;
+76             if first.id;
+77         run;
+
+NOTE: There were 228 observations read from the data set WORK.IVH.
+      WHERE ivh=1;
+NOTE: The data set WORK.IVH2 has 64 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+78         
+79         data tx_id;
+80             merge tx_id ivh2(in=tmp keep=id imagedate); by id;
+81             if tmp then if DateTransfusion<imagedate;
+82             drop imagedate;
+83         run;
+
+NOTE: There were 1405 observations read from the data set WORK.TX_ID.
+NOTE: There were 64 observations read from the data set WORK.IVH2.
+NOTE: The data set WORK.TX_ID has 1185 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+84         
+85         proc sort; by id DonorUnitId DateTransfusion rbc_TxStartTime;run;
+
+NOTE: There were 1185 observations read from the data set WORK.TX_ID.
+NOTE: The data set WORK.TX_ID has 1185 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+86         
+87         data tmp;
+88         	set tx_id; by id DonorUnitId DateTransfusion rbc_TxStartTime;
+89         	retain mark;
+90         	if first.rbc_TxStartTime then mark=1; else mark=0;
+91         run;
+
+NOTE: There were 1185 observations read from the data set WORK.TX_ID.
+NOTE: The data set WORK.TMP has 1185 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+                                                           The SAS System
+
+      
+
+92         
+93         proc sql;
+94          create table tx_id as
+95         	select a.*, b.dob
+96         	from tx_id as a, cmv.comp_pat as b
+97         	where a.id=b.id;
+WARNING: This CREATE TABLE statement recursively references the target table. A consequence of this is a possible data integrity 
+         problem.
+NOTE: Table WORK.TX_ID created, with 1119 rows and 5 columns.
+
+98         	
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+99         proc sort data=tx_id out=nrbc nodupkey; by id; run;
+
+NOTE: There were 1119 observations read from the data set WORK.TX_ID.
+NOTE: 862 observations with duplicate key values were deleted.
+NOTE: The data set WORK.NRBC has 257 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+100        /*proc print;run;*/
+101        
+102        
+103        proc sort data=tx_id; by donorunitid;run;
+
+NOTE: There were 1119 observations read from the data set WORK.TX_ID.
+NOTE: The data set WORK.TX_ID has 1119 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+104        proc sort data=donor1; by donorunitid;run;
+
+NOTE: There were 643 observations read from the data set WORK.DONOR1.
+NOTE: The data set WORK.DONOR1 has 643 observations and 18 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+105        
+106        data donor;
+107        	merge donor1 tx_id(in=tmp); by DonorUnitId;
+108        	center = floor(DCCUnitID/10000000);
+109            format center center.;
+110            if (center = 3 | center = 4 | center = 5) then dateirradiated = dateirradiated_tx;
+111        
+112        	age=DateTransfusion-DateDonated;
+113        	age1=DateTransfusion-DateIrradiated;
+                                                           The SAS System
+
+114        	if age=. then delete;
+115        	if tmp;
+116        	if age<=0 then age=.;
+117        	if age1<0 then age1=.;
+118        run;
+
+NOTE: Variable dateirradiated_tx is uninitialized.
+NOTE: MERGE statement has more than one data set with repeats of BY values.
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      48 at 108:11    48 at 108:26    161 at 112:21   631 at 113:22   
+NOTE: There were 643 observations read from the data set WORK.DONOR1.
+NOTE: There were 1119 observations read from the data set WORK.TX_ID.
+NOTE: The data set WORK.DONOR has 1075 observations and 26 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+119        
+120        proc sort data=donor; by id DonorUnitId; run;
+
+NOTE: There were 1075 observations read from the data set WORK.DONOR.
+NOTE: The data set WORK.DONOR has 1075 observations and 26 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+121        
+122        proc print;
+123        wher age<=2 or age1<0;
+           ____
+           14
+WARNING 14-169: Assuming the symbol WHERE was misspelled as wher.
+124        var id dob DCCunitid DonorUnitId DateTransfusion Datedonated DateIrradiated age age1;
+125        run;
+
+NOTE: There were 470 observations read from the data set WORK.DONOR.
+      WHERE (age<=2) or (age1<0);
+NOTE: The PROCEDURE PRINT printed pages 1-9.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.03 seconds
+      
+
+126        
+127        data rbc_day7;
+128            set donor;
+129            where age>7;
+130        run;
+
+NOTE: There were 690 observations read from the data set WORK.DONOR.
+      WHERE age>7;
+NOTE: The data set WORK.RBC_DAY7 has 690 observations and 26 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+                                                           The SAS System
+
+      
+
+131        
+132        proc sort nodupkey; by id; run;
+
+NOTE: There were 690 observations read from the data set WORK.RBC_DAY7.
+NOTE: 503 observations with duplicate key values were deleted.
+NOTE: The data set WORK.RBC_DAY7 has 187 observations and 26 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+133        
+134        
+135        proc print;
+136        var id donorunitid dccunitid datedonated datetransfusion age;
+137        run;
+
+NOTE: There were 187 observations read from the data set WORK.RBC_DAY7.
+NOTE: The PROCEDURE PRINT printed pages 10-13.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+138        
+139        
+140        data cmv.age_blood;
+141            set donor; by id DonorUnitId;
+142            label age="Age Blood"
+143                   age1="Age Irridiation"
+144                   ;
+145        run;
+
+NOTE: There were 1075 observations read from the data set WORK.DONOR.
+NOTE: The data set CMV.AGE_BLOOD has 1075 observations and 26 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+146        
+147        
+148        proc means data=donor median;
+149            var age age1;
+150            output out=tmp median(age age1)=median_age median_age1;
+151        run;
+
+NOTE: There were 1075 observations read from the data set WORK.DONOR.
+NOTE: The data set WORK.TMP has 1 observations and 4 variables.
+NOTE: The PROCEDURE MEANS printed page 14.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+152        
+                                                           The SAS System
+
+153        data _null_;
+154        set tmp;
+155        call symput("median_age", compress(median_age));
+156        call symput("median_ir", compress(median_age1));
+157        run;
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      155:36   156:35   
+NOTE: There were 1 observations read from the data set WORK.TMP.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+158        
+159        data donor_14;
+160        	set donor;
+161        	day=DateTransfusion-dob;
+162        	if day>14;
+163        run;
+
+NOTE: There were 1075 observations read from the data set WORK.DONOR.
+NOTE: The data set WORK.DONOR_14 has 579 observations and 27 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+164        
+165        proc sort; by id day;run;
+
+NOTE: There were 579 observations read from the data set WORK.DONOR_14.
+NOTE: The data set WORK.DONOR_14 has 579 observations and 27 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+166        proc sort nodupkey; by id;run;
+
+NOTE: There were 579 observations read from the data set WORK.DONOR_14.
+NOTE: 403 observations with duplicate key values were deleted.
+NOTE: The data set WORK.DONOR_14 has 176 observations and 27 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+167        proc sort data=donor out=tmp nodupkey; by DonorUnitID; run;
+
+NOTE: There were 1075 observations read from the data set WORK.DONOR.
+NOTE: 555 observations with duplicate key values were deleted.
+NOTE: The data set WORK.TMP has 520 observations and 26 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+                                                           The SAS System
+
+168        
+169        /*
+170        proc sql;
+171        create table donor as
+172        	select a.*, DateTransfusion, DateTransfusion-DateDonated as age
+173        	from donor1 as a, tx_id as b
+174        	where a.donorunitID=b.DonorUnitId;
+175        
+176        proc sort data=donor nodupkey; by DonorUnitID DateDonated; run;
+177        proc sort data=donor out=tmp nodupkey; by DonorUnitID; run;
+178        */
+179        
+180        data _null_;
+181        	set donor;
+182        	call symput("n_age", compress(_n_));
+183        run;
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      182:32   
+NOTE: There were 1075 observations read from the data set WORK.DONOR.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+184        
+185        data _null_;
+186        	set tmp;
+187        	call symput("n_id", compress(_n_));
+188        run;
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      187:31   
+NOTE: There were 520 observations read from the data set WORK.TMP.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+189        
+190        proc greplay igout= wbh.graphs  nofs; delete _ALL_; run;
+WARNING: Unable to load font '-dt-interface user-medium-r-normal-l*utf*-*-*-*-*-*-*-*-*'.
+WARNING: Defaulting to 'fixed'.
+WARNING: Unable to load font '-dt-interface user-medium-r-normal-l*utf*-*-*-*-*-*-*-*-*'.
+WARNING: Defaulting to 'fixed'.
+NOTE: Building list of graphs from the catalog.
+
+NOTE: Enter greplay commands or statements.
+NOTE: Cannot delete; igout is read only.
+
+190      !                                                          	*clear out the graphs catalog;
+191        goptions reset=global gunit=pct noborder colors=(orange green red)
+192        	 ftitle=centb ftext=centb htitle=3.5 htext=3;
+193        
+194         	
+195         	 	
+196        		%let descrip1 = "Bar Chart for Age of Blood of RBC Transfusions (median=&median_age days)";
+197        		%let descrip2 = "Bar Chart for Irradiation Days of Blood of RBC Transfusions (median=&median_ir days)";
+                                                           The SAS System
+
+198        		%let mp=(0 to 40 by 1);
+199        		%let mp1=(0 to 25 by 1);
+200        
+201        /*		For the purpose of Powerpint slides;
+202        		axis1 label=(a=90 f=swissb c=white "#RBC Transfusions") color=white value=(h= 3) order=(0 to 80 by 10) minor=none;
+203            	axis2 label=(a=90 f=swissb c=white "#RBC Transfusions") color=white value=(h= 3) order=(0 to 55 by 5) minor=none;
+204        		axis3 label=(a=0  h=4 c=white "Storage Age of RBCs (days)") color=white value=(h= 3) minor=none;
+205        		axis4 label=(a=0  h=4 c=white "Days from Date of Irradiation to Date of Transfusion") color=white value=(h= 3)
+205      ! minor=none;		
+206        */
+207        
+208        		axis1 label=(a=90 h=3 f=zapf c=black "#RBC Transfusions") order=(0 to 120 by 10) minor=none;
+209            	axis2 label=(a=90 h=3 f=zapf c=black "#RBC Transfusions") order=(0 to 100 by 10) minor=none;
+210        		axis3 label=(a=0 h=3 c=black "Storage Age of RBCs (days)") value=(h= 2.5) minor=none;
+211        		axis4 label=(a=0 h=3 c=black "Days from Date of Irradiation to Date of Transfusion") value=(h= 2.5) minor=none;		
+212        
+213        
+214        		title1	;
+215        		title2 &descrip1;
+216        		title3 "(&n_age Transfusions from &n_id Donors)";
+217        		/*
+218        		proc univariate data=donor gout=wbh.graphs;
+219        			where age<=20;
+220           		histogram age/midpoints=&mp type=frequency vaxislabel="Frequency" cfill=orange interbar=1 outhistogram = age;
+221        			label age="Age of Blood (days)";
+222        		run;
+223        		*/
+224        
+225        		
+
+NOTE: PROCEDURE GREPLAY used (Total process time):
+      real time           0.77 seconds
+      cpu time            0.09 seconds
+      
+
+225      !   Proc gchart data=donor gout=wbh.graphs;
+226        			*where 3<age<=30;
+227        			vbar age/ midpoints=&mp raxis=axis1 maxis=axis3 space=0.5 coutline=black width=2;
+228        		run;
+
+ERROR: User does not have appropriate authorization level for file WBH.GRAPHS.CATALOG.
+NOTE: The SAS System stopped processing this step because of errors.
+NOTE: PROCEDURE GCHART used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+229        
+230        		title1	;	
+231        		title2 &descrip2;
+232        		title3 "(&n_age Transfusions from &n_id Donors)";
+233        		
+
+
+233      !   Proc gchart data=donor gout=wbh.graphs;
+234        			vbar age1/ midpoints=&mp1 raxis=axis2 maxis=axis4 space=1 coutline=black width=3;
+235        		run;
+
+ERROR: User does not have appropriate authorization level for file WBH.GRAPHS.CATALOG.
+                                                           The SAS System
+
+NOTE: The SAS System stopped processing this step because of errors.
+NOTE: PROCEDURE GCHART used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+236        		
+
+
+237            data donor_age;
+238                set donor(keep=id age) donor(keep=id age1 rename=(age1=age) in=B);
+239                if age^=.;
+240                if B then idx=2; else idx=1;
+241            run;
+
+NOTE: There were 1075 observations read from the data set WORK.DONOR.
+NOTE: There were 1075 observations read from the data set WORK.DONOR.
+NOTE: The data set WORK.DONOR_AGE has 1679 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+242        
+243            proc freq data=donor_age noprint;
+244                tables age*idx /out=sumpyr /*outpct*/;
+245            run;
+
+NOTE: There were 1679 observations read from the data set WORK.DONOR_AGE.
+NOTE: The data set WORK.SUMPYR has 50 observations and 4 variables.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+246        
+247            data pyr2;
+248                set sumpyr;
+249                if idx=1 then count=-count;
+250            run;
+
+NOTE: There were 50 observations read from the data set WORK.SUMPYR.
+NOTE: The data set WORK.PYR2 has 50 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+251        
+252        title1 'Bar chart for Age of blood and Irridiation days for RBC Transfusions';
+253        title2 "(&n_age Transfusions from &n_id Donors)";
+254        axis1 label=(a=90 h=3 c=black "Age of Blood (Days)") order=(0 to 36 by 2) value=(h= 2.5) minor=none;
+255        
+256        axis2 order=(-90 to 90 by 10) label=("# of RBC Transfusions") minor = none
+257        value = ("90" "80" "70" "60" "50" "40" "30" "20" "10" "0" "10" '20' '30' "40" '50' '60' "70" '80' '90');
+258        
+259        Legend1 value=(color=black height=2.5 "Storage Age of Blood (median=&median_age days)" "Days from Date of Irridiation to
+259      ! Date of Transfusion (median=&median_ir days)") label=none;
+260        
+                                                           The SAS System
+
+261        proc gchart data=pyr2 gout=wbh.graphs;
+262        hbar age / discrete freq nostats sumvar=count space=0.25
+263           subgroup=idx raxis=axis2 maxis=axis1 legend=legend1;
+264        run;
+
+ERROR: User does not have appropriate authorization level for file WBH.GRAPHS.CATALOG.
+NOTE: The SAS System stopped processing this step because of errors.
+NOTE: PROCEDURE GCHART used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+265        quit;
+266        
+267        
+268        ods ps file = "age_blood.ps";
+NOTE: Writing ODS PS output to DISK destination "/dfax/ttcmv/sas/programs/reporting/baohua/IVH/age_blood.ps", printer "POSTSCRIPT".
+269        ods pdf file = "age_blood.pdf";
+NOTE: Writing ODS PDF output to DISK destination "/dfax/ttcmv/sas/programs/reporting/baohua/IVH/age_blood.pdf", printer "PDF".
+
+
+270        proc greplay igout = wbh.graphs tc=sashelp.templt template=v2s nofs; * L2R2s;
+NOTE: Building list of graphs from the catalog.
+
+NOTE: Enter greplay commands or statements.
+271             treplay 1:1 2:2;
+WARNING: The specified value of 24.2400 inches for HSIZE= is larger than 11.1164 inches which is the maximum for the device Xcolor. 
+         HSIZE is ignored.
+WARNING: The specified value of 12.6533 inches for VSIZE= is larger than 5.7135 inches which is the maximum for the device Xcolor. 
+         VSIZE is ignored.
+272             *treplay 1:2;
+273        run;
+
+274        ods pdf close;
+NOTE: ODS PDF printed 1 page to /dfax/ttcmv/sas/programs/reporting/baohua/IVH/age_blood.pdf.
+275        ods ps close;
+NOTE: ODS PS printed 1 page to /dfax/ttcmv/sas/programs/reporting/baohua/IVH/age_blood.ps.
+276        
+277        options orientation=landscape;
+278        
+279        ods ps file = "age_blood2.ps";
+NOTE: Writing ODS PS output to DISK destination "/dfax/ttcmv/sas/programs/reporting/baohua/IVH/age_blood2.ps", printer "POSTSCRIPT".
+280        ods pdf file = "age_blood2.pdf";
+NOTE: Writing ODS PDF output to DISK destination "/dfax/ttcmv/sas/programs/reporting/baohua/IVH/age_blood2.pdf", printer "PDF".
+
+NOTE: PROCEDURE GREPLAY used (Total process time):
+      real time           1.04 seconds
+      cpu time            0.14 seconds
+      
+
+281        proc greplay igout = wbh.graphs tc=sashelp.templt template=whole nofs; * L2R2s;
+NOTE: Building list of graphs from the catalog.
+
+NOTE: Enter greplay commands or statements.
+282             treplay 1:3;
+WARNING: The specified value of 24.2400 inches for HSIZE= is larger than 11.1164 inches which is the maximum for the device Xcolor. 
+         HSIZE is ignored.
+WARNING: The specified value of 12.6533 inches for VSIZE= is larger than 5.7135 inches which is the maximum for the device Xcolor. 
+         VSIZE is ignored.
+                                                           The SAS System
+
+283        run;
+
+284        ods pdf close;
+NOTE: ODS PDF printed 1 page to /dfax/ttcmv/sas/programs/reporting/baohua/IVH/age_blood2.pdf.
+285        ods ps close;
+NOTE: ODS PS printed 1 page to /dfax/ttcmv/sas/programs/reporting/baohua/IVH/age_blood2.ps.
+286        
+NOTE: PROCEDURE GREPLAY used (Total process time):
+      real time           0.52 seconds
+      cpu time            0.08 seconds
+      
+
+ERROR: Errors printed on pages 10,12.
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           2.68 seconds
+      cpu time            0.56 seconds
+      

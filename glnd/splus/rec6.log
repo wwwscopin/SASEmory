@@ -1,0 +1,88 @@
+1                                                          The SAS System                              11:22 Monday, August 11, 2008
+
+NOTE: Copyright (c) 2002-2003 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) 9.1 (TS1M3)
+      Licensed to EMORY UNIVERSITY - T&R, Site 0014217002.
+NOTE: This session is executing on the SunOS 5.9 platform.
+
+
+
+NOTE: SAS 9.1.3 Service Pack 4
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.26 seconds
+      cpu time            0.10 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is /dfax/glnd/splus/autoexec.sas.
+
+NOTE: Libref RAND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/randomization
+NOTE: Libref GLND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+NOTE: Libname LIBRARY refers to the same physical library as GLND.
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+
+NOTE: AUTOEXEC processing completed.
+
+1          options ls=82 ps=54;
+2          libname t '/glnd/sas/reporting/df_reporting';
+NOTE: Libref T was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting/df_reporting
+2                                 The SAS System     11:22 Monday, August 11, 2008
+
+3          proc print label data=t.col;
+4           var form expected received pct_received attended_visit_disp;
+5          run;
+
+NOTE: There were 20 observations read from the data set T.COL.
+NOTE: The PROCEDURE PRINT printed page 1.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.04 seconds
+      
+
+6          libname tt '/glnd/sas/dsmc/20080724/reporting/df_reporting';
+NOTE: Libref TT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/dsmc/20080724/reporting/df_reporting
+7          proc print label data=tt.col;
+8          var form expected received pct_received attended_visit_disp;
+9          
+10         run;
+
+NOTE: There were 20 observations read from the data set TT.COL.
+NOTE: The PROCEDURE PRINT printed page 2.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           0.34 seconds
+      cpu time            0.14 seconds
+      

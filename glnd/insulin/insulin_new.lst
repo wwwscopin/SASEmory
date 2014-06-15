@@ -1,0 +1,113 @@
+                                               Distribution for mean of blood glucose            10:23 Thursday, October 7, 2010   1
+
+                                                      The UNIVARIATE Procedure
+                                                        Variable:  gluc_mean
+
+                                                              Moments
+
+                                  N                        2261    Sum Weights               2261
+                                  Mean               128.654283    Sum Observations    290887.333
+                                  Std Deviation      28.8629943    Variance            833.072438
+                                  Skewness           1.43821504    Kurtosis            4.05046424
+                                  Uncorrected SS     39306644.9    Corrected SS        1882743.71
+                                  Coeff Variation    22.4345382    Std Error Mean      0.60700337
+
+
+                                                     Basic Statistical Measures
+ 
+                                           Location                    Variability
+
+                                       Mean     128.6543     Std Deviation           28.86299
+                                       Median   123.5000     Variance               833.07244
+                                       Mode     113.0000     Range                  232.66667
+                                                             Interquartile Range     31.33333
+
+
+                                                     Tests for Location: Mu0=0
+ 
+                                          Test           -Statistic-    -----p Value------
+
+                                          Student's t    t  211.9499    Pr > |t|    <.0001
+                                          Sign           M    1130.5    Pr >= |M|   <.0001
+                                          Signed Rank    S   1278596    Pr >= |S|   <.0001
+
+
+                                                      Quantiles (Definition 5)
+ 
+                                                      Quantile       Estimate
+
+                                                      100% Max       288.0000
+                                                      99%            228.6667
+                                                      95%            181.3333
+                                                      90%            164.0000
+                                                      75% Q3         141.3333
+                                                      50% Median     123.5000
+                                                      25% Q1         110.0000
+                                                      10%             99.3333
+                                                      5%              92.3333
+                                                      1%              79.0000
+                                                      0% Min          55.3333
+
+
+                                                        Extreme Observations
+ 
+                                             ------Lowest-----        -----Highest-----
+ 
+                                                Value      Obs           Value      Obs
+
+                                              55.3333      760         280.667     2053
+                                              55.6667     1380         282.667     1110
+                                              58.3333      759         283.333      547
+                                               Distribution for mean of blood glucose            10:23 Thursday, October 7, 2010   2
+
+                                                      The UNIVARIATE Procedure
+                                                        Variable:  gluc_mean
+
+                                                        Extreme Observations
+ 
+                                             ------Lowest-----        -----Highest-----
+ 
+                                                Value      Obs           Value      Obs
+
+                                              60.6667     1188         288.000     2159
+                                              63.0000     1129         288.000     2160
+
+
+                                                           Missing Values
+ 
+                                                                   -----Percent Of-----
+                                            Missing                             Missing
+                                              Value       Count     All Obs         Obs
+
+                                                  .          16        0.70      100.00
+
+
+                         Histogram                         #   Boxplot                         Normal Probability Plot
+    285+*                                                  5      *          285+                                                  *
+       .*                                                  2      *             |                                                  *
+       .*                                                  5      *             |                                                  *
+       .*                                                  1      *             |                                                  *
+       .*                                                  2      *             |                                                  *
+       .*                                                  4      0             |                                                 **
+       .*                                                  8      0             |                                                **
+       .**                                                16      0             |                                              ***
+       .**                                                14      0             |                                             **   +
+       .***                                               26      0             |                                           *** +++
+       .****                                              35      0             |                                         ***+++
+       .********                                          69      |             |                                       ***+
+       .*********                                         81      |             |                                    +***
+       .****************                                 143      |             |                                 +****
+       .***********************                          207   +-----+          |                             ++****
+       .********************************                 287   |     |          |                          ++****
+       .*******************************************      379   *--+--*          |                       ******
+       .**********************************************   413   +-----+          |                  ******
+       .************************************             320      |             |             ******
+       .*******************                              168      |             |       *******++
+       .******                                            51      |             |  ****** +++
+       .**                                                16      |             |***  ++++
+       .*                                                  6      0             |* +++
+     55+*                                                  3      0           55+*+
+        ----+----+----+----+----+----+----+----+----+-                           +----+----+----+----+----+----+----+----+----+----+
+        * may represent up to 9 counts                                               -2        -1         0        +1        +2
+
+

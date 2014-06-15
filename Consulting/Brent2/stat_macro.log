@@ -1,0 +1,284 @@
+1                                           The SAS System            16:14 Thursday, December 8, 2011
+
+NOTE: Copyright (c) 2002-2010 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.3 (TS1M0) 
+      Licensed to EMORY UNIV-ROLLINS SCHOOL OF PUBLIC HEALTH T&R, Site 70044553.
+NOTE: This session is executing on the XP_PRO  platform.
+
+
+
+NOTE: SAS initialization used:
+      real time           0.12 seconds
+      cpu time            0.12 seconds
+      
+1          
+2          %let pm=%sysfunc(byte(177));
+3          %macro stat(data, gp, varlist);
+4          	data stat;
+5          		if 1=1 then delete;
+6          	run;
+7          
+8          	%let i = 1;
+9          	%let var = %scan(&varlist, &i);
+10         	%do %while ( &var NE );
+11         
+12         
+13         	data sub;
+14         		set &data;
+15         		*Add in the condition for the subset;
+16         	run;
+17         
+18         	proc means data=sub /*noprint*/;
+19         		class &gp;
+20         		var &var;
+21         		output out=tab&i n(&var)=n mean(&var)=mean std(&var)=std median(&var)=median q1(&var)=Q1
+21       ! q3(&var)=Q3;
+22         	run;
+23         
+24         	data tab&i;
+25         		set tab&i;
+26         		mean0=put(mean,5.1)||" &pm "||compress(put(std,5.1))||"["||compress(put(Q1,5.1))||" -
+26       ! "||compress(put(Q3,5.1))||"]";
+27         		rg=put(Q1,5.1)||" - "||compress(put(Q3,5.1));
+28         		if &gp=. then delete;
+29         		item=&i;
+30         		format median 5.1;
+31         		keep &gp mean0 median rg item;
+32         	run;
+33         
+34         	proc npar1way data =sub wilcoxon;
+35           		class &gp;
+36           		var &var;
+37           		ods output WilcoxonTest=wp&i;
+38         	run;
+39         
+40         	data wp&i;
+41         		length pv $7;
+2                                           The SAS System            16:14 Thursday, December 8, 2011
+
+42         		set wp&i;
+43         		if _n_=10;
+44         		item=&i;
+45         		
+46         		pv=put(nvalue1, 7.4);
+47         		if pvalue<0.0001 then pv='<0.0001';
+48         
+49         		keep item pvalue pv;
+50         		rename nvalue1=pvalue;
+51         	run;
+52         
+53         	data tab&i;
+54         		merge tab&i(where=(&gp=0))
+55         			  tab&i(where=(&gp=1)rename=(mean0=mean1 rg=rg1 median=median1)) wp&i; by item;
+56         	run;
+57         
+58         	data stat;
+59         		set stat tab&i;
+60         	run;
+61         
+62         	%let i= %eval(&i+1);
+63         	%let var = %scan(&varlist,&i);
+64         	%end;
+65         %mend stat;	
+66         
+67         %macro tab(data, gp, out, varlist)/minoperator parmbuff;
+68         
+69         data &out;
+70         	if 1=1 then delete;
+71         run;
+72         
+73         
+74         data sub;
+75         		set &data;
+76         		*Add in the condition for the subset;
+77         run;
+78         
+79         proc freq data=sub;
+80         	table &gp;
+81         	ods output OneWayFreqs =freq;
+82         run;
+83         
+84         data _null_;
+85         	set freq;
+86         	if &gp=1 then call symput("ny", compress(frequency));
+87         	if &gp=0 then call symput("nn", compress(frequency));
+88         run;
+89         
+90         
+91         %let i = 1;
+92         %let var = %scan(&varlist, &i);
+93         %do %while ( &var NE );
+94         		proc freq data=sub ;
+95         			table &var*&gp/nocol nopercent chisq cmh;
+3                                           The SAS System            16:14 Thursday, December 8, 2011
+
+96         			ods output crosstabfreqs = tab&i;
+97         			output out = p&i chisq exact cmh;
+98         		run;
+99         
+100        		data p&i;
+101        			set p&i;
+102        			item=&i;
+103        			pvalue=XP2_FISH;
+104        			if pvalue=. then pvalue= P_PCHI;
+105        			if pvalue^=. and pvalue<0.0001 then pv='<0.0001'; else pv=put(pvalue,7.4);
+106        
+107        			odr=_MHOR_+0;
+108        			rg=put(L_MHOR,4.2)||"--"||compress(put(U_MHOR,4.2));
+109        			if odr=. then rg=" ";
+110        			keep item pvalue pv odr rg;
+111        			format odr pvalue 5.3;
+112        		run;
+113        
+114        		data p&i;
+115        			merge p&i(firstobs=1 obs=1 keep=item pvalue pv) p&i(firstobs=2 keep=item odr rg); by
+115      ! item;
+116        		run;
+117        
+118        	proc sort data=tab&i; by &var; run;
+119        
+120        	data tab&i;
+121        		length nfy nfn $25;
+122        		merge tab&i(where=(&gp=1) keep=&var &gp frequency rowpercent rename=(frequency=ny))
+123        		tab&i(where=(&gp=0) keep=&var &gp frequency rename=(frequency=no));
+124        		by &var;
+125        
+126        		item=&i;
+127        
+128        		if &var=. then delete;
+129        
+130        		fy=ny/&ny*100; 		fn=no/&nn*100;
+131        		nfy=ny||"/&ny"||"("||put(fy,5.1)||"%)";		nfn=no||"/&nn"||"("||put(fn,5.1)||"%)";
+132        	
+133        		tmp=ny+no;
+134        		rpct=ny||"/"||compress(tmp)||"("||put(rowpercent,5.1)||"%)";
+135        
+136        		rename &var=code;
+137        		drop &gp;
+138        	run;
+139        
+140        	proc sort data=tab&i; by code; run;
+141        	
+142        	data tab&i;
+143        		merge tab&i p&i; by item ;
+144        		/*if fy<5 and fn<5 then do; or=.; range=.; pvalue=.; end;*/
+145        		if not first.item then do; pvalue=.; odr=.; rg=.; pv=" "; end;
+146        	run;
+147        
+148        	data &out;
+4                                           The SAS System            16:14 Thursday, December 8, 2011
+
+149        		length item0 $100;
+150        		set &out tab&i;
+151        		item0=put(item, item.);
+152        		keep code item item0 ny no fy fn nfy nfn rpct odr rg pvalue pv;
+153        		format RowPercent 5.1;
+154        	run;
+155        
+156           %let i= %eval(&i+1);
+157           %let var = %scan(&varlist,&i);
+158        %end;
+159        %mend tab;
+160        
+161        
+162        %macro chartab(data, gp, out, varlist)/minoperator parmbuff;
+163        
+164        data &out;
+165        	if 1=1 then delete;
+166        run;
+167        
+168        data sub;
+169        		set &data;
+170        		*Add in the condition for the subset;
+171        run;
+172        
+173        proc freq data=sub;
+174        	table &gp;
+175        	ods output OneWayFreqs =freq;
+176        run;
+177        
+178        data _null_;
+179        	set freq;
+180        	if &gp=1 then call symput("ny", compress(frequency));
+181        	if &gp=0 then call symput("nn", compress(frequency));
+182        run;
+183        
+184        
+185        %let i = 1;
+186        %let var = %scan(&varlist, &i);
+187        %do %while ( &var NE );
+188        		proc freq data=sub;
+189        			table &var*&gp/nocol nopercent chisq cmh;
+190        			ods output crosstabfreqs = tab&i;
+191        			output out = p&i chisq exact cmh;
+192        		run;
+193        
+194        		data p&i;
+195        			XP2_FISH=.;
+196        			set p&i;
+197        			item=&i;
+198        			pvalue=XP2_FISH+0;
+199        			if pvalue=. then pvalue= P_PCHI+0;
+200        			if pvalue^=. and pvalue<0.0001 then pv='<0.0001'; else pv=put(pvalue,7.4);
+201        
+202        			odr=_MHOR_+0;
+5                                           The SAS System            16:14 Thursday, December 8, 2011
+
+203        			rg=put(L_MHOR,4.2)||"--"||compress(put(U_MHOR,4.2));
+204        			if odr=. then rg=" ";
+205        			keep item pvalue pv odr rg;
+206        			format odr pvalue 4.2;
+207        		run;
+208        
+209        		data p&i;
+210        			merge p&i(firstobs=1 obs=1 keep=item pvalue pv) p&i(firstobs=2 keep=item odr rg); by
+210      ! item;
+211        		run;
+212        
+213        	proc sort data=tab&i; by &var; run;
+214        
+215        	data tab&i;
+216        		length nfy nfn $25;
+217        		merge tab&i(where=(&gp=1) keep=&var &gp frequency rowpercent rename=(frequency=ny))
+218        		tab&i(where=(&gp=0) keep=&var &gp frequency rename=(frequency=no));
+219        		by &var;
+220        
+221        		item=&i;
+222        
+223        		if &var=" " then delete;
+224        
+225        		fy=ny/&ny*100; 		fn=no/&nn*100;
+226        		nfy=ny||"("||put(fy,5.1)||"%)";			nfn=no||"("||put(fn,5.1)||"%)";
+227        
+228        		tmp=ny+no;
+229        		rpct=ny||"/"||compress(tmp)||"("||put(rowpercent,5.1)||"%)";
+230        
+231        		rename &var=code0;
+232        		drop &gp;
+233        	run;
+234        
+235        	data tab&i;
+236        		merge tab&i p&i; by item ;
+237        		/*if fy<5 and fn<5 then do; or=.; range=.; pvalue=.; end;*/
+238        		if not first.item then do; pvalue=.; odr=.; rg=.; pv=" "; end;
+239        	run;
+240        
+241        	data &out;
+242        		length item0 $100;
+243        		set &out tab&i;
+244        		keep code0 item item0 ny no fy fn nfy nfn rpct odr rg pvalue pv;
+245        		format RowPercent 5.1;
+246        	run;
+247        
+248           %let i= %eval(&i+1);
+249           %let var = %scan(&varlist,&i);
+250        %end;
+251        %mend chartab;
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           0.15 seconds
+6                                           The SAS System            16:14 Thursday, December 8, 2011
+
+      cpu time            0.12 seconds
+      

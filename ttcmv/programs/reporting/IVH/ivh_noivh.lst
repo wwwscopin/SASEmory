@@ -1,0 +1,864 @@
+                                                           The SAS System
+
+                                                        The Mixed Procedure
+
+                                                         Model Information
+
+                                       Data Set                     WORK.LBWI                
+                                       Dependent Variable           Hb                       
+                                       Covariance Structure         Variance Components      
+                                       Estimation Method            REML                     
+                                       Residual Variance Method     Parameter                
+                                       Fixed Effects SE Method      Model-Based              
+                                       Degrees of Freedom Method    Between-Within           
+
+
+                                                           The SAS System
+
+                                                        The Mixed Procedure
+
+                                                      Class Level Information
+ 
+                                         Class    Levels    Values
+
+                                         id          465    1000111 1000211 1000311       
+                                                            1000411 1001011 1001211       
+                                                            1001411 1001711 1001721       
+                                                            1002011 1002021 1002311       
+                                                            1002611 1002821 1002911       
+                                                            1003111 1003611 1004111       
+                                                            1004411 1004511 1004611       
+                                                            1004621 1004631 1004911       
+                                                            1004921 1005011 1005211       
+                                                            1005221 1005311 1005811       
+                                                            1006111 1007011 1007111       
+                                                            1007511 1007811 1008311       
+                                                            1008411 1008811 1009011       
+                                                            1009111 1009211 1009411       
+                                                            1009911 1010011 1010111       
+                                                            1010121 1010211 1010411       
+                                                            1010811 1011111 1011211       
+                                                            1011221 1011311 1011411       
+                                                            1011611 1011911 1012011       
+                                                            1012111 1012611 1012621       
+                                                            1012631 1012811 1012911       
+                                                            1016911 1016921 1017911       
+                                                            1018111 1018311 1018611       
+                                                            1018621 1018911 1019111       
+                                                            1020211 1020411 1020511       
+                                                            1021211 1021511 1021711       
+                                                            1021911 1022411 1022511       
+                                                            1022611 1022811 1023611       
+                                                            1024221 1024311 1024411       
+                                                            2000311 2000811 2000911       
+                                                            2001011 2001311 2001611       
+                                                            2001811 2002111 2002311       
+                                                            2002411 2002511 2002711       
+                                                            2002721 2002811 2002821       
+                                                            2002911 2003111 2003211       
+                                                            2003221 2003311 2003411       
+                                                            2004111 2004711 2005011       
+                                                            2005111 2005211 2005311       
+                                                            2005511 2005711 2005811       
+                                                            2005821 2006011 2006111       
+                                                            2006311 2006611 2006621       
+                                                            2006911 2007111 2007211       
+                                                            2007411 2007611 2007621       
+                                                            2007711 2007911 2008011       
+                                                            2008111 2008121 2008311       
+                                                            2008411 2008511 2008611       
+                                                            2008811 2008911 2008921       
+                                                            2009011 2009311 2009511       
+                                                            2009611 2009711 2010011       
+                                                            2010111 2010211 2010221       
+                                                            2010311 2010811 2010911       
+                                                            2011111 2011211 2011411       
+                                                           The SAS System
+
+                                                        The Mixed Procedure
+
+                                                            2011611 2011711 2011811       
+                                                            2012011 2012021 2012311       
+                                                            2012411 2012911 2013011       
+                                                            2013311 2013511 2013811       
+                                                            2014011 2014111 2014311       
+                                                            2014411 2014711 2015411       
+                                                            2015511 2015811 2016011       
+                                                            2016311 2016411 2016511       
+                                                            2016611 2016711 2016721       
+                                                            2016911 2017111 2017121       
+                                                            2017511 2017711 2017811       
+                                                            2017911 2018411 2018511       
+                                                            2018521 2018611 2018811       
+                                                            2019011 2019311 2019511       
+                                                            2021111 2021611 2022211       
+                                                            2022611 2022811 2022821       
+                                                            2022911 2023011 2023111       
+                                                            2023211 2023311 2023911       
+                                                            2024011 2024211 3000111       
+                                                            3000121 3000211 3000811       
+                                                            3000911 3001011 3001611       
+                                                            3002011 3002411 3002711       
+                                                            3003511 3004311 3004321       
+                                                            3004331 3004511 3004611       
+                                                            3005411 3005911 3006011       
+                                                            3006211 3006221 3006711       
+                                                            3007511 3007711 3007721       
+                                                            3007811 3010111 3010311       
+                                                            3010411 3010811 3010821       
+                                                            3010911 3010921 3012511       
+                                                            3012811 3013111 3013211       
+                                                            3013411 3013611 3013621       
+                                                            3013911 3013921 3014011       
+                                                            3014511 3014611 3014621       
+                                                            3015211 3015311 3015411       
+                                                            3015711 3016111 3016711       
+                                                            3016811 3016821 3017111       
+                                                            3018511 3018611 3019111       
+                                                            3020711 3020811 3021311       
+                                                            3021511 3021611 3021711       
+                                                            3021811 3022311 3022411       
+                                                            3022511 3023111 3023511       
+                                                            3024611 3024911 3025311       
+                                                            3025511 3026211 3026221       
+                                                            3026311 3026911 3027011       
+                                                            3027411 3027711 3028211       
+                                                            3028711 3028811 3029611       
+                                                            3029811 3030611 3030711       
+                                                            3030811 3032311 3032511       
+                                                            3032611 3032811 3033111       
+                                                            3033121 3033311 3033511       
+                                                            3033611 3033621 3034011       
+                                                            3034211 3034221 3034911       
+                                                            3035011 3035411 3035511       
+                                                            3036511 3037611 3037911       
+                                                            3037921 3038211 3038411       
+                                                           The SAS System
+
+                                                        The Mixed Procedure
+
+                                                            3039211 3039221 3039611       
+                                                            3039621 3039811 3040111       
+                                                            3040121 3040411 3040511       
+                                                            3040711 3041011 3041211       
+                                                            3041711 3042011 3042021       
+                                                            3042031 3042211 3042311       
+                                                            3042911 3043411 3043911       
+                                                            3044211 3044221 3044311       
+                                                            3044511 3044611 3044711       
+                                                            3045511 3045811 3046211       
+                                                            3046311 3046511 3047011       
+                                                            3047111 3047511 3047711       
+                                                            3047811 3047911 3048411       
+                                                            3048511 3048911 3049011       
+                                                            3049021 3049211 3049221       
+                                                            3049511 3049711 3049921       
+                                                            3049931 3050211 3050611       
+                                                            3052211 3052511 3052611       
+                                                            3052711 3052811 3053011       
+                                                            3053111 3053211 3053311       
+                                                            3053611 3054011 3054111       
+                                                            3054411 3054511 3054521       
+                                                            3054611 3054711 3054911       
+                                                            3055111 3055311 3056011       
+                                                            3056111 3056211 3056411       
+                                                            3056711 3056811 3057111       
+                                                            3058411 3058711 3058911       
+                                                            3059011 3059111 3059121       
+                                                            3059411 3059511 3059611       
+                                                            3059811 3060011 3060111       
+                                                            3060121 3060211 3061711       
+                                                            3062611 3062911 3063211       
+                                                            3063711 3063721 3063811       
+                                                            3063911 3064011 3064811       
+                                                            3065211 3065221 3065511       
+                                                            3065811 3065911 3066211       
+                                                            3066411 3066511 3066521       
+                                                            3066611 3066621 3066631       
+                                                            3066811 3067111 3067121       
+                                                            3067611 3067811 3067911       
+                                                            3068011 3068111 3068121       
+                                                            3068311 3068321 3068511       
+                                                            3068811 3068821 3068911       
+                                                            3068921 3068931 3069211       
+                                                            3069231 3069621 3070311       
+                                                            3070321 3070411 3070611       
+                                                            3070711 3070811 3072011       
+                                         ivh           2    IVH=No IVH=Yes                
+
+
+                                                            Dimensions
+
+                                                Covariance Parameters             1
+                                                Columns in X                      6
+                                                Columns in Z                      0
+                                                Subjects                        471
+                                                           The SAS System
+
+                                                        The Mixed Procedure
+
+                                                            Dimensions
+
+                                                Max Obs Per Subject               1
+
+
+                                                      Number of Observations
+
+                                            Number of Observations Read             471
+                                            Number of Observations Used             463
+                                            Number of Observations Not Used           8
+
+
+                                                         Iteration History
+ 
+                                    Iteration    Evaluations    -2 Res Log Like       Criterion
+
+                                            0              1      2150.02960671                
+                                            1              1      2150.02960671      0.00000000
+
+
+                                                     Convergence criteria met.                    
+
+
+                                                       Covariance Parameter
+                                                             Estimates
+ 
+                                                       Cov Parm     Estimate
+
+                                                       Residual       5.8409
+
+
+                                                          Fit Statistics
+
+                                               -2 Res Log Likelihood          2150.0
+                                               AIC (smaller is better)        2152.0
+                                               AICC (smaller is better)       2152.0
+                                               BIC (smaller is better)        2156.2
+
+
+                                                  Null Model Likelihood Ratio Test
+ 
+                                                    DF    Chi-Square      Pr > ChiSq
+
+                                                     0          0.00          1.0000
+
+
+                                                     Solution for Fixed Effects
+ 
+                                                                  Standard
+                           Effect          ivh        Estimate       Error      DF    t Value    Pr > |t|
+
+                           Intercept                   15.4989      0.9629     459      16.10      <.0001
+                           ivh             IVH=No       1.7811      1.0263     459       1.74      0.0833
+                           ivh             IVH=Yes           0           .       .        .         .    
+                           Platelet                   -0.00489    0.004379     459      -1.12      0.2645
+                           Platelet*ivh    IVH=No     -0.00416    0.004666     459      -0.89      0.3735
+                                                           The SAS System
+
+                                                        The Mixed Procedure
+
+                                                     Solution for Fixed Effects
+ 
+                                                                  Standard
+                           Effect          ivh        Estimate       Error      DF    t Value    Pr > |t|
+
+                           Platelet*ivh    IVH=Yes           0           .       .        .         .    
+
+
+                                                   Type 3 Tests of Fixed Effects
+ 
+                                                          Num     Den
+                                         Effect            DF      DF    F Value    Pr > F
+
+                                         ivh                1     459       3.01    0.0833
+                                         Platelet           1     459       8.93    0.0030
+                                         Platelet*ivh       1     459       0.79    0.3735
+
+
+                                                             Estimates
+ 
+                                                                 Standard
+                           Label                     Estimate       Error      DF    t Value    Pr > |t|
+
+                           Non-IVH, slope            -0.00905    0.001611     459      -5.62      <.0001
+                           IVH,     slope            -0.00489    0.004379     459      -1.12      0.2645
+                           Compare the slopes        -0.00416    0.004666     459      -0.89      0.3735
+                           Compare the intercepts      1.7811      1.0263     459       1.74      0.0833
+                       Initial Hemoglobin by Platelet Count for IVH(n=62, '+') and non-IVH(n=406, 'o') LBWIs
+
+                                                        The MEANS Procedure
+
+                                       Analysis Variable : BirthWeight 2.2 LBWI Birth Weight
+ 
+                                    N
+                       ivh        Obs      N            Mean         Std Dev         Minimum         Maximum
+                       -------------------------------------------------------------------------------------
+                       IVH=No     407    407         1039.27     266.5725153     437.0000000         1500.00
+
+                       IVH=Yes     64     64     880.5937500     250.0643548     426.0000000         1496.00
+                       -------------------------------------------------------------------------------------
+                       Initial Hemoglobin by Platelet Count for IVH(n=62, '+') and non-IVH(n=406, 'o') LBWIs
+
+                                                       The NPAR1WAY Procedure
+
+                                       Wilcoxon Scores (Rank Sums) for Variable BirthWeight
+                                                    Classified by Variable ivh
+ 
+                                                     Sum of      Expected       Std Dev          Mean
+                              ivh           N        Scores      Under H0      Under H0         Score
+                              -----------------------------------------------------------------------
+                              IVH=No      407     100456.50       96052.0    1012.19143    246.821867
+                              IVH=Yes      64      10699.50       15104.0    1012.19143    167.179688
+
+                                                Average scores were used for ties.
+
+
+                                                      Wilcoxon Two-Sample Test
+
+                                                  Statistic             10699.5000
+                                                                                  
+                                                  Normal Approximation            
+                                                  Z                        -4.3510
+                                                  One-Sided Pr <  Z         <.0001
+                                                  Two-Sided Pr > |Z|        <.0001
+                                                                                  
+                                                  t Approximation                 
+                                                  One-Sided Pr <  Z         <.0001
+                                                  Two-Sided Pr > |Z|        <.0001
+
+                                             Z includes a continuity correction of 0.5.
+
+
+                                                        Kruskal-Wallis Test
+
+                                                  Chi-Square               18.9351
+                                                  DF                             1
+                                                  Pr > Chi-Square           <.0001
+                       Initial Hemoglobin by Platelet Count for IVH(n=62, '+') and non-IVH(n=406, 'o') LBWIs
+
+                                                        The MEANS Procedure
+
+                                         Analysis Variable : GestAge 2.1. Gestational Age
+ 
+                                    N
+                       ivh        Obs      N            Mean         Std Dev         Minimum         Maximum
+                       -------------------------------------------------------------------------------------
+                       IVH=No     407    407      28.1769042       2.5908435      23.0000000      36.0000000
+
+                       IVH=Yes     64     64      26.1093750       2.1015277      22.0000000      32.0000000
+                       -------------------------------------------------------------------------------------
+                       Initial Hemoglobin by Platelet Count for IVH(n=62, '+') and non-IVH(n=406, 'o') LBWIs
+
+                                                       The NPAR1WAY Procedure
+
+                                         Wilcoxon Scores (Rank Sums) for Variable GestAge
+                                                    Classified by Variable ivh
+ 
+                                                     Sum of      Expected       Std Dev          Mean
+                              ivh           N        Scores      Under H0      Under H0         Score
+                              -----------------------------------------------------------------------
+                              IVH=No      407     102150.50       96052.0    1005.09679    250.984029
+                              IVH=Yes      64       9005.50       15104.0    1005.09679    140.710938
+
+                                                Average scores were used for ties.
+
+
+                                                     Wilcoxon Two-Sample Test
+
+                                                  Statistic             9005.5000
+                                                                                 
+                                                  Normal Approximation           
+                                                  Z                       -6.0671
+                                                  One-Sided Pr <  Z        <.0001
+                                                  Two-Sided Pr > |Z|       <.0001
+                                                                                 
+                                                  t Approximation                
+                                                  One-Sided Pr <  Z        <.0001
+                                                  Two-Sided Pr > |Z|       <.0001
+
+                                             Z includes a continuity correction of 0.5.
+
+
+                                                        Kruskal-Wallis Test
+
+                                                  Chi-Square              36.8155
+                                                  DF                            1
+                                                  Pr > Chi-Square          <.0001
+                       Initial Hemoglobin by Platelet Count for IVH(n=62, '+') and non-IVH(n=406, 'o') LBWIs
+
+                                                        The MEANS Procedure
+
+                           Analysis Variable : SNAPTotalScore SNAP (Score for Neonatal Acute Physiology)
+ 
+                                    N
+                       ivh        Obs      N            Mean         Std Dev         Minimum         Maximum
+                       -------------------------------------------------------------------------------------
+                       IVH=No     407    406      10.1354680       5.1177612               0      25.0000000
+
+                       IVH=Yes     64     63      12.5555556       5.5205708       1.0000000      25.0000000
+                       -------------------------------------------------------------------------------------
+                       Initial Hemoglobin by Platelet Count for IVH(n=62, '+') and non-IVH(n=406, 'o') LBWIs
+
+                                                       The NPAR1WAY Procedure
+
+                                      Wilcoxon Scores (Rank Sums) for Variable SNAPTotalScore
+                                                    Classified by Variable ivh
+ 
+                                                     Sum of      Expected       Std Dev          Mean
+                              ivh           N        Scores      Under H0      Under H0         Score
+                              -----------------------------------------------------------------------
+                              IVH=No      406       91984.0       95410.0    999.102016    226.561576
+                              IVH=Yes      63       18231.0       14805.0    999.102016    289.380952
+
+                                                Average scores were used for ties.
+
+
+                                                      Wilcoxon Two-Sample Test
+
+                                                  Statistic             18231.0000
+                                                                                  
+                                                  Normal Approximation            
+                                                  Z                         3.4286
+                                                  One-Sided Pr >  Z         0.0003
+                                                  Two-Sided Pr > |Z|        0.0006
+                                                                                  
+                                                  t Approximation                 
+                                                  One-Sided Pr >  Z         0.0003
+                                                  Two-Sided Pr > |Z|        0.0007
+
+                                             Z includes a continuity correction of 0.5.
+
+
+                                                        Kruskal-Wallis Test
+
+                                                  Chi-Square               11.7586
+                                                  DF                             1
+                                                  Pr > Chi-Square           0.0006
+                       Initial Hemoglobin by Platelet Count for IVH(n=62, '+') and non-IVH(n=406, 'o') LBWIs
+
+                                                        The MEANS Procedure
+
+                                               Analysis Variable : Hb 2.7 Hemoglobin
+ 
+                                    N
+                       ivh        Obs      N            Mean         Std Dev         Minimum         Maximum
+                       -------------------------------------------------------------------------------------
+                       IVH=No     407    404      15.3997525       2.4922162       8.7000000      22.1000000
+
+                       IVH=Yes     64     62      14.4048387       2.5422610       9.8000000      23.1000000
+                       -------------------------------------------------------------------------------------
+                       Initial Hemoglobin by Platelet Count for IVH(n=62, '+') and non-IVH(n=406, 'o') LBWIs
+
+                                                       The NPAR1WAY Procedure
+
+                                            Wilcoxon Scores (Rank Sums) for Variable Hb
+                                                    Classified by Variable ivh
+ 
+                                                     Sum of      Expected       Std Dev          Mean
+                              ivh           N        Scores      Under H0      Under H0         Score
+                              -----------------------------------------------------------------------
+                              IVH=No      404      97448.50       94334.0    987.205144    241.209158
+                              IVH=Yes      62      11362.50       14477.0    987.205144    183.266129
+
+                                                Average scores were used for ties.
+
+
+                                                      Wilcoxon Two-Sample Test
+
+                                                  Statistic             11362.5000
+                                                                                  
+                                                  Normal Approximation            
+                                                  Z                        -3.1544
+                                                  One-Sided Pr <  Z         0.0008
+                                                  Two-Sided Pr > |Z|        0.0016
+                                                                                  
+                                                  t Approximation                 
+                                                  One-Sided Pr <  Z         0.0009
+                                                  Two-Sided Pr > |Z|        0.0017
+
+                                             Z includes a continuity correction of 0.5.
+
+
+                                                        Kruskal-Wallis Test
+
+                                                  Chi-Square                9.9532
+                                                  DF                             1
+                                                  Pr > Chi-Square           0.0016
+                       Initial Hemoglobin by Platelet Count for IVH(n=62, '+') and non-IVH(n=406, 'o') LBWIs
+
+                                                        The MEANS Procedure
+
+                                          Analysis Variable : Platelet 2.5 Platelet count
+ 
+                                    N
+                       ivh        Obs      N            Mean         Std Dev         Minimum         Maximum
+                       -------------------------------------------------------------------------------------
+                       IVH=No     407    404     207.0495050      74.9763736      34.0000000     498.0000000
+
+                       IVH=Yes     64     61     208.2295082      71.2519926      79.0000000     481.0000000
+                       -------------------------------------------------------------------------------------
+                       Initial Hemoglobin by Platelet Count for IVH(n=62, '+') and non-IVH(n=406, 'o') LBWIs
+
+                                                       The NPAR1WAY Procedure
+
+                                         Wilcoxon Scores (Rank Sums) for Variable Platelet
+                                                    Classified by Variable ivh
+ 
+                                                     Sum of      Expected       Std Dev          Mean
+                              ivh           N        Scores      Under H0      Under H0         Score
+                              -----------------------------------------------------------------------
+                              IVH=No      404       93915.0       94132.0    978.244671    232.462871
+                              IVH=Yes      61       14430.0       14213.0    978.244671    236.557377
+
+                                                Average scores were used for ties.
+
+
+                                                      Wilcoxon Two-Sample Test
+
+                                                  Statistic             14430.0000
+                                                                                  
+                                                  Normal Approximation            
+                                                  Z                         0.2213
+                                                  One-Sided Pr >  Z         0.4124
+                                                  Two-Sided Pr > |Z|        0.8248
+                                                                                  
+                                                  t Approximation                 
+                                                  One-Sided Pr >  Z         0.4125
+                                                  Two-Sided Pr > |Z|        0.8249
+
+                                             Z includes a continuity correction of 0.5.
+
+
+                                                        Kruskal-Wallis Test
+
+                                                  Chi-Square                0.0492
+                                                  DF                             1
+                                                  Pr > Chi-Square           0.8244
+                       Initial Hemoglobin by Platelet Count for IVH(n=62, '+') and non-IVH(n=406, 'o') LBWIs
+
+                                                         The FREQ Procedure
+
+                                                        Table of tbc by ivh
+
+                                            tbc               ivh
+
+                                            Frequency        |
+                                            Row Pct          |IVH=No  |IVH=Yes |  Total
+                                            -----------------+--------+--------+
+                                            Platelet Count>= |    322 |     48 |    370
+                                            150 *1000/킠     |  87.03 |  12.97 |
+                                            -----------------+--------+--------+
+                                            Platelet Count<1 |     82 |     13 |     95
+                                            50 *1000/킠      |  86.32 |  13.68 |
+                                            -----------------+--------+--------+
+                                            Total                 404       61      465
+
+                                                       Frequency Missing = 6
+
+
+                                                 Statistics for Table of tbc by ivh
+
+                                       Statistic                     DF       Value      Prob
+                                       ------------------------------------------------------
+                                       Chi-Square                     1      0.0336    0.8547
+                                       Likelihood Ratio Chi-Square    1      0.0333    0.8553
+                                       Continuity Adj. Chi-Square     1      0.0002    0.9898
+                                       Mantel-Haenszel Chi-Square     1      0.0335    0.8548
+                                       Phi Coefficient                       0.0085          
+                                       Contingency Coefficient               0.0085          
+                                       Cramer's V                            0.0085          
+
+
+                                                        Fisher's Exact Test
+                                                 ----------------------------------
+                                                 Cell (1,1) Frequency (F)       322
+                                                 Left-sided Pr <= F          0.6461
+                                                 Right-sided Pr >= F         0.4849
+                                                                                   
+                                                 Table Probability (P)       0.1310
+                                                 Two-sided Pr <= P           0.8651
+
+                                                    Effective Sample Size = 465
+                                                       Frequency Missing = 6
+                       Initial Hemoglobin by Platelet Count for IVH(n=62, '+') and non-IVH(n=406, 'o') LBWIs
+
+                                                         The FREQ Procedure
+
+                                                 Summary Statistics for tbc by ivh
+
+                                    Cochran-Mantel-Haenszel Statistics (Based on Table Scores)
+ 
+                                  Statistic    Alternative Hypothesis    DF       Value      Prob
+                                  ---------------------------------------------------------------
+                                      1        Nonzero Correlation        1      0.0335    0.8548
+                                      2        Row Mean Scores Differ     1      0.0335    0.8548
+                                      3        General Association        1      0.0335    0.8548
+
+
+                                         Estimates of the Common Relative Risk (Row1/Row2)
+ 
+                             Type of Study     Method                  Value     95% Confidence Limits
+                             -------------------------------------------------------------------------
+                             Case-Control      Mantel-Haenszel        1.0635       0.5502       2.0557
+                               (Odds Ratio)    Logit                  1.0635       0.5502       2.0557
+
+                             Cohort            Mantel-Haenszel        1.0082       0.9222       1.1023
+                               (Col1 Risk)     Logit                  1.0082       0.9222       1.1023
+
+                             Cohort            Mantel-Haenszel        0.9480       0.5362       1.6761
+                               (Col2 Risk)     Logit                  0.9480       0.5362       1.6761
+
+
+                                                    Effective Sample Size = 465
+                                                       Frequency Missing = 6
+                       Initial Hemoglobin by Platelet Count for IVH(n=62, '+') and non-IVH(n=406, 'o') LBWIs
+
+                                                         The FREQ Procedure
+
+                                                        Table of ttbc by ivh
+
+                                            ttbc              ivh
+
+                                            Frequency        |
+                                            Row Pct          |IVH=No  |IVH=Yes |  Total
+                                            -----------------+--------+--------+
+                                            Normal(>=150*100 |    322 |     48 |    370
+                                            0/킠)            |  87.03 |  12.97 |
+                                            -----------------+--------+--------+
+                                            Mild(100-149*100 |     56 |     11 |     67
+                                            0/킠)            |  83.58 |  16.42 |
+                                            -----------------+--------+--------+
+                                            Moderate(50-99*1 |     22 |      2 |     24
+                                            000/킠)          |  91.67 |   8.33 |
+                                            -----------------+--------+--------+
+                                            Severe(30-49*100 |      4 |      0 |      4
+                                            0/킠)            | 100.00 |   0.00 |
+                                            -----------------+--------+--------+
+                                            Total                 404       61      465
+
+                                                       Frequency Missing = 6
+
+
+                                                Statistics for Table of ttbc by ivh
+
+                                       Statistic                     DF       Value      Prob
+                                       ------------------------------------------------------
+                                       Chi-Square                     3      1.7330    0.6296
+                                       Likelihood Ratio Chi-Square    3      2.2754    0.5173
+                                       Mantel-Haenszel Chi-Square     1      0.1469    0.7016
+                                       Phi Coefficient                       0.0610          
+                                       Contingency Coefficient               0.0609          
+                                       Cramer's V                            0.0610          
+
+                                        WARNING: 38% of the cells have expected counts less 
+                                                 than 5. Chi-Square may not be a valid test.
+
+
+                                                        Fisher's Exact Test
+                                                 ----------------------------------
+                                                 Table Probability (P)       0.0133
+                                                 Pr <= P                     0.7753
+
+                                                    Effective Sample Size = 465
+                                                       Frequency Missing = 6
+                       Initial Hemoglobin by Platelet Count for IVH(n=62, '+') and non-IVH(n=406, 'o') LBWIs
+
+                                                         The FREQ Procedure
+
+                                                 Summary Statistics for ttbc by ivh
+
+                                    Cochran-Mantel-Haenszel Statistics (Based on Table Scores)
+ 
+                                  Statistic    Alternative Hypothesis    DF       Value      Prob
+                                  ---------------------------------------------------------------
+                                      1        Nonzero Correlation        1      0.1469    0.7016
+                                      2        Row Mean Scores Differ     3      1.7292    0.6305
+                                      3        General Association        3      1.7292    0.6305
+
+
+                                                    Effective Sample Size = 465
+                                                       Frequency Missing = 6
+                       Initial Hemoglobin by Platelet Count for IVH(n=62, '+') and non-IVH(n=406, 'o') LBWIs
+
+                                                         The FREQ Procedure
+
+                                                        Table of rbc by ivh
+
+                                                rbc       ivh
+
+                                                Frequency|
+                                                Row Pct  |IVH=No  |IVH=Yes |  Total
+                                                ---------+--------+--------+
+                                                No       |    197 |     31 |    228
+                                                         |  86.40 |  13.60 |
+                                                ---------+--------+--------+
+                                                Yes      |    210 |     33 |    243
+                                                         |  86.42 |  13.58 |
+                                                ---------+--------+--------+
+                                                Total         407       64      471
+
+
+                                                 Statistics for Table of rbc by ivh
+
+                                       Statistic                     DF       Value      Prob
+                                       ------------------------------------------------------
+                                       Chi-Square                     1      0.0000    0.9959
+                                       Likelihood Ratio Chi-Square    1      0.0000    0.9959
+                                       Continuity Adj. Chi-Square     1      0.0000    1.0000
+                                       Mantel-Haenszel Chi-Square     1      0.0000    0.9959
+                                       Phi Coefficient                      -0.0002          
+                                       Contingency Coefficient               0.0002          
+                                       Cramer's V                           -0.0002          
+
+
+                                                        Fisher's Exact Test
+                                                 ----------------------------------
+                                                 Cell (1,1) Frequency (F)       197
+                                                 Left-sided Pr <= F          0.5510
+                                                 Right-sided Pr >= F         0.5559
+                                                                                   
+                                                 Table Probability (P)       0.1069
+                                                 Two-sided Pr <= P           1.0000
+
+                                                         Sample Size = 471
+                       Initial Hemoglobin by Platelet Count for IVH(n=62, '+') and non-IVH(n=406, 'o') LBWIs
+
+                                                         The FREQ Procedure
+
+                                                 Summary Statistics for rbc by ivh
+
+                                    Cochran-Mantel-Haenszel Statistics (Based on Table Scores)
+ 
+                                  Statistic    Alternative Hypothesis    DF       Value      Prob
+                                  ---------------------------------------------------------------
+                                      1        Nonzero Correlation        1      0.0000    0.9959
+                                      2        Row Mean Scores Differ     1      0.0000    0.9959
+                                      3        General Association        1      0.0000    0.9959
+
+
+                                         Estimates of the Common Relative Risk (Row1/Row2)
+ 
+                             Type of Study     Method                  Value     95% Confidence Limits
+                             -------------------------------------------------------------------------
+                             Case-Control      Mantel-Haenszel        0.9986       0.5893       1.6921
+                               (Odds Ratio)    Logit                  0.9986       0.5893       1.6921
+
+                             Cohort            Mantel-Haenszel        0.9998       0.9307       1.0741
+                               (Col1 Risk)     Logit                  0.9998       0.9307       1.0741
+
+                             Cohort            Mantel-Haenszel        1.0012       0.6348       1.5792
+                               (Col2 Risk)     Logit                  1.0012       0.6348       1.5792
+
+
+                                                      Total Sample Size = 471
+                       Initial Hemoglobin by Platelet Count for IVH(n=62, '+') and non-IVH(n=406, 'o') LBWIs
+
+                                                         The FREQ Procedure
+
+                                                        Table of plt by ivh
+
+                                                plt       ivh
+
+                                                Frequency|
+                                                Row Pct  |IVH=No  |IVH=Yes |  Total
+                                                ---------+--------+--------+
+                                                No       |    350 |     48 |    398
+                                                         |  87.94 |  12.06 |
+                                                ---------+--------+--------+
+                                                Yes      |     57 |     16 |     73
+                                                         |  78.08 |  21.92 |
+                                                ---------+--------+--------+
+                                                Total         407       64      471
+
+
+                                                 Statistics for Table of plt by ivh
+
+                                       Statistic                     DF       Value      Prob
+                                       ------------------------------------------------------
+                                       Chi-Square                     1      5.1049    0.0239
+                                       Likelihood Ratio Chi-Square    1      4.5617    0.0327
+                                       Continuity Adj. Chi-Square     1      4.2999    0.0381
+                                       Mantel-Haenszel Chi-Square     1      5.0941    0.0240
+                                       Phi Coefficient                       0.1041          
+                                       Contingency Coefficient               0.1035          
+                                       Cramer's V                            0.1041          
+
+
+                                                        Fisher's Exact Test
+                                                 ----------------------------------
+                                                 Cell (1,1) Frequency (F)       350
+                                                 Left-sided Pr <= F          0.9901
+                                                 Right-sided Pr >= F         0.0230
+                                                                                   
+                                                 Table Probability (P)       0.0131
+                                                 Two-sided Pr <= P           0.0389
+
+                                                         Sample Size = 471
+                       Initial Hemoglobin by Platelet Count for IVH(n=62, '+') and non-IVH(n=406, 'o') LBWIs
+
+                                                         The FREQ Procedure
+
+                                                 Summary Statistics for plt by ivh
+
+                                    Cochran-Mantel-Haenszel Statistics (Based on Table Scores)
+ 
+                                  Statistic    Alternative Hypothesis    DF       Value      Prob
+                                  ---------------------------------------------------------------
+                                      1        Nonzero Correlation        1      5.0941    0.0240
+                                      2        Row Mean Scores Differ     1      5.0941    0.0240
+                                      3        General Association        1      5.0941    0.0240
+
+
+                                         Estimates of the Common Relative Risk (Row1/Row2)
+ 
+                             Type of Study     Method                  Value     95% Confidence Limits
+                             -------------------------------------------------------------------------
+                             Case-Control      Mantel-Haenszel        2.0468       1.0887       3.8479
+                               (Odds Ratio)    Logit                  2.0468       1.0887       3.8479
+
+                             Cohort            Mantel-Haenszel        1.1262       0.9921       1.2786
+                               (Col1 Risk)     Logit                  1.1262       0.9921       1.2786
+
+                             Cohort            Mantel-Haenszel        0.5503       0.3312       0.9143
+                               (Col2 Risk)     Logit                  0.5503       0.3312       0.9143
+
+
+                                                      Total Sample Size = 471
+                                                 Comparison between IVH or non-IVH
+
+                                                                                           IVH >=grade II                          
+                                 Characteristic  .                                         (n=64)                                  
+Birth Weight(g), Mean � sd(n)                                                              880.6 � 250.1(64)                       
+Gestational Age(week), Mean � sd(n)                                                         26.1 � 2.1(64)                         
+SNAP score, Mean � sd(N)                                                                    12.6 � 5.5(63)                         
+Hemoglobin at Birth(g/dL), Mean � sd(n)                                                     14.4 � 2.5(62)                         
+Platelet Count at Birth(*1000/킠), Mean � sd(n)                                            208.2 � 71.3(61)                        
+Thrombocytopenia at Birth*                       Platelet Count>=150 *1000/킠                        48/61( 78.7%)                 
+                                                 Platelet Count<150 *1000/킠                         13/61( 21.3%)                 
+Thrombocytopenia at Birth                        Normal(>=150*1000/킠)                               48/61( 78.7%)                 
+                                                 Mild(100-149*1000/킠)                               11/61( 18.0%)                 
+                                                 Moderate(50-99*1000/킠)                              2/61(  3.3%)                 
+                                                 Severe(30-49*1000/킠)                                0/61(  0.0%)                 
+pRBC Transfusion                                 No                                                  31/64( 48.4%)                 
+                                                 Yes                                                 33/64( 51.6%)                 
+Platelet Transfusion                             No                                                  48/64( 75.0%)                 
+                                                 Yes                                                 16/64( 25.0%)                 
+                                                 Comparison between IVH or non-IVH
+
+                                          Non-IVH                                   p     
+                                          (n=407)                                   value 
+                                           1039 � 266.6(407)                        <0.001
+                                           28.2 � 2.6(407)                          <0.001
+                                           10.1 � 5.1(406)                          <0.001
+                                           15.4 � 2.5(404)                          0.002 
+                                          207.0 � 75.0(404)                         0.825 
+                                                   322/404( 79.7%)                  0.865 
+                                                    82/404( 20.3%)                        
+                                                   322/404( 79.7%)                  0.775 
+                                                    56/404( 13.9%)                        
+                                                    22/404(  5.4%)                        
+                                                     4/404(  1.0%)                        
+                                                   197/407( 48.4%)                  1.000 
+                                                   210/407( 51.6%)                        
+                                                   350/407( 86.0%)                  0.039 
+                                                    57/407( 14.0%)                        

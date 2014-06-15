@@ -1,0 +1,49 @@
+#################################################################################################
+#
+# Program:	glnd_baseline.in
+#
+# Purpose:	Produce recruitment and baseline  results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.top("wbh",
+ prepare.date=date(),
+ asof.date=date(),
+ report.type="Recruitment, Baseline, and Follow-up  OPEN SESSION",
+ meet.date=date(),
+ header="GLND DSMB Report - Recruitment, Baseline, and Follow-up  OPEN SESSION")
+
+lib="/glnd/sas/dsmc/20080103"
+libr="/glnd/sas/reporting"
+ libs="/glnd/sas"
+ 
+            
+           cat("",c("\\begin{table}",
+ paste("\\resizebox{7.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{ns.ps}}}",sep=""),
+ "\\caption{Recruitment Projections by Center}",
+ "\\end{table}"),
+ file=paste("wbh","tex",sep="."),sep="\n",append=T)
+ 
+\clearpage
+
+           cat("",c("\\begin{table}",
+ paste("\\resizebox{7in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{wbhform.ps}}}",sep=""),
+ "\\caption{wbhform.ps}",
+ "\\end{table}"),
+ file=paste("wbh","tex",sep="."),sep="\n",append=T)            
+            
+            
+            
+f.bottom("wbh")
+unix("/home/gcotson/bin/laps wbh",output=F)
+unix("/home/gcotson/bin/laps wbh",output=F)
+unix("/home/gcotson/bin/lapdf wbh",output=F)
+unix("/home/gcotson/bin/lapdf wbh",output=F)

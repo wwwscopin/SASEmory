@@ -1,0 +1,37 @@
+#################################################################################################
+#
+# Program:	Death form
+# 
+# uses sas datasets found in /glnd/sas/reporting folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.top("report",
+ prepare.date=date(),
+ asof.date="June 19, 2007",
+ report.type="Death Summary",
+ meet.date=" ",
+ header="GLND DSMC Report - Death Summary")
+
+lib="/glnd/sas/reporting"
+
+
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{90}{",
+ "\\includegraphics{d.ps}}}",sep=""),
+  "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T)
+ 
+ 
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+f.bottom("report")
+unix("/home/gcotson/bin/laps report",output=F)
+unix("/home/gcotson/bin/laps report",output=F)
+unix("/home/gcotson/bin/lapdf report",output=F)
+unix("/home/gcotson/bin/lapdf report",output=F)

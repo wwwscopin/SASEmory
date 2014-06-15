@@ -1,0 +1,194 @@
+#################################################################################################
+#
+# Program:	glnd_baseline.in
+#
+# Purpose:	Produce recruitment and baseline  results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.top("report",
+ prepare.date=date(),
+ asof.date="Feb 12, 2007",
+ report.type="Recruitment and Baseline",
+ meet.date="Mar 6, 2007",
+ header="GLND DSMC Report - Recruitment and Baseline")
+
+lib="/glnd/sas"
+rm(recruitment)
+
+### Recruitment by Center
+
+recruitment <- f.sas.get(library=lib,member="dsmc_recruitment",
+                            format.library=lib,formats=T)
+tmp.tab1=recruitment[,c("center","nscreened","e","r")]
+
+f.list(file="report", x=tmp.tab1,
+       caption="Patient Screening and Enrollment" ,append=T,
+       pos=c("l","c","c","c"))
+
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{90}{",
+ "\\includegraphics{recruitment.ps}}}",sep=""),
+ "\\caption{Recruitment Projections}",
+ "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T)
+ 
+ 
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+### Reasons patients were ineligible at initial screening
+
+inelig_screen <- f.sas.get(library=lib,member="inelig_screen",
+                               format.library=lib,formats=T)
+
+tmp.tab2=inelig_screen[,c("affil","glndid","reason")]
+
+f.list(file="report", x=tmp.tab2,
+       caption="Reasons Patients Were Ineligible at Initial Screening" ,append=T,
+       pos=c("l","c","l"))
+
+
+
+### Reasons patients eligible at initial screening were not enrolled
+
+not_enrolled1<- f.sas.get(library=lib,member="not_enrolled",
+                                  format.library=lib,formats=T)
+
+tmp.tab=not_enrolled1[,c("affil","glndid","reason")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Reasons Patients Eligible at Initial Screening Were Not Enrolled" ,append=T,
+       pos=c("l","c","l"))
+
+
+
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+
+### Baseline patient characteristics 
+
+base_pat_char2 <- f.sas.get(library=lib,member="basedemo",
+                           format.library=lib,formats=T)
+
+f.tab(file="report",
+      x=base_pat_char2[,c("gender","rac","hispanic","affil","apache.id",
+                         "ards","mech.vent","age","bmi","surg","diag"),
+      drop=F],
+     
+      caption="Patient Characteristics", 
+      append=T, zero=F, 
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+      
+ status <- f.sas.get(library=lib,member="status",
+                           format.library=lib,formats=T)
+
+f.tab(file="report",
+      x=status[,c("days.sicu","days.sicu.post.entry","days.hosp","days.hosp.post.entry",
+                         "ever.on.ventilation.study","ever.on.ventilation"),
+      drop=F],
+     
+      caption="Clinical Outcomes During Hospitalization", 
+      append=T, zero=F, 
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)   
+      
+      
+     
+      
+  cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.8in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{nut1.ps}}}",sep=""),
+ "\\caption{Nutritional Intake}",
+ "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T)
+    
+
+
+  cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.8in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{nut2.ps}}}",sep=""),
+ "\\caption{Nutritional Intake (continued)}",
+ "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T)
+       
+ 
+  cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.8in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{nut3.ps}}}",sep=""),
+ "\\caption{Nutritional Intake (continued)}",
+ "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T)
+         
+
+  cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.8in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{blood.ps}}}",sep=""),
+ "\\caption{Blood Glucose}",
+ "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T)
+
+
+
+  cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+
+nut <- f.sas.get(library=lib,member="nutritiontables",
+                           format.library=lib,formats=T)
+
+
+
+tmp.subset <- nut[,"id"]==11002
+tmp.tab <- nut[,c("row","daily.kcal.goal","tot.pn","pn.aa","pn.kcal","tube.prot","tube.kcal",
+ "oral.prot","oral.kcal","iv.kcal","prop.kcal","tot.aa","tot.kcal","tot.insulin")]
+
+f.listcompressed(file="report",
+      x=tmp.tab,  pos=c("c","c","c","c","c","c","c","c","c","c","c","c","c","c"),
+     caption="GLND Patient Nutrition Summary ID=11002",
+     append=T, 
+     subset=tmp.subset, subset.name=NULL)
+
+
+  cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+### ae
+
+ae <- f.sas.get(library=lib,member="ae",
+                           format.library=lib,formats=T)
+
+f.tab(file="report",
+      x=ae[,c("ae1","ae2","ae3","ae4","ae5","ae6","ae7","ae8","ae9"),
+      drop=F],
+     
+      caption="Non-Primary Endpoint Adverse Event", 
+      append=T, zero=F, 
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+ f.tab(file="report",
+      x=ae[,c("ae10","ae11","ae12","ae13","ae14","ae15","ae16","ae17"),
+      drop=F],
+     
+      caption="Non-Primary Endpoint Adverse Event", 
+      append=T, zero=F, 
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)   
+    
+### Finish
+
+f.bottom("report")
+unix("/home/gcotson/bin/laps report",output=F)
+unix("/home/gcotson/bin/laps report",output=F)
+unix("/home/gcotson/bin/lapdf report",output=F)
+unix("/home/gcotson/bin/lapdf report",output=F)

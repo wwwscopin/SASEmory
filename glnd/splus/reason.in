@@ -1,0 +1,40 @@
+inelig_screen1 <- f.sas.get(library=lib,member="inelig_screen1",
+                               format.library=lib,formats=T)
+
+tmp.tab2=inelig_screen1[,c("affil","glndid","reason")]
+
+f.list(file="open", x=tmp.tab2,
+       caption="Reasons Patients Were Ineligible at Screening" ,append=T,
+       pos=c("l","c","l"))
+       
+inelig_screen2 <- f.sas.get(library=lib,member="inelig_screen2",
+                               format.library=lib,formats=T)
+
+cat("\\clearpage",sep="\n",file="open.tex",append=T)
+
+tmp.tab2=inelig_screen2[,c("affil","glndid","reason")]
+
+f.list(file="open", x=tmp.tab2,
+       caption="Reasons Patients Were Ineligible at Screening (Continued)" ,append=T,
+       pos=c("l","c","l"))
+       
+inelig_screen3 <- f.sas.get(library=lib,member="inelig_screen3",
+                               format.library=lib,formats=T)
+cat("\\clearpage",sep="\n",file="open.tex",append=T)
+
+tmp.tab2=inelig_screen3[,c("affil","glndid","reason")]
+
+f.list(file="open", x=tmp.tab2,
+       caption="Reasons Patients Were Ineligible at Screening (Continued)" ,append=T,
+       pos=c("l","c","l"))
+       
+ inelig_screen4 <- f.sas.get(library=lib,member="inelig_screen4",
+                               format.library=lib,formats=T)
+cat("\\clearpage",sep="\n",file="open.tex",append=T)
+
+tmp.tab2=inelig_screen4[,c("affil","glndid","reason")]
+
+f.list(file="open", x=tmp.tab2,
+       caption="Reasons Patients Were Ineligible at Screening (Continued)" ,append=T,
+       pos=c("l","c","l"))
+cat("\\clearpage",sep="\n",file="open.tex",append=T)

@@ -1,0 +1,156 @@
+                                                           The SAS System                         14:43 Tuesday, October 5, 2010   1
+
+                                             new_
+                                             site_
+                             Obs      id     code     type_code                                incident
+
+                               6    11012     UTI     Asymptomatic bacteriuria                   Yes   
+                              18    11041     UTI     Asymptomatic bacteriuria                   Yes   
+                              38    12013     UTI     Asymptomatic bacteriuria                   Yes   
+                              47    12038     UTI     Asymptomatic bacteriuria                   Yes   
+                              54    12060     UTI     Asymptomatic bacteriuria                   Yes   
+                              63    12099     UTI     Asymptomatic bacteriuria                   Yes   
+                              97    22018     UTI     Asymptomatic bacteriuria                   Yes   
+                             103    22021     UTI     Asymptomatic bacteriuria                   Yes   
+                             130    22040     UTI     Asymptomatic bacteriuria                   Yes   
+                             144    31075     UTI     Asymptomatic bacteriuria                   Yes   
+                             146    31088     UTI     Asymptomatic bacteriuria                   Yes   
+                             181    41068     UTI     Asymptomatic bacteriuria                   Yes   
+                             190    41090     UTI     Asymptomatic bacteriuria                   Yes   
+                             191    41090     UTI     Asymptomatic bacteriuria                   Yes   
+                             200    41138     UTI     Other infections of the urinary tract      Yes   
+                                                           The SAS System                         14:43 Tuesday, October 5, 2010   2
+
+                                                        The MEANS Procedure
+
+                                               Analysis Variable : incident Incident
+ 
+                                                new_
+                                                site_      N
+                                                code     Obs      N             Sum
+                                                -----------------------------------
+                                                BSI       37     37      29.0000000
+
+                                                CVS        2      2       1.0000000
+
+                                                GI         7      7       4.0000000
+
+                                                LRI       38     38      19.0000000
+
+                                                SSI       19     19       8.0000000
+
+                                                UTI       17     17      16.0000000
+                                                -----------------------------------
+                                                           The SAS System                         14:43 Tuesday, October 5, 2010   3
+
+                                                        The MEANS Procedure
+
+                                                Analysis Variable : incident Incident
+ 
+                                                 new_
+                                                 site_      N
+                                                 code     Obs     N             Sum
+                                                 ----------------------------------
+                                                 BSI       26    26      26.0000000
+
+                                                 CVS        1     1       1.0000000
+
+                                                 GI         4     4       4.0000000
+
+                                                 LRI       19    19      19.0000000
+
+                                                 SSI        7     7       7.0000000
+
+                                                 UTI       15    15      15.0000000
+                                                 ----------------------------------
+                                                           The SAS System                         14:43 Tuesday, October 5, 2010   4
+
+                                           new_
+                                           site_                        incident_    incident_
+                                    Obs    code     _TYPE_    _FREQ_    cases_sum    people_sum
+
+                                     1      BSI        1        26          29           26    
+                                     2      CVS        1         1         Yes          Yes    
+                                     3      GI         1         4           4            4    
+                                     4      LRI        1        19          19           19    
+                                     5      SSI        1         7           8            7    
+                                     6      UTI        1        15          16           15    
+                                                           The SAS System                         14:43 Tuesday, October 5, 2010   5
+
+                                                        The MEANS Procedure
+
+                                               Analysis Variable : incident Incident
+ 
+                                                          N             Sum
+                                                        -------------------
+                                                         91      53.0000000
+                                                        -------------------
+                                                           The SAS System                         14:43 Tuesday, October 5, 2010   6
+
+                                                        The MEANS Procedure
+
+                                                Analysis Variable : incident Incident
+ 
+                                                          N             Sum
+                                                         ------------------
+                                                         38      38.0000000
+                                                         ------------------
+                                                           The SAS System                         14:43 Tuesday, October 5, 2010   7
+
+                                                                    incident_    incident_
+                                         Obs    _TYPE_    _FREQ_    cases_sum    people_sum
+
+                                          1        0        38         53            38    
+                                                           The SAS System                         14:43 Tuesday, October 5, 2010   8
+
+                                                        The MEANS Procedure
+
+                                               Analysis Variable : incident Incident
+ 
+                                                          N             Sum
+                                                        -------------------
+                                                        128      82.0000000
+                                                        -------------------
+                                                           The SAS System                         14:43 Tuesday, October 5, 2010   9
+
+                                                        The MEANS Procedure
+
+                                                Analysis Variable : incident Incident
+ 
+                                                          N             Sum
+                                                         ------------------
+                                                         48      48.0000000
+                                                         ------------------
+                                                           The SAS System                         14:43 Tuesday, October 5, 2010  10
+
+                                                                    incident_    incident_
+                                         Obs    _TYPE_    _FREQ_    cases_sum    people_sum
+
+                                          1        0        48         82            48    
+                                                           The SAS System                         14:43 Tuesday, October 5, 2010  11
+
+                                                        The MEANS Procedure
+
+                          Analysis Variable : days_hosp_post_entry Days in the hospital after study entry
+ 
+                                                  N             Sum          Median
+                                                -----------------------------------
+                                                128         2729.00      18.0000000
+                                                -----------------------------------
+                                Incident infection rates in the 128 patients no longer hospitalized
+                                                    2729 patient hospital days on study
+
+                                                                                         infec. /
+                                                                                        1000 hosp.
+                 .                                                 # infec. (# pat.)       days         95% CI *
+
+                 == Specific Infections ==                                                                        
+                 Bloodstream Infection                                29 (26/128)          10.6       [7.1, 15.3] 
+                 Cardiovascular System Infection                      1 (1/128)            0.4        [0.0, 2.0]  
+                 Gastrointestinal System Infection                    4 (4/128)            1.5        [0.4, 3.8]  
+                 Pneumonia or Lower Respiratory Tract Infection       19 (19/128)          7.0        [4.2, 10.9] 
+                 Surgical Site Infection                              8 (7/128)            2.9        [1.3, 5.8]  
+                 Urinary Tract Infection                              16 (15/128)          5.9        [3.4, 9.5]  
+                 ===================                                                                              
+                 Any non-BSI infection                                53 (38/128)          19.4       [14.5, 25.4]
+                 Any infection                                        82 (48/128)          30.0       [23.9, 37.3]

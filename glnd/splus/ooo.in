@@ -1,0 +1,57 @@
+#################################################################################################
+#
+# Program:	glnd_baseline.in
+#
+# Purpose:	Produce recruitment and baseline  results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+#||||||||||||||||||||||||||||||||
+# ERROR in percent_iv_lipid, percent_iv_dex
+#basedsmc from libs not from frozen!!!!!!!
+################################################################################################
+
+source("start.in")
+
+
+
+f.top("open",
+ prepare.date=date(),
+ asof.date="March 03, 2010",
+ report.type="Recruitment, Baseline, and Follow-up  OPEN SESSION",
+ meet.date=" March 31, 2010",
+ header="GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SESSION")
+
+#lib="/glnd/sas/reporting"
+lib="/glnd/sas/dsmc/20100303"
+#libr="/glnd/sas/reporting"
+libr="/glnd/sas/dsmc/20100303/reporting"
+ libs="/glnd/sas"
+#libdf="/glnd/sas/reporting/df_reporting" 
+libdf="/glnd/sas/dsmc/20100303/reporting/df_reporting"
+     
+
+       
+  gluc1<- f.sas.get(library=libr,member="glucose_source_mixed_open",
+                            format.library=lib,formats=T)
+
+               mp.tab=gluc1[,c("day","source","eve","mrn","aft")]                
+ f.list(file="open", x=mp.tab  ,
+   caption="Blood glucose longitudinal model means (mg/dL)",
+      append=T,
+       pos=c("c","c","c","c","c")) 
+ 
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+
+   
+ 
+
+
+### Finish
+
+f.bottom("open")
+unix("/home/gcotson/bin/laps open",output=F)
+unix("/home/gcotson/bin/laps open",output=F)
+unix("/home/gcotson/bin/lapdf open",output=F)
+unix("/home/gcotson/bin/lapdf open",output=F)

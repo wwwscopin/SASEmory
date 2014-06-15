@@ -1,0 +1,735 @@
+1                                                          The SAS System                                15:14 Tuesday, May 21, 2013
+
+NOTE: Copyright (c) 2002-2010 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.3 (TS1M0) 
+      Licensed to EMORY UNIVERSITY-T&R, Site 70088042.
+NOTE: This session is executing on the SunOS 5.10 (SUN X64) platform.
+
+
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is /dfax/ttcmv/sas/programs/reporting/baohua/IVH/autoexec.sas.
+
+NOTE: Libref CMV was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/data/monthly_freeze_2013.05.01
+NOTE: Library CMV_REP does not exist.
+NOTE: Library CMV_QC does not exist.
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/data
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: AUTOEXEC processing completed.
+
+1          options ORIENTATION="LANDSCAPE" nonumber nodate;
+2          libname wbh "/ttcmv/sas/porgrams";
+NOTE: Library WBH does not exist.
+2        !                                   	
+3          %let mu=%sysfunc(byte(181));
+4          
+5          proc format;
+6          		
+6        !   value tc 0="Not Thrombocytopenia" 1="Thrombocytopenia";
+                                                           The SAS System
+
+NOTE: Format TC has been output.
+7          		
+7        !   value tx
+8          		0="No"
+9          		1="Yes"
+10         		;
+NOTE: Format TX has been output.
+11         
+12         
+13         		
+13       !   value dd -1=" " 2=" " 3=" " 4=" " 5=" " 6=" " 8=" " 9=" " 10=" " 11=" " 12=" " 13=" " 15=" " 16=" " 17=" " 18=" " 19="
+13       ! " 20=" "
+14         		22=" " 23=" " 24=" " 25=" " 26=" " 27=" " 29=" " 30=" " 31=" " 32=" " 33=" " 34=" " 35=" " 36=" " 37=" " 38=" " 39=" "
+14       ! 41=" "
+15         		42=" " 43=" " 44=" " 45=" " 46=" " 47=" " 48=" " 49=" " 50=" " 51=" " 52=" " 53=" " 54=" " 55=" " 56=" " 57=" " 58=" "
+15       ! 59=" "
+16         		61=" " 0="0" 1="1" 7="7" 14="14" 21="21" 28="28" 40="40" 60="60"
+17         		;
+NOTE: Format DD has been output.
+18         run;
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+19         
+20         
+21         data hb0;
+22         	set cmv.plate_015
+23         		 cmv.plate_031(keep=id hb /*DFSEQ*/ DateHbHct rename=(DateHbHct=hbdate));
+24         	
+25         	if hb=. then delete;
+26         	if hbdate=. then hbdate=BloodCollectDate;
+27         
+28         	keep id hbDate hb dfseq ;
+29         run;
+
+NOTE: There were 3660 observations read from the data set CMV.PLATE_015.
+NOTE: There were 1405 observations read from the data set CMV.PLATE_031.
+NOTE: The data set WORK.HB0 has 4341 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+30         
+31         proc sort nodupkey; by id hbdate hb;run;
+
+NOTE: There were 4341 observations read from the data set WORK.HB0.
+NOTE: 362 observations with duplicate key values were deleted.
+NOTE: The data set WORK.HB0 has 3979 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+32         
+                                                           The SAS System
+
+33         **********************************************************************************************;
+34         data ivh;
+35         	merge cmv.plate_068(keep=id IVHDiagDate)
+36         			cmv.ivh_image(keep=id ImageDate LeftIVHGrade RightIVHGrade)
+37         			cmv.completedstudylist(in=comp);
+38         	by id;
+39         	if comp;
+40         	
+41         	if LeftIVHGrade in(1,2,3,4) or RightIVHGrade in(1,2,3,4);
+42         	if LeftIVHGrade in(2,3,4) or RightIVHGrade in (2,3,4) then ivh=1; else ivh=0;
+43         run;
+
+NOTE: There were 189 observations read from the data set CMV.PLATE_068.
+NOTE: There were 603 observations read from the data set CMV.IVH_IMAGE.
+NOTE: There were 471 observations read from the data set CMV.COMPLETEDSTUDYLIST.
+NOTE: The data set WORK.IVH has 414 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+44         
+45         proc sort; by id imagedate;run;
+
+NOTE: There were 414 observations read from the data set WORK.IVH.
+NOTE: The data set WORK.IVH has 414 observations and 10 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+46         
+47         data ivh2;
+48             set ivh(where=(ivh=1)); by id imagedate;
+49             if first.id;
+50             keep id ivh imagedate;
+51         run;
+
+NOTE: There were 228 observations read from the data set WORK.IVH.
+      WHERE ivh=1;
+NOTE: The data set WORK.IVH2 has 64 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+52         
+53         
+54         ***********************************************************************************************;
+55         
+56         data tx;
+57         	set     cmv.plate_031(keep=id  DateTransfusion rbc_TxStartTime in=A)
+58         			cmv.plate_033(keep=id DateTransfusion plt_TxStartTime in=B)
+59         			/*cmv.plate_035(keep=id DateTransfusion ffp_TxStartTime)
+60         			cmv.plate_037(keep=id DateTransfusion cryo_TxStartTime)
+61         			cmv.plate_039(keep=id )*/
+62         		;
+63         run;
+                                                           The SAS System
+
+
+NOTE: There were 1405 observations read from the data set CMV.PLATE_031.
+NOTE: There were 342 observations read from the data set CMV.PLATE_033.
+NOTE: The data set WORK.TX has 1747 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+64         
+65         proc sort; by id DateTransfusion; run;
+
+NOTE: There were 1747 observations read from the data set WORK.TX.
+NOTE: The data set WORK.TX has 1747 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+66         data tx;
+67             merge tx ivh2(in=temp); by id;
+68             if temp then if DateTransfusion<imagedate;
+69             keep id;
+70         run;
+
+NOTE: There were 1747 observations read from the data set WORK.TX.
+NOTE: There were 64 observations read from the data set WORK.IVH2.
+NOTE: The data set WORK.TX has 1453 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+71         proc sort nodupkey; by id; run;
+
+NOTE: There were 1453 observations read from the data set WORK.TX.
+NOTE: 1170 observations with duplicate key values were deleted.
+NOTE: The data set WORK.TX has 283 observations and 1 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+72         
+73         data ivh;
+74         	merge hb0 ivh2 tx(in=tmp) cmv.comp_pat(in=comp keep=id gender dob) 	cmv.plate_006(keep=id gestage); by id;
+75         	if comp;
+76         	day=hbdate-dob;
+77         
+78         	
+79         	if tmp then tx=1; else tx=0;
+80         	if ivh=. then ivh=0;
+81         	if hbdate>=imagedate and ivh then hb=.;
+82             if hb=. then delete;
+83         	format gender gender. imagedate mmddyy8.;
+84         run;
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+                                                           The SAS System
+
+      Each place is given by: (Number of times) at (Line):(Column).
+      1 at 76:12   
+NOTE: There were 3979 observations read from the data set WORK.HB0.
+NOTE: There were 64 observations read from the data set WORK.IVH2.
+NOTE: There were 283 observations read from the data set WORK.TX.
+NOTE: There were 471 observations read from the data set CMV.COMP_PAT.
+NOTE: There were 501 observations read from the data set CMV.PLATE_006.
+NOTE: The data set WORK.IVH has 3362 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+85         
+86             axis1 	label=(h=3 'Age (days)' ) value=(h=1) split="*" order= (-1 to 40 by 1) minor=none offset=(0 in, 0 in);
+87             axis2 	label=(h=3 a=90 "Hb") value=(h=2) ;
+88             symbol1 i=j ci=blue value=circle h=0.5 w=1 repeat=100;
+89         
+90             ods pdf file="hb_ivh_line.pdf"              ;
+NOTE: Writing ODS PDF output to DISK destination "/dfax/ttcmv/sas/programs/reporting/baohua/IVH/hb_ivh_line.pdf", printer "PDF".
+91         	
+91       !  proc gplot data=ivh(where=(ivh=1));
+92         		title h=3.5 justify=center "Hb Line Plot";
+93         		note h=2 m=(7pct, 10 pct) "Age:" ;
+94         		note h=2 m=(7pct, 7.5 pct) "(n)" ;
+95         		plot hb*day=id/ overlay haxis = axis1 vaxis = axis2  nolegend;
+96         	run;
+
+WARNING: Unable to load font '-dt-interface user-medium-r-normal-l*utf*-*-*-*-*-*-*-*-*'.
+WARNING: Defaulting to 'fixed'.
+WARNING: Unable to load font '-dt-interface user-medium-r-normal-l*utf*-*-*-*-*-*-*-*-*'.
+WARNING: Defaulting to 'fixed'.
+WARNING: OVERLAY option specified conflicts with Y*X=Z type plot request. OVERLAY option ignored.
+WARNING: Font Albany AMT/bo could not be used.
+         Font SIMULATE substituted for font Albany AMT/bo.
+WARNING: OVERLAY option specified conflicts with Y*X=Z type plot request. OVERLAY option ignored.
+WARNING: The specified value of 24.2400 inches for HSIZE= is larger than 11.1164 inches which is the maximum for the device Xcolor. 
+         HSIZE is ignored.
+WARNING: The specified value of 12.6533 inches for VSIZE= is larger than 5.7135 inches which is the maximum for the device Xcolor. 
+         VSIZE is ignored.
+97         	ods pdf close;
+NOTE: ODS PDF printed 1 page to /dfax/ttcmv/sas/programs/reporting/baohua/IVH/hb_ivh_line.pdf.
+98         	
+99         
+
+NOTE: There were 212 observations read from the data set WORK.IVH.
+      WHERE ivh=1;
+NOTE: PROCEDURE GPLOT used (Total process time):
+      real time           1.79 seconds
+      cpu time            0.22 seconds
+      
+
+100        proc means data=ivh;
+101        	class ivh;
+102        	var id;
+103        	output out=ivh_obs n(id)=n;
+104        run;
+
+                                                           The SAS System
+
+NOTE: There were 3362 observations read from the data set WORK.IVH.
+NOTE: The data set WORK.IVH_OBS has 3 observations and 4 variables.
+NOTE: The PROCEDURE MEANS printed page 1.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+105        
+106        data _null_;
+107        	set ivh_obs;
+108        	if ivh=0 then call symput("no",compress(n));
+109        	if ivh=1 then call symput("yes",compress(n));
+110        run;
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      108:42   109:43   
+NOTE: There were 3 observations read from the data set WORK.IVH_OBS.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+111        
+112        
+113        proc sort data=ivh nodupkey out=ivh_id; by id;run;
+
+NOTE: There were 3362 observations read from the data set WORK.IVH.
+NOTE: 2891 observations with duplicate key values were deleted.
+NOTE: The data set WORK.IVH_ID has 471 observations and 11 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+114        
+115        
+116        proc means data=ivh_id;
+117        	class ivh;
+118        	var id;
+119        	output out=ivh_num n(id)=n;
+120        run;
+
+NOTE: There were 471 observations read from the data set WORK.IVH_ID.
+NOTE: The data set WORK.IVH_NUM has 3 observations and 4 variables.
+NOTE: The PROCEDURE MEANS printed page 2.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+121        
+122        data _null_;
+123        	set ivh_num;
+124        	if ivh=0 then call symput("no_ivh",compress(n));
+125        	if ivh=1 then call symput("yes_ivh",compress(n));
+126        run;
+
+                                                           The SAS System
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      124:46   125:47   
+NOTE: There were 3 observations read from the data set WORK.IVH_NUM.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+127        
+128        
+129        %put &no;
+3150
+130        %put &yes;
+212
+131        %put &no_ivh;
+407
+132        %put &yes_ivh;
+64
+133        
+134        proc sort data=ivh nodupkey; by id hbdate; run;
+
+NOTE: There were 3362 observations read from the data set WORK.IVH.
+NOTE: 91 observations with duplicate key values were deleted.
+NOTE: The data set WORK.IVH has 3271 observations and 11 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+135        
+136        proc means data=ivh;
+137        	class ivh dfseq;
+138        	var id;
+139        	output out=wbh;
+140        run;
+
+NOTE: There were 3271 observations read from the data set WORK.IVH.
+NOTE: The data set WORK.WBH has 140 observations and 6 variables.
+NOTE: The PROCEDURE MEANS printed page 3.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+141        
+142        %let a1= 0; %let a4= 0; %let a7= 0; %let a14= 0; %let a21= 0; %let a28=0; %let a40=0;  %let a60=0;
+143        %let b1= 0; %let b4= 0; %let b7= 0; %let b14= 0; %let b21= 0; %let b28=0; %let b40=0;  %let b60=0;
+144        
+145        data _null_;
+146        	set wbh;
+147        	if ivh=0 and dfseq=1  then call symput( "a1",   compress(_freq_));
+148        	if ivh=0 and dfseq=4  then call symput( "a4",   compress(_freq_));
+149        	if ivh=0 and dfseq=7  then call symput( "a7",   compress(_freq_));
+150        	if ivh=0 and dfseq=14 then call symput( "a14",  compress(_freq_));
+151        	if ivh=0 and dfseq=21 then call symput( "a21",  compress(_freq_));
+152        	if ivh=0 and dfseq=28 then call symput( "a28",  compress(_freq_));
+153        	if ivh=0 and dfseq=40 then call symput( "a40",  compress(_freq_));
+154        	if ivh=0 and dfseq=60 then call symput( "a60",  compress(_freq_));
+                                                           The SAS System
+
+155        
+156        	if ivh=1 and dfseq=1  then call symput( "b1",   compress(_freq_));
+157        	if ivh=1 and dfseq=4  then call symput( "b4",   compress(_freq_));
+158        	if ivh=1 and dfseq=7  then call symput( "b7",   compress(_freq_));
+159        	if ivh=1 and dfseq=14 then call symput( "b14",  compress(_freq_));
+160        	if ivh=1 and dfseq=21 then call symput( "b21",  compress(_freq_));
+161        	if ivh=1 and dfseq=28 then call symput( "b28",  compress(_freq_));
+162        	if ivh=1 and dfseq=40 then call symput( "b40",  compress(_freq_));
+163        	if ivh=1 and dfseq=60 then call symput( "b60",  compress(_freq_));
+164        run;
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      147:59   148:59   149:59   150:59   151:59   152:59   153:59   154:59   156:59   157:59   158:59   159:59   160:59   161:59
+      162:59   163:59   
+NOTE: There were 140 observations read from the data set WORK.WBH.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+165        
+166        proc format;
+167        
+168        value dt -1=" "
+169         0=" " 1="1*(&a1)*(&b1)"  2=" " 3=" " 4 = "4*(&a4)*(&b4)" 5=" " 6=" " 7="7*(&a7)*(&b7)" 8=" " 9=" " 10=" "
+170         11=" " 12=" " 13=" " 14 = "14*(&a14)*(&b14)" 15=" " 16=" " 17=" " 18=" " 19=" " 20=" "
+171         21="21*(&a21)*(&b21)"  22=" " 23=" " 24=" " 25=" " 26=" " 27=" " 28 = "28*(&a28)*(&b28)"  29=" " 30=" "
+172         31=" " 32=" " 33=" " 34=" " 35=" "  36=" " 37=" "	38=" " 39=" " 42=" "
+173         41=" " 40="40*(&a40)*(&b40)" 43=" "	44=" " 45=" " 46=" " 47=" "  48=" "	49=" " 50=" "
+174         51=" " 52=" " 53=" " 54=" " 55=" " 56=" " 57=" " 58=" " 59=" " 61=" " 62=" "  60 = "60*(&a60)*(&b60)" ;
+NOTE: Format DT has been output.
+175        
+176        run;
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+177        
+178        *ods trace on/label listing;
+179        proc mixed method=ml data=ivh covtest;
+180        	class id ivh;
+181        	model hb=ivh day ivh*day/s;
+182        	*random int day/type=un subject=id;
+183        	random int /type=un subject=id;
+184        	estimate "No IVH, slope" day 1 ivh*day 1 0;
+185        	estimate "   IVH, slope" day 1 ivh*day 0 1;
+186        	estimate "Compare slopes" ivh*day 1 -1;
+187        	estimate "Compare Intercept" ivh 1 -1;
+188        	estimate "Compare day1" ivh 1 -1 ivh*day 1 -1;
+189        	estimate "Compare day7" ivh 1 -1 ivh*day 7 -7;
+190        
+191        	estimate "No IVH, intercept" int 1 ivh 1 0/cl;
+192        	estimate "No IVH, Day1"  int 1 ivh 1 0 day 1  day*ivh 1  0;
+193        	estimate "No IVH, Day7"  int 1 ivh 1 0 day 7  day*ivh 7  0;
+194        	estimate "No IVH, Day14" int 1 ivh 1 0 day 14 day*ivh 14 0;
+195        	estimate "No IVH, Day21" int 1 ivh 1 0 day 21 day*ivh 21 0;
+                                                           The SAS System
+
+196        	estimate "No IVH, Day28" int 1 ivh 1 0 day 28 day*ivh 28 0;
+197        	estimate "No IVH, Day40" int 1 ivh 1 0 day 40 day*ivh 40 0;
+198        	estimate "No IVH, Day60" int 1 ivh 1 0 day 60 day*ivh 60 0/e;
+199        
+200        	estimate "Yes IVH, intercept" int 1 ivh 0 1/cl;
+201        	estimate "    IVH, Day1"  int 1 ivh 0 1 day 1  day*ivh 0 1  ;
+202        	estimate "    IVH, Day7"  int 1 ivh 0 1 day 7  day*ivh 0 7  ;
+203        	estimate "    IVH, Day14" int 1 ivh 0 1 day 14 day*ivh 0 14 ;
+204        	estimate "    IVH, Day21" int 1 ivh 0 1 day 21 day*ivh 0 21 ;
+205        	estimate "    IVH, Day28" int 1 ivh 0 1 day 28 day*ivh 0 28 ;
+206        	estimate "    IVH, Day40" int 1 ivh 0 1 day 40 day*ivh 0 40 ;
+207        	estimate "    IVH, Day60" int 1 ivh 0 1 day 60 day*ivh 0 60 /e;
+208        	ods output Mixed.Estimates=ivh_estimate;
+209        run;
+
+NOTE: 1 observation is not included because of missing values.
+NOTE: Convergence criteria met.
+NOTE: The data set WORK.IVH_ESTIMATE has 22 observations and 9 variables.
+NOTE: The PROCEDURE MIXED printed pages 4-10.
+NOTE: PROCEDURE MIXED used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.05 seconds
+      
+
+210        *ods trace off;
+211        
+212        data ivh_pv;
+213        	set ivh_estimate(firstobs=3 obs=6);
+214        	if probt<0.001 then pv="<0.001"; else pv=put(probt, 5.3);
+215        	if _n_=1 then call symput("p", compress(pv));
+216        	if _n_=2 then call symput("pi", compress(pv));
+217        	if _n_=3 then call symput("p1", compress(pv));
+218        	if _n_=4 then call symput("p7", compress(pv));
+219        run;
+
+NOTE: There were 4 observations read from the data set WORK.IVH_ESTIMATE.
+NOTE: The data set WORK.IVH_PV has 4 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+220        
+221        
+222        data ivh_estimate;
+223        	set ivh_estimate(firstobs=7);
+224        	if find(label,"No IVH") then group=0; else group=1;
+225        	if find(label,"intercept") then day=0;
+226        	else day= compress(scan(label,2,","), 'Day');
+227        	day1=day+0.2;
+228        
+229        	if upper<0 then upper=0;
+230        	if lower<0 then lower=0;
+231        	if estimate<0 then delete;
+232        	if group=1 and day>=14 then delete;
+233        	keep group day day1 estimate upper lower;
+234        run;
+
+                                                           The SAS System
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      226:12   
+NOTE: There were 16 observations read from the data set WORK.IVH_ESTIMATE.
+NOTE: The data set WORK.IVH_ESTIMATE has 11 observations and 6 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+235        
+236        		
+236      !   DATA anno0;
+237        			set ivh_estimate;
+238        			
+239        			where group=0;
+240        			xsys='2'; ysys='2'; color='blue';
+241        
+242        			* AFTER that, draw bars ('A' option ensure properly layering over the greay bars!);
+243        			X=day; 	y=estimate; FUNCTION='MOVE'; when = 'A';  OUTPUT; * start at mean ;
+244        					Y=lower; 	FUNCTION='DRAW'; when = 'A'; line=1; size=1; OUTPUT; * draw down;
+245        		
+246        			LINK TIPS; * make bar;
+247        
+248        			Y=upper;	FUNCTION='DRAW'; when = 'A'; line=1; size=1;  OUTPUT; * draw up;
+249        		
+250        			LINK TIPS; * make bar;
+251        		
+252        			* draw top and bottoms of bars;
+253        			TIPS:
+254        			  X=day-.1; FUNCTION='DRAW'; when = 'A'; line=1; size=1; OUTPUT;
+255        			  X=day+.1; FUNCTION='DRAW'; when = 'A'; line=1; size=1; OUTPUT;
+256        			  X=day;     FUNCTION='MOVE'; when = 'A';                                OUTPUT;
+257        			return;
+258        	run;
+
+NOTE: There were 8 observations read from the data set WORK.IVH_ESTIMATE.
+      WHERE group=0;
+NOTE: The data set WORK.ANNO0 has 96 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+259        
+260        		
+260      !   DATA anno1;
+261        			set ivh_estimate;
+262        			
+263        			where group=1;
+264        			xsys='2'; ysys='2'; color='red';
+265        
+266        			* AFTER that, draw bars ('A' option ensure properly layering over the greay bars!);
+267        			X=day1; 	y=estimate; FUNCTION='MOVE'; when = 'A';  OUTPUT; * start at mean ;
+268        					Y=lower; 	FUNCTION='DRAW'; when = 'A'; line=1; size=1; OUTPUT; * draw down;
+269        		
+270        			LINK TIPS; * make bar;
+271        
+272        			Y=upper;	FUNCTION='DRAW'; when = 'A'; line=1; size=1;  OUTPUT; * draw up;
+                                                           The SAS System
+
+273        		
+274        			LINK TIPS; * make bar;
+275        		
+276        			* draw top and bottoms of bars;
+277        			TIPS:
+278        			  X=day1-.1; FUNCTION='DRAW'; when = 'A'; line=1; size=1; OUTPUT;
+279        			  X=day1+.1; FUNCTION='DRAW'; when = 'A'; line=1; size=1; OUTPUT;
+280        			  X=day1;     FUNCTION='MOVE'; when = 'A';                                OUTPUT;
+281        			return;
+282        	run;
+
+NOTE: There were 3 observations read from the data set WORK.IVH_ESTIMATE.
+      WHERE group=1;
+NOTE: The data set WORK.ANNO1 has 36 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+283        
+284        
+285        data anno;
+286        	set anno0 anno1;
+287        run;
+
+NOTE: There were 96 observations read from the data set WORK.ANNO0.
+NOTE: There were 36 observations read from the data set WORK.ANNO1.
+NOTE: The data set WORK.ANNO has 132 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+288        
+289        data ivh_estimate;
+290        	merge ivh_estimate(where=(group=0) rename=(estimate=estimate0 lower=lower0 upper=upper0))
+291        	ivh_estimate(where=(group=1) rename=(estimate=estimate1 lower=lower1 upper=upper1)) ; by day;
+292        	lu0=put(estimate0,4.1)||"["||put(lower0,4.1)||"-"||put(upper0,4.1)||"]";
+293        	lu1=put(estimate1,4.1)||"["||put(lower1,4.1)||"-"||put(upper1,4.1)||"]";
+294        	if estimate0<0 then lu0="-";
+295        	if estimate1<0 then lu1="-";
+296        	if day=0  then pv=&pi;
+297        		if day=1  then pv=&p1;
+298        			if day=7  then pv=&p7;
+299        run;
+
+NOTE: There were 8 observations read from the data set WORK.IVH_ESTIMATE.
+      WHERE group=0;
+NOTE: There were 3 observations read from the data set WORK.IVH_ESTIMATE.
+      WHERE group=1;
+NOTE: The data set WORK.IVH_ESTIMATE has 8 observations and 12 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+300        
+301        	goptions reset=all  /*device=jpeg*/  rotate=landscape gunit=pct noborder cback=white
+                                                           The SAS System
+
+302        		colors = (black red) ftitle=triplex ftext=triplex  fby =triplex hby = 3;
+303        
+304        	symbol1 interpol=j mode=exclude value=circle co=blue cv=blue height=2 bwidth=1 width=1;
+305        	symbol2 i=j ci=red value=dot co=red cv=red h=2 w=2;
+306        
+307        	axis1 	label=(h=2 "Age(days)" ) split="*"	value=(h=1.0)  order= (-1 to 61 by 1) minor=none offset=(0 in, 0 in);
+308        	axis2 	label=(h=2 a=90 "Hemoglobin(g/dL)") value=(h=2) order= (0 to 16 by 2) offset=(.25 in, .25 in) minor=(number=1);
+309        
+310        
+311        	legend across = 1 position=(top right inside) mode = reserve fwidth =.2	shape = symbol(3,2) label=NONE
+WARNING: The value for the FWIDTH option must be greater than 0. The specified value will be ignored.
+312           value = (h=2 "No IVH" "IVH") offset=(0, -0.4 in) frame;
+WARNING: Can not use MODE=RESERVE and POSITION=(INSIDE). Changed to MODE=PROTECT.
+313        	
+314        	*title1 	height=3 "Hemoglobin vs Age (No IVH=&no_ivh(&no obs), IVH=&yes_ivh(&yes obs))";
+315        	title1 	height=2.5 "Hemoglobin vs Age (No IVH=&no_ivh, IVH=&yes_ivh (with Hemoglobin before IVH diagnosis))";
+316        	title2 	height=2 "Test of equal intercepts, p=&pi; Test of equal slopes, p=&p";
+317        
+318        	ods pdf file = "hb_ivh_slope.pdf" style=journal ;
+NOTE: Writing ODS PDF output to DISK destination "/dfax/ttcmv/sas/programs/reporting/baohua/IVH/hb_ivh_slope.pdf", printer "PDF".
+319        			
+319      !    proc gplot data= ivh_estimate;
+320        				plot estimate0*day estimate1*day1/overlay annotate= anno haxis = axis1 vaxis = axis2 legend=legend;
+321        				format estimate0 estimate1 4.0 day dt.;
+322        					note h=1.0 m=(4pct, 6.5 pct) "Day :" ;
+323                        	note h=1.0 m=(4pct, 5.5 pct) "(#No IVH)" ;
+324                        	note h=1.0 m=(4pct, 4.5 pct) "(#IVH)" ;
+325        			run;
+
+NOTE: 5 observation(s) contained a MISSING value for the estimate1 * day1 request.
+NOTE: 5 observation(s) contained a MISSING value for the estimate1 * day1 request.
+WARNING: The specified value of 24.2400 inches for HSIZE= is larger than 11.1164 inches which is the maximum for the device Xcolor. 
+         HSIZE is ignored.
+WARNING: The specified value of 12.6533 inches for VSIZE= is larger than 5.7135 inches which is the maximum for the device Xcolor. 
+         VSIZE is ignored.
+326        			
+327        			
+
+NOTE: There were 8 observations read from the data set WORK.IVH_ESTIMATE.
+NOTE: There were 132 observations read from the data set WORK.ANNO.
+NOTE: PROCEDURE GPLOT used (Total process time):
+      real time           0.68 seconds
+      cpu time            0.04 seconds
+      
+
+327      !    proc print data=ivh_estimate noobs label split="*";
+328        			var day lu0 lu1 pv/style=[just=center width=2in];
+329        			label day="Day"
+330        			      lu0="No IVH*Mean[95%CI]" lu1="IVH*Mean[95%CI]" pv="p value";
+WARNING: Apparent invocation of macro CI not resolved.
+WARNING: Apparent invocation of macro CI not resolved.
+331        			run;
+
+NOTE: There were 8 observations read from the data set WORK.IVH_ESTIMATE.
+NOTE: The PROCEDURE PRINT printed page 11.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.03 seconds
+                                                           The SAS System
+
+      
+
+331      !        	
+332        
+333        	ods pdf close;
+NOTE: ODS PDF printed 2 pages to /dfax/ttcmv/sas/programs/reporting/baohua/IVH/hb_ivh_slope.pdf.
+334        
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           2.83 seconds
+      cpu time            0.62 seconds
+      

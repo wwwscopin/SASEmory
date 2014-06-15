@@ -1,0 +1,40 @@
+1. dt_visit    --> Enrollment date 	 --> from "Demographics" form
+2. dob         --> Date of birth 	 --> from "Demographics" form
+3. dt_refill_1 --> The latet refill date --> from "Pharmacy Refills" form
+4. dispens1    --> Amount dispensed 1    --> from "Pharmacy Refills" form
+
+
+if dt_visit=dt_refill_1 then: 
+	dispens=sum(of dispens2-dispens10); 
+else: 
+	dispens=sum(of dispens1-dispens10);
+
+5. par=(1-pill_ct/dispens)*100;
+
+6. age=(dt_visit-dob)/365.25;
+
+**** Here all variables are from "Antiretrovirals" form.
+7. start_date_pre=min(of dt_start_abc_prev dt_start_3tc_zdv_prev dt_start_ddi_prev dt_start_efv_prev dt_start_ftc_prev dt_start_3tc_abc_prev
+				  dt_start_idv_prev dt_start_3tc_prev dt_start_lpv_r_prev dt_start_npv_prev dt_start_rtv_prev dt_start_sqv_prev dt_start_d4t_prev
+				  dt_start_tdf_prev dt_start_ftc_tdf_prev dt_start_zdv_prev dt_start_oth_prev);
+
+8. start_date_current=min(of dt_start_abc dt_start_3tc_zdv dt_start_ddi dt_start_efv dt_start_ftc dt_start_3tc_abc dt_start_idv dt_start_3tc 
+				  dt_start_lpv_r dt_start_npv dt_start_rtv dt_start_sqv dt_start_d4t dt_start_tdf dt_start_ftc_tdf dt_start_zdv dt_start_oth);
+9. start_date=start_date_pre;
+	if start_date=. then start_date=start_date_current;
+
+10. nmon=(dt_visit-start_date)/30.42;
+
+**** Here all the variables are from "Aids Conditions" form.
+11. 	num=sum(of infect_num, cand_eso_num, cand_oth_num, cancer_num, coccid_num, crypto_num, cryptospor_num, cmv_ret_num, cmv_oth_num,
+		dementia_num, hsv_oth_num, histo_num, isospor_num, ks_num, lip_num, burkitts_num, lymphoma_num, cns_num, mac_num, mtb_num, eptb_num,
+		ntm_num, pcp_num, pneumonia_num, pml_num, salmonella_num, toxo_num, wasting_num, other_aids_num1, other_aids_num2, other_aids_num3,
+		other_aids_num4, other_aids_num5);
+	if num=. then num=0;
+
+12 income          -->Q1: Do you have an income?       --> From "SES/Access Healthcare" form
+13 symptom_fatigue -->Q1: Fatigue or loss of energy?   --> From "Symptoms" form
+14 symptom_sad     -->Q8: Felt sad, down or depressed? --> From "Symptoms" form
+15 symptom_nervous -->Q9: Felt nervous or anxious?     --> From "Symptoms" form
+16 treat_support   -->Q7a: Do you have someone who is a treatment supporter/partner? --> From "Psychosocial Factors" form
+17 safe_sex1       -->Q1b: Which forms of safe sex do you practice? (=Abstinence (1))--> From "Psychosocial Factors" form

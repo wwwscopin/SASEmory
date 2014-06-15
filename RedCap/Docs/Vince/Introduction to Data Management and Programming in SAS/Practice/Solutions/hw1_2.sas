@@ -1,0 +1,10 @@
+options nocenter;
+libname count 'p:\bio113\hw';
+filename annual 'g:\shared\bio113\hw1_2.dat';
+data count.birds;
+infile annual;
+informat kob $12. nofr 8. ;
+input kob 1-12 nofr / nom 1-3 nof 4-6 ;
+run;
+proc print;
+run;

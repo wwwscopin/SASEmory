@@ -1,0 +1,3265 @@
+                                                           The SAS System                          13:35 Friday, October 8, 2010   1
+
+                                                        The MEANS Procedure
+
+            Variable     Label                         N            Mean         Std Dev         Minimum         Maximum
+            ------------------------------------------------------------------------------------------------------------
+            dfc          Date Form Completed          62        17780.32     380.6579194        17119.00        18478.00
+            dt_random    1.1 Date Randomized          64        17799.33     390.8466209        17119.00        18478.00
+            id           GLND ID No.                  64        26045.17        13287.41        11002.00        52049.00
+            DFSTATUS     DataFax Record Status        64       1.0312500       0.1753681       1.0000000       2.0000000
+            DFVALID      DataFax Validation Level     64       2.7500000       0.4364358       2.0000000       3.0000000
+            DFSTUDY      DataFax Study Number         64      12.0000000               0      12.0000000      12.0000000
+            DFPLATE      DataFax Plate Number         64       8.0000000               0       8.0000000       8.0000000
+            DFSEQ        DataFax Sequence Number      64       0.9843750       0.1250000               0       1.0000000
+            apache_2     1.3 APACHE II                64       1.5625000       0.5000000       1.0000000       2.0000000
+            treatment    3.1 Treatment                64       1.0000000               0       1.0000000       1.0000000
+            DFSCREEN     DataFax Screen Status        64       1.0312500       0.1753681       1.0000000       2.0000000
+            ------------------------------------------------------------------------------------------------------------
+                                                           The SAS System                          13:35 Friday, October 8, 2010   2
+
+                                                        The MEANS Procedure
+
+            Variable     Label                         N            Mean         Std Dev         Minimum         Maximum
+            ------------------------------------------------------------------------------------------------------------
+            dfc          Date Form Completed          66        17833.11     396.2405691        17127.00        18518.00
+            dt_random    1.1 Date Randomized          66        17833.11     396.2405691        17127.00        18518.00
+            id           GLND ID No.                  66        26355.58        13026.73        11004.00        52029.00
+            DFSTATUS     DataFax Record Status        66       1.0000000               0       1.0000000       1.0000000
+            DFVALID      DataFax Validation Level     66       2.7121212       0.4562439       2.0000000       3.0000000
+            DFSTUDY      DataFax Study Number         66      12.0000000               0      12.0000000      12.0000000
+            DFPLATE      DataFax Plate Number         66       8.0000000               0       8.0000000       8.0000000
+            DFSEQ        DataFax Sequence Number      66       1.0000000               0       1.0000000       1.0000000
+            apache_2     1.3 APACHE II                66       1.5151515       0.5036001       1.0000000       2.0000000
+            treatment    3.1 Treatment                66       2.0000000               0       2.0000000       2.0000000
+            DFSCREEN     DataFax Screen Status        66       1.0000000               0       1.0000000       1.0000000
+            ------------------------------------------------------------------------------------------------------------
+                                                           The SAS System                          13:35 Friday, October 8, 2010   3
+
+                                                        The MEANS Procedure
+
+     Variable                  Label                          N            Mean         Std Dev         Minimum         Maximum
+     --------------------------------------------------------------------------------------------------------------------------
+     dt_infect                 1.1 Date of infect. onset    132        17719.35     341.7922226        17119.00        18510.00
+     id                        GLND ID No.                  150        24402.93        12521.99        11002.00        52049.00
+     DFSEQ                     DataFax Sequence Number       55     102.4545455       2.8791600     101.0000000     121.0000000
+     cult_obtain               Culture obtained?            132       0.9696970       0.1720729               0       1.0000000
+     cult_positive             Culture positive?            131       0.9236641       0.2665541               0       1.0000000
+     cult_org_code_1           2.3.A Culture org. code      121      13.0082645       7.1769258       1.0000000      23.0000000
+     cult_org_code_2           2.3.B Culture org. code       24      16.2500000       6.3468582       2.0000000      22.0000000
+     cult_org_code_3           2.3.C Culture org. code       12      13.5000000       7.9143138       2.0000000      21.0000000
+     cult_org_code_4           2.3.D Culture org. code        7      12.4285714       7.0203785       3.0000000      21.0000000
+     cult_org_code_5           2.3.E Culture org. code        2      15.0000000       9.8994949       8.0000000      22.0000000
+     infect_confirm            Infection confirmed?         132       1.8484848       1.0074899       1.0000000       4.0000000
+     dt_random                 1.1 Date Randomized          131        17705.87     336.3236170        17119.00        18478.00
+     apache_2                  1.3 APACHE II                131       1.5954198       0.4926947       1.0000000       2.0000000
+     center                    Center                       131       2.2748092       1.2713012       1.0000000       5.0000000
+     days_post_entry           Days post study entry        131      16.6030534      45.8760335     -14.0000000     365.0000000
+     incident                  Incident                      84       0.7142857       0.4544672               0       1.0000000
+     adjud_dt                  Date of Adjudication          78        17913.05     275.4742733        17521.00        18403.00
+     dt_infect_adj             1.1 Date infection onset      40        17537.93     276.9002771        17195.00        18142.00
+     DFSTUDY                   DataFax Study Number          77      12.0000000               0      12.0000000      12.0000000
+     infect_visitno            Infection Visit No.           77     103.2857143       2.6992062     101.0000000     113.0000000
+     infect_no                 Infection number from CRF     77       3.2857143       2.6992062       1.0000000      13.0000000
+     agree_site                Agree with site findings?     77       0.4675325       0.5022165               0       1.0000000
+     cult_positive_adj         1.2 Was culture positive?     38       0.8684211       0.3425700               0       1.0000000
+     infect_confirm_adj        1.3 Infection confirmed?      41       2.1219512       1.0048662       1.0000000       3.0000000
+     same_site                 1.4 Infection same site?      35       0.0285714       0.1690309               0       1.0000000
+     two_wk_interval           1.5.A Two week interval?       1       1.0000000               .       1.0000000       1.0000000
+     res_int_infect            1.5.B Resolution int inf?      1               0               .               0               0
+     comb_new_signs            1.5.C Comb new signs/symp      2       1.0000000               0       1.0000000       1.0000000
+     comp_antib                1.5.D Complete antibiotic      2               0               0               0               0
+     bsi_bld_cult              1.5.E BSI neg blood cult       1       2.0000000               .       2.0000000       2.0000000
+     cult_changes              1.6 Changes needed?           38       0.0526316       0.2262943               0       1.0000000
+     cult_a_no                 1.6 1st Culture #              3       2.0000000       1.0000000       1.0000000       3.0000000
+     cult_a_code               1.6 1st Culture Code           3      11.6666667       8.6216781       4.0000000      21.0000000
+     cult_a_prod               1.6 1st Culture Producer?      0               .               .               .               .
+     cult_b_no                 1.6 2nd Culture Number         0               .               .               .               .
+     cult_b_code               1.6 2nd Culture Code           0               .               .               .               .
+     cult_b_prod               1.6 2nd Culture Producer?      0               .               .               .               .
+     cult_c_no                 1.6 3rd Culture Number         0               .               .               .               .
+     cult_c_code               1.6 3rd Culture Code           0               .               .               .               .
+     cult_c_prod               1.6 3rd Culture Producer?      0               .               .               .               .
+     unreport_inf              2.1 Inf not site reported     25       0.1600000       0.3741657               0       1.0000000
+     adjudicated                                             78       1.0000000               0       1.0000000       1.0000000
+     incident_prev                                           51       0.6274510       0.4882944               0       1.0000000
+     adjudicated_new_infect                                   1       1.0000000               .       1.0000000       1.0000000
+     --------------------------------------------------------------------------------------------------------------------------
+                                                           The SAS System                          13:35 Friday, October 8, 2010   4
+
+                                                        The MEANS Procedure
+
+            Variable     Label                         N            Mean         Std Dev         Minimum         Maximum
+            ------------------------------------------------------------------------------------------------------------
+            dfc          Date Form Completed          62        17780.32     380.6579194        17119.00        18478.00
+            dt_random    1.1 Date Randomized          64        17799.33     390.8466209        17119.00        18478.00
+            id           GLND ID No.                  64        26045.17        13287.41        11002.00        52049.00
+            DFSTATUS     DataFax Record Status        64       1.0312500       0.1753681       1.0000000       2.0000000
+            DFVALID      DataFax Validation Level     64       2.7500000       0.4364358       2.0000000       3.0000000
+            DFSTUDY      DataFax Study Number         64      12.0000000               0      12.0000000      12.0000000
+            DFPLATE      DataFax Plate Number         64       8.0000000               0       8.0000000       8.0000000
+            DFSEQ        DataFax Sequence Number      64       0.9843750       0.1250000               0       1.0000000
+            apache_2     1.3 APACHE II                64       1.5625000       0.5000000       1.0000000       2.0000000
+            treatment    3.1 Treatment                64       1.0000000               0       1.0000000       1.0000000
+            DFSCREEN     DataFax Screen Status        64       1.0312500       0.1753681       1.0000000       2.0000000
+            ------------------------------------------------------------------------------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=No --------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                        cult_org_      N
+                                             code    Obs      N
+                                     --------------------------
+                                                1      2      2
+
+                                                2      3      3
+
+                                                3      2      2
+
+                                                4      3      3
+
+                                                7      1      1
+
+                                                9      1      1
+
+                                               12      1      1
+
+                                               14      2      2
+
+                                               15      1      1
+
+                                               16      1      1
+
+                                               17      3      3
+
+                                               18      1      1
+
+                                               19      2      2
+
+                                               20      1      1
+
+                                               21      8      8
+                                     --------------------------
+
+
+------------------------------------------- Incident=Yes -------------------------------------------
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                        cult_org_      N
+                                             code    Obs      N
+                                     --------------------------
+                                                2      2      2
+
+                                                3      6      6
+
+                                                4      2      2
+
+                                                7      6      6
+
+                                                8      7      7
+                                     --------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=Yes -------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                        cult_org_      N
+                                             code    Obs      N
+                                     --------------------------
+                                                9      1      1
+
+                                               10      6      6
+
+                                               12      7      7
+
+                                               14      1      1
+
+                                               15      1      1
+
+                                               16      4      4
+
+                                               17     11     11
+
+                                               18      5      5
+
+                                               20      5      5
+
+                                               21     16     16
+
+                                               22      4      4
+                                     --------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=No --------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                        cult_org_      N
+                                             code    Obs     N
+                                     -------------------------
+                                                1      2     2
+
+                                                2      2     2
+
+                                                3      2     2
+
+                                                4      3     3
+
+                                                7      1     1
+
+                                                9      1     1
+
+                                               12      1     1
+
+                                               14      2     2
+
+                                               15      1     1
+
+                                               16      1     1
+
+                                               17      2     2
+
+                                               18      1     1
+
+                                               19      1     1
+
+                                               20      1     1
+
+                                               21      6     6
+                                     -------------------------
+
+
+------------------------------------------- Incident=Yes -------------------------------------------
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                        cult_org_      N
+                                             code    Obs     N
+                                     -------------------------
+                                                2      2     2
+
+                                                3      5     5
+
+                                                4      2     2
+
+                                                7      4     4
+
+                                                8      4     4
+                                     -------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=Yes -------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                        cult_org_      N
+                                             code    Obs     N
+                                     -------------------------
+                                                9      1     1
+
+                                               10      6     6
+
+                                               12      6     6
+
+                                               14      1     1
+
+                                               15      1     1
+
+                                               16      4     4
+
+                                               17     11    11
+
+                                               18      5     5
+
+                                               20      4     4
+
+                                               21      8     8
+
+                                               22      3     3
+                                     -------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                  cult_      inc_       inc_        prev_
+                         Obs    org_code    infect    patients    patients
+
+                           1        1          .          .           2   
+                           2        2          2          2           2   
+                           3        3          6          5           2   
+                           4        4          2          2           3   
+                           5        7          6          4           1   
+                           6        8          7          4           .   
+                           7        9          1          1           1   
+                           8       10          6          6           .   
+                           9       12          7          6           1   
+                          10       14          1          1           2   
+                          11       15          1          1           1   
+                          12       16          4          4           1   
+                          13       17         11         11           2   
+                          14       18          5          5           1   
+                          15       19          .          .           1   
+                          16       20          5          4           1   
+                          17       21         16          8           6   
+                          18       22          4          3           .   
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=No --------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+organism
+----------------------------------------------------------------------------------------------------
+Other - Cytomegalovirus                                                                             
+
+Other Klebsiella species - Klebsiella not specified                                                 
+
+Other fungal species - Yeast not specified                                                          
+
+Other gram + species - Chryseobacterium indologenes                                                 
+
+Other gram + species - Clostridium tertium                                                          
+
+Other gram + species - Enterococcus species, beta-lactamas                                          
+
+Other gram + species - Haemophilus influenzae                                                       
+
+Other gram + species - Proteus species                                                              
+
+Other gram + species - Stenotrophomonas maltophilia                                                 
+
+Other gram + species - Streptococcus group C                                                        
+----------------------------------------------------------------------------------------------------
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                               N
+                                             Obs      N
+                                             ----------
+                                               1      1
+
+                                               1      1
+
+                                               1      1
+
+                                               1      1
+
+                                               1      1
+
+                                               1      1
+
+                                               1      1
+
+                                               1      1
+
+                                               2      2
+
+                                               1      1
+                                             ----------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=Yes -------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+organism
+----------------------------------------------------------------------------------------------------
+Other Klebsiella species - Klebsiella not specified                                                 
+
+Other fungal species - (not specified)                                                              
+
+Other fungal species - Cadida not otherwise specified                                               
+
+Other fungal species - Candida parapsilosis                                                         
+
+Other fungal species - Yeast not specified                                                          
+
+Other gram + species - (not specified)                                                              
+
+Other gram + species - Citrobacter amalonaticus                                                     
+
+Other gram + species - Citrobacter freundii                                                         
+
+Other gram + species - Enterococcus species not specified                                           
+
+Other gram + species - Enterococcus species, beta-lactamas                                          
+
+Other gram + species - Few streptococcus, viridans group                                            
+
+Other gram + species - Lactose fermenter gram negative rod                                          
+
+Other gram + species - Non-lactose fermenter gram negative                                          
+
+Other gram + species - Rare gram positive cocci pairs                                               
+
+Other gram + species - Staphylococcus aureus resistance un                                          
+
+Other gram + species - Stenotrophomonas maltophilia                                                 
+
+Other gram - species - Enterobacter species not specified                                           
+
+Other gram - species - Few gram negative rods                                                       
+
+Other gram - species - Rare gram negative rod - lactose fe                                          
+
+Other gram - species - Stenotrophomonas maltophilia                                                 
+----------------------------------------------------------------------------------------------------
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                               N
+                                             Obs      N
+                                             ----------
+                                               1      1
+
+                                               1      1
+                                             ----------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=Yes -------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                               N
+                                             Obs      N
+                                             ----------
+                                               1      1
+
+                                               1      1
+
+                                               2      2
+
+                                               1      1
+
+                                               1      1
+
+                                               2      2
+
+                                               2      2
+
+                                               1      1
+
+                                               1      1
+
+                                               1      1
+
+                                               1      1
+
+                                               1      1
+
+                                               2      2
+
+                                               3      3
+
+                                               1      1
+
+                                               1      1
+
+                                               1      1
+
+                                               1      1
+                                             ----------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=No --------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+organism
+----------------------------------------------------------------------------------------------------
+Other - Cytomegalovirus                                                                             
+
+Other Klebsiella species - Klebsiella not specified                                                 
+
+Other fungal species - Yeast not specified                                                          
+
+Other gram + species - Chryseobacterium indologenes                                                 
+
+Other gram + species - Clostridium tertium                                                          
+
+Other gram + species - Enterococcus species, beta-lactamas                                          
+
+Other gram + species - Haemophilus influenzae                                                       
+
+Other gram + species - Proteus species                                                              
+
+Other gram + species - Stenotrophomonas maltophilia                                                 
+
+Other gram + species - Streptococcus group C                                                        
+----------------------------------------------------------------------------------------------------
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                               N
+                                             Obs     N
+                                             ---------
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               2     2
+
+                                               1     1
+                                             ---------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=Yes -------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+organism
+----------------------------------------------------------------------------------------------------
+Other Klebsiella species - Klebsiella not specified                                                 
+
+Other fungal species - (not specified)                                                              
+
+Other fungal species - Cadida not otherwise specified                                               
+
+Other fungal species - Candida parapsilosis                                                         
+
+Other fungal species - Yeast not specified                                                          
+
+Other gram + species - (not specified)                                                              
+
+Other gram + species - Citrobacter amalonaticus                                                     
+
+Other gram + species - Citrobacter freundii                                                         
+
+Other gram + species - Enterococcus species not specified                                           
+
+Other gram + species - Enterococcus species, beta-lactamas                                          
+
+Other gram + species - Few streptococcus, viridans group                                            
+
+Other gram + species - Lactose fermenter gram negative rod                                          
+
+Other gram + species - Non-lactose fermenter gram negative                                          
+
+Other gram + species - Rare gram positive cocci pairs                                               
+
+Other gram + species - Staphylococcus aureus resistance un                                          
+
+Other gram + species - Stenotrophomonas maltophilia                                                 
+
+Other gram - species - Enterobacter species not specified                                           
+
+Other gram - species - Few gram negative rods                                                       
+
+Other gram - species - Rare gram negative rod - lactose fe                                          
+
+Other gram - species - Stenotrophomonas maltophilia                                                 
+----------------------------------------------------------------------------------------------------
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                               N
+                                             Obs     N
+                                             ---------
+                                               1     1
+
+                                               1     1
+                                             ---------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=Yes -------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                               N
+                                             Obs     N
+                                             ---------
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               2     2
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               3     3
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+                                             ---------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+        Variable          N            Mean         Std Dev         Minimum         Maximum
+        -----------------------------------------------------------------------------------
+        cult_org_code    18      12.1111111       6.8761214       1.0000000      22.0000000
+        inc_infect       16       5.2500000       3.9581140       1.0000000      16.0000000
+        inc_patients     16       4.1875000       2.7133927       1.0000000      11.0000000
+        prev_patients    15       1.8000000       1.3201731       1.0000000       6.0000000
+        -----------------------------------------------------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                                  Analysis Variable : inc_infect 
+ 
+                           N
+  type                   Obs     N            Mean         Std Dev         Minimum         Maximum
+  ------------------------------------------------------------------------------------------------
+  Fungal Species           4     4       5.2500000       4.5000000               0      11.0000000
+
+  Gram+ Bacteria          10    10       3.6000000       4.9710272               0      16.0000000
+
+  Gram- Bacteria           8     8       3.3750000       2.9730936               0       7.0000000
+
+  Other                    1     1               0               .               0               0
+  ------------------------------------------------------------------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+       Obs      id     incident    organism
+
+         1    21020      No        Other fungal species - Yeast not specified                
+         2    41103      No        Candida albicans                                          
+         3    52049      No        Candida albicans                                          
+         4    11012      No        Methicillin-susceptible Staphylococcus aureus (MSSA)      
+         5    22027      No        Methicillin-resistant Staphylococcus aureus (MRSA)        
+         6    22042      No        Clostridium difficile                                     
+         7    31045      No        Vancomycin-susceptible Enterococcus faecalis              
+         8    31075      No        Methicillin-susceptible Staphylococcus aureus (MSSA)      
+         9    32097      No        Other gram + species - Haemophilus influenzae             
+        10    32175      No        Methicillin-resistant Staphylococcus aureus (MRSA)        
+        11    41103      No        Coagulase-negative Staphylococcus species                 
+        12    41120      No        Other gram + species - Proteus species                    
+        13    42115      No        Other gram + species - Clostridium tertium                
+        14    11014      No        Enterobacter cloace                                       
+        15    12013      No        Enterobacter cloace                                       
+        16    12099      No        Escherichia coli                                          
+        17    41156      No        Other Klebsiella species - Klebsiella not specified       
+        18    42115      No        Enterobacter aerogenes                                    
+        19    11012      Yes       Candida albicans                                          
+        20    11014      Yes       Candida albicans                                          
+        21    11041      Yes       Candida albicans                                          
+        22    11146      Yes       Candida albicans                                          
+        23    11225      Yes       Candida albicans                                          
+        24    12013      Yes       Candida glabrata                                          
+        25    12046      Yes       Candida albicans                                          
+        26    12060      Yes       Candida glabrata                                          
+        27    12269      Yes       Candida albicans                                          
+        28    22021      Yes       Candida albicans                                          
+        29    31075      Yes       Candida albicans                                          
+        30    41090      Yes       Candida glabrata                                          
+        31    41091      Yes       Candida albicans                                          
+        32    41138      Yes       Other fungal species - Cadida not otherwise specified     
+        33    42006      Yes       Other fungal species - Candida parapsilosis               
+        34    42008      Yes       Candida albicans                                          
+        35    11041      Yes       Clostridium difficile                                     
+        36    11116      Yes       Other gram + species - Staphylococcus aureus resistance un
+        37    11146      Yes       Other gram + species - Stenotrophomonas maltophilia       
+        38    12046      Yes       Clostridium difficile                                     
+        39    12060      Yes       Methicillin-resistant Staphylococcus aureus (MRSA)        
+        40    12155      Yes       Other gram + species - Stenotrophomonas maltophilia       
+        41    22021      Yes       Clostridium difficile                                     
+        42    22027      Yes       Coagulase-negative Staphylococcus species                 
+        43    22042      Yes       Other gram + species - Stenotrophomonas maltophilia       
+        44    31050      Yes       Coagulase-negative Staphylococcus species                 
+        45    31075      Yes       Coagulase-negative Staphylococcus species                 
+        46    32097      Yes       Coagulase-negative Staphylococcus species                 
+        47    41090      Yes       Vancomycin-susceptible Enterococcus faecalis              
+        48    41141      Yes       Coagulase-negative Staphylococcus species                 
+        49    41144      Yes       Clostridium difficile                                     
+        50    42092      Yes       Other gram + species - Citrobacter amalonaticus           
+        51    42115      Yes       Other gram + species - Enterococcus species not specified 
+        52    11041      Yes       Pseudomonas aeruginosa                                    
+        53    11146      Yes       Escherichia coli                                          
+        54    12029      Yes       Pseudomonas aeruginosa                                    
+        55    12060      Yes       Pseudomonas aeruginosa                                    
+        56    12099      Yes       Klebsiella pneumoniae                                     
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+       Obs      id     incident    organism
+
+        57    12269      Yes       Escherichia coli                                         
+        58    22042      Yes       Pseudomonas aeruginosa                                   
+        59    41090      Yes       Klebsiella pneumoniae                                    
+        60    41144      Yes       Enterobacter cloace                                      
+        61    41156      Yes       Other gram - species - Enterobacter species not specified
+        62    42092      Yes       Escherichia coli                                         
+        63    42115      Yes       Enterobacter aerogenes                                   
+        64    42133      Yes       Other gram - species - Stenotrophomonas maltophilia      
+        65    51014      Yes       Escherichia coli                                         
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=No --------------------------------------------
+
+                                        The MEANS Procedure
+
+                                Analysis Variable : id GLND ID No.
+ 
+                                                             N
+                               type                        Obs     N
+                               -------------------------------------
+                               == Any Fungal Species ==      3     3
+
+                               == Any Gram+ Bacteria ==     10    10
+
+                               == Any Gram- Bacteria ==      5     5
+                               -------------------------------------
+
+
+------------------------------------------- Incident=Yes -------------------------------------------
+
+                                Analysis Variable : id GLND ID No.
+ 
+                                                             N
+                               type                        Obs     N
+                               -------------------------------------
+                               == Any Fungal Species ==     16    16
+
+                               == Any Gram+ Bacteria ==     17    17
+
+                               == Any Gram- Bacteria ==     14    14
+                               -------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                                     N
+                                       Incident    Obs     N
+                                       ---------------------
+                                       No           17    17
+
+                                       Yes          31    31
+                                       ---------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                      Analysis Variable : dt_infect 1.1 Date of infect. onset
+ 
+                      Site code
+                      -------------------------------------------------------
+                      Bloodstream Infection                                  
+
+                      Central Nervous System Infection                       
+
+                      Cardiovascular System Infection                        
+
+                      Gastrointestinal System Infection                      
+
+                                                                             
+
+                      Pneumonia                                              
+
+                                                                             
+
+                      Surgical Site Infection                                
+
+                                                                             
+
+                                                                             
+
+                      Skin and Soft Tissue Infection                         
+
+                      Urinary Tract Infection                                
+
+                                                                             
+
+                                                                             
+                      -------------------------------------------------------
+
+                      Analysis Variable : dt_infect 1.1 Date of infect. onset
+ 
+                                                                                              N
+Type code                                                                                   Obs   N
+---------------------------------------------------------------------------------------------------
+Laboratory-confirmed bloodstream infection                                                   18  18
+
+Menitigitis or ventriculitis                                                                  1   1
+
+Arterial or venous infection                                                                  1   1
+
+Gastroenteritis                                                                               3   3
+
+Gastrointestinal (GI) tract                                                                   1   1
+
+PNU1 - Clinically defined pneumonia                                                           4   4
+
+PNU2 - Pneumonia with specific lab findings                                                   5   5
+
+Intra-abdominal, not specified elsewhere                                                      4   4
+
+Soft tissue                                                                                   1   1
+---------------------------------------------------------------------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                      Analysis Variable : dt_infect 1.1 Date of infect. onset
+ 
+                                                                                              N
+Type code                                                                                   Obs   N
+---------------------------------------------------------------------------------------------------
+Unknown                                                                                       1   1
+
+Breast abscess or mastitis                                                                    1   1
+
+Asymptomatic bacteriuria                                                                      9   9
+
+Other infections of the urinary tract                                                         1   1
+
+Symptomatic urinary tract infection                                                          10  10
+---------------------------------------------------------------------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+ 
+                      Analysis Variable : dt_infect 1.1 Date of infect. onset
+ 
+                 Incident  Site code
+                 -----------------------------------------------------------------
+                 No        Bloodstream Infection                                  
+
+                           Cardiovascular System Infection                        
+
+                           Gastrointestinal System Infection                      
+
+                                                                                  
+
+                           Pneumonia                                              
+
+                                                                                  
+
+                           Surgical Site Infection                                
+
+                                                                                  
+
+                                                                                  
+
+                                                                                  
+
+                           Urinary Tract Infection                                
+
+                 Yes       Bloodstream Infection                                  
+
+                           Central Nervous System Infection                       
+
+                           Cardiovascular System Infection                        
+
+                           Gastrointestinal System Infection                      
+
+                                                                                  
+
+                           Pneumonia                                              
+
+                                                                                  
+
+                           Surgical Site Infection                                
+
+                                                                                  
+
+                                                                                  
+
+                           Skin and Soft Tissue Infection                         
+
+                           Urinary Tract Infection                                
+
+                                                                                  
+
+                                                                                  
+                 -----------------------------------------------------------------
+
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+ 
+                      Analysis Variable : dt_infect 1.1 Date of infect. onset
+ 
+Incident  Type code
+----------------------------------------------------------------------------------------------------
+No        Laboratory-confirmed bloodstream infection                                                
+
+          Mediastinitis                                                                             
+
+          Gastroenteritis                                                                           
+
+          Gastrointestinal (GI) tract                                                               
+
+          PNU1 - Clinically defined pneumonia                                                       
+
+          PNU2 - Pneumonia with specific lab findings                                               
+
+          Deep incisional primary SSI                                                               
+
+          Gastrointestinal (GI) tract                                                               
+
+          Intra-abdominal, not specified elsewhere                                                  
+
+          Skin                                                                                      
+
+          Asymptomatic bacteriuria                                                                  
+
+Yes       Laboratory-confirmed bloodstream infection                                                
+
+          Menitigitis or ventriculitis                                                              
+
+          Arterial or venous infection                                                              
+
+          Gastroenteritis                                                                           
+
+          Gastrointestinal (GI) tract                                                               
+
+          PNU1 - Clinically defined pneumonia                                                       
+
+          PNU2 - Pneumonia with specific lab findings                                               
+
+          Intra-abdominal, not specified elsewhere                                                  
+
+          Soft tissue                                                                               
+
+          Unknown                                                                                   
+
+          Breast abscess or mastitis                                                                
+
+          Asymptomatic bacteriuria                                                                  
+
+          Other infections of the urinary tract                                                     
+
+          Symptomatic urinary tract infection                                                       
+----------------------------------------------------------------------------------------------------
+
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                      Analysis Variable : dt_infect 1.1 Date of infect. onset
+ 
+                                                    N
+                                        Incident  Obs     N
+                                        -------------------
+                                        No          3     3
+
+                                                    1     1
+
+                                                    1     1
+
+                                                    1     1
+
+                                                    4     4
+
+                                                    6     6
+
+                                                    1     1
+
+                                                    1     1
+
+                                                    1     1
+
+                                                    1     1
+
+                                                    3     3
+
+                                        Yes        17    17
+
+                                                    1     1
+
+                                                    1     1
+
+                                                    3     3
+
+                                                    1     1
+
+                                                    4     4
+
+                                                    5     5
+
+                                                    3     3
+
+                                                    1     1
+
+                                                    1     1
+
+                                                    1     1
+
+                                                    8     8
+
+                                                    1     1
+
+                                                   10    10
+                                        -------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                       Analysis Variable : dt_infect 1.1 Date of infect. onset
+ 
+                                                  N
+                                                 --
+                                                 60
+                                                 --
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                      Analysis Variable : dt_infect 1.1 Date of infect. onset
+ 
+                                                     N
+                                       Incident    Obs     N
+                                       ---------------------
+                                       No           19    19
+
+                                       Yes          32    32
+                                       ---------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                      Analysis Variable : dt_infect 1.1 Date of infect. onset
+ 
+                                                       N
+                                           Center    Obs     N
+                                     -------------------------
+                                                1     27    27
+
+                                                2      6     6
+
+                                                3      5     5
+
+                                                4     21    21
+
+                                                5      1     1
+                                     -------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                      Analysis Variable : dt_infect 1.1 Date of infect. onset
+ 
+                                                             N
+                               Incident          Center    Obs     N
+                               -------------------------------------
+                               No                     1      5     5
+
+                                                      2      3     3
+
+                                                      3      4     4
+
+                                                      4      6     6
+
+                                                      5      1     1
+
+                               Yes                    1     14    14
+
+                                                      2      3     3
+
+                                                      3      3     3
+
+                                                      4     11    11
+
+                                                      5      1     1
+                               -------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                N
+      center  Obs  Variable   Label                      N          Mean       Std Dev       Minimum
+----------------------------------------------------------------------------------------------------
+           1   26  dfc        Date Form Completed       24      17680.54   404.2064667      17119.00
+                   dt_random  1.1 Date Randomized       26      17737.35   436.7036471      17119.00
+                   id         GLND ID No.               26      11655.31   549.7423229      11002.00
+                   DFSTATUS   DataFax Record Status     26     1.0769231     0.2717465     1.0000000
+                   DFVALID    DataFax Validation Level  26     2.8461538     0.3679465     2.0000000
+                   DFSTUDY    DataFax Study Number      26    12.0000000             0    12.0000000
+                   DFPLATE    DataFax Plate Number      26     8.0000000             0     8.0000000
+                   DFSEQ      DataFax Sequence Number   26     0.9615385     0.1961161             0
+                   apache_2   1.3 APACHE II             26     1.5000000     0.5099020     1.0000000
+                   treatment  3.1 Treatment             26     1.0000000             0     1.0000000
+                   DFSCREEN   DataFax Screen Status     26     1.0769231     0.2717465     1.0000000
+
+           2    4  dfc        Date Form Completed        4      17624.00   174.3999235      17491.00
+                   dt_random  1.1 Date Randomized        4      17624.00   174.3999235      17491.00
+                   id         GLND ID No.                4      21777.50   505.0772218      21020.00
+                   DFSTATUS   DataFax Record Status      4     1.0000000             0     1.0000000
+                   DFVALID    DataFax Validation Level   4     3.0000000             0     3.0000000
+                   DFSTUDY    DataFax Study Number       4    12.0000000             0    12.0000000
+                   DFPLATE    DataFax Plate Number       4     8.0000000             0     8.0000000
+                   DFSEQ      DataFax Sequence Number    4     1.0000000             0     1.0000000
+                   apache_2   1.3 APACHE II              4     2.0000000             0     2.0000000
+                   treatment  3.1 Treatment              4     1.0000000             0     1.0000000
+                   DFSCREEN   DataFax Screen Status      4     1.0000000             0     1.0000000
+
+           3   16  dfc        Date Form Completed       16      17786.00   298.9073435      17403.00
+                   dt_random  1.1 Date Randomized       16      17782.19   297.7431149      17403.00
+                   id         GLND ID No.               16      31888.50   487.3936123      31045.00
+                   DFSTATUS   DataFax Record Status     16     1.0000000             0     1.0000000
+                   DFVALID    DataFax Validation Level  16     2.6875000     0.4787136     2.0000000
+                   DFSTUDY    DataFax Study Number      16    12.0000000             0    12.0000000
+                   DFPLATE    DataFax Plate Number      16     8.0000000             0     8.0000000
+                   DFSEQ      DataFax Sequence Number   16     1.0000000             0     1.0000000
+                   apache_2   1.3 APACHE II             16     1.7500000     0.4472136     1.0000000
+                   treatment  3.1 Treatment             16     1.0000000             0     1.0000000
+                   DFSCREEN   DataFax Screen Status     16     1.0000000             0     1.0000000
+
+           4   16  dfc        Date Form Completed       16      17887.63   398.0462075      17261.00
+                   dt_random  1.1 Date Randomized       16      17887.63   398.0462075      17261.00
+                   id         GLND ID No.               16      41466.50   479.5210110      41036.00
+                   DFSTATUS   DataFax Record Status     16     1.0000000             0     1.0000000
+                   DFVALID    DataFax Validation Level  16     2.6875000     0.4787136     2.0000000
+                   DFSTUDY    DataFax Study Number      16    12.0000000             0    12.0000000
+                   DFPLATE    DataFax Plate Number      16     8.0000000             0     8.0000000
+                   DFSEQ      DataFax Sequence Number   16     1.0000000             0     1.0000000
+                   apache_2   1.3 APACHE II             16     1.3750000     0.5000000     1.0000000
+                   treatment  3.1 Treatment             16     1.0000000             0     1.0000000
+                   DFSCREEN   DataFax Screen Status     16     1.0000000             0     1.0000000
+
+           5    2  dfc        Date Form Completed        2      18386.50   129.4005410      18295.00
+                   dt_random  1.1 Date Randomized        2      18386.50   129.4005410      18295.00
+                   id         GLND ID No.                2      51531.50   731.8555185      51014.00
+                   DFSTATUS   DataFax Record Status      2     1.0000000             0     1.0000000
+----------------------------------------------------------------------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                N
+      center  Obs  Variable   Label                      N          Mean       Std Dev       Minimum
+----------------------------------------------------------------------------------------------------
+           5    2  DFVALID    DataFax Validation Level   2     2.0000000             0     2.0000000
+                   DFSTUDY    DataFax Study Number       2    12.0000000             0    12.0000000
+                   DFPLATE    DataFax Plate Number       2     8.0000000             0     8.0000000
+                   DFSEQ      DataFax Sequence Number    2     1.0000000             0     1.0000000
+                   apache_2   1.3 APACHE II              2     1.5000000     0.7071068     1.0000000
+                   treatment  3.1 Treatment              2     1.0000000             0     1.0000000
+                   DFSCREEN   DataFax Screen Status      2     1.0000000             0     1.0000000
+----------------------------------------------------------------------------------------------------
+
+                                N
+                      center  Obs  Variable   Label                          Maximum
+                --------------------------------------------------------------------
+                           1   26  dfc        Date Form Completed           18429.00
+                                   dt_random  1.1 Date Randomized           18459.00
+                                   id         GLND ID No.                   12383.00
+                                   DFSTATUS   DataFax Record Status        2.0000000
+                                   DFVALID    DataFax Validation Level     3.0000000
+                                   DFSTUDY    DataFax Study Number        12.0000000
+                                   DFPLATE    DataFax Plate Number         8.0000000
+                                   DFSEQ      DataFax Sequence Number      1.0000000
+                                   apache_2   1.3 APACHE II                2.0000000
+                                   treatment  3.1 Treatment                1.0000000
+                                   DFSCREEN   DataFax Screen Status        2.0000000
+
+                           2    4  dfc        Date Form Completed           17862.00
+                                   dt_random  1.1 Date Randomized           17862.00
+                                   id         GLND ID No.                   22042.00
+                                   DFSTATUS   DataFax Record Status        1.0000000
+                                   DFVALID    DataFax Validation Level     3.0000000
+                                   DFSTUDY    DataFax Study Number        12.0000000
+                                   DFPLATE    DataFax Plate Number         8.0000000
+                                   DFSEQ      DataFax Sequence Number      1.0000000
+                                   apache_2   1.3 APACHE II                2.0000000
+                                   treatment  3.1 Treatment                1.0000000
+                                   DFSCREEN   DataFax Screen Status        1.0000000
+
+                           3   16  dfc        Date Form Completed           18296.00
+                                   dt_random  1.1 Date Randomized           18296.00
+                                   id         GLND ID No.                   32270.00
+                                   DFSTATUS   DataFax Record Status        1.0000000
+                                   DFVALID    DataFax Validation Level     3.0000000
+                                   DFSTUDY    DataFax Study Number        12.0000000
+                                   DFPLATE    DataFax Plate Number         8.0000000
+                                   DFSEQ      DataFax Sequence Number      1.0000000
+                                   apache_2   1.3 APACHE II                2.0000000
+                                   treatment  3.1 Treatment                1.0000000
+                                   DFSCREEN   DataFax Screen Status        1.0000000
+
+                           4   16  dfc        Date Form Completed           18464.00
+                                   dt_random  1.1 Date Randomized           18464.00
+                                   id         GLND ID No.                   42133.00
+                                   DFSTATUS   DataFax Record Status        1.0000000
+                --------------------------------------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                                N
+                      center  Obs  Variable   Label                          Maximum
+                --------------------------------------------------------------------
+                           4   16  DFVALID    DataFax Validation Level     3.0000000
+                                   DFSTUDY    DataFax Study Number        12.0000000
+                                   DFPLATE    DataFax Plate Number         8.0000000
+                                   DFSEQ      DataFax Sequence Number      1.0000000
+                                   apache_2   1.3 APACHE II                2.0000000
+                                   treatment  3.1 Treatment                1.0000000
+                                   DFSCREEN   DataFax Screen Status        1.0000000
+
+                           5    2  dfc        Date Form Completed           18478.00
+                                   dt_random  1.1 Date Randomized           18478.00
+                                   id         GLND ID No.                   52049.00
+                                   DFSTATUS   DataFax Record Status        1.0000000
+                                   DFVALID    DataFax Validation Level     2.0000000
+                                   DFSTUDY    DataFax Study Number        12.0000000
+                                   DFPLATE    DataFax Plate Number         8.0000000
+                                   DFSEQ      DataFax Sequence Number      1.0000000
+                                   apache_2   1.3 APACHE II                2.0000000
+                                   treatment  3.1 Treatment                1.0000000
+                                   DFSCREEN   DataFax Screen Status        1.0000000
+                --------------------------------------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+  Variable                Label                        N          Mean       Std Dev       Minimum
+  ------------------------------------------------------------------------------------------------
+  dt_infect               1.1 Date of infect. onset  106      17808.05   359.4710766      17126.00
+  id                      GLND ID No.                131      26446.61      11820.65      11004.00
+  DFSEQ                   DataFax Sequence Number     45   102.4888889     3.0794201   101.0000000
+  cult_obtain             Culture obtained?          106     0.9433962     0.2321817             0
+  cult_positive           Culture positive?          103     0.8737864     0.3337139             0
+  cult_org_code_1         2.3.A Culture org. code     91    11.5824176     7.0238735     1.0000000
+  cult_org_code_2         2.3.B Culture org. code     21    14.7142857     7.9758564     1.0000000
+  cult_org_code_3         2.3.C Culture org. code      8    15.6250000     5.8294205     2.0000000
+  cult_org_code_4         2.3.D Culture org. code      3    19.0000000     3.4641016    15.0000000
+  cult_org_code_5         2.3.E Culture org. code      3    21.0000000             0    21.0000000
+  infect_confirm          Infection confirmed?       106     1.8018868     1.0274315     1.0000000
+  dt_random               1.1 Date Randomized        105      17802.00   355.7346137      17127.00
+  apache_2                1.3 APACHE II              105     1.6285714     0.4855042     1.0000000
+  center                  Center                     105     2.5047619     1.1445843     1.0000000
+  days_post_entry         Days post study entry      105    11.1238095    14.9978814   -13.0000000
+  incident                Incident                    65     0.6000000     0.4937104             0
+  adjud_dt                Date of Adjudication        62      17990.24   244.5541065      17521.00
+  dt_infect_adj           1.1 Date infection onset    32      17681.00   291.2554582      17152.00
+  DFSTUDY                 DataFax Study Number        61    12.0000000             0    12.0000000
+  infect_visitno          Infection Visit No.         61   102.7868852     2.1534062   101.0000000
+  infect_no               Infection number from CRF   61     2.7868852     2.1534062     1.0000000
+  agree_site              Agree with site findings?   61     0.5245902     0.5035394             0
+  cult_positive_adj       1.2 Was culture positive?   30     0.8333333     0.3790490             0
+  infect_confirm_adj      1.3 Infection confirmed?    30     1.9333333     1.0148325     1.0000000
+  same_site               1.4 Infection same site?    27     0.0370370     0.1924501             0
+  two_wk_interval         1.5.A Two week interval?     1     1.0000000             .     1.0000000
+  res_int_infect          1.5.B Resolution int inf?    1     1.0000000             .     1.0000000
+  comb_new_signs          1.5.C Comb new signs/symp    1     1.0000000             .     1.0000000
+  comp_antib              1.5.D Complete antibiotic    1     1.0000000             .     1.0000000
+  bsi_bld_cult            1.5.E BSI neg blood cult     1     2.0000000             .     2.0000000
+  cult_changes            1.6 Changes needed?         29     0.0344828     0.1856953             0
+  cult_a_no               1.6 1st Culture #            1     1.0000000             .     1.0000000
+  cult_a_code             1.6 1st Culture Code         1     2.0000000             .     2.0000000
+  cult_a_prod             1.6 1st Culture Producer?    0             .             .             .
+  cult_b_no               1.6 2nd Culture Number       0             .             .             .
+  cult_b_code             1.6 2nd Culture Code         0             .             .             .
+  cult_b_prod             1.6 2nd Culture Producer?    0             .             .             .
+  cult_c_no               1.6 3rd Culture Number       0             .             .             .
+  cult_c_code             1.6 3rd Culture Code         0             .             .             .
+  cult_c_prod             1.6 3rd Culture Producer?    0             .             .             .
+  unreport_inf            2.1 Inf not site reported   28     0.0357143     0.1889822             0
+  adjudicated                                         62     1.0000000             0     1.0000000
+  incident_prev                                       36     0.6666667     0.4780914             0
+  adjudicated_new_infect                               1     1.0000000             .     1.0000000
+  ------------------------------------------------------------------------------------------------
+
+                  Variable                Label                           Maximum
+                  ---------------------------------------------------------------
+                  dt_infect               1.1 Date of infect. onset      18513.00
+                  id                      GLND ID No.                    52029.00
+                  DFSEQ                   DataFax Sequence Number     121.0000000
+                  cult_obtain             Culture obtained?             1.0000000
+                  cult_positive           Culture positive?             1.0000000
+                  ---------------------------------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                  Variable                Label                           Maximum
+                  ---------------------------------------------------------------
+                  cult_org_code_1         2.3.A Culture org. code      22.0000000
+                  cult_org_code_2         2.3.B Culture org. code      22.0000000
+                  cult_org_code_3         2.3.C Culture org. code      21.0000000
+                  cult_org_code_4         2.3.D Culture org. code      21.0000000
+                  cult_org_code_5         2.3.E Culture org. code      21.0000000
+                  infect_confirm          Infection confirmed?          4.0000000
+                  dt_random               1.1 Date Randomized            18494.00
+                  apache_2                1.3 APACHE II                 2.0000000
+                  center                  Center                        5.0000000
+                  days_post_entry         Days post study entry        82.0000000
+                  incident                Incident                      1.0000000
+                  adjud_dt                Date of Adjudication           18403.00
+                  dt_infect_adj           1.1 Date infection onset       18241.00
+                  DFSTUDY                 DataFax Study Number         12.0000000
+                  infect_visitno          Infection Visit No.         110.0000000
+                  infect_no               Infection number from CRF    10.0000000
+                  agree_site              Agree with site findings?     1.0000000
+                  cult_positive_adj       1.2 Was culture positive?     1.0000000
+                  infect_confirm_adj      1.3 Infection confirmed?      3.0000000
+                  same_site               1.4 Infection same site?      1.0000000
+                  two_wk_interval         1.5.A Two week interval?      1.0000000
+                  res_int_infect          1.5.B Resolution int inf?     1.0000000
+                  comb_new_signs          1.5.C Comb new signs/symp     1.0000000
+                  comp_antib              1.5.D Complete antibiotic     1.0000000
+                  bsi_bld_cult            1.5.E BSI neg blood cult      2.0000000
+                  cult_changes            1.6 Changes needed?           1.0000000
+                  cult_a_no               1.6 1st Culture #             1.0000000
+                  cult_a_code             1.6 1st Culture Code          2.0000000
+                  cult_a_prod             1.6 1st Culture Producer?             .
+                  cult_b_no               1.6 2nd Culture Number                .
+                  cult_b_code             1.6 2nd Culture Code                  .
+                  cult_b_prod             1.6 2nd Culture Producer?             .
+                  cult_c_no               1.6 3rd Culture Number                .
+                  cult_c_code             1.6 3rd Culture Code                  .
+                  cult_c_prod             1.6 3rd Culture Producer?             .
+                  unreport_inf            2.1 Inf not site reported     1.0000000
+                  adjudicated                                           1.0000000
+                  incident_prev                                         1.0000000
+                  adjudicated_new_infect                                1.0000000
+                  ---------------------------------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+  Variable   Label                       N          Mean       Std Dev       Minimum       Maximum
+  ------------------------------------------------------------------------------------------------
+  dfc        Date Form Completed        66      17833.11   396.2405691      17127.00      18518.00
+  dt_random  1.1 Date Randomized        66      17833.11   396.2405691      17127.00      18518.00
+  id         GLND ID No.                66      26355.58      13026.73      11004.00      52029.00
+  DFSTATUS   DataFax Record Status      66     1.0000000             0     1.0000000     1.0000000
+  DFVALID    DataFax Validation Level   66     2.7121212     0.4562439     2.0000000     3.0000000
+  DFSTUDY    DataFax Study Number       66    12.0000000             0    12.0000000    12.0000000
+  DFPLATE    DataFax Plate Number       66     8.0000000             0     8.0000000     8.0000000
+  DFSEQ      DataFax Sequence Number    66     1.0000000             0     1.0000000     1.0000000
+  apache_2   1.3 APACHE II              66     1.5151515     0.5036001     1.0000000     2.0000000
+  treatment  3.1 Treatment              66     2.0000000             0     2.0000000     2.0000000
+  DFSCREEN   DataFax Screen Status      66     1.0000000             0     1.0000000     1.0000000
+  ------------------------------------------------------------------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=No --------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                        cult_org_      N
+                                             code    Obs     N
+                                     -------------------------
+                                                1      1     1
+
+                                                2      2     2
+
+                                                3      2     2
+
+                                                4      2     2
+
+                                                7      1     1
+
+                                                8      2     2
+
+                                               10      2     2
+
+                                               12      1     1
+
+                                               14      2     2
+
+                                               15      4     4
+
+                                               17      3     3
+
+                                               18      2     2
+
+                                               20      3     3
+
+                                               21      8     8
+                                     -------------------------
+
+
+------------------------------------------- Incident=Yes -------------------------------------------
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                        cult_org_      N
+                                             code    Obs     N
+                                     -------------------------
+                                                1      3     3
+
+                                                2      3     3
+
+                                                3      4     4
+
+                                                5      1     1
+
+                                                7      4     4
+
+                                                8      3     3
+                                     -------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=Yes -------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                        cult_org_      N
+                                             code    Obs     N
+                                     -------------------------
+                                                9      3     3
+
+                                               10      2     2
+
+                                               13      1     1
+
+                                               14      2     2
+
+                                               16      1     1
+
+                                               17      3     3
+
+                                               18      4     4
+
+                                               20      1     1
+
+                                               21     10    10
+
+                                               22      2     2
+                                     -------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=No --------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                        cult_org_      N
+                                             code    Obs     N
+                                     -------------------------
+                                                1      1     1
+
+                                                2      2     2
+
+                                                3      2     2
+
+                                                4      2     2
+
+                                                7      1     1
+
+                                                8      2     2
+
+                                               10      1     1
+
+                                               12      1     1
+
+                                               14      1     1
+
+                                               15      3     3
+
+                                               17      3     3
+
+                                               18      1     1
+
+                                               20      3     3
+
+                                               21      7     7
+                                     -------------------------
+
+
+------------------------------------------- Incident=Yes -------------------------------------------
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                        cult_org_      N
+                                             code    Obs     N
+                                     -------------------------
+                                                1      2     2
+
+                                                2      3     3
+
+                                                3      4     4
+
+                                                5      1     1
+
+                                                7      3     3
+
+                                                8      3     3
+                                     -------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=Yes -------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                        cult_org_      N
+                                             code    Obs     N
+                                     -------------------------
+                                                9      2     2
+
+                                               10      2     2
+
+                                               13      1     1
+
+                                               14      2     2
+
+                                               16      1     1
+
+                                               17      3     3
+
+                                               18      2     2
+
+                                               20      1     1
+
+                                               21      6     6
+
+                                               22      2     2
+                                     -------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                  cult_      inc_       inc_        prev_
+                         Obs    org_code    infect    patients    patients
+
+                           1        1          3          2           1   
+                           2        2          3          3           2   
+                           3        3          4          4           2   
+                           4        4          .          .           2   
+                           5        5          1          1           .   
+                           6        7          4          3           1   
+                           7        8          3          3           2   
+                           8        9          3          2           .   
+                           9       10          2          2           1   
+                          10       12          .          .           1   
+                          11       13          1          1           .   
+                          12       14          2          2           1   
+                          13       15          .          .           3   
+                          14       16          1          1           .   
+                          15       17          3          3           3   
+                          16       18          4          2           1   
+                          17       20          1          1           3   
+                          18       21         10          6           7   
+                          19       22          2          2           .   
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=No --------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+organism
+----------------------------------------------------------------------------------------------------
+Other fungal species - Candida parapsilosis                                                         
+
+Other fungal species - Yeast not specified                                                          
+
+Other gram + species - 1 + B hemolytic streptococcus                                                
+
+Other gram + species - 2+ mixed gastro-intestinal flora                                             
+
+Other gram + species - Bacteroides fragilis                                                         
+
+Other gram + species - Bacteroides uniformis                                                        
+
+Other gram + species - Enterococcus species, strain 1                                               
+
+Other gram + species - Enterococcus species, strain 2                                               
+
+Other gram + species - Lactobacillus species                                                        
+
+Other gram + species - Serratia marcescens                                                          
+----------------------------------------------------------------------------------------------------
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                               N
+                                             Obs     N
+                                             ---------
+                                               1     1
+
+                                               2     2
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+                                             ---------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=Yes -------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+organism
+----------------------------------------------------------------------------------------------------
+Other Klebsiella species - (not specified)                                                          
+
+Other Klebsiella species - Klebsiella oxytoca                                                       
+
+Other fungal species - (not specified)                                                              
+
+Other gram + species - (not specified)                                                              
+
+Other gram + species - Enterococcus faecalis resistance no                                          
+
+Other gram + species - Enterococcus species not specified                                           
+
+Other gram + species - Lactobacillus species                                                        
+
+Other gram + species - Lactose fermenter gram negative rod                                          
+
+Other gram + species - Micrococcus species                                                          
+
+Other gram + species - Serratia marcescens                                                          
+
+Other gram - species - Citrobacter koseri                                                           
+
+Other gram - species - Enterobacter sakazakii                                                       
+----------------------------------------------------------------------------------------------------
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                               N
+                                             Obs     N
+                                             ---------
+                                               1     1
+
+                                               2     2
+
+                                               1     1
+
+                                               3     3
+
+                                               2     2
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+                                             ---------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=Yes -------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                               N
+                                             Obs     N
+                                             ---------
+                                               1     1
+
+                                               1     1
+                                             ---------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=No --------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+organism
+----------------------------------------------------------------------------------------------------
+Other fungal species - Candida parapsilosis                                                         
+
+Other fungal species - Yeast not specified                                                          
+
+Other gram + species - 1 + B hemolytic streptococcus                                                
+
+Other gram + species - 2+ mixed gastro-intestinal flora                                             
+
+Other gram + species - Bacteroides fragilis                                                         
+
+Other gram + species - Bacteroides uniformis                                                        
+
+Other gram + species - Enterococcus species, strain 1                                               
+
+Other gram + species - Enterococcus species, strain 2                                               
+
+Other gram + species - Lactobacillus species                                                        
+
+Other gram + species - Serratia marcescens                                                          
+----------------------------------------------------------------------------------------------------
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                               N
+                                             Obs     N
+                                             ---------
+                                               1     1
+
+                                               2     2
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+                                             ---------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=Yes -------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+organism
+----------------------------------------------------------------------------------------------------
+Other Klebsiella species - (not specified)                                                          
+
+Other Klebsiella species - Klebsiella oxytoca                                                       
+
+Other fungal species - (not specified)                                                              
+
+Other gram + species - (not specified)                                                              
+
+Other gram + species - Enterococcus faecalis resistance no                                          
+
+Other gram + species - Enterococcus species not specified                                           
+
+Other gram + species - Lactobacillus species                                                        
+
+Other gram + species - Lactose fermenter gram negative rod                                          
+
+Other gram + species - Micrococcus species                                                          
+
+Other gram + species - Serratia marcescens                                                          
+
+Other gram - species - Citrobacter koseri                                                           
+
+Other gram - species - Enterobacter sakazakii                                                       
+----------------------------------------------------------------------------------------------------
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                               N
+                                             Obs     N
+                                             ---------
+                                               1     1
+
+                                               2     2
+
+                                               1     1
+
+                                               2     2
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+
+                                               1     1
+                                             ---------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=Yes -------------------------------------------
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                               N
+                                             Obs     N
+                                             ---------
+                                               1     1
+
+                                               1     1
+                                             ---------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+        Variable          N            Mean         Std Dev         Minimum         Maximum
+        -----------------------------------------------------------------------------------
+        cult_org_code    19      11.4210526       6.6609625       1.0000000      22.0000000
+        inc_infect       16       2.9375000       2.1746647       1.0000000      10.0000000
+        inc_patients     16       2.3750000       1.3102163       1.0000000       6.0000000
+        prev_patients    14       2.1428571       1.6104057       1.0000000       7.0000000
+        -----------------------------------------------------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                                  Analysis Variable : inc_infect 
+ 
+                           N
+  type                   Obs     N            Mean         Std Dev         Minimum         Maximum
+  ------------------------------------------------------------------------------------------------
+  Fungal Species           4     4       2.0000000       1.8257419               0       4.0000000
+
+  Gram+ Bacteria          10    10       2.6000000       3.0623158               0      10.0000000
+
+  Gram- Bacteria           8     8       1.6250000       1.1877349               0       3.0000000
+  ------------------------------------------------------------------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+       Obs      id     incident    organism
+
+         1    11023      No        Candida glabrata                                          
+         2    32209      No        Other fungal species - Yeast not specified                
+         3    32265      No        Other fungal species - Yeast not specified                
+         4    41076      No        Candida albicans                                          
+         5    41102      No        Other fungal species - Candida parapsilosis               
+         6    41143      No        Candida albicans                                          
+         7    42031      No        Candida albicans                                          
+         8    11004      No        Other gram + species - 1 + B hemolytic streptococcus      
+         9    11009      No        Vancomycin-susceptible Enterococcus faecalis              
+        10    11252      No        Methicillin-resistant Staphylococcus aureus (MRSA)        
+        11    12026      No        Other gram + species - Serratia marcescens                
+        12    21039      No        Other gram + species - 2+ mixed gastro-intestinal flora   
+        13    22018      No        Methicillin-resistant Staphylococcus aureus (MRSA)        
+        14    32125      No        Other gram + species - Bacteroides uniformis              
+        15    32294      No        Coagulase-negative Staphylococcus species                 
+        16    41076      No        Other gram + species - Lactobacillus species              
+        17    41143      No        Other gram + species - Enterococcus species, strain 1     
+        18    42007      No        Coagulase-negative Staphylococcus species                 
+        19    42031      No        Other gram + species - Bacteroides fragilis               
+        20    42054      No        Vancomycin-resistant Enterococcus faecium                 
+        21    12063      No        Klebsiella pneumoniae                                     
+        22    12064      No        Klebsiella pneumoniae                                     
+        23    32305      No        Enterobacter aerogenes                                    
+        24    41102      No        Enterobacter cloace                                       
+        25    41143      No        Escherichia coli                                          
+        26    42016      No        Enterobacter aerogenes                                    
+        27    42031      No        Enterobacter aerogenes                                    
+        28    12038      Yes       Candida albicans                                          
+        29    12300      Yes       Candida glabrata                                          
+        30    22018      Yes       Candida albicans                                          
+        31    32294      Yes       Candida albicans                                          
+        32    41076      Yes       Candida glabrata                                          
+        33    11122      Yes       Other gram + species - Enterococcus faecalis resistance no
+        34    12026      Yes       Other gram + species - Serratia marcescens                
+        35    12063      Yes       Coagulase-negative Staphylococcus species                 
+        36    12115      Yes       Clostridium difficile                                     
+        37    12300      Yes       Coagulase-negative Staphylococcus species                 
+        38    22028      Yes       Coagulase-negative Staphylococcus species                 
+        39    31088      Yes       Vancomycin-resistant Enterococcus faecium                 
+        40    31292      Yes       Methicillin-resistant Staphylococcus aureus (MRSA)        
+        41    32125      Yes       Methicillin-resistant Staphylococcus aureus (MRSA)        
+        42    32234      Yes       Coagulase-negative Staphylococcus species                 
+        43    32305      Yes       Vancomycin-resistant Enterococcus faecium                 
+        44    41068      Yes       Other gram + species - (not specified)                    
+        45    41076      Yes       Other gram + species - (not specified)                    
+        46    41145      Yes       Other gram + species - Enterococcus species not specified 
+        47    11122      Yes       Klebsiella pneumoniae                                     
+        48    12300      Yes       Other Klebsiella species - Klebsiella oxytoca             
+        49    22018      Yes       Pseudomonas aeruginosa                                    
+        50    22040      Yes       Klebsiella pneumoniae                                     
+        51    31292      Yes       Enterobacter cloace                                       
+        52    32064      Yes       Pseudomonas aeruginosa                                    
+        53    32224      Yes       Acinetobacter baumannii                                   
+        54    41076      Yes       Other Klebsiella species - (not specified)                
+        55    41145      Yes       Enterobacter cloace                                       
+        56    42160      Yes       Other gram - species - Citrobacter koseri                 
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+------------------------------------------- Incident=No --------------------------------------------
+
+                                        The MEANS Procedure
+
+                                Analysis Variable : id GLND ID No.
+ 
+                                                             N
+                               type                        Obs     N
+                               -------------------------------------
+                               == Any Fungal Species ==      7     7
+
+                               == Any Gram+ Bacteria ==     13    13
+
+                               == Any Gram- Bacteria ==      7     7
+                               -------------------------------------
+
+
+------------------------------------------- Incident=Yes -------------------------------------------
+
+                                Analysis Variable : id GLND ID No.
+ 
+                                                             N
+                               type                        Obs     N
+                               -------------------------------------
+                               == Any Fungal Species ==      5     5
+
+                               == Any Gram+ Bacteria ==     14    14
+
+                               == Any Gram- Bacteria ==     10    10
+                               -------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                                 Analysis Variable : id GLND ID No.
+ 
+                                                     N
+                                       Incident    Obs     N
+                                       ---------------------
+                                       No           21    21
+
+                                       Yes          21    21
+                                       ---------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                      Analysis Variable : dt_infect 1.1 Date of infect. onset
+ 
+                      Site code
+                      -------------------------------------------------------
+                      Bloodstream Infection                                  
+
+                      Eye, Ear, Nose, Throat, or Mouth Infection             
+
+                      Gastrointestinal System Infection                      
+
+                      Pneumonia                                              
+
+                                                                             
+
+                      Surgical Site Infection                                
+
+                                                                             
+
+                      Skin and Soft Tissue Infection                         
+
+                      Urinary Tract Infection                                
+
+                                                                             
+                      -------------------------------------------------------
+
+                      Analysis Variable : dt_infect 1.1 Date of infect. onset
+ 
+                                                                                              N
+Type code                                                                                   Obs   N
+---------------------------------------------------------------------------------------------------
+Laboratory-confirmed bloodstream infection                                                   11  11
+
+Oral Cavity (mouth, tongue, or gums)                                                          1   1
+
+Gastroenteritis                                                                               1   1
+
+PNU1 - Clinically defined pneumonia                                                           7   7
+
+PNU2 - Pneumonia with specific lab findings                                                   3   3
+
+Intra-abdominal, not specified elsewhere                                                      2   2
+
+Superficial incisional primary SSI                                                            1   1
+
+Soft tissue                                                                                   1   1
+
+Asymptomatic bacteriuria                                                                      5   5
+
+Symptomatic urinary tract infection                                                           7   7
+---------------------------------------------------------------------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+ 
+                      Analysis Variable : dt_infect 1.1 Date of infect. onset
+ 
+                 Incident  Site code
+                 -----------------------------------------------------------------
+                 No        Bloodstream Infection                                  
+
+                           Eye, Ear, Nose, Throat, or Mouth Infection             
+
+                           Gastrointestinal System Infection                      
+
+                           Pneumonia                                              
+
+                                                                                  
+
+                           Reproductive Tract Infection                           
+
+                           Surgical Site Infection                                
+
+                                                                                  
+
+                                                                                  
+
+                           Skin and Soft Tissue Infection                         
+
+                           Urinary Tract Infection                                
+
+                                                                                  
+
+                 Yes       Bloodstream Infection                                  
+
+                           Eye, Ear, Nose, Throat, or Mouth Infection             
+
+                           Gastrointestinal System Infection                      
+
+                           Pneumonia                                              
+
+                                                                                  
+
+                           Surgical Site Infection                                
+
+                                                                                  
+
+                           Skin and Soft Tissue Infection                         
+
+                           Urinary Tract Infection                                
+
+                                                                                  
+                 -----------------------------------------------------------------
+
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+ 
+                      Analysis Variable : dt_infect 1.1 Date of infect. onset
+ 
+Incident  Type code
+----------------------------------------------------------------------------------------------------
+No        Laboratory-confirmed bloodstream infection                                                
+
+          Sinusitis                                                                                 
+
+          Intra-abdominal, not specified elsewhere                                                  
+
+          PNU1 - Clinically defined pneumonia                                                       
+
+          PNU2 - Pneumonia with specific lab findings                                               
+
+          Other infections of the male or female reproductive tract                                 
+
+          Intra-abdominal, not specified elsewhere                                                  
+
+          Superficial incisional primary SSI                                                        
+
+          Skin                                                                                      
+
+          Soft tissue                                                                               
+
+          Asymptomatic bacteriuria                                                                  
+
+          Symptomatic urinary tract infection                                                       
+
+Yes       Laboratory-confirmed bloodstream infection                                                
+
+          Oral Cavity (mouth, tongue, or gums)                                                      
+
+          Gastroenteritis                                                                           
+
+          PNU1 - Clinically defined pneumonia                                                       
+
+          PNU2 - Pneumonia with specific lab findings                                               
+
+          Intra-abdominal, not specified elsewhere                                                  
+
+          Superficial incisional primary SSI                                                        
+
+          Soft tissue                                                                               
+
+          Asymptomatic bacteriuria                                                                  
+
+          Symptomatic urinary tract infection                                                       
+----------------------------------------------------------------------------------------------------
+
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                      Analysis Variable : dt_infect 1.1 Date of infect. onset
+ 
+                                                    N
+                                        Incident  Obs     N
+                                        -------------------
+                                        No          5     5
+
+                                                    1     1
+
+                                                    1     1
+
+                                                    5     5
+
+                                                    4     4
+
+                                                    1     1
+
+                                                    4     4
+
+                                                    1     1
+
+                                                    1     1
+
+                                                    1     1
+
+                                                    1     1
+
+                                                    1     1
+
+                                        Yes         9     9
+
+                                                    1     1
+
+                                                    1     1
+
+                                                    7     7
+
+                                                    3     3
+
+                                                    2     2
+
+                                                    1     1
+
+                                                    1     1
+
+                                                    5     5
+
+                                                    6     6
+                                        -------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                       Analysis Variable : dt_infect 1.1 Date of infect. onset
+ 
+                                                  N
+                                                 --
+                                                 39
+                                                 --
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                      Analysis Variable : dt_infect 1.1 Date of infect. onset
+ 
+                                                     N
+                                       Incident    Obs     N
+                                       ---------------------
+                                       No           21    21
+
+                                       Yes          22    22
+                                       ---------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                      Analysis Variable : dt_infect 1.1 Date of infect. onset
+ 
+                                                       N
+                                           Center    Obs     N
+                                     -------------------------
+                                                1     10    10
+
+                                                2      7     7
+
+                                                3     13    13
+
+                                                4      9     9
+                                     -------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                      Analysis Variable : dt_infect 1.1 Date of infect. onset
+ 
+                                                             N
+                               Incident          Center    Obs     N
+                               -------------------------------------
+                               No                     1      6     6
+
+                                                      2      2     2
+
+                                                      3      5     5
+
+                                                      4      7     7
+
+                               Yes                    1      6     6
+
+                                                      2      3     3
+
+                                                      3      9     9
+
+                                                      4      4     4
+                               -------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                N
+      center  Obs  Variable   Label                      N          Mean       Std Dev       Minimum
+----------------------------------------------------------------------------------------------------
+           1   25  dfc        Date Form Completed       25      17700.92   374.1463528      17127.00
+                   dt_random  1.1 Date Randomized       25      17700.92   374.1463528      17127.00
+                   id         GLND ID No.               25      11621.72   523.4003025      11004.00
+                   DFSTATUS   DataFax Record Status     25     1.0000000             0     1.0000000
+                   DFVALID    DataFax Validation Level  25     2.8800000     0.3316625     2.0000000
+                   DFSTUDY    DataFax Study Number      25    12.0000000             0    12.0000000
+                   DFPLATE    DataFax Plate Number      25     8.0000000             0     8.0000000
+                   DFSEQ      DataFax Sequence Number   25     1.0000000             0     1.0000000
+                   apache_2   1.3 APACHE II             25     1.4800000     0.5099020     1.0000000
+                   treatment  3.1 Treatment             25     2.0000000             0     2.0000000
+                   DFSCREEN   DataFax Screen Status     25     1.0000000             0     1.0000000
+
+           2    5  dfc        Date Form Completed        5      17649.60   196.2149332      17449.00
+                   dt_random  1.1 Date Randomized        5      17649.60   196.2149332      17449.00
+                   id         GLND ID No.                5      21628.40   548.1982306      21017.00
+                   DFSTATUS   DataFax Record Status      5     1.0000000             0     1.0000000
+                   DFVALID    DataFax Validation Level   5     3.0000000             0     3.0000000
+                   DFSTUDY    DataFax Study Number       5    12.0000000             0    12.0000000
+                   DFPLATE    DataFax Plate Number       5     8.0000000             0     8.0000000
+                   DFSEQ      DataFax Sequence Number    5     1.0000000             0     1.0000000
+                   apache_2   1.3 APACHE II              5     1.6000000     0.5477226     1.0000000
+                   treatment  3.1 Treatment              5     2.0000000             0     2.0000000
+                   DFSCREEN   DataFax Screen Status      5     1.0000000             0     1.0000000
+
+           3   18  dfc        Date Form Completed       18      17954.06   376.7499518      17332.00
+                   dt_random  1.1 Date Randomized       18      17954.06   376.7499518      17332.00
+                   id         GLND ID No.               18      31903.11   496.3224626      31032.00
+                   DFSTATUS   DataFax Record Status     18     1.0000000             0     1.0000000
+                   DFVALID    DataFax Validation Level  18     2.6666667     0.4850713     2.0000000
+                   DFSTUDY    DataFax Study Number      18    12.0000000             0    12.0000000
+                   DFPLATE    DataFax Plate Number      18     8.0000000             0     8.0000000
+                   DFSEQ      DataFax Sequence Number   18     1.0000000             0     1.0000000
+                   apache_2   1.3 APACHE II             18     1.7222222     0.4608886     1.0000000
+                   treatment  3.1 Treatment             18     2.0000000             0     2.0000000
+                   DFSCREEN   DataFax Screen Status     18     1.0000000             0     1.0000000
+
+           4   16  dfc        Date Form Completed       16      17887.94   421.7772665      17269.00
+                   dt_random  1.1 Date Randomized       16      17887.94   421.7772665      17269.00
+                   id         GLND ID No.               16      41465.38   481.7098539      41032.00
+                   DFSTATUS   DataFax Record Status     16     1.0000000             0     1.0000000
+                   DFVALID    DataFax Validation Level  16     2.5000000     0.5163978     2.0000000
+                   DFSTUDY    DataFax Study Number      16    12.0000000             0    12.0000000
+                   DFPLATE    DataFax Plate Number      16     8.0000000             0     8.0000000
+                   DFSEQ      DataFax Sequence Number   16     1.0000000             0     1.0000000
+                   apache_2   1.3 APACHE II             16     1.3125000     0.4787136     1.0000000
+                   treatment  3.1 Treatment             16     2.0000000             0     2.0000000
+                   DFSCREEN   DataFax Screen Status     16     1.0000000             0     1.0000000
+
+           5    2  dfc        Date Form Completed        2      18417.00   108.8944443      18340.00
+                   dt_random  1.1 Date Randomized        2      18417.00   108.8944443      18340.00
+                   id         GLND ID No.                2      51540.50   690.8433252      51052.00
+                   DFSTATUS   DataFax Record Status      2     1.0000000             0     1.0000000
+----------------------------------------------------------------------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                N
+      center  Obs  Variable   Label                      N          Mean       Std Dev       Minimum
+----------------------------------------------------------------------------------------------------
+           5    2  DFVALID    DataFax Validation Level   2     2.0000000             0     2.0000000
+                   DFSTUDY    DataFax Study Number       2    12.0000000             0    12.0000000
+                   DFPLATE    DataFax Plate Number       2     8.0000000             0     8.0000000
+                   DFSEQ      DataFax Sequence Number    2     1.0000000             0     1.0000000
+                   apache_2   1.3 APACHE II              2     1.5000000     0.7071068     1.0000000
+                   treatment  3.1 Treatment              2     2.0000000             0     2.0000000
+                   DFSCREEN   DataFax Screen Status      2     1.0000000             0     1.0000000
+----------------------------------------------------------------------------------------------------
+
+                                N
+                      center  Obs  Variable   Label                          Maximum
+                --------------------------------------------------------------------
+                           1   25  dfc        Date Form Completed           18429.00
+                                   dt_random  1.1 Date Randomized           18429.00
+                                   id         GLND ID No.                   12315.00
+                                   DFSTATUS   DataFax Record Status        1.0000000
+                                   DFVALID    DataFax Validation Level     3.0000000
+                                   DFSTUDY    DataFax Study Number        12.0000000
+                                   DFPLATE    DataFax Plate Number         8.0000000
+                                   DFSEQ      DataFax Sequence Number      1.0000000
+                                   apache_2   1.3 APACHE II                2.0000000
+                                   treatment  3.1 Treatment                2.0000000
+                                   DFSCREEN   DataFax Screen Status        1.0000000
+
+                           2    5  dfc        Date Form Completed           17842.00
+                                   dt_random  1.1 Date Randomized           17842.00
+                                   id         GLND ID No.                   22040.00
+                                   DFSTATUS   DataFax Record Status        1.0000000
+                                   DFVALID    DataFax Validation Level     3.0000000
+                                   DFSTUDY    DataFax Study Number        12.0000000
+                                   DFPLATE    DataFax Plate Number         8.0000000
+                                   DFSEQ      DataFax Sequence Number      1.0000000
+                                   apache_2   1.3 APACHE II                2.0000000
+                                   treatment  3.1 Treatment                2.0000000
+                                   DFSCREEN   DataFax Screen Status        1.0000000
+
+                           3   18  dfc        Date Form Completed           18518.00
+                                   dt_random  1.1 Date Randomized           18518.00
+                                   id         GLND ID No.                   32318.00
+                                   DFSTATUS   DataFax Record Status        1.0000000
+                                   DFVALID    DataFax Validation Level     3.0000000
+                                   DFSTUDY    DataFax Study Number        12.0000000
+                                   DFPLATE    DataFax Plate Number         8.0000000
+                                   DFSEQ      DataFax Sequence Number      1.0000000
+                                   apache_2   1.3 APACHE II                2.0000000
+                                   treatment  3.1 Treatment                2.0000000
+                                   DFSCREEN   DataFax Screen Status        1.0000000
+
+                           4   16  dfc        Date Form Completed           18493.00
+                                   dt_random  1.1 Date Randomized           18493.00
+                                   id         GLND ID No.                   42160.00
+                                   DFSTATUS   DataFax Record Status        1.0000000
+                --------------------------------------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                        The MEANS Procedure
+
+                                N
+                      center  Obs  Variable   Label                          Maximum
+                --------------------------------------------------------------------
+                           4   16  DFVALID    DataFax Validation Level     3.0000000
+                                   DFSTUDY    DataFax Study Number        12.0000000
+                                   DFPLATE    DataFax Plate Number         8.0000000
+                                   DFSEQ      DataFax Sequence Number      1.0000000
+                                   apache_2   1.3 APACHE II                2.0000000
+                                   treatment  3.1 Treatment                2.0000000
+                                   DFSCREEN   DataFax Screen Status        1.0000000
+
+                           5    2  dfc        Date Form Completed           18494.00
+                                   dt_random  1.1 Date Randomized           18494.00
+                                   id         GLND ID No.                   52029.00
+                                   DFSTATUS   DataFax Record Status        1.0000000
+                                   DFVALID    DataFax Validation Level     2.0000000
+                                   DFSTUDY    DataFax Study Number        12.0000000
+                                   DFPLATE    DataFax Plate Number         8.0000000
+                                   DFSEQ      DataFax Sequence Number      1.0000000
+                                   apache_2   1.3 APACHE II                2.0000000
+                                   treatment  3.1 Treatment                2.0000000
+                                   DFSCREEN   DataFax Screen Status        1.0000000
+                --------------------------------------------------------------------
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+                                       The CONTENTS Procedure
+
+  Data Set Name        GLND_REP.EPISODE_SUMMARY_CLOSED                  Observations          32 
+  Member Type          DATA                                             Variables             17 
+  Engine               V9                                               Indexes               0  
+  Created              Friday, October 08, 2010 01:35:58 PM             Observation Length    248
+  Last Modified        Friday, October 08, 2010 01:35:58 PM             Deleted Observations  0  
+  Protection                                                            Compressed            NO 
+  Data Set Type                                                         Sorted                NO 
+  Label                                                                                          
+  Data Representation  HP_UX_64, RS_6000_AIX_64, SOLARIS_64, HP_IA64                             
+  Encoding             latin1  Western (ISO)                                                     
+
+
+                                 Engine/Host Dependent Information
+
+          Data Set Page Size          24576                                              
+          Number of Data Set Pages    1                                                  
+          First Data Page             1                                                  
+          Max Obs per Page            98                                                 
+          Obs in First Data Page      32                                                 
+          Number of Data Set Repairs  0                                                  
+          File Name                   /glnd/sas/reporting/episode_summary_closed.sas7bdat
+          Release Created             9.0101M3                                           
+          Host Created                SunOS                                              
+          Inode Number                1566625                                            
+          Access Permission           rw-r-----                                          
+          Owner Name                  bwu2                                               
+          File Size (bytes)           32768                                              
+
+
+                             Alphabetic List of Variables and Attributes
+ 
+            #    Variable         Type    Len    Format         Label
+
+           11    center           Num       8                   Center                   
+           12    center_n         Num       8                   GLND ID No.              
+            5    inc_infect       Num       8                   1.1 Date of infect. onset
+            4    inc_patients     Num       8                   1.1 Date of infect. onset
+            7    inc_percent      Num       8                                            
+            9    incident_A       Char     21                   Treatment A              
+           15    incident_B       Char     21                   Treatment B              
+           13    num              Num       8                                            
+            3    prev_patients    Num       8                   1.1 Date of infect. onset
+            6    prev_percent     Num       8                                            
+            8    prevalent_A      Char     16                   Treatment A              
+           14    prevalent_B      Char     16                   Treatment B              
+           17    sc               Char     30                   Site Code                
+            1    site_code        Char      8    $SITE_CODE.    Site Code                
+           10    sort             Num       8                                            
+           16    tc               Char     50                   Type Code                
+            2    type_code        Char      8    $TYPE_CODE.    Type Code                
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+ 
+Obs site_code
+
+  1 Bloodstream Infection                     
+  2 Central Nervous System Infection          
+  3 Eye, Ear, Nose, Throat, or Mouth Infection
+  4 Cardiovascular System Infection           
+  5 Eye, Ear, Nose, Throat, or Mouth Infection
+  6 Cardiovascular System Infection           
+  7 Gastrointestinal System Infection         
+  8 Gastrointestinal System Infection         
+  9 Gastrointestinal System Infection         
+ 10 Pneumonia                                 
+
+                                                                   prev_       inc_       inc_
+Obs type_code                                                    patients    patients    infect
+
+  1 Laboratory-confirmed bloodstream infection                       5           9         11  
+  2 Menitigitis or ventriculitis                                     0           1          1  
+  3 Oral Cavity (mouth, tongue, or gums)                             0           1          1  
+  4 Mediastinitis                                                    1           0          0  
+  5 Sinusitis                                                        1           0          0  
+  6 Arterial or venous infection                                     0           1          1  
+  7 Gastroenteritis                                                  0           1          1  
+  8 Intra-abdominal, not specified elsewhere                         1           0          0  
+  9 Gastrointestinal (GI) tract                                      1           1          1  
+ 10 PNU1 - Clinically defined pneumonia                              5           7          7  
+
+     prev_     inc_
+Obs percent  percent   prevalent_A       incident_A      sort  center  center_n  num   prevalent_B
+
+  1  7.5758  13.6364  3/64 (4.7%)     18 (17/64, 26.6%)    0      .        .       1  5/66 (7.6%)  
+  2  0.0000   1.5625  0/64 (0.0%)      1 (1/64, 1.6%)      0      .        .       2  0/0 (0.0%)   
+  3  0.0000   1.5152  0/0 (0.0%)     0 (0/0, 0.0%)         0      .        .       2  0/66 (0.0%)  
+  4  1.5625   0.0000  1/64 (1.6%)      0 (0/64, 0.0%)      0      .        .       3  0/0 (0.0%)   
+  5  1.5152   0.0000  0/0 (0.0%)     0 (0/0, 0.0%)         0      .        .       3  1/66 (1.5%)  
+  6  0.0000   1.5625  0/64 (0.0%)      1 (1/64, 1.6%)      0      .        .       4  0/0 (0.0%)   
+  7  0.0000   1.5152  1/64 (1.6%)      3 (3/64, 4.7%)      0      .        .       4  0/66 (0.0%)  
+  8  1.5152   0.0000  0/0 (0.0%)     0 (0/0, 0.0%)         0      .        .       5  1/66 (1.5%)  
+  9  1.5625   1.5625  1/64 (1.6%)      1 (1/64, 1.6%)      0      .        .       6  0/0 (0.0%)   
+ 10  7.5758  10.6061  4/64 (6.3%)      4 (4/64, 6.3%)      0      .        .       6  5/66 (7.6%)  
+
+ 
+Obs     incident_B      tc                                           sc
+
+  1  11 (9/66, 13.6%)   Laboratory-confirmed bloodstream infection   Bloodstream Infection         
+  2 0 (0/0, 0.0%)       Menitigitis or ventriculitis                 Central Nervous System Infecti
+  3   1 (1/66, 1.5%)    Oral Cavity (mouth, tongue, or gums)         Eye, Ear, Nose, Throat, or Mou
+  4 0 (0/0, 0.0%)       Mediastinitis                                Cardiovascular System Infectio
+  5   0 (0/66, 0.0%)    Sinusitis                                    Eye, Ear, Nose, Throat, or Mou
+  6 0 (0/0, 0.0%)       Arterial or venous infection                 Cardiovascular System Infectio
+  7   1 (1/66, 1.5%)    Gastroenteritis                              Gastrointestinal System Infect
+  8   0 (0/66, 0.0%)    Intra-abdominal, not specified elsewhere     Gastrointestinal System Infect
+  9 0 (0/0, 0.0%)       Gastrointestinal (GI) tract                  Gastrointestinal System Infect
+ 10   7 (7/66, 10.6%)   PNU1 - Clinically defined pneumonia          Pneumonia                     
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+ 
+Obs site_code
+
+ 11 Pneumonia                                 
+ 12 Reproductive Tract Infection              
+ 13 Surgical Site Infection                   
+ 14 Surgical Site Infection                   
+ 15 Surgical Site Infection                   
+ 16 Surgical Site Infection                   
+ 17 Surgical Site Infection                   
+ 18 Skin and Soft Tissue Infection            
+ 19 Surgical Site Infection                   
+ 20 Urinary Tract Infection                   
+
+                                                                   prev_       inc_       inc_
+Obs type_code                                                    patients    patients    infect
+
+ 11 PNU2 - Pneumonia with specific lab findings                      4           3          3  
+ 12 Other infections of the male or female reproductive tract        1           0          0  
+ 13 Deep incisional primary SSI                                      1           0          0  
+ 14 Intra-abdominal, not specified elsewhere                         4           2          2  
+ 15 Gastrointestinal (GI) tract                                      1           0          0  
+ 16 Superficial incisional primary SSI                               1           1          1  
+ 17 Skin                                                             1           0          0  
+ 18 Soft tissue                                                      1           1          1  
+ 19 Soft tissue                                                      0           1          1  
+ 20 Asymptomatic bacteriuria                                         1           5          5  
+
+     prev_     inc_
+Obs percent  percent   prevalent_A       incident_A      sort  center  center_n  num   prevalent_B
+
+ 11  6.0606   4.5455  6/64 (9.4%)      5 (5/64, 7.8%)      0      .        .       7  4/66 (6.1%)  
+ 12  1.5152   0.0000  0/0 (0.0%)     0 (0/0, 0.0%)         0      .        .       8  1/66 (1.5%)  
+ 13  1.5625   0.0000  1/64 (1.6%)      0 (0/64, 0.0%)      0      .        .       9  0/0 (0.0%)   
+ 14  6.0606   3.0303  1/64 (1.6%)      4 (3/64, 4.7%)      0      .        .       9  4/66 (6.1%)  
+ 15  1.5625   0.0000  1/64 (1.6%)      0 (0/64, 0.0%)      0      .        .      10  0/0 (0.0%)   
+ 16  1.5152   1.5152  0/0 (0.0%)     0 (0/0, 0.0%)         0      .        .      10  1/66 (1.5%)  
+ 17  1.5152   0.0000  1/64 (1.6%)      0 (0/64, 0.0%)      0      .        .      11  1/66 (1.5%)  
+ 18  1.5152   1.5152  0/0 (0.0%)     0 (0/0, 0.0%)         0      .        .      12  1/66 (1.5%)  
+ 19  0.0000   1.5625  0/64 (0.0%)      1 (1/64, 1.6%)      0      .        .      13  0/0 (0.0%)   
+ 20  1.5152   7.5758  3/64 (4.7%)      9 (8/64, 12.5%)     0      .        .      13  1/66 (1.5%)  
+
+ 
+Obs     incident_B      tc                                           sc
+
+ 11   3 (3/66, 4.5%)    PNU2 - Pneumonia with specific lab findings  Pneumonia                     
+ 12   0 (0/66, 0.0%)                                                                               
+ 13 0 (0/0, 0.0%)                                                    Surgical Site Infection       
+ 14   2 (2/66, 3.0%)    Intra-abdominal, not specified elsewhere     Surgical Site Infection       
+ 15 0 (0/0, 0.0%)       Gastrointestinal (GI) tract                  Surgical Site Infection       
+ 16   1 (1/66, 1.5%)                                                 Surgical Site Infection       
+ 17   0 (0/66, 0.0%)                                                 Surgical Site Infection       
+ 18   1 (1/66, 1.5%)                                                 Skin and Soft Tissue Infection
+ 19 0 (0/0, 0.0%)                                                    Surgical Site Infection       
+ 20   5 (5/66, 7.6%)    Asymptomatic bacteriuria                     Urinary Tract Infection       
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+ 
+Obs site_code
+
+ 21 Surgical Site Infection                   
+ 22 Urinary Tract Infection                   
+ 23 Skin and Soft Tissue Infection            
+ 24 Urinary Tract Infection                   
+ 25 Overall                                   
+ 26                                           
+ 27 Totals by site:                           
+ 28 Emory                                     
+ 29 Miriam                                    
+ 30 Vanderbilt                                
+
+                                                                   prev_       inc_       inc_
+Obs type_code                                                    patients    patients    infect
+
+ 21 Unknown                                                          0           1          1  
+ 22 Symptomatic urinary tract infection                              1           6          7  
+ 23 Breast abscess or mastitis                                       0           1          1  
+ 24 Other infections of the urinary tract                            0           1          1  
+ 25                                                                 21          22         39  
+ 26                                                                  .           .          .  
+ 27                                                                  .           .          .  
+ 28                                                                  6           6         10  
+ 29                                                                  2           3          7  
+ 30                                                                  5           9         13  
+
+     prev_     inc_
+Obs percent  percent   prevalent_A       incident_A      sort  center  center_n  num   prevalent_B
+
+ 21  0.0000   1.5625  0/64 (0.0%)      1 (1/64, 1.6%)      0      .        .      14  0/0 (0.0%)   
+ 22  1.5152   9.0909  0/64 (0.0%)     10 (10/64, 15.6%)    0      .        .      14  1/66 (1.5%)  
+ 23  0.0000   1.5625  0/64 (0.0%)      1 (1/64, 1.6%)      0      .        .      15  0/0 (0.0%)   
+ 24  0.0000   1.5625  0/64 (0.0%)      1 (1/64, 1.6%)      0      .        .      17  0/0 (0.0%)   
+ 25 31.8182  33.3333  19/64 (29.7%)   60 (32/64, 50.0%)    1      .        .      15  21/66 (31.8%)
+ 26   .        .                                           2      .        .      16               
+ 27   .        .                                           3      .        .      17               
+ 28 24.0000  24.0000  5/26 (19.2%)    27 (14/26, 53.8%)    4      1       25      18  6/25 (24.0%) 
+ 29 40.0000  60.0000  3/4 (75.0%)      6 (3/4, 75.0%)      4      2        5      19  2/5 (40.0%)  
+ 30 27.7778  50.0000  4/16 (25.0%)     5 (3/16, 18.8%)     4      3       18      20  5/18 (27.8%) 
+
+ 
+Obs     incident_B      tc                                           sc
+
+ 21 0 (0/0, 0.0%)                                                    Surgical Site Infection       
+ 22   7 (6/66, 9.1%)    Symptomatic urinary tract infection          Urinary Tract Infection       
+ 23 0 (0/0, 0.0%)                                                    Skin and Soft Tissue Infection
+ 24 0 (0/0, 0.0%)       Other infections of the urinary tract        Urinary Tract Infection       
+ 25  39 (22/66, 33.3%)                                                                             
+ 26                                                                                                
+ 27                                                                  Totals by site:               
+ 28  10 (6/25, 24.0%)                                                Emory                         
+ 29   7 (3/5, 60.0%)                                                 Miriam                        
+ 30  13 (9/18, 50.0%)                                                Vanderbilt                    
+ 
+----------------------------------------------------------------------------------------------------
+ 
+                                           The SAS System
+
+ 
+Obs site_code
+
+ 31 Colorado                                  
+ 32 Wisconsin                                 
+
+                                                                   prev_       inc_       inc_
+Obs type_code                                                    patients    patients    infect
+
+ 31                                                                  7           4          9  
+ 32                                                                  0           0          0  
+
+     prev_     inc_
+Obs percent  percent   prevalent_A       incident_A      sort  center  center_n  num   prevalent_B
+
+ 31 43.7500  25.0000  6/16 (37.5%)    21 (11/16, 68.8%)    4      4       16      21  7/16 (43.8%) 
+ 32  0.0000   0.0000  1/2 (50.0%)      1 (1/2, 50.0%)      4      5        2      22  0/2 (0.0%)   
+
+ 
+Obs     incident_B      tc                                           sc
+
+ 31   9 (4/16, 25.0%)                                                Colorado                      
+ 32   0 (0/2, 0.0%)                                                                                
+ 
+-----------------------------------------------------------------------------------------------------------------------------
+ 
+                                           GLND - Summary of Nosocomial Infections
+                                                    By Cultured Organism
+
+                                                                                A                           A
+                                                                        Prevalent Infec.:           Incident Infec.:
+ Class           Organism                                              # patients (% prev.)   # infec. (#patients, % incid.)
+
+ Gram+ Bacteria  Methicillin-susceptible Staphylococcus aureus (MSSA)    2/64 (3.1%)                 0 (0/64, 0.0%)         
+                 Methicillin-resistant Staphylococcus aureus (MRSA)      2/64 (3.1%)                 2 (2/64, 3.1%)         
+                 Coagulase-negative Staphylococcus species               2/64 (3.1%)                 6 (5/64, 7.8%)         
+                 Vancomycin-susceptible Enterococcus faecalis            3/64 (4.7%)                 2 (2/64, 3.1%)         
+                 Vancomycin-resistant Enterococcus faecalis              0/64 (0.0%)                 0 (0/64, 0.0%)         
+                 Vancomycin-susceptible Enterococcus faecium             0/64 (0.0%)                 0 (0/64, 0.0%)         
+                 Vancomycin-resistant Enterococcus faecium               1/64 (1.6%)                 6 (4/64, 6.3%)         
+                 Streptococcus pneumoniae                                0/64 (0.0%)                 0 (0/64, 0.0%)         
+                 Clostridium difficile                                   1/64 (1.6%)                 4 (4/64, 6.3%)         
+                 Other gram + species                                    6/64 (9.4%)                16 (8/64, 12.5%)        
+                 -- (not specified)                                      0/64 (0.0%)                 1 (1/64, 1.6%)         
+                 -- Chryseobacterium indologenes                         1/64 (1.6%)                 0 (0/64, 0.0%)         
+                 -- Citrobacter amalonaticus                             0/64 (0.0%)                 1 (1/64, 1.6%)         
+                 -- 1 + B hemolytic streptococcus                        0 (0/ 64, 0.0%)           0 (0/ 64, 0.0%)          
+                 -- Citrobacter freundii                                 0/64 (0.0%)                 2 (1/64, 1.6%)         
+                 -- 2+ mixed gastro-intestinal flora                     0 (0/ 64, 0.0%)           0 (0/ 64, 0.0%)          
+                 -- Bacteroides fragilis                                 0 (0/ 64, 0.0%)           0 (0/ 64, 0.0%)          
+                 -- Clostridium tertium                                  1/64 (1.6%)                 0 (0/64, 0.0%)         
+                 -- Bacteroides uniformis                                0 (0/ 64, 0.0%)           0 (0/ 64, 0.0%)          
+                 -- Enterococcus faecalis resistance no                  0 (0/ 64, 0.0%)           0 (0/ 64, 0.0%)          
+                 -- Enterococcus species, beta-lactamas                  1/64 (1.6%)                 1 (1/64, 1.6%)         
+                 -- Enterococcus species not specified                   0/64 (0.0%)                 2 (2/64, 3.1%)         
+
+                          B                             B
+                  Prevalent Infec.:             Incident Infec.:
+ Class           # patients (% prev.)     # infec. (#patients, % incid.)
+
+ Gram+ Bacteria    1/66 (1.5%)                   3 (2/66, 3.0%)         
+                   2/66 (3.0%)                   3 (3/66, 4.5%)         
+                   2/66 (3.0%)                   4 (4/66, 6.1%)         
+                   2/66 (3.0%)                   0 (0/66, 0.0%)         
+                   0/66 (0.0%)                   1 (1/66, 1.5%)         
+                   0/66 (0.0%)                   0 (0/66, 0.0%)         
+                   1/66 (1.5%)                   4 (3/66, 4.5%)         
+                   0/66 (0.0%)                   0 (0/66, 0.0%)         
+                   0/66 (0.0%)                   1 (1/66, 1.5%)         
+                   7/66 (10.6%)                 10 (6/66, 9.1%)         
+                   0/66 (0.0%)                   3 (2/66, 3.0%)         
+                   0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                   0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                   1/66 (1.5%)                   0 (0/66, 0.0%)         
+                   0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                   1/66 (1.5%)                   0 (0/66, 0.0%)         
+                   1/66 (1.5%)                   0 (0/66, 0.0%)         
+                   0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                   1/66 (1.5%)                   0 (0/66, 0.0%)         
+                   0/66 (0.0%)                   2 (1/66, 1.5%)         
+                   0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                   0/66 (0.0%)                   1 (1/66, 1.5%)         
+ 
+-----------------------------------------------------------------------------------------------------------------------------
+ 
+                                           GLND - Summary of Nosocomial Infections
+                                                    By Cultured Organism
+
+                                                                                A                           A
+                                                                        Prevalent Infec.:           Incident Infec.:
+ Class           Organism                                              # patients (% prev.)   # infec. (#patients, % incid.)
+
+ Gram+ Bacteria  -- Enterococcus species, strain 1                       0 (0/ 64, 0.0%)           0 (0/ 64, 0.0%)          
+                 -- Few streptococcus, viridans group                    0/64 (0.0%)                 1 (1/64, 1.6%)         
+                 -- Enterococcus species, strain 2                       0 (0/ 64, 0.0%)           0 (0/ 64, 0.0%)          
+                 -- Haemophilus influenzae                               1/64 (1.6%)                 0 (0/64, 0.0%)         
+                 -- Lactobacillus species                                0 (0/ 64, 0.0%)           0 (0/ 64, 0.0%)          
+                 -- Non-lactose fermenter gram negative                  0/64 (0.0%)                 1 (1/64, 1.6%)         
+                 -- Lactose fermenter gram negative rod                  0/64 (0.0%)                 1 (1/64, 1.6%)         
+                 -- Proteus species                                      1/64 (1.6%)                 0 (0/64, 0.0%)         
+                 -- Micrococcus species                                  0 (0/ 64, 0.0%)           0 (0/ 64, 0.0%)          
+                 -- Rare gram positive cocci pairs                       0/64 (0.0%)                 1 (1/64, 1.6%)         
+                 -- Serratia marcescens                                  0 (0/ 64, 0.0%)           0 (0/ 64, 0.0%)          
+                 -- Staphylococcus aureus resistance un                  0/64 (0.0%)                 2 (1/64, 1.6%)         
+                 -- Stenotrophomonas maltophilia                         2/64 (3.1%)                 3 (3/64, 4.7%)         
+                 -- Streptococcus group C                                1/64 (1.6%)                 0 (0/64, 0.0%)         
+                 == Any Gram+ Bacteria ==                                10/64 (15.6%)              36 (17/64, 26.6%)       
+                                                                                                                            
+
+                          B                             B
+                  Prevalent Infec.:             Incident Infec.:
+ Class           # patients (% prev.)     # infec. (#patients, % incid.)
+
+                   1/66 (1.5%)                   0 (0/66, 0.0%)         
+                   0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                   1/66 (1.5%)                   0 (0/66, 0.0%)         
+                   0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                   1/66 (1.5%)                   1 (1/66, 1.5%)         
+                   0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                   0/66 (0.0%)                   1 (1/66, 1.5%)         
+                   0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                   0/66 (0.0%)                   1 (1/66, 1.5%)         
+                   0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                   1/66 (1.5%)                   1 (1/66, 1.5%)         
+                   0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                   0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                   0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                   13/66 (19.7%)                26 (14/66, 21.2%)       
+                                                                        
+
+                                                                                A                           A
+                                                                        Prevalent Infec.:           Incident Infec.:
+ Class           Organism                                              # patients (% prev.)   # infec. (#patients, % incid.)
+
+ Gram- Bacteria  Pseudomonas aeruginosa                                  0/64 (0.0%)                 6 (6/64, 9.4%)         
+                 Escherichia coli                                        1/64 (1.6%)                 7 (6/64, 9.4%)         
+
+                          B                             B
+                  Prevalent Infec.:             Incident Infec.:
+ Class           # patients (% prev.)     # infec. (#patients, % incid.)
+
+ Gram- Bacteria    1/66 (1.5%)                   2 (2/66, 3.0%)         
+                   1/66 (1.5%)                   0 (0/66, 0.0%)         
+ 
+-----------------------------------------------------------------------------------------------------------------------------
+ 
+                                           GLND - Summary of Nosocomial Infections
+                                                    By Cultured Organism
+
+                                                                                A                           A
+                                                                        Prevalent Infec.:           Incident Infec.:
+ Class           Organism                                              # patients (% prev.)   # infec. (#patients, % incid.)
+
+ Gram- Bacteria  Acinetobacter baumannii                                 0/64 (0.0%)                 0 (0/64, 0.0%)         
+                 Enterobacter cloace                                     2/64 (3.1%)                 1 (1/64, 1.6%)         
+                 Enterobacter aerogenes                                  1/64 (1.6%)                 1 (1/64, 1.6%)         
+                 Klebsiella pneumoniae                                   0/64 (0.0%)                 7 (4/64, 6.3%)         
+                 Other Klebsiella species                                1/64 (1.6%)                 1 (1/64, 1.6%)         
+                 -- (not specified)                                      0 (0/ 64, 0.0%)           0 (0/ 64, 0.0%)          
+                 -- Klebsiella not specified                             1/64 (1.6%)                 1 (1/64, 1.6%)         
+                 -- Klebsiella oxytoca                                   0 (0/ 64, 0.0%)           0 (0/ 64, 0.0%)          
+                 Other gram - species                                    0/64 (0.0%)                 4 (3/64, 4.7%)         
+                 -- Citrobacter koseri                                   0 (0/ 64, 0.0%)           0 (0/ 64, 0.0%)          
+                 -- Enterobacter sakazakii                               0 (0/ 64, 0.0%)           0 (0/ 64, 0.0%)          
+                 -- Enterobacter species not specified                   0/64 (0.0%)                 1 (1/64, 1.6%)         
+                 -- Few gram negative rods                               0/64 (0.0%)                 1 (1/64, 1.6%)         
+                 -- Rare gram negative rod - lactose fe                  0/64 (0.0%)                 1 (1/64, 1.6%)         
+                 -- Stenotrophomonas maltophilia                         0/64 (0.0%)                 1 (1/64, 1.6%)         
+                 == Any Gram- Bacteria ==                                5/64 (7.8%)                27 (14/64, 21.9%)       
+                                                                                                                            
+
+                          B                             B
+                  Prevalent Infec.:             Incident Infec.:
+ Class           # patients (% prev.)     # infec. (#patients, % incid.)
+
+                   0/66 (0.0%)                   1 (1/66, 1.5%)         
+                   1/66 (1.5%)                   2 (2/66, 3.0%)         
+                   3/66 (4.5%)                   0 (0/66, 0.0%)         
+                   2/66 (3.0%)                   3 (3/66, 4.5%)         
+                   0/66 (0.0%)                   3 (2/66, 3.0%)         
+                   0/66 (0.0%)                   1 (1/66, 1.5%)         
+                   0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                   0/66 (0.0%)                   2 (2/66, 3.0%)         
+                   0/66 (0.0%)                   2 (2/66, 3.0%)         
+                   0/66 (0.0%)                   1 (1/66, 1.5%)         
+                   0/66 (0.0%)                   1 (1/66, 1.5%)         
+                   0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                   0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                   0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                   0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                   7/66 (10.6%)                 13 (10/66, 15.2%)       
+                                                                        
+
+                                                                                A                           A
+                                                                        Prevalent Infec.:           Incident Infec.:
+ Class           Organism                                              # patients (% prev.)   # infec. (#patients, % incid.)
+
+ Fungal Species  Candida albicans                                        2/64 (3.1%)                11 (11/64, 17.2%)       
+
+                          B                             B
+                  Prevalent Infec.:             Incident Infec.:
+ Class           # patients (% prev.)     # infec. (#patients, % incid.)
+
+ Fungal Species    3/66 (4.5%)                   3 (3/66, 4.5%)         
+ 
+-----------------------------------------------------------------------------------------------------------------------------
+ 
+                                           GLND - Summary of Nosocomial Infections
+                                                    By Cultured Organism
+
+                                                                                A                           A
+                                                                        Prevalent Infec.:           Incident Infec.:
+ Class           Organism                                              # patients (% prev.)   # infec. (#patients, % incid.)
+
+ Fungal Species  Candida glabrata                                        1/64 (1.6%)                 5 (5/64, 7.8%)         
+                 Candida tropicalis                                      1/64 (1.6%)                 0 (0/64, 0.0%)         
+                 Other fungal species                                    1/64 (1.6%)                 5 (4/64, 6.3%)         
+                 -- (not specified)                                      0/64 (0.0%)                 1 (1/64, 1.6%)         
+                 -- Candida parapsilosis                                 0/64 (0.0%)                 1 (1/64, 1.6%)         
+                 -- Yeast not specified                                  1/64 (1.6%)                 2 (1/64, 1.6%)         
+                 -- Cadida not otherwise specified                       0/64 (0.0%)                 1 (1/64, 1.6%)         
+                 == Any Fungal Species ==                                3/64 (4.7%)                21 (16/64, 25.0%)       
+                                                                                                                            
+
+                          B                             B
+                  Prevalent Infec.:             Incident Infec.:
+ Class           # patients (% prev.)     # infec. (#patients, % incid.)
+
+                   1/66 (1.5%)                   4 (2/66, 3.0%)         
+                   0/66 (0.0%)                   0 (0/66, 0.0%)         
+                   3/66 (4.5%)                   1 (1/66, 1.5%)         
+                   0/66 (0.0%)                   1 (1/66, 1.5%)         
+                   1/66 (1.5%)                   0 (0/66, 0.0%)         
+                   2/66 (3.0%)                   0 (0/66, 0.0%)         
+                   0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                   7/66 (10.6%)                  8 (5/66, 7.6%)         
+                                                                        
+
+                                                                                A                           A
+                                                                        Prevalent Infec.:           Incident Infec.:
+ Class           Organism                                              # patients (% prev.)   # infec. (#patients, % incid.)
+
+ Other           Cytomegalovirus                                         1/64 (1.6%)                 0 (0/64, 0.0%)         
+                                                                                                                            
+
+                          B                             B
+                  Prevalent Infec.:             Incident Infec.:
+ Class           # patients (% prev.)     # infec. (#patients, % incid.)
+
+ Other             0 (0/ 66, 0.0%)             0 (0/ 66, 0.0%)          
+                                                                        
+
+                                                                                A                           A
+                                                                        Prevalent Infec.:           Incident Infec.:
+ Class           Organism                                              # patients (% prev.)   # infec. (#patients, % incid.)
+
+ Any Infection                                                           17/64 (26.6%)              84 (31/64, 48.4%)       
+                                                                                                                            
+
+                          B                             B
+                  Prevalent Infec.:             Incident Infec.:
+ Class           # patients (% prev.)     # infec. (#patients, % incid.)
+
+ Any Infection     21/66 (31.8%)                47 (21/66, 31.8%)       
+                                                                        
+ 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+                                                                                                         GLND - Summary of Nosocomial Infections
+                                                                                                                By Clinical Site and Type
+
+                                                                                                                                  A                             A                            B                             B
+                                                                                                                          Prevalent Infec.:             Incident Infec.:             Prevalent Infec.:             Incident Infec.:
+              Site Code                                     Type Code                                                    # patients (% prev.)     # infec. (#patients, % incid.)    # patients (% prev.)     # infec. (#patients, % incid.)
+
+              Bloodstream Infection                         Laboratory-confirmed bloodstream infection                      3/64 (4.7%)                 18 (17/64, 26.6%)              5/66 (7.6%)                 11 (9/66, 13.6%)        
+
+              Central Nervous System Infection              Menitigitis or ventriculitis                                    0/64 (0.0%)                  1 (1/64, 1.6%)                0/0 (0.0%)                 0 (0/0, 0.0%)            
+
+              Eye, Ear, Nose, Throat, or Mouth Infection    Oral Cavity (mouth, tongue, or gums)                            0/0 (0.0%)                 0 (0/0, 0.0%)                   0/66 (0.0%)                  1 (1/66, 1.5%)         
+
+              Cardiovascular System Infection               Mediastinitis                                                   1/64 (1.6%)                  0 (0/64, 0.0%)                0/0 (0.0%)                 0 (0/0, 0.0%)            
+
+              Eye, Ear, Nose, Throat, or Mouth Infection    Sinusitis                                                       0/0 (0.0%)                 0 (0/0, 0.0%)                   1/66 (1.5%)                  0 (0/66, 0.0%)         
+
+              Cardiovascular System Infection               Arterial or venous infection                                    0/64 (0.0%)                  1 (1/64, 1.6%)                0/0 (0.0%)                 0 (0/0, 0.0%)            
+
+              Gastrointestinal System Infection             Gastroenteritis                                                 1/64 (1.6%)                  3 (3/64, 4.7%)                0/66 (0.0%)                  1 (1/66, 1.5%)         
+
+              Gastrointestinal System Infection             Intra-abdominal, not specified elsewhere                        0/0 (0.0%)                 0 (0/0, 0.0%)                   1/66 (1.5%)                  0 (0/66, 0.0%)         
+
+              Gastrointestinal System Infection             Gastrointestinal (GI) tract                                     1/64 (1.6%)                  1 (1/64, 1.6%)                0/0 (0.0%)                 0 (0/0, 0.0%)            
+
+              Pneumonia                                     PNU1 - Clinically defined pneumonia                             4/64 (6.3%)                  4 (4/64, 6.3%)                5/66 (7.6%)                  7 (7/66, 10.6%)        
+
+              Pneumonia                                     PNU2 - Pneumonia with specific lab findings                     6/64 (9.4%)                  5 (5/64, 7.8%)                4/66 (6.1%)                  3 (3/66, 4.5%)         
+
+              Reproductive Tract Infection                  Other infections of the male or female reproductive tract       0/0 (0.0%)                 0 (0/0, 0.0%)                   1/66 (1.5%)                  0 (0/66, 0.0%)         
+
+              Surgical Site Infection                       Deep incisional primary SSI                                     1/64 (1.6%)                  0 (0/64, 0.0%)                0/0 (0.0%)                 0 (0/0, 0.0%)            
+
+              Surgical Site Infection                       Intra-abdominal, not specified elsewhere                        1/64 (1.6%)                  4 (3/64, 4.7%)                4/66 (6.1%)                  2 (2/66, 3.0%)         
+
+              Surgical Site Infection                       Gastrointestinal (GI) tract                                     1/64 (1.6%)                  0 (0/64, 0.0%)                0/0 (0.0%)                 0 (0/0, 0.0%)            
+
+              Surgical Site Infection                       Superficial incisional primary SSI                              0/0 (0.0%)                 0 (0/0, 0.0%)                   1/66 (1.5%)                  1 (1/66, 1.5%)         
+
+              Surgical Site Infection                       Skin                                                            1/64 (1.6%)                  0 (0/64, 0.0%)                1/66 (1.5%)                  0 (0/66, 0.0%)         
+
+              Skin and Soft Tissue Infection                Soft tissue                                                     0/0 (0.0%)                 0 (0/0, 0.0%)                   1/66 (1.5%)                  1 (1/66, 1.5%)         
+
+              Surgical Site Infection                       Soft tissue                                                     0/64 (0.0%)                  1 (1/64, 1.6%)                0/0 (0.0%)                 0 (0/0, 0.0%)            
+
+              Urinary Tract Infection                       Asymptomatic bacteriuria                                        3/64 (4.7%)                  9 (8/64, 12.5%)               1/66 (1.5%)                  5 (5/66, 7.6%)         
+
+              Surgical Site Infection                       Unknown                                                         0/64 (0.0%)                  1 (1/64, 1.6%)                0/0 (0.0%)                 0 (0/0, 0.0%)            
+
+              Urinary Tract Infection                       Symptomatic urinary tract infection                             0/64 (0.0%)                 10 (10/64, 15.6%)              1/66 (1.5%)                  7 (6/66, 9.1%)         
+
+              Skin and Soft Tissue Infection                Breast abscess or mastitis                                      0/64 (0.0%)                  1 (1/64, 1.6%)                0/0 (0.0%)                 0 (0/0, 0.0%)            
+
+              Urinary Tract Infection                       Other infections of the urinary tract                           0/64 (0.0%)                  1 (1/64, 1.6%)                0/0 (0.0%)                 0 (0/0, 0.0%)            
+ 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+                                                                                                         GLND - Summary of Nosocomial Infections
+                                                                                                                By Clinical Site and Type
+
+                                                                                                                                  A                             A                            B                             B
+                                                                                                                          Prevalent Infec.:             Incident Infec.:             Prevalent Infec.:             Incident Infec.:
+              Site Code                                     Type Code                                                    # patients (% prev.)     # infec. (#patients, % incid.)    # patients (% prev.)     # infec. (#patients, % incid.)
+
+              Overall                                                                                                       19/64 (29.7%)               60 (32/64, 50.0%)              21/66 (31.8%)               39 (22/66, 33.3%)       
+
+                                                                                                                                                                                                                                           
+
+              Totals by site:                                                                                                                                                                                                              
+
+              Emory                                                                                                         5/26 (19.2%)                27 (14/26, 53.8%)              6/25 (24.0%)                10 (6/25, 24.0%)        
+
+              Miriam                                                                                                        3/4 (75.0%)                  6 (3/4, 75.0%)                2/5 (40.0%)                  7 (3/5, 60.0%)         
+
+              Vanderbilt                                                                                                    4/16 (25.0%)                 5 (3/16, 18.8%)               5/18 (27.8%)                13 (9/18, 50.0%)        
+
+              Colorado                                                                                                      6/16 (37.5%)                21 (11/16, 68.8%)              7/16 (43.8%)                 9 (4/16, 25.0%)        
+
+              Wisconsin                                                                                                     1/2 (50.0%)                  1 (1/2, 50.0%)                0/2 (0.0%)                   0 (0/2, 0.0%)          
+ 
+------------------------------------------------------------------------------------------------------------------------
+ 
+                                        GLND - Summary of Nosocomial Infections
+                                               By Clinical Site and Type
+
+                  Obs    site_code                                     sc
+
+                    1    Bloodstream Infection                         Bloodstream Infection         
+                    2    Central Nervous System Infection              Central Nervous System Infecti
+                    3    Eye, Ear, Nose, Throat, or Mouth Infection    Eye, Ear, Nose, Throat, or Mou
+                    4    Cardiovascular System Infection               Cardiovascular System Infectio
+                    5    Eye, Ear, Nose, Throat, or Mouth Infection    Eye, Ear, Nose, Throat, or Mou
+                    6    Cardiovascular System Infection               Cardiovascular System Infectio
+                    7    Gastrointestinal System Infection             Gastrointestinal System Infect
+                    8    Gastrointestinal System Infection             Gastrointestinal System Infect
+                    9    Gastrointestinal System Infection             Gastrointestinal System Infect
+                   10    Pneumonia                                     Pneumonia                     
+                   11    Pneumonia                                     Pneumonia                     
+                   12    Reproductive Tract Infection                                                
+                   13    Surgical Site Infection                       Surgical Site Infection       
+                   14    Surgical Site Infection                       Surgical Site Infection       
+                   15    Surgical Site Infection                       Surgical Site Infection       
+                   16    Surgical Site Infection                       Surgical Site Infection       
+                   17    Surgical Site Infection                       Surgical Site Infection       
+                   18    Skin and Soft Tissue Infection                Skin and Soft Tissue Infection
+                   19    Surgical Site Infection                       Surgical Site Infection       
+                   20    Urinary Tract Infection                       Urinary Tract Infection       
+                   21    Surgical Site Infection                       Surgical Site Infection       
+                   22    Urinary Tract Infection                       Urinary Tract Infection       
+                   23    Skin and Soft Tissue Infection                Skin and Soft Tissue Infection
+                   24    Urinary Tract Infection                       Urinary Tract Infection       
+                   25    Overall                                                                     
+                   26                                                                                
+                   27    Totals by site:                               Totals by site:               
+                   28    Emory                                         Emory                         
+                   29    Miriam                                        Miriam                        
+                   30    Vanderbilt                                    Vanderbilt                    
+                   31    Colorado                                      Colorado                      
+                   32    Wisconsin                                                                   
+ 
+------------------------------------------------------------------------------------------------------------------------
+ 
+                                        GLND - Summary of Nosocomial Infections
+                                               By Clinical Site and Type
+
+                                                 The CONTENTS Procedure
+
+            Data Set Name        GLND_REP.EPISODESUMMARYCLOSED                    Observations          32 
+            Member Type          DATA                                             Variables             6  
+            Engine               V9                                               Indexes               0  
+            Created              Friday, October 08, 2010 01:35:59 PM             Observation Length    154
+            Last Modified        Friday, October 08, 2010 01:35:59 PM             Deleted Observations  0  
+            Protection                                                            Compressed            NO 
+            Data Set Type                                                         Sorted                NO 
+            Label                                                                                          
+            Data Representation  HP_UX_64, RS_6000_AIX_64, SOLARIS_64, HP_IA64                             
+            Encoding             latin1  Western (ISO)                                                     
+
+
+                                           Engine/Host Dependent Information
+
+                     Data Set Page Size          16384                                            
+                     Number of Data Set Pages    1                                                
+                     First Data Page             1                                                
+                     Max Obs per Page            106                                              
+                     Obs in First Data Page      32                                               
+                     Number of Data Set Repairs  0                                                
+                     File Name                   /glnd/sas/reporting/episodesummaryclosed.sas7bdat
+                     Release Created             9.0101M3                                         
+                     Host Created                SunOS                                            
+                     Inode Number                1566625                                          
+                     Access Permission           rw-r-----                                        
+                     Owner Name                  bwu2                                             
+                     File Size (bytes)           24576                                            
+
+
+                                       Alphabetic List of Variables and Attributes
+ 
+                                     #    Variable       Type    Len    Label
+
+                                     2    incident_A     Char     21    Treatment A
+                                     4    incident_B     Char     21    Treatment B
+                                     1    prevalent_A    Char     16    Treatment A
+                                     3    prevalent_B    Char     16    Treatment B
+                                     6    sc             Char     30    Site Code  
+                                     5    tc             Char     50    Type Code  

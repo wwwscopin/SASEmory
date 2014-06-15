@@ -1,0 +1,166 @@
+                                    Blood glucose (mg/dL) vs Total insulin adminstrated (units)                                    1
+                                                                                                     10:34 Thursday, October 7, 2010
+
+                                                     The SURVEYSELECT Procedure
+
+                                             Selection Method    Simple Random Sampling
+
+                                                Input Data Set           INSULIN_ID
+                                                Random Number Seed            12345
+                                                Sample Size                       5
+                                                Selection Probability      0.102041
+                                                Sampling Weight                 9.8
+                                                Output Data Set           SUB_EMORY
+                                    Blood glucose (mg/dL) vs Total insulin adminstrated (units)                                    2
+                                                                                                     10:34 Thursday, October 7, 2010
+
+                                                     The SURVEYSELECT Procedure
+
+                                             Selection Method    Simple Random Sampling
+
+                                                Input Data Set           INSULIN_ID
+                                                Random Number Seed            12345
+                                                Sample Size                       5
+                                                Selection Probability      0.151515
+                                                Sampling Weight                 6.6
+                                                Output Data Set             SUB_VAN
+                                    Blood glucose (mg/dL) vs Total insulin adminstrated (units)                                    3
+                                                                                                     10:34 Thursday, October 7, 2010
+
+                                                     The SURVEYSELECT Procedure
+
+                                             Selection Method    Simple Random Sampling
+
+                                                Input Data Set           INSULIN_ID
+                                                Random Number Seed            12345
+                                                Sample Size                       5
+                                                Selection Probability       0.15625
+                                                Sampling Weight                 6.4
+                                                Output Data Set             SUB_COL
+                                        Data for Blood glucose vs Total insulin adminstrated     10:34 Thursday, October 7, 2010   4
+
+                         GLND ID              Morning    Afternoon    Evening     Mean      Insulin
+                           No.      Center    (mg/dL)     (mg/dL)     (mg/dL)    (mg/dL)    (units)    Day
+
+                          11323     Emory       115         127         107       116.3        30        1
+                          11323     Emory       134         128         148       136.7        28        2
+                          11323     Emory        92          80         107        93.0        44        3
+                          11323     Emory        56          67          68        63.7        26        4
+                          11323     Emory       169         142         173       161.3        27        5
+                          11323     Emory       194         319         139       217.3        23        6
+                          11323     Emory       182         214         160       185.3        31        7
+                          11323     Emory       224         163         143       176.7        15        8
+                          11323     Emory       168         153         143       154.7        13        9
+                          11323     Emory       116         165         160       147.0        13       10
+                          11323     Emory       134         153         128       138.3        15       11
+                          11323     Emory       162         122         147       143.7        16       12
+                          11323     Emory       126         166         145       145.7        18       13
+                          11323     Emory       155         230         126       170.3        12       14
+                          11323     Emory       123         138         117       126.0        19       15
+                          11323     Emory       129         129         150       136.0        23       16
+                          11323     Emory       125         108         142       125.0        13       17
+                          11323     Emory       122         112         144       126.0        13       18
+                          11323     Emory       114         130         138       127.3        13       19
+                          11323     Emory       116         143         126       128.3        13       20
+                          11323     Emory       129         105         131       121.7        13       21
+                          11323     Emory       143         135         135       137.7        13       22
+                          11323     Emory       119         133         138       130.0        15       23
+                          11323     Emory       116         117         145       126.0        16       24
+                          11323     Emory       158         145         168       157.0        16       25
+                          11323     Emory       114         160         177       150.3        18       26
+                          11323     Emory       156         133         139       142.7        12       27
+                          11323     Emory       121         107         133       120.3         0       28
+                          21020     Miriam      103         124         129       118.7        67        1
+                          21020     Miriam       66         115          85        88.7        76        2
+                          21020     Miriam       87          91          94        90.7        61        3
+                          21020     Miriam      144          69         112       108.3        62        4
+                          21020     Miriam      111         163         218       164.0        48        5
+                          21020     Miriam      154         104         144       134.0        34        6
+                          21020     Miriam      117         139         142       132.7        24        7
+                          21020     Miriam       71         105         153       109.7        26        8
+                          21020     Miriam      110         139         116       121.7        30        9
+                          21020     Miriam       95         164         140       133.0        45       10
+                          21020     Miriam      122         291         138       183.7        54       11
+                          21020     Miriam      100         149         115       121.3        32       12
+                          21020     Miriam       73         111          86        90.0        18       13
+                          21020     Miriam       76         132         121       109.7        20       14
+                          21020     Miriam       81         155         115       117.0         4       15
+                          21020     Miriam       96         138         151       128.3         0       16
+                          21020     Miriam       91         159         138       129.3         4       17
+                          21020     Miriam      103         138         141       127.3         2       18
+                          21020     Miriam      111         153         166       143.3         4       19
+                          21020     Miriam      117         159         150       142.0         0       20
+                          21020     Miriam      104         185         145       144.7         4       21
+                          21020     Miriam      115         148         266       176.3         6       22
+                          21020     Miriam       94         150         152       132.0         0       23
+                          21020     Miriam       89         145         152       128.7         2       24
+                          21020     Miriam      105         132         153       130.0         2       25
+                          21020     Miriam       97         135         138       123.3         2       26
+                          21020     Miriam       94         131         167       130.7         2       27
+                                        Data for Blood glucose vs Total insulin adminstrated     10:34 Thursday, October 7, 2010   5
+
+                       GLND ID                  Morning    Afternoon    Evening     Mean      Insulin
+                         No.      Center        (mg/dL)     (mg/dL)     (mg/dL)    (mg/dL)    (units)    Day
+
+                        21020     Miriam           91         142         147       126.7         0       28
+                        32064     Vanderbilt      118         127          94       113.0       311        1
+                        32064     Vanderbilt       92         135          87       104.7       251        2
+                        32064     Vanderbilt      142         131         140       137.7       166        3
+                        32064     Vanderbilt      146         113         132       130.3       252        4
+                        32064     Vanderbilt      124         102          98       108.0       296        5
+                        32064     Vanderbilt      116         114          87       105.7       301        6
+                        32064     Vanderbilt       79         131         106       105.3       248        7
+                        32064     Vanderbilt      111         130          95       112.0       282        8
+                        32064     Vanderbilt      142         155         103       133.3       122        9
+                        32064     Vanderbilt      135         109          98       114.0       225       10
+                        32064     Vanderbilt      121          99         104       108.0       105       11
+                        32064     Vanderbilt      118          50          79        82.3       114       12
+                        32064     Vanderbilt      119         138          89       115.3        98       13
+                        32064     Vanderbilt      150         135          74       119.7       154       14
+                        32064     Vanderbilt      115         108          89       104.0       163       15
+                        32064     Vanderbilt      109          99          85        97.7       258       16
+                        32064     Vanderbilt       98          93         112       101.0       208       17
+                        32064     Vanderbilt       56         106          82        81.3       157       18
+                        32064     Vanderbilt      124         118          92       111.3       105       19
+                        32064     Vanderbilt      115         142          87       114.7       190       20
+                        32064     Vanderbilt      102          91         110       101.0       296       21
+                        32064     Vanderbilt      105         156          89       116.7       260       22
+                        32064     Vanderbilt      210         151         262       207.7       209       23
+                        32064     Vanderbilt      112          91          89        97.3       226       24
+                        32064     Vanderbilt       79         192         105       125.3       315       25
+                        32064     Vanderbilt       92         105         119       105.3       319       26
+                        32064     Vanderbilt       35         208          98       113.7       222       27
+                        32064     Vanderbilt       88          86         127       100.3       189       28
+                        41156     Colorado         84           .         151       117.5         0        1
+                        41156     Colorado        118         144           .       131.0         0        2
+                        41156     Colorado        124         157         198       159.7         2        3
+                        41156     Colorado        126         194         175       165.0         4        4
+                        41156     Colorado        151         216         217       194.7         6        5
+                        41156     Colorado        151         120         176       149.0         3        6
+                        41156     Colorado        158         142         108       136.0         0        7
+                        41156     Colorado        171          84         272       175.7        73        8
+                        41156     Colorado        112         110         213       145.0        21        9
+                        41156     Colorado        125         118         130       124.3        22       10
+                        41156     Colorado        126         155         120       133.7        34       11
+                        41156     Colorado        210          97         107       138.0        31       12
+                        41156     Colorado         90         141         149       126.7        28       13
+                        41156     Colorado        122         141         115       126.0        25       14
+                        41156     Colorado        161          80         100       113.7        35       15
+                        41156     Colorado        106          53         157       105.3        17       16
+                        41156     Colorado        130         107         138       125.0        12       17
+                        41156     Colorado        111         166         147       141.3         6       18
+                        41156     Colorado        111         152         140       134.3         0       19
+                        41156     Colorado        111         140         160       137.0         0       20
+                        41156     Colorado        111         133         130       124.7         2       21
+                        41156     Colorado        131         193         188       170.7         4       22
+                        41156     Colorado        128         198         187       171.0         2       23
+                        41156     Colorado        115         171           .       143.0         1       24
+                        41156     Colorado         99         140         117       118.7         1       25
+                        41156     Colorado        142         131         166       146.3         2       26
+                                        Data for Blood glucose vs Total insulin adminstrated     10:34 Thursday, October 7, 2010   6
+
+                        GLND ID                Morning    Afternoon    Evening     Mean      Insulin
+                          No.       Center     (mg/dL)     (mg/dL)     (mg/dL)    (mg/dL)    (units)    Day
+
+                         41156     Colorado      126         168         147       147.0        1        27
+                         41156     Colorado      118         162         151       143.7        2        28

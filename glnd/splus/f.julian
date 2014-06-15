@@ -1,0 +1,25 @@
+f.julian <- function(month,day=NULL,year=NULL,sas=F)
+{ # date if supplied in a character form: "12/01/1900" month-day-year
+
+if(is.character(month)) {
+month[month==""] <- "          "
+month[month=="NA"] <- "          "
+if(any(nchar(month)!=10)) {
+stop("wrong format of date. should be mm/dd/yyyy") 
+} else {
+date.to <- month
+year <- as.numeric(substring(date.to, 7, 10))
+day <- as.numeric(substring(date.to, 4, 5))
+month <- as.numeric(substring(date.to, 1, 2))
+} 
+}
+
+  year <- year + ifelse(month > 2, 0, -1)
+  month <- month + ifelse(month > 2, -3, 9)
+  tmp <- year %/% 100
+  ya <- year - 100 * tmp
+  out <- (146097 * tmp) %/% 4 + (1461 * ya) %/% 4 +
+   (153 * month +2) %/% 5 + day + 1721119 
+ if(sas) out <- out - 2436935
+return(out)
+}

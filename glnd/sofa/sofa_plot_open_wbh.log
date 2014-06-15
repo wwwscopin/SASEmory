@@ -1,0 +1,804 @@
+1                                                          The SAS System                              09:42 Monday, October 4, 2010
+
+NOTE: Copyright (c) 2002-2003 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) 9.1 (TS1M3)
+      Licensed to EMORY UNIVERSITY - T&R, Site 0014217002.
+NOTE: This session is executing on the SunOS 5.9 platform.
+
+
+
+NOTE: SAS 9.1.3 Service Pack 4
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.09 seconds
+      cpu time            0.07 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is /home/bwu2/sofa/autoexec.sas.
+
+NOTE: Libref RAND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/randomization
+NOTE: Libref GLND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+NOTE: Libref GLND_REP was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting
+NOTE: Libref GLND_EXT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/external_data
+NOTE: Libname LIBRARY refers to the same physical library as GLND.
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+NOTE: Libname REPORT refers to the same physical library as GLND_REP.
+NOTE: Libref REPORT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting
+
+NOTE: AUTOEXEC processing completed.
+
+1          /* sofa_plot_open_wbh.sas
+2                                                          The SAS System                              09:42 Monday, October 4, 2010
+
+2           *
+3           * For all patients, plot total sofa scores longitudinally and draw boxplots. 
+4           * Annotate with sample sizes at each day (SOFA scores are recordable when a patient
+5           * is in the SICU)
+6           *
+7           */
+8          
+9          options pagesize= 60 linesize = 85 center nodate nonumber;
+10         
+11         data sofa;
+12         	set glnd.followup_all_long;
+13         	day2= (day - .2) + .4*uniform(3654);
+14         	xsys='2'; ysys='2';
+15         run;
+
+NOTE: Missing values were generated as a result of performing an operation on 
+      missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      1 at 13:13   1 at 13:19   
+NOTE: There were 2655 observations read from the data set GLND.FOLLOWUP_ALL_LONG.
+NOTE: The data set WORK.SOFA has 2655 observations and 39 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.03 seconds
+      
+
+16         
+17         
+18         /*
+19         data sofa_id;
+20         	set sofa(keep=id);
+21         run;
+22         
+23         proc sort data=sofa_id nodup;by id;run;
+24         proc print;run;
+25         */
+26         
+27         proc sort data = sofa; by id day; run;
+
+NOTE: There were 2655 observations read from the data set WORK.SOFA.
+NOTE: The data set WORK.SOFA has 2655 observations and 39 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.12 seconds
+      cpu time            0.02 seconds
+      
+
+28         proc sort data = glnd.status; by id; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+29         
+30         data sofa;
+31         	merge glnd.status (keep = id deceased mortality_28d)
+32         		 sofa;
+                                   The SAS System
+
+33         	by id;
+34         run;
+
+NOTE: There were 130 observations read from the data set GLND.STATUS.
+NOTE: There were 2655 observations read from the data set WORK.SOFA.
+NOTE: The data set WORK.SOFA has 2655 observations and 41 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.03 seconds
+      
+
+35         
+36         
+37         
+38         		
+38       !   proc mixed data = sofa empirical covtest;
+39         			class id day ; * &source;
+40         		
+41         			model sofa_tot = day / solution ; * &source	day*&source/ solution;
+42         			repeated day / subject = id type = cs;
+43         			lsmeans day / cl ;
+44         			ods output lsmeans = lsmeans_sofa;
+45         		run;
+
+NOTE: 1210 observations are not included because of missing values.
+NOTE: Convergence criteria met.
+NOTE: The data set WORK.LSMEANS_SOFA has 28 observations and 10 variables.
+NOTE: The PROCEDURE MIXED printed pages 1-4.
+NOTE: PROCEDURE MIXED used (Total process time):
+      real time           0.49 seconds
+      cpu time            0.48 seconds
+      
+
+46         
+47         		* merge the means and CIs into gluc_box to obtain plotting dataset;
+48         		
+48       !   proc sort data = sofa; by day; run;
+
+NOTE: There were 2655 observations read from the data set WORK.SOFA.
+NOTE: The data set WORK.SOFA has 2655 observations and 41 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.11 seconds
+      cpu time            0.03 seconds
+      
+
+49         		
+49       !   proc sort data = lsmeans_sofa; by day; run;
+
+NOTE: There were 28 observations read from the data set WORK.LSMEANS_SOFA.
+NOTE: The data set WORK.LSMEANS_SOFA has 28 observations and 10 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+50         
+51         		
+51       !   data sofa ;
+                                   The SAS System
+
+52         			merge sofa lsmeans_sofa;	by day;
+53            	run;
+
+NOTE: There were 2655 observations read from the data set WORK.SOFA.
+NOTE: There were 28 observations read from the data set WORK.LSMEANS_SOFA.
+NOTE: The data set WORK.SOFA has 2655 observations and 50 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.03 seconds
+      
+
+54         
+55         
+56         		
+56       !   DATA anno_mixed;
+57         			set lsmeans_sofa;
+58         			
+59         			xsys='2'; ysys='2';
+60         						
+61         
+62         			* AFTER that, draw bars ('A' option ensure properly layering over the
+62       ! greay bars!);
+63         			X=day; 	y=estimate; FUNCTION='MOVE'; when = 'A';  OUTPUT; * start at
+63       ! mean ;
+64         					Y=lower; 	FUNCTION='DRAW'; when = 'A'; line=1; size=4; color='black';
+64       !   OUTPUT; * draw down;
+65         		
+66         			LINK TIPS; * make bar;
+67         
+68         			Y=upper;	FUNCTION='DRAW'; when = 'A'; line=1; size=4; color='black';
+68       ! OUTPUT; * draw up;
+69         		
+70         			LINK TIPS; * make bar;
+71         		
+72         			* draw top and bottoms of bars;
+73         			TIPS:
+74         			  X=day-.1; FUNCTION='DRAW'; when = 'A'; line=1; size=4; color='black';
+74       !  OUTPUT;
+75         			  X=day+.1; FUNCTION='DRAW'; when = 'A'; line=1; size=4; color='black';
+75       !  OUTPUT;
+76         			  X=day;     FUNCTION='MOVE'; when = 'A';
+76       !   OUTPUT;
+77         			return;
+78         		run;
+
+NOTE: There were 28 observations read from the data set WORK.LSMEANS_SOFA.
+NOTE: The data set WORK.ANNO_MIXED has 336 observations and 19 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+79         
+80         
+81         
+82         
+83         proc sort data=sofa;by day id; run;
+
+                                   The SAS System
+
+NOTE: There were 2655 observations read from the data set WORK.SOFA.
+NOTE: The data set WORK.SOFA has 2655 observations and 50 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.03 seconds
+      
+
+83       !                                    
+84         proc print data= sofa; var day day2 id sofa_tot; run;
+
+NOTE: There were 2655 observations read from the data set WORK.SOFA.
+NOTE: The PROCEDURE PRINT printed pages 5-52.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+84       !                                                      
+85         
+86         /* Load sample sizes for each day into macro variables, for plot
+86       ! annotation */
+87         	* initialize the macro variables to store the sample sizes OUTSIDE of
+87       ! macro;
+88         	* in order to set the scope to global ;
+89         		%let n_1= 0; %let n_2= 0; %let n_3= 0; %let n_4= 0; %let n_5= 0;
+90         		%let n_6= 0; %let n_7= 0; %let n_8= 0; %let n_9= 0; %let n_10= 0;
+91         		%let n_11= 0; %let n_12= 0; %let n_13= 0; %let n_14= 0; %let n_15= 0;
+92         		%let n_16= 0; %let n_17= 0; %let n_18= 0; %let n_19= 0; %let n_20= 0;
+93         		%let n_21= 0; %let n_22= 0; %let n_23= 0; %let n_24= 0; %let n_25= 0;
+94         		%let n_26= 0; %let n_27= 0; %let n_28= 0; 
+95         
+96         
+97         	* obtain n's for each day;
+98         		
+98       !   proc means data= sofa noprint;
+99         			class day;
+100        			var sofa_tot;
+101        			output out = sizes n(sofa_tot) = num_obs max(day) = last_day;
+102        		run;
+
+NOTE: There were 2655 observations read from the data set WORK.SOFA.
+NOTE: The data set WORK.SIZES has 29 observations and 5 variables.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.06 seconds
+      
+
+102      !       
+103        	* trim initial record and get last day ;
+104        		
+104      !   data sizes; 
+105        			set sizes;
+106        
+107        			if (day = .) then do;
+108        				call symput("last_day", trim(put(last_day, 3.0))); * save the last day
+108      !  for which we have observations;
+109        				delete;
+110        			end;
+                                   The SAS System
+
+111        		run;
+
+NOTE: There were 29 observations read from the data set WORK.SIZES.
+NOTE: The data set WORK.SIZES has 28 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+111      !       
+112        	
+113        	* loop through the n's from proc means, for all days that we have
+113      ! observations;
+114        		%macro get_sizes;
+115        			%do i = 1 %to &last_day;
+116        				data _null_;
+117        					set sizes;
+118        					where day = &i;
+119        					call symput( "n_&i", compress(put(num_obs, 3.0)));
+120        				run;
+121        			%end;
+122        		%mend get_sizes;
+123        	%get_sizes run;
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=1;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=2;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=3;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=4;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=5;
+                                   The SAS System
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=6;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=7;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=8;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=9;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=10;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=11;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=12;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+                                   The SAS System
+
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=13;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=14;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=15;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=16;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=17;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=18;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=19;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+                                   The SAS System
+
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=20;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=21;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=22;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=23;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=24;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=25;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=26;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+                                   The SAS System
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=27;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SIZES.
+      WHERE day=28;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+124        	
+125        
+126        	* change day 0 to blank ;
+127        	
+127      !  proc format library= library;
+127      !                               
+128        		
+128      !   value day_glnd 0 = " "
+129        			1 = "1*(&n_1)" 7 = "7*(&n_7)" 13 = "13*(&n_13)"  19 = "19*(&n_19)" 24 =
+129      !  "24*(&n_24)"
+130        			2 = "2*(&n_2)" 8 = "8*(&n_8)" 14 = "14*(&n_14)"  20 = "20*(&n_20)" 25 =
+130      !  "25*(&n_25)"
+131        			3 = "3*(&n_3)" 9 = "9*(&n_9)" 15 = "15*(&n_15)"  21 = "21*(&n_21)" 26 =
+131      !  "26*(&n_26)"
+132        			4 = "4*(&n_4)" 10 = "10*(&n_10)" 16 = "16*(&n_16)"  22 = "22*(&n_22)"
+132      ! 27 = "27*(&n_27)"
+133        			5 = "5*(&n_5)" 11 = "11*(&n_11)" 17 = "17*(&n_17)"  23 = "23*(&n_23)"
+133      ! 28 = "28*(&n_28)"
+134        			6 = "6*(&n_6)" 12 = "12*(&n_12)" 18 = "18*(&n_18)"  29 = " "
+135        			;
+NOTE: Format DAY_GLND is already on the library.
+NOTE: Format DAY_GLND has been written to LIBRARY.FORMATS.
+135      !     
+136        	run;
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.01 seconds
+      
+136      !      
+
+137        
+138        	goptions reset=all  device=jpeg  rotate=landscape gunit=pct noborder
+138      ! cback=white
+139        		colors = (black red) /*ftitle=Arial*/ ftext=zapf  /*fby =Arial*/ hby = 3
+139      ! ;
+140        
+141        
+142        	/* Set up symbol for Boxplot */
+143        	symbol1 interpol=none mode=exclude value=circle co=red cv=blue height=1
+143      ! bwidth=3 width=2;
+144        	/* Set up Symbol for Data Points */
+145        	symbol2 i=j ci=red value=square h=2 w=4;
+                                   The SAS System
+
+146        
+147        	axis1 	label=(f=zapf h=2.5 "Day in SICU" ) split="*"	value=(f=zapf h=
+147      ! 1.25)  order= (0 to 29 by 1) minor=none offset=(0 in, 0 in);
+148        	axis2 	label=(f=zapf h=2.5 a=90 "Total SOFA Score" ) 	value=(f=zapf h=2)
+148      ! order= (0 to 24 by 2) offset=(.25 in, .25 in)
+149        	                minor=(number=1);
+150        
+151        	legend1 across = 1 position=(top right inside) mode = reserve fwidth =
+151      ! .2	shape = symbol(3,2) label=NONE
+WARNING: The value for the FWIDTH option must be greater than 0. The specified value 
+         will be ignored.
+152           value = (f=zapf h=3 "sofa" "mean") offset=(0, -0.4 in) frame;
+WARNING: Can not use MODE=RESERVE and POSITION=(INSIDE). Changed to MODE=PROTECT.
+153        
+154        
+155        	title 	height=3 f=zapf 'Total SOFA Score';
+156        
+157        
+158        	* plot! ;
+159          *ods pdf file = "/glnd/sas/reporting/sofa_plot_open.pdf";
+160        	ods pdf file = "sofa_plot_open.pdf";
+NOTE: Writing ODS PDF output to DISK destination 
+      "/home/bwu2/sofa/sofa_plot_open.pdf", printer "PDF".
+161           ods ps file="sofa.ps";
+NOTE: Writing ODS PS output to DISK destination "/home/bwu2/sofa/sofa.ps", 
+      printer "POSTSCRIPT".
+162        
+163        		** Box plots;
+164        			
+164      !    proc gplot data= sofa;
+165        				plot sofa_tot*day2 estimate*day/overlay annotate= anno_mixed haxis =
+165      ! axis1 vaxis = axis2 legend=legend1;
+166        
+167        				* annotate with sample sizes - more should be added if we have more
+167      ! data on dat 23, 24...;
+168        				note h=1.5 m=(7pct, 8.5 pct) "Day:" ;
+169        				note h=1.5 m=(7pct, 7 pct) " (n)" ;
+170        						
+171        				format day day2 day_glnd.;
+172        			run;
+
+NOTE: 1210 observation(s) contained a MISSING value for the sofa_tot * day2 request.
+NOTE: 1 observation(s) contained a MISSING value for the Estimate * day request.
+NOTE:  RECORDS WRITTEN TO /home/bwu2/sofa/sasgraph.jpg
+172      !        	
+173        	
+174        	ods ps close;
+NOTE: ODS PS printed 1 page to /home/bwu2/sofa/sofa.ps.
+175        
+176        
+177        
+178        	** Line plots;
+179        	* random 25 people who are alive and 28 who died in the SICU ;
+180        
+181        		symbol1 ci=blue value=circle h=1 w=2 i = join repeat = 2000;
+182        		axis1 	label=(f=zapf h=2.5 "Day in SICU" ) split="*"	value=(f=zapf h=
+182      ! 1.5)  order= (0 to 15 by 1) minor=none offset=(0 in, 0 in);
+183        
+                                   The SAS System
+
+184        			
+
+NOTE: There were 2655 observations read from the data set WORK.SOFA.
+NOTE: There were 336 observations read from the data set WORK.ANNO_MIXED.
+NOTE: PROCEDURE GPLOT used (Total process time):
+      real time           1.46 seconds
+      cpu time            1.09 seconds
+      
+
+184      !    proc gplot data= sofa;
+185        				plot  sofa_tot*day2 = id  / overlay haxis = axis1 vaxis = axis2
+185      ! nolegend;
+186        				
+187        				where (year(dt_random) <= 2007) & day < 15;
+188        				
+189        				* annotate with sample sizes - more should be added if we have more
+189      ! data on dat 23, 24...;
+190        				note h=1.5 m=(7pct, 8.5 pct) "Day:" ;
+191        				note h=1.5 m=(7pct, 7 pct) " (n)" ;
+192        						
+193        				format day day2 day_glnd.; 
+194        			run;
+
+WARNING: OVERLAY option specified conflicts with Y*X=Z type plot request. OVERLAY 
+         option ignored.
+NOTE: 161 observation(s) contained a MISSING value for the sofa_tot * day2 = id 
+      request.
+NOTE:  RECORDS WRITTEN TO /home/bwu2/sofa/sasgraph.jpg
+194      !        	
+195        		
+196        			ods pdf close;
+NOTE: ODS PDF printed 2 pages to /home/bwu2/sofa/sofa_plot_open.pdf.
+197        **************************************************************************
+197      ! ******************************************;
+198        		ods pdf file="sofa_mixed_mean.pdf" style=journal;
+NOTE: Writing ODS PDF output to DISK destination 
+      "/home/bwu2/sofa/sofa_mixed_mean.pdf", printer "PDF".
+199        
+200        		* now make a table of the means and 95% CI for sofa score on days 0, 7,
+200      ! 14;
+201        		
+
+NOTE: There were 511 observations read from the data set WORK.SOFA.
+      WHERE (YEAR(dt_random)<=2007) and (day<15);
+NOTE: PROCEDURE GPLOT used (Total process time):
+      real time           1.36 seconds
+      cpu time            1.08 seconds
+      
+
+201      !   data glnd_rep.sofa_mixed_open;
+202        				merge lsmeans_sofa(keep = estimate upper lower day)
+203        						 lsmeans_sofa_survivor(keep = estimate upper lower day
+203      ! rename=(estimate=estimate_s upper=upper_s lower=lower_s)) ;
+ERROR: File WORK.LSMEANS_SOFA_SURVIVOR.DATA does not exist.
+204        						 lsmeans_sofa_dead(keep = estimate upper lower day
+                                                    _____
+                                                    388
+                                                    76
+                                   The SAS System
+
+204      ! rename=(estimate=estimate_d upper=upper_d lower=lower_d)) ;		
+ERROR: Undeclared array referenced: lsmeans_sofa_dead.
+ERROR 388-185: Expecting an arithmetic operator.
+
+ERROR 76-322: Syntax error, statement will be ignored.
+
+205        			by day;
+206        			
+207        			where day in (1, 7, 14);
+208         		
+209        			sofa_t = strip(put(estimate, 5.1)) || " (" || strip(put(lower, 5.1)) ||
+209      !  ", " || strip(put(upper, 5.1))|| ")";
+210        			sofa_s = strip(put(estimate_s, 5.1)) || " (" || strip(put(lower_s,
+210      ! 5.1)) || ", " || strip(put(upper_s, 5.1))|| ")";
+211        			sofa_d = strip(put(estimate_d, 5.1)) || " (" || strip(put(lower_d,
+211      ! 5.1)) || ", " || strip(put(upper_d, 5.1))|| ")";
+212        			
+213        			label
+214        				day = "Day"
+215        				sofa_t = "Total Sofa Score*mean (95% CI)";
+216        				sofa_s = "Total Sofa Score for Survior*mean (95% CI)";
+217        				sofa_d = "Total Sofa Score for Non_survior*mean (95% CI)";
+218        		
+219        		   format day;
+220        
+221        		  	keep day sofa_t sofa_s sofa_d;
+222        		run;
+
+NOTE: The SAS System stopped processing this step because of errors.
+NOTE: SAS set option OBS=0 and will continue to check statements. 
+      This may cause NOTE: No observations in data set.
+WARNING: The data set GLND_REP.SOFA_MIXED_OPEN may be incomplete.  When this step 
+         was stopped there were 0 observations and 4 variables.
+WARNING: Data set GLND_REP.SOFA_MIXED_OPEN was not replaced because this step was 
+         stopped.
+NOTE: DATA statement used (Total process time):
+      real time           0.13 seconds
+      cpu time            0.01 seconds
+      
+
+223        
+224        
+225        			
+225      !    proc print data = glnd_rep.sofa_mixed_open noobs label style(data) =
+225      ! [just=center];
+226        				var day sofa_t sofa_s spfa_d ;
+ERROR: Variable SOFA_T not found.
+ERROR: Variable SOFA_S not found.
+ERROR: Variable SPFA_D not found.
+227        			run;
+
+NOTE: The SAS System stopped processing this step because of errors.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+228        	
+229        		ods pdf close;
+                                   The SAS System
+
+NOTE: ODS PDF printed no output. 
+      (This sometimes results from failing to place a RUN statement before the ODS 
+      PDF CLOSE statement.)
+230        
+231        
+232        
+233        
+234        
+235        
+236        
+237        
+238        
+239        
+
+
+ERROR: Errors printed on pages 12,13.
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           4.80 seconds
+      cpu time            3.33 seconds
+      

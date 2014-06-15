@@ -1,0 +1,72 @@
+#################################################################################################
+#
+# Program:	glnd_baseline.in
+#
+# Purpose:	Produce recruitment and baseline  results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+#||||||||||||||||||||||||||||||||
+# ERROR in percent_iv_lipid, percent_iv_dex
+#basedsmc from libs not from frozen!!!!!!!
+################################################################################################
+
+source("start.in")
+
+
+f.top("retention",
+ prepare.date=date(),
+ asof.date="March 03, 2009",
+ report.type="Recruitment, Baseline, and Follow-up  OPEN SESSION",
+ meet.date=" Tues, March 31, 2009",
+ header="GLND DSMB Report - Recruitment, Baseline, and Follow-up  OPEN SESSION")
+
+ lib="/glnd/sas/reporting"
+lib="/glnd/sas/dsmc/20090831"
+libr="/glnd/sas/reporting"
+libr="/glnd/sas/dsmc/20090831/reporting"
+ libs="/glnd/sas"
+libdf="/glnd/sas/reporting/df_reporting" 
+#libdf="/glnd/sas/dsmc/20090306/reporting/df_reporting"
+
+### Recruitment by Center
+
+
+
+cat("\\clearpage",sep="\n",file="retention.tex",append=T)
+
+retention=f.sas.get(library=libdf,member="retention")
+f.list(file="retention", x=retention,
+       caption="GLND Retention" ,append=T,
+       pos=c("l","c","c","c","c"))
+
+
+
+dsmcsaeall <- f.sas.get(library=lib,member="dsmcsaeall",
+                            format.library=lib,formats=T)
+                        
+tmp.tab=dsmcsaeall[,c("sae","tsae","msaedayst")]
+f.list(file="retention", x=tmp.tab, footnote=foot_sae,
+       caption="SAE" ,append=T,
+       pos=c("l","c","c"))
+
+
+cat("\\clearpage",sep="\n",file="retention.tex",append=T)
+
+  cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//nutsum.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries}",
+ "\\end{figure}"),
+ file=paste("retention","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="retention.tex",append=T)
+      
+
+### Finish
+
+f.bottom("retention")
+unix("/home/gcotson/bin/laps retention",output=F)
+unix("/home/gcotson/bin/laps retention",output=F)
+unix("/home/gcotson/bin/lapdf retention",output=F)
+unix("/home/gcotson/bin/lapdf retention",output=F)

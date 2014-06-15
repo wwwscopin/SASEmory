@@ -1,0 +1,671 @@
+1                                                          The SAS System                            10:34 Thursday, October 7, 2010
+
+NOTE: Copyright (c) 2002-2003 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) 9.1 (TS1M3)
+      Licensed to EMORY UNIVERSITY - T&R, Site 0014217002.
+NOTE: This session is executing on the SunOS 5.9 platform.
+
+
+
+NOTE: SAS 9.1.3 Service Pack 4
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.07 seconds
+      cpu time            0.06 seconds
+      
+WARNING: using /home/bwu2/insulin/insulin.sas,  not /home/bwu2/insulin/insulin
+
+NOTE: AUTOEXEC processing beginning; file is /home/bwu2/insulin/autoexec.sas.
+
+NOTE: Libref RAND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/randomization
+NOTE: Libref GLND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+NOTE: Libref GLND_REP was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting
+NOTE: Libref GLND_EXT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/external_data
+NOTE: Libname LIBRARY refers to the same physical library as GLND.
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+NOTE: Libname REPORT refers to the same physical library as GLND_REP.
+NOTE: Libref REPORT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting
+
+NOTE: AUTOEXEC processing completed.
+
+2                                                          The SAS System                            10:34 Thursday, October 7, 2010
+
+1          proc format;
+2          	
+2        !  value  slope 1="+"
+3          					 -1="-"
+4          					 0="0"	
+5             ;
+NOTE: Format SLOPE has been output.
+6          run;
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+7          			
+8          data insulin;
+9          	set glnd.followup_all_long(keep=id day gluc_mrn gluc_aft gluc_eve tot_insulin);
+10         	center=floor(id/10000);
+11         	format center center.;
+12         	gluc_mean=mean(gluc_mrn,gluc_aft,gluc_eve);
+13         	where gluc_mrn^=. or gluc_aft^=. or gluc_eve^=. or tot_insulin^=.;
+14         	log_gluc_mean=log(gluc_mean);
+15         	log_tot_insulin=log(tot_insulin);
+16         	if id=12207 then delete;
+17         	format gluc_mean 5.1;
+18         run;
+
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11002 tot_insulin=0 gluc_eve=. gluc_mrn=120 gluc_aft=. day=6 center=Emory gluc_mean=120.0 log_gluc_mean=4.7874917428
+log_tot_insulin=. _ERROR_=1 _N_=6
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11004 tot_insulin=0 gluc_eve=112 gluc_mrn=108 gluc_aft=100 day=10 center=Emory gluc_mean=106.7 log_gluc_mean=4.6697087071
+log_tot_insulin=. _ERROR_=1 _N_=16
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11004 tot_insulin=0 gluc_eve=110 gluc_mrn=111 gluc_aft=117 day=11 center=Emory gluc_mean=112.7 log_gluc_mean=4.7244336068
+log_tot_insulin=. _ERROR_=1 _N_=17
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11004 tot_insulin=0 gluc_eve=120 gluc_mrn=106 gluc_aft=113 day=12 center=Emory gluc_mean=113.0 log_gluc_mean=4.7273878187
+log_tot_insulin=. _ERROR_=1 _N_=18
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11004 tot_insulin=0 gluc_eve=111 gluc_mrn=120 gluc_aft=. day=13 center=Emory gluc_mean=115.5 log_gluc_mean=4.74927053
+log_tot_insulin=. _ERROR_=1 _N_=19
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11009 tot_insulin=0 gluc_eve=99 gluc_mrn=107 gluc_aft=92 day=10 center=Emory gluc_mean=99.3 log_gluc_mean=4.5984811978
+log_tot_insulin=. _ERROR_=1 _N_=29
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11009 tot_insulin=0 gluc_eve=119 gluc_mrn=89 gluc_aft=96 day=11 center=Emory gluc_mean=101.3 log_gluc_mean=4.6184154127
+log_tot_insulin=. _ERROR_=1 _N_=30
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11009 tot_insulin=0 gluc_eve=117 gluc_mrn=96 gluc_aft=. day=12 center=Emory gluc_mean=106.5 log_gluc_mean=4.6681449851
+log_tot_insulin=. _ERROR_=1 _N_=31
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=119 gluc_mrn=116 gluc_aft=109 day=8 center=Emory gluc_mean=114.7 log_gluc_mean=4.7420293687
+log_tot_insulin=. _ERROR_=1 _N_=39
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=106 gluc_mrn=114 gluc_aft=. day=9 center=Emory gluc_mean=110.0 log_gluc_mean=4.7004803658
+log_tot_insulin=. _ERROR_=1 _N_=40
+NOTE: Invalid argument to function LOG at line 15 column 18.
+3                                                          The SAS System                            10:34 Thursday, October 7, 2010
+
+id=11012 tot_insulin=0 gluc_eve=109 gluc_mrn=120 gluc_aft=. day=10 center=Emory gluc_mean=114.5 log_gluc_mean=4.740574823
+log_tot_insulin=. _ERROR_=1 _N_=41
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=103 gluc_mrn=108 gluc_aft=114 day=11 center=Emory gluc_mean=108.3 log_gluc_mean=4.6852128937
+log_tot_insulin=. _ERROR_=1 _N_=42
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=117 gluc_mrn=105 gluc_aft=130 day=12 center=Emory gluc_mean=117.3 log_gluc_mean=4.7650188869
+log_tot_insulin=. _ERROR_=1 _N_=43
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=118 gluc_mrn=132 gluc_aft=130 day=13 center=Emory gluc_mean=126.7 log_gluc_mean=4.8415589641
+log_tot_insulin=. _ERROR_=1 _N_=44
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=122 gluc_mrn=86 gluc_aft=. day=14 center=Emory gluc_mean=104.0 log_gluc_mean=4.6443908991
+log_tot_insulin=. _ERROR_=1 _N_=45
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=107 gluc_mrn=. gluc_aft=. day=15 center=Emory gluc_mean=107.0 log_gluc_mean=4.6728288345
+log_tot_insulin=. _ERROR_=1 _N_=46
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=126 gluc_mrn=. gluc_aft=. day=16 center=Emory gluc_mean=126.0 log_gluc_mean=4.836281907
+log_tot_insulin=. _ERROR_=1 _N_=47
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=113 gluc_mrn=. gluc_aft=. day=17 center=Emory gluc_mean=113.0 log_gluc_mean=4.7273878187
+log_tot_insulin=. _ERROR_=1 _N_=48
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=108 gluc_mrn=. gluc_aft=. day=18 center=Emory gluc_mean=108.0 log_gluc_mean=4.6821312271
+log_tot_insulin=. _ERROR_=1 _N_=49
+NOTE: Invalid argument to function LOG at line 15 column 18.
+ERROR: Limit set by ERRORS= option reached.  Further errors of this type will not be printed.
+id=11012 tot_insulin=0 gluc_eve=109 gluc_mrn=. gluc_aft=. day=19 center=Emory gluc_mean=109.0 log_gluc_mean=4.6913478822
+log_tot_insulin=. _ERROR_=1 _N_=50
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      17 at 12:12   17 at 14:16   34 at 15:18   
+NOTE: Mathematical operations could not be performed at the following places. The results of the operations have been set to 
+      missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      357 at 15:18   
+NOTE: There were 2278 observations read from the data set GLND.FOLLOWUP_ALL_LONG.
+      WHERE (gluc_mrn not = .) or (gluc_aft not = .) or (gluc_eve not = .) or (tot_insulin not = .);
+NOTE: The data set WORK.INSULIN has 2277 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.04 seconds
+      
+
+19         
+20         
+21         ** Check the distribution of the gluc_mean ************************;
+22         *******************************************************************;
+23         /*
+24         ods pdf file="dist_gluc_mean.pdf";
+25         title "Distribution for mean of blood glucose";
+26         
+27         proc univariate data=insulin plot;
+28         	var gluc_mean;
+29         run;
+30         
+31         ods pdf close;
+4                                                          The SAS System                            10:34 Thursday, October 7, 2010
+
+32         */
+33         ********************************************************************;
+34         
+35         goptions rotate = landscape reset=global gsfmode=replace gunit=pct border
+36         ctext=black ftitle=swissb ftext=swiss htitle=3 htext=3;
+37         
+38         axis1 label=(a=90 h=4 c=Black "Blood glucose (mg/dL) / Insulin (units)") order=(0 to 500 by 100) minor=none;
+39         axis2 label=( h=4 c=Black "Day") order=(0 to 28 by 4) offset=(0cm, 0cm) minor=none;
+40         
+41         axis3 label=(a=90 h=4 c=Black "Blood glucose (mg/dL)") order=(0 to 300 by 50) minor=none;
+42         axis4 label=( h=4 c=Black "Total insulin adminstrated (units)") order=(0 to 500 by 50) minor=none;
+43         axis5 label=( h=4 c=Black "Total insulin adminstrated (units)") /*order=(0 to 200 by 20)*/ minor=none;
+44         
+45         legend1 across=1 down=4 label=none
+46         		mode=protect position=(top right inside)
+47                 value=('Morning' 'Afternoon' 'Evening' 'Mean') offset=(0cm, -0.5cm);
+48         
+49         legend2 across=1 down=2 label=none
+50         		mode=protect position=(top right inside)
+51                 value=('Blood glucose' 'Insulin') offset=(0cm, -0.5cm);
+52         
+53         
+54         symbol1 value=circle   i=none h=2 w=2 c=blue;  *repeat=130;
+55         
+56         
+57         
+58         ********** Make scatter plot for all id  **************************;
+59         *******************************************************************;
+60         
+61         data insulin_exclude;
+62         	set insulin(keep=id tot_insulin);
+63         	where tot_insulin^=0;
+64         	drop tot_insulin;
+65         run;
+
+NOTE: There were 1920 observations read from the data set WORK.INSULIN.
+      WHERE tot_insulin not = 0;
+NOTE: The data set WORK.INSULIN_EXCLUDE has 1920 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+66         
+67         
+68         Proc sql;
+69         	create table insulin_plot as
+70         	select insulin.*
+71         	from insulin, insulin_exclude
+72         	where insulin.id=insulin_exclude.id and insulin.center^=2;
+NOTE: Table WORK.INSULIN_PLOT created, with 36832 rows and 10 columns.
+
+73         quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.11 seconds
+      cpu time            0.07 seconds
+      
+
+5                                                          The SAS System                            10:34 Thursday, October 7, 2010
+
+74         
+75         
+76         proc gplot data=insulin_plot gout=cat1;
+77         	title "Blood glucose (mg/dL) vs Total insulin adminstrated (units)";
+78         	by center;
+79         	*plot gluc_mrn*tot_insulin gluc_aft*tot_insulin gluc_eve*tot_insulin gluc_mean*tot_insulin/overlay vaxis=axis3
+79       ! haxis=axis4;
+80         	plot gluc_mean*tot_insulin/vaxis=axis3 haxis=axis4 legend=legend1; *noframe;
+81         run;
+
+NOTE: 124 observation(s) contained a MISSING value for the gluc_mean * tot_insulin request.
+NOTE: 9 observation(s) outside the axis range for the gluc_mean * tot_insulin request.
+NOTE: The above message was for the following by-group:
+      center=Emory
+NOTE: 15 observation(s) contained a MISSING value for the gluc_mean * tot_insulin request.
+NOTE: 48 observation(s) outside the axis range for the gluc_mean * tot_insulin request.
+NOTE: The above message was for the following by-group:
+      center=Vanderbilt
+NOTE: 668 observation(s) contained a MISSING value for the gluc_mean * tot_insulin request.
+NOTE: 54 observation(s) outside the axis range for the gluc_mean * tot_insulin request.
+NOTE: The above message was for the following by-group:
+      center=Colorado
+82         
+83         
+84         ********** Make scatter plot for random slected 5 id  *************;
+85         *******************************************************************;
+86         
+87         
+
+NOTE: There were 36832 observations read from the data set WORK.INSULIN_PLOT.
+NOTE: PROCEDURE GPLOT used (Total process time):
+      real time           3.63 seconds
+      cpu time            1.39 seconds
+      
+
+88         data insulin_id;
+89         	set insulin(keep=id center);
+90         run;
+
+NOTE: There were 2277 observations read from the data set WORK.INSULIN.
+NOTE: The data set WORK.INSULIN_ID has 2277 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.18 seconds
+      cpu time            0.01 seconds
+      
+
+91         
+92         proc sort data=insulin_id nodup; by id;run;
+
+NOTE: There were 2277 observations read from the data set WORK.INSULIN_ID.
+NOTE: 2150 duplicate observations were deleted.
+NOTE: The data set WORK.INSULIN_ID has 127 observations and 2 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+93         
+6                                                          The SAS System                            10:34 Thursday, October 7, 2010
+
+94         proc surveyselect data =insulin_id(where=(center=1))  method = SRS rep = 1
+95                                  sampsize = 5 seed = 12345 out = sub_emory;
+96           id _all_;
+97         run;
+
+NOTE: The data set WORK.SUB_EMORY has 5 observations and 2 variables.
+NOTE: The PROCEDURE SURVEYSELECT printed page 1.
+NOTE: PROCEDURE SURVEYSELECT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+98         
+99         proc surveyselect data =insulin_id(where=(center=3))  method = SRS rep = 1
+100                                 sampsize = 5 seed = 12345 out = sub_van;
+101          id _all_;
+102        run;
+
+NOTE: The data set WORK.SUB_VAN has 5 observations and 2 variables.
+NOTE: The PROCEDURE SURVEYSELECT printed page 2.
+NOTE: PROCEDURE SURVEYSELECT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+103        
+104        proc surveyselect data =insulin_id(where=(center=4))  method = SRS rep = 1
+105                                 sampsize = 5 seed = 12345 out = sub_col;
+106          id _all_;
+107        run;
+
+NOTE: The data set WORK.SUB_COL has 5 observations and 2 variables.
+NOTE: The PROCEDURE SURVEYSELECT printed page 3.
+NOTE: PROCEDURE SURVEYSELECT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+108        
+109        
+110        data sub_id;
+111        	set sub_emory sub_van sub_col insulin_id(where=(center=5));
+112        run;
+
+NOTE: There were 5 observations read from the data set WORK.SUB_EMORY.
+NOTE: There were 5 observations read from the data set WORK.SUB_VAN.
+NOTE: There were 5 observations read from the data set WORK.SUB_COL.
+NOTE: There were 4 observations read from the data set WORK.INSULIN_ID.
+      WHERE center=5;
+NOTE: The data set WORK.SUB_ID has 19 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+113        
+114        
+115        Proc sql;
+7                                                          The SAS System                            10:34 Thursday, October 7, 2010
+
+116        	create table sub_insulin as
+117        	select insulin.*
+118        	from insulin, sub_id
+119        	where insulin.id=sub_id.id;
+NOTE: Table WORK.SUB_INSULIN created, with 367 rows and 10 columns.
+
+120        quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+121        
+122        /*
+123        ********************************************************************;
+124        symbol1 value=circle   i=j h=4 w=2 c=blue;  *repeat=130;
+125        symbol2 value=square   i=j h=4 w=2 c=red;   *repeat=130;
+126        symbol3 value=triangle i=j h=4 w=2 c=green; *repeat=130;
+127        symbol4 value=Diamond  i=j h=4 w=2 c=cyan;  *repeat=130;
+128        symbol5 value=star     i=j h=4 w=2 c=black; *repeat=130;
+129        
+130        
+131        proc gplot data=sub_insulin gout=cat1;
+132        	title "Blood glucose (mg/dL) vs Total insulin adminstrated (units)";
+133        	by center;
+134        	*plot gluc_mrn*tot_insulin gluc_aft*tot_insulin gluc_eve*tot_insulin gluc_mean*tot_insulin/overlay vaxis=axis3
+134      ! haxis=axis4;
+135        	plot gluc_mean*tot_insulin=id/overlay vaxis=axis3 haxis=axis4;* legend=legend1; *noframe;
+136        run;
+137        
+138        
+139        axis6 label=(a=90 h=4 c=Black "Ln[Blood glucose (mg/dL)]") order=(4 to 5.5 by 0.5) minor=none;
+140        axis7 label=( h=4 c=Black "Ln[Total insulin adminstrated (units)]") order=(0 to 7 by 1) minor=none;
+141        
+142        proc gplot data=sub_insulin gout=cat1;
+143        	title " Ln[Blood glucose (mg/dL)] vs Ln[Total insulin adminstrated (units)]";
+144        	by center;
+145        	*plot gluc_mrn*tot_insulin gluc_aft*tot_insulin gluc_eve*tot_insulin gluc_mean*tot_insulin/overlay vaxis=axis3
+145      ! haxis=axis4;
+146        	plot log_gluc_mean*log_tot_insulin=id/overlay vaxis=axis6 haxis=axis7;* legend=legend1; *noframe;
+147        run;
+148        
+149        ********************************************************************;
+150        */
+151        ********** Check the slope for all patients  **********************;
+152        *******************************************************************;
+153        /*
+154        ********************************************************************;
+155        proc reg data=insulin_plot noprint outest=insulin_slope;
+156        
+157        by id;
+158         model gluc_mean=tot_insulin;
+159        run;
+160        
+161        data insulin_slope;
+162        	set insulin_slope(keep=id Intercept tot_insulin);
+163        	if tot_insulin>0 then slope=1;
+164        	if tot_insulin=0 then slope=0;
+8                                                          The SAS System                            10:34 Thursday, October 7, 2010
+
+165        	if tot_insulin<0 then slope=-1;
+166        	format slope slope.;
+167        run;
+168        
+169        proc sort data=insulin_slope; by tot_insulin;run;
+170        
+171        ods pdf file="slope.pdf";
+172        
+173        title "Slope for fitting gluc_mean vs tot_insulin";
+174        
+175        proc means data=insulin_slope;
+176         class slope;
+177         var tot_insulin;
+178        run;
+179        
+180        /*
+181        proc univariate data=insulin_slope plot;
+182        	var tot_insulin;
+183        run;
+184        */
+185        
+186        proc print data=insulin_slope;run;
+ERROR: File WORK.INSULIN_SLOPE.DATA does not exist.
+
+NOTE: The SAS System stopped processing this step because of errors.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+187        
+188        ods pdf close;
+189        
+190        ********************************************************************;
+191        */
+192        
+193        ********** Make final plot for output        **********************;
+194        *******************************************************************;
+195        /*
+196        ********************************************************************;
+197        data some_id;
+198        	set insulin;
+199        	where tot_insulin>500;
+200        	keep id;
+201        run;
+202        
+203        Proc sql;
+204        	create table some_insulin as
+205        	select insulin.*
+206        	from insulin, some_id
+207        	where insulin.id=some_id.id;
+208        quit;
+209        
+210        
+211        data sub_insulin;
+212        	set sub_insulin some_insulin;
+213        run;
+214        
+215        ods pdf file="data_glucose_insulin.pdf";
+9                                                          The SAS System                            10:34 Thursday, October 7, 2010
+
+216        
+217        title "Data for Blood glucose vs Total insulin adminstrated";
+218        
+219        proc print data=sub_insulin noobs label;
+220        	id id;
+221        	var center gluc_mrn gluc_aft gluc_eve gluc_mean tot_insulin day;
+222        	label center="Center";
+223        	label gluc_mrn="Morning (mg/dL)";
+224        	label gluc_aft="Afternoon (mg/dL)";
+225        	label gluc_eve="Evening (mg/dL)";
+226        	label gluc_mean="Mean (mg/dL)";
+227        	label tot_insulin="Insulin (units)";
+228        	label day="Day";
+229        run;
+230        
+231        ods pdf close;
+232        ********************************************************************;
+233        */
+234        
+235        /*
+236        ********************************************************************;
+237        title "wbh";
+238        data full_id;
+239        	set insulin(keep=id day);
+240        	where day=28;
+241        	drop day;
+242        run;
+243        
+244        proc sort data=full_id nodup;by id;run;
+245        proc print;run;
+246        ********************************************************************;
+247        */
+248        
+249        
+250        ods pdf file="full_data_glucose_insulin.pdf";
+NOTE: Writing ODS PDF output to DISK destination "/home/bwu2/insulin/full_data_glucose_insulin.pdf", printer "PDF".
+251        
+252        title "Data for Blood glucose vs Total insulin adminstrated";
+253        
+
+
+254        proc print data=insulin noobs label;
+255        	where id in (11323,21020,32064,41156);
+256        	id id;
+257        	var center gluc_mrn gluc_aft gluc_eve gluc_mean tot_insulin day;
+258        	label center="Center";
+259        	label gluc_mrn="Morning (mg/dL)";
+260        	label gluc_aft="Afternoon (mg/dL)";
+261        	label gluc_eve="Evening (mg/dL)";
+262        	label gluc_mean="Mean (mg/dL)";
+263        	label tot_insulin="Insulin (units)";
+264        	label day="Day";
+265        run;
+
+NOTE: There were 112 observations read from the data set WORK.INSULIN.
+      WHERE id in (11323, 21020, 32064, 41156);
+NOTE: The PROCEDURE PRINT printed pages 4-6.
+NOTE: PROCEDURE PRINT used (Total process time):
+10                                                         The SAS System                            10:34 Thursday, October 7, 2010
+
+      real time           0.13 seconds
+      cpu time            0.12 seconds
+      
+
+266        
+267        
+268        proc gplot data=insulin gout=cat1;
+269        	title "Blood glucose (mg/dL) vs Total insulin adminstrated (units)";
+270        	where id in (11323,21020,32064,41156);
+271        	by id;
+272        	*plot gluc_mrn*tot_insulin gluc_aft*tot_insulin gluc_eve*tot_insulin gluc_mean*tot_insulin/overlay vaxis=axis3
+272      ! haxis=axis4;
+273        	plot gluc_mean*tot_insulin/vaxis=axis3 haxis=axis4 legend=legend1; *noframe;
+274        run;
+
+275        
+276        
+277        ods pdf close;
+NOTE: ODS PDF printed 8 pages to /home/bwu2/insulin/full_data_glucose_insulin.pdf.
+278        
+279        
+280        	
+
+NOTE: There were 112 observations read from the data set WORK.INSULIN.
+      WHERE id in (11323, 21020, 32064, 41156);
+NOTE: PROCEDURE GPLOT used (Total process time):
+      real time           12.73 seconds
+      cpu time            1.21 seconds
+      
+
+281        proc gplot data=some_insulin gout=cat1;
+ERROR: File WORK.SOME_INSULIN.DATA does not exist.
+282        	title1 "Blood glucose (mg/dL) vs Total insulin adminstrated (units)";
+283        	title2 "For patients with extreamly large value of blood glucose or insulin";
+284        	by id;
+285        	*plot gluc_mrn*tot_insulin gluc_aft*tot_insulin gluc_eve*tot_insulin gluc_mean*tot_insulin/overlay vaxis=axis3
+285      ! haxis=axis5;
+286        	plot gluc_mean*tot_insulin/vaxis=axis3 haxis=axis5 legend=legend1; *noframe;
+ERROR: No data set open to look up variables.
+ERROR: No data set open to look up variables.
+NOTE: The previous statement has been deleted.
+287        run;
+
+288        
+289        
+290        ods pdf file="glucose_insulin.pdf";
+NOTE: Writing ODS PDF output to DISK destination "/home/bwu2/insulin/glucose_insulin.pdf", printer "PDF".
+291        
+
+NOTE: The SAS System stopped processing this step because of errors.
+NOTE: PROCEDURE GPLOT used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+
+292        proc greplay nofs gout=cat1;
+NOTE: Enter greplay commands or statements.
+11                                                         The SAS System                            10:34 Thursday, October 7, 2010
+
+293        igout cat1;
+NOTE: Building list of graphs from the catalog.
+
+294        list igout;
+
+NOTE: Graphs on WORK.CAT1
+
+     NAME          DESCRIPTION
+
+  1  GPLOT     I   Plot of gluc_mean * tot_insulin
+                   center=Emory
+  2  GPLOT1    I   Plot of gluc_mean * tot_insulin
+                   center=Vanderbilt
+  3  GPLOT2    I   Plot of gluc_mean * tot_insulin
+                   center=Colorado
+  4  GPLOT3    I   Plot of gluc_mean * tot_insulin
+                   center=Wisconsin
+  5  GPLOT4    I   Plot of gluc_mean * tot_insulin
+                   GLND ID No.=11323
+  6  GPLOT5    I   Plot of gluc_mean * tot_insulin
+                   GLND ID No.=21020
+  7  GPLOT6    I   Plot of gluc_mean * tot_insulin
+                   GLND ID No.=32064
+  8  GPLOT7    I   Plot of gluc_mean * tot_insulin
+                   GLND ID No.=41156
+
+295        tc template;
+296        tdef t1 1 /llx=0   ulx=0   lrx=50  urx=50  lly=50 uly=100 lry=50 ury=100
+297                2 /llx=50  ulx=50  lrx=100 urx=100 lly=50 uly=100 lry=50 ury=100
+298                3 /llx=0   ulx=0   lrx=50  urx=50  lly=0  uly=50  lry=0  ury=50
+299                4 /llx=50  ulx=50  lrx=100 urx=100 lly=0  uly=50  lry=0  ury=50
+300        			;
+301        template t1;
+302        tplay 1:1  2:2  3:3  4:4;
+303        tplay 1:5  2:6  3:7  4:8;
+NOTE: Graph 11 not on igout catalog.
+NOTE: Graph 12 not on igout catalog.
+304        tplay 1:9  2:10 3:11 4:12;
+NOTE: Graph 13 not on igout catalog.
+NOTE: Graph 14 not on igout catalog.
+NOTE: Graph 15 not on igout catalog.
+NOTE: Graph 16 not on igout catalog.
+NOTE: Graph 17 not on igout catalog.
+NOTE: Graph 18 not on igout catalog.
+305        tplay 1:13 2:14 3:15 4:16;
+306        tplay 1:17 2:18;
+307        run;
+
+307      !      quit;
+
+NOTE: PROCEDURE GREPLAY used (Total process time):
+      real time           13.95 seconds
+      cpu time            10.63 seconds
+      
+
+308        ods pdf close;
+NOTE: ODS PDF printed 3 pages to /home/bwu2/insulin/glucose_insulin.pdf.
+309        
+12                                                         The SAS System                            10:34 Thursday, October 7, 2010
+
+310        
+
+ERROR: Errors printed on pages 3,8,10.
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           32.59 seconds
+      cpu time            15.08 seconds
+      

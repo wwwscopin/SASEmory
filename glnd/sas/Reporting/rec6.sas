@@ -1,0 +1,28 @@
+options ps=52 ls=82;
+ods pdf file='mixedclosed.pdf';
+proc print data=glnd.gluc_mixed_closedgluc_evea;
+where day in (1,7,14);
+title glnd.gluc_mixed_closedgluc_evea;
+run;
+proc print data=glnd.gluc_mixed_closedgluc_mrna;
+where day in (1,7,14);
+title glnd.gluc_mixed_closedgluc_mrna;
+run;
+proc print data=glnd.gluc_mixed_closedgluc_afta;
+where day in (1,7,14);
+title glnd.gluc_mixed_closedgluc_afta;
+run;
+
+proc print data=glnd.gluc_mixed_closedgluc_eveb;
+where day in (1,7,14);
+title glnd.gluc_mixed_closedgluc_eveb;
+run;
+proc print data=glnd.gluc_mixed_closedgluc_mrnb;
+where day in (1,7,14);
+title glnd.gluc_mixed_closedgluc_mrnb;
+run;
+proc print data=glnd.gluc_mixed_closedgluc_aftb;
+where day in (1,7,14);
+title glnd.gluc_mixed_closedgluc_aftb;
+run;
+ods pdf close;

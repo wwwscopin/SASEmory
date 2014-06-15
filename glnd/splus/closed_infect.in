@@ -1,0 +1,76 @@
+#################################################################################################
+#
+# Program:	closed.in
+#
+# Purpose:	Produce closed results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.top("closed",
+ prepare.date=date(),
+ asof.date="April, 2012",
+ report.type="Baseline and Follow-up CLOSED SESSION",
+ meet.date="April 17, 2012",
+ header="GLND DSMB Report CLOSED SESSION")
+
+
+lib="/dfax/glnd/sas"
+#lib="/dfax/glnd/sas/dsmc/20110404"
+libr="/dfax/glnd/sas/reporting"
+#libr="/dfax/glnd/sas/dsmc/20110404/reporting"
+libs="/dfax/glnd/splus"
+#libdf="/dfax/glnd/sas/reporting/df_reporting" 
+libdf="/dfax/glnd/sas/dsmc/20110404/reporting/df_reporting"
+
+ #### try f.list
+ 
+
+cat("",c("\\begin{table}",
+ paste("\\resizebox{7.2in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//dfax//glnd//sas//reporting//notc1.ps}}}",sep=""),
+ "\\caption{Nosocomial Infection by Cultured Organism}", 
+ "\\end{table}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+
+
+cat("",c("\\begin{table}",
+ paste("\\resizebox{7.2in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//dfax//glnd//sas//reporting//notc2.ps}}}",sep=""),
+ "\\caption{Nosocomial Infection by Cultured Organism (continued)}", 
+ "\\end{table}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+
+
+cat("",c("\\begin{table}",
+ paste("\\resizebox{7.2in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//dfax//glnd//sas//reporting//notc3.ps}}}",sep=""),
+ "\\caption{Summary of Nosocomial Infection by Type}", 
+ "\\end{table}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+
+
+cat("",c("\\begin{table}",
+ paste("\\resizebox{7.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//dfax//glnd//sas//reporting//notc4.ps}}}",sep=""),
+ "\\caption{Summary of Nosocomial Infection by Clinical Site}", 
+ "\\end{table}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+ 
+    
+### Finish
+
+f.bottom("closed")
+unix("/home/gcotson/bin/laps closed",output=F)
+unix("/home/gcotson/bin/laps closed",output=F)
+unix("/home/gcotson/bin/lapdf closed",output=F)
+unix("/home/gcotson/bin/lapdf closed",output=F)

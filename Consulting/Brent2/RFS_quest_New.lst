@@ -1,0 +1,1556 @@
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011   1
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                                         Data Set Summary
+
+                                 Dataset                   Created          Modified  NVar    NObs
+
+                                 WORK.QUEST_CON   08DEC11:16:13:34  08DEC11:16:13:34   195     205
+                                 WORK.QUEST_CASE  08DEC11:16:13:34  08DEC11:16:13:34   195     110
+
+
+                                                         Variables Summary
+
+                                Number of Variables in Common: 192.
+                                Number of Variables in WORK.QUEST_CON but not in WORK.QUEST_CASE: 3.
+                                Number of Variables in WORK.QUEST_CASE but not in WORK.QUEST_CON: 3.
+                                Number of Variables with Conflicting Types: 3.
+                                Number of Variables with Differing Attributes: 26.
+
+
+                                 Listing of Variables in WORK.QUEST_CASE but not in WORK.QUEST_CON
+
+                                                Variable      Type  Length  Label
+
+                                                UNDRSTND      Num        8  UNDRSTND
+                                                live_you_tmp  Num        8  LIVE_YOU
+                                                DRI_MORN      Num        8  DRI_MORN
+
+
+                                         Listing of Common Variables with Conflicting Types
+
+                                 Variable  Dataset          Type  Length  Format  Informat  Label
+
+                                 OTHER4    WORK.QUEST_CON   Num        8                    OTHER4
+                                           WORK.QUEST_CASE  Char      21  $21.    $21.      OTHER4
+                                 OTHER6    WORK.QUEST_CON   Char      13  $13.    $13.      OTHER6
+                                           WORK.QUEST_CASE  Num        8                    OTHER6
+                                 NAME      WORK.QUEST_CON   Num        8                    NAME
+                                           WORK.QUEST_CASE  Char      11  $11.    $11.      NAME
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011   2
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                       Listing of Common Variables with Differing Attributes
+
+                          Variable        Dataset          Type  Length  Format  Informat  Label
+
+                          ADDRESS         WORK.QUEST_CON   Char      43  $43.    $43.      ADDRESS
+                                          WORK.QUEST_CASE  Char      45  $45.    $45.      ADDRESS
+                          OTHER1          WORK.QUEST_CON   Char      11  $11.    $11.      OTHER1
+                                          WORK.QUEST_CASE  Char      15  $15.    $15.      OTHER1
+                          WHAT_WRK        WORK.QUEST_CON   Char      29  $29.    $29.      WHAT_WRK
+                                          WORK.QUEST_CASE  Char      31  $31.    $31.      WHAT_WRK
+                          WHAT_FLO        WORK.QUEST_CON   Char       8  $8.     $8.       WHAT_FLO
+                                          WORK.QUEST_CASE  Char      10  $10.    $10.      WHAT_FLO
+                          OTHER10         WORK.QUEST_CON   Char      11  $11.    $11.      OTHER10
+                                          WORK.QUEST_CASE  Char      56  $56.    $56.      OTHER10
+                          MONTH1          WORK.QUEST_CON   Num        8                    MONTH1
+                                          WORK.QUEST_CASE  Num        8
+                          OTHER12         WORK.QUEST_CON   Char      17  $17.    $17.      OTHER12
+                                          WORK.QUEST_CASE  Char       8  $8.     $8.       OTHER12
+                          OTHER13         WORK.QUEST_CON   Char      11  $11.    $11.      OTHER13
+                                          WORK.QUEST_CASE  Char      28  $28.    $28.      OTHER13
+                          WHICH           WORK.QUEST_CON   Char      19  $19.    $19.      WHICH
+                                          WORK.QUEST_CASE  Char      29  $29.    $29.      WHICH
+                          CHR_DENO        WORK.QUEST_CON   Char      45  $45.    $45.      CHR_DENO
+                                          WORK.QUEST_CASE  Char      47  $47.    $47.      CHR_DENO
+                          WHAT_SUP        WORK.QUEST_CON   Char      17  $17.    $17.      WHAT_SUP
+                                          WORK.QUEST_CASE  Char      24  $24.    $24.      WHAT_SUP
+                          OTHER15         WORK.QUEST_CON   Char      19  $19.    $19.      OTHER15
+                                          WORK.QUEST_CASE  Char      11  $11.    $11.      OTHER15
+                          SAFE_SEX        WORK.QUEST_CON   Char       2  $2.     $2.       SAFE_SEX
+                                          WORK.QUEST_CASE  Char       3  $3.     $3.       SAFE_SEX
+                          OTHER17         WORK.QUEST_CON   Char      14  $14.    $14.      OTHER17
+                                          WORK.QUEST_CASE  Char      13  $13.    $13.      OTHER17
+                          EMO_SUPP        WORK.QUEST_CON   Char      17  $17.    $17.      EMO_SUPP
+                                          WORK.QUEST_CASE  Char      21  $21.    $21.      EMO_SUPP
+                          LIVE_YOU        WORK.QUEST_CON   Num        8                    LIVE_YOU
+                                          WORK.QUEST_CASE  Num        8
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011   3
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                       Listing of Common Variables with Differing Attributes
+
+                          Variable        Dataset          Type  Length  Format  Informat  Label
+
+                          RELAT           WORK.QUEST_CON   Char      11  $11.    $11.      RELAT
+                                          WORK.QUEST_CASE  Char      14  $14.    $14.      RELAT
+                          OTHER19         WORK.QUEST_CON   Char      11  $11.    $11.      OTHER19
+                                          WORK.QUEST_CASE  Char      10  $10.    $10.      OTHER19
+                          OTHER20         WORK.QUEST_CON   Char      11  $11.    $11.      OTHER20
+                                          WORK.QUEST_CASE  Char      10  $10.    $10.      OTHER20
+                          WHI_DRUG        WORK.QUEST_CON   Char      11  $11.    $11.      WHI_DRUG
+                                          WORK.QUEST_CASE  Char       5  $5.     $5.       WHI_DRUG
+                          WHAT_SUP1       WORK.QUEST_CON   Char      19  $19.    $19.      WHAT_SUP1
+                                          WORK.QUEST_CASE  Char      14  $14.    $14.      WHAT_SUP1
+                          DIFF_ARV        WORK.QUEST_CON   Char     181  $181.   $181.     DIFF_ARV
+                                          WORK.QUEST_CASE  Char     255  $255.   $255.     DIFF_ARV
+                          DIFF_HEA        WORK.QUEST_CON   Char     158  $158.   $158.     DIFF_HEA
+                                          WORK.QUEST_CASE  Char     230  $230.   $230.     DIFF_HEA
+                          DIFF_CLI        WORK.QUEST_CON   Char     102  $102.   $102.     DIFF_CLI
+                                          WORK.QUEST_CASE  Char     127  $127.   $127.     DIFF_CLI
+                          DEATH_DISENROL  WORK.QUEST_CON   Char      43  $43.    $43.      DEATH/DISENROL
+                                          WORK.QUEST_CASE  Char      30  $30.    $30.      DEATH/DISENROL
+                          dob             WORK.QUEST_CON   Num        8
+                                          WORK.QUEST_CASE  Num        8  DATE9.  DATE9.    DOB
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011   4
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                                        Observation Summary
+
+                                                   Observation      Base  Compare
+
+                                                   First Obs           1        1
+                                                   First Unequal       1        1
+                                                   Last  Unequal     110      110
+                                                   Last  Match       110      110
+                                                   Last  Obs         205        .
+
+                              Number of Observations in Common: 110.
+                              Number of Observations in WORK.QUEST_CON but not in WORK.QUEST_CASE: 95.
+                              Total Number of Observations Read from WORK.QUEST_CON: 205.
+                              Total Number of Observations Read from WORK.QUEST_CASE: 110.
+
+                              Number of Observations with Some Compared Variables Unequal: 110.
+                              Number of Observations with All Compared Variables Equal: 0.
+
+
+                                                     Values Comparison Summary
+
+                                 Number of Variables Compared with All Observations Equal: 20.
+                                 Number of Variables Compared with Some Observations Unequal: 169.
+                                 Number of Variables with Missing Value Differences: 25.
+                                 Total Number of Values which Compare Unequal: 5285.
+                                 Maximum Difference: 12343.
+
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011   5
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                                   Variables with Unequal Values
+
+                    Variable        Type  Len1 Len2   Label            Compare Label   Ndif   MaxDif  MissDif
+
+                    STUDY_NO_       CHAR     8    8   STUDY NO#        STUDY NO#        110                 0
+                    DATE            NUM      8    8   DATE             DATE             106      161        0
+                    GENDER          NUM      8    8   GENDER           GENDER            58    1.000        0
+                    RACE_ETH        NUM      8    8   RACE_ETH         RACE_ETH           2    1.000        0
+                    ETH_GRP         NUM      8    8   ETH_GRP          ETH_GRP           16   78.000        0
+                    OTHER           CHAR    11   11   OTHER            OTHER              9                 3
+                    ADDRESS         CHAR    43   45   ADDRESS          ADDRESS          110                 0
+                    GR_EDUC         NUM      8    8   GR_EDUC          GR_EDUC           77   12.000        0
+                    READ            NUM      8    8   READ             READ              28      122        0
+                    OTHER1          CHAR    11   15   OTHER1           OTHER1            25                 1
+                    OTHER2          CHAR    11   11   OTHER2           OTHER2            28                 0
+                    SPEAK           NUM      8    8   SPEAK            SPEAK             31      111        0
+                    OTHER3          CHAR    11   11   OTHER3           OTHER3            26                 0
+                    SENS_IMP        NUM      8    8   SENS_IMP         SENS_IMP          46   10.000        0
+                    INCOME          NUM      8    8   INCOME           INCOME            37    1.000        0
+                    YES_SUPP        NUM      8    8   YES_SUPP         YES_SUPP          95   85.000        0
+                    EMP_STAT        NUM      8    8   EMP_STAT         EMP_STAT          73   57.000        0
+                    WHAT_WRK        CHAR    29   31   WHAT_WRK         WHAT_WRK          95                 0
+                    OTHR_FIN        NUM      8    8   OTHR_FIN         OTHR_FIN          25    1.000        0
+                    WHAT_FIN        CHAR    43   43   WHAT_FIN         WHAT_FIN          27                10
+                    RESIDE          NUM      8    8   RESIDE           RESIDE            22    3.000        0
+                    INF_SETT        NUM      8    8   INF_SETT         INF_SETT           7    1.000        0
+                    YES_DATE        NUM      8    8   YES_DATE         YES_DATE           7        0        7
+                    LIV_ARR         NUM      8    8   LIV_ARR          LIV_ARR           68    4.000        0
+                    NUM_PEOP        NUM      8    8   NUM_PEOP         NUM_PEOP         101   12.000        0
+                    WHAT_FAC        NUM      8    8   WHAT_FAC         WHAT_FAC          33    12343        0
+                    WHAT_WAL        CHAR     6    6   WHAT_WAL         WHAT_WAL           8                 0
+                    WHAT_FLO        CHAR     8   10   WHAT_FLO         WHAT_FLO          46                 0
+                    WHI_HAVE        NUM      8    8   WHI_HAVE         WHI_HAVE          36    3.000        0
+                    NOT_ENOU        NUM      8    8   NOT_ENOU         NOT_ENOU          27    2.000        0
+                    AMT_FOOD        NUM      8    8   AMT_FOOD         AMT_FOOD          29    1.000        0
+                    WOUT_FOO        NUM      8    8   WOUT_FOO         WOUT_FOO           3    1.000        0
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011   6
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                                   Variables with Unequal Values
+
+                    Variable        Type  Len1 Len2   Label            Compare Label   Ndif   MaxDif  MissDif
+
+                    WHAT_CLI        NUM      8    8   WHAT_CLI         WHAT_CLI          17   11.000        0
+                    OTHER5          CHAR    21   21   OTHER5           OTHER5            19                 8
+                    WHER_ARV        NUM      8    8   WHER_ARV         WHER_ARV          23    4.000        0
+                    TRAV_TIM        NUM      8    8   TRAV_TIM         TRAV_TIM          37    2.000        0
+                    TRAN_CLI        NUM      8    8   TRAN_CLI         TRAN_CLI          37   20.000        0
+                    OTHER7          NUM      8    8   OTHER7           OTHER7             3        0        3
+                    PAYMENT         NUM      8    8   PAYMENT          PAYMENT           43    4.000        0
+                    OTHER8          CHAR     8    8   OTHER8           OTHER8             2                 1
+                    FEEL_CLI        NUM      8    8   FEEL_CLI         FEEL_CLI          41    3.000        0
+                    TOUC_HIV        NUM      8    8   TOUC_HIV         TOUC_HIV           1    1.000        0
+                    MISTREAT        NUM      8    8   MISTREAT         MISTREAT          45    3.000        0
+                    REFU_MED        NUM      8    8   REFU_MED         REFU_MED           2    1.000        0
+                    TALK_PUB        NUM      8    8   TALK_PUB         TALK_PUB           7    1.000        0
+                    COST_VIS        NUM      8    8   COST_VIS         COST_VIS           9    2.000        0
+                    COS_TRAN        NUM      8    8   COS_TRAN         COS_TRAN           4    2.000        0
+                    TIME_WRK        NUM      8    8   TIME_WRK         TIME_WRK          18    2.000        0
+                    CHIL_CARE       NUM      8    8   CHIL_CARE        CHIL_CARE          1    1.000        0
+                    ILL             NUM      8    8   ILL              ILL                8    2.000        0
+                    FAM_CIRC        NUM      8    8   FAM_CIRC         FAM_CIRC           8    1.000        0
+                    OTHER10         CHAR    11   56   OTHER10          OTHER10            4                 2
+                    WEEK            NUM      8    8   WEEK             WEEK               5    2.000        0
+                    MONTH           NUM      8    8   MONTH            MONTH             15   46.000        0
+                    WEEK1           NUM      8    8   WEEK1            WEEK1              7    3.000        0
+                    MONTH1          NUM      8    8   MONTH1                             18   88.000        1
+                    REM_TAKE        NUM      8    8   REM_TAKE         REM_TAKE          53      275        0
+                    OTHER11         NUM      8    8   OTHER11          OTHER11            2        0        2
+                    REM_PICK        NUM      8    8   REM_PICK         REM_PICK          15   13.000        0
+                    OTHER12         CHAR    17    8   OTHER12          OTHER12            9                 0
+                    AWAY_HME        NUM      8    8   AWAY_HME         AWAY_HME          19    3.000        0
+                    WER_BUSY        NUM      8    8   WER_BUSY         WER_BUSY          21    2.000        0
+                    FORG_PIL        NUM      8    8   FORG_PIL         FORG_PIL           6    2.000        0
+                    MANY_PIL        NUM      8    8   MANY_PIL         MANY_PIL           1    1.000        0
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011   7
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                                   Variables with Unequal Values
+
+                    Variable        Type  Len1 Len2   Label            Compare Label   Ndif   MaxDif  MissDif
+
+                    AVOI_SID        NUM      8    8   AVOI_SID         AVOI_SID           2    3.000        0
+                    OTH_SEE         NUM      8    8   OTH_SEE          OTH_SEE            7    2.000        0
+                    CHA_EVRY        NUM      8    8   CHA_EVRY         CHA_EVRY           2    2.000        0
+                    FEL_ASLP        NUM      8    8   FEL_ASLP         FEL_ASLP           6    3.000        0
+                    FELT_ILL        NUM      8    8   FELT_ILL         FELT_ILL           1    1.000        0
+                    PROB_PIL        NUM      8    8   PROB_PIL         PROB_PIL           1    2.000        0
+                    FORG_OBT        NUM      8    8   FORG_OBT         FORG_OBT           1    2.000        0
+                    RAN_PILL        NUM      8    8   RAN_PILL         RAN_PILL           4    3.000        0
+                    MON_ARVS        NUM      8    8   MON_ARVS         MON_ARVS           4    2.000        0
+                    TIR_ARVS        NUM      8    8   TIR_ARVS         TIR_ARVS           3    1.000        0
+                    DISL_PIL        NUM      8    8   DISL_PIL         DISL_PIL           4    2.000        0
+                    DIFF_SWA        NUM      8    8   DIFF_SWA         DIFF_SWA           1    1.000        0
+                    OTHER13         CHAR    11   28   OTHER13          OTHER13            2                 0
+                    RELIGION        NUM      8    8   RELIGION         RELIGION          23    1.000        0
+                    WHICH           CHAR    19   29   WHICH            WHICH             33                 0
+                    CHR_DENO        CHAR    45   47   CHR_DENO         CHR_DENO         102                 0
+                    PRAC_REL        NUM      8    8   PRAC_REL         PRAC_REL          81    3.000        0
+                    STOP_ARV        NUM      8    8   STOP_ARV         STOP_ARV          23   77.000        0
+                    TRAD_MED        NUM      8    8   TRAD_MED         TRAD_MED          48    1.000        0
+                    WHEN            NUM      8    8   WHEN             WHEN              50    3.000        0
+                    FORM            NUM      8    8   FORM             FORM               2        0        2
+                    ROUTE           NUM      8    8   ROUTE            ROUTE              2        0        2
+                    COLOR           NUM      8    8   COLOR            COLOR              2        0        2
+                    REASON          NUM      8    8   REASON           REASON             2        0        2
+                    WHERE           NUM      8    8   WHERE            WHERE              2        0        2
+                    FEEL            NUM      8    8   FEEL             FEEL               2        0        2
+                    HOW_MED         NUM      8    8   HOW_MED          HOW_MED            2   78.000        0
+                    SIDE_EFF        NUM      8    8   SIDE_EFF         SIDE_EFF           2   77.000        0
+                    TAKE_SUP        NUM      8    8   TAKE_SUP         TAKE_SUP          27    1.000        0
+                    WHAT_SUP        CHAR    17   24   WHAT_SUP         WHAT_SUP          30                 0
+                    HOW_FEEL        NUM      8    8   HOW_FEEL         HOW_FEEL          28    3.000        0
+                    ALT_TREA        NUM      8    8   ALT_TREA         ALT_TREA           2    1.000        0
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011   8
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                                   Variables with Unequal Values
+
+                    Variable        Type  Len1 Len2   Label            Compare Label   Ndif   MaxDif  MissDif
+
+                    WHAT_TRE        NUM      8    8   WHAT_TRE         WHAT_TRE           2        0        2
+                    HOW_FEEL1       NUM      8    8   HOW_FEEL1        HOW_FEEL1          2    2.000        0
+                    RECOMMEN        NUM      8    8   RECOMMEN         RECOMMEN          80   38.000        0
+                    OTHER15         CHAR    19   11   OTHER15          OTHER15           38                 0
+                    MAR_STAT        NUM      8    8   MAR_STAT         MAR_STAT          84    5.000        0
+                    SAFE_SEX        CHAR     2    3   SAFE_SEX         SAFE_SEX          50                 0
+                    HOW_OFT         NUM      8    8   HOW_OFT          HOW_OFT           18      100        0
+                    NUM_PART        NUM      8    8   NUM_PART         NUM_PART          46    2.000        0
+                    PART_LIV        NUM      8    8   PART_LIV         PART_LIV          53    2.000        0
+                    PART_TES        NUM      8    8   PART_TES         PART_TES          50    2.000        0
+                    PART_POS        NUM      8    8   PART_POS         PART_POS          54    2.000        0
+                    PART_ARV        NUM      8    8   PART_ARV         PART_ARV          31    1.000        0
+                    CHILDREN        NUM      8    8   CHILDREN         CHILDREN          88    6.000        0
+                    CARE_OF         NUM      8    8   CARE_OF          CARE_OF           86    8.000        0
+                    CHIL_TES        NUM      8    8   CHIL_TES         CHIL_TES          70    5.000        0
+                    CHIL_POS        NUM      8    8   CHIL_POS         CHIL_POS          14    2.000        0
+                    POSITIVE        NUM      8    8   POSITIVE         POSITIVE          57    3.000        0
+                    DIED            NUM      8    8   DIED             DIED              61    5.000        0
+                    WHO_HIV         NUM      8    8   WHO_HIV          WHO_HIV           85    12222        0
+                    OTHER17         CHAR    14   13   OTHER17          OTHER17           16                 0
+                    EMO_SUPP        CHAR    17   21   EMO_SUPP         EMO_SUPP          94                 0
+                    LIVE_YOU        NUM      8    8   LIVE_YOU                           65   78.000        1
+                    TREA_SUP        NUM      8    8   TREA_SUP         TREA_SUP          35    1.000        0
+                    RELAT           CHAR    11   14   RELAT            RELAT             39                16
+                    HAVE_HUR        NUM      8    8   HAVE_HUR         HAVE_HUR          34    3.000        0
+                    HOW_HURT        NUM      8    8   HOW_HURT         HOW_HURT          36      117        0
+                    HAVE_SEX        NUM      8    8   HAVE_SEX         HAVE_SEX          10    3.000        0
+                    WHOM            NUM      8    8   WHOM             WHOM              10   79.000        0
+                    OTHER19         CHAR    11   10   OTHER19          OTHER19            8                 4
+                    PERF_SEX        NUM      8    8   PERF_SEX         PERF_SEX          10    2.000        0
+                    WHOM1           NUM      8    8   WHOM1            WHOM1              8   79.000        0
+                    OTHER20         CHAR    11   10   OTHER20          OTHER20            7                 3
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011   9
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                                   Variables with Unequal Values
+
+                    Variable        Type  Len1 Len2   Label            Compare Label   Ndif   MaxDif  MissDif
+
+                    WHEN_LAS        NUM      8    8   WHEN_LAS         WHEN_LAS          10    4.000        0
+                    USE_DRUG        NUM      8    8   USE_DRUG         USE_DRUG           1    1.000        0
+                    WHI_DRUG        CHAR    11    5   WHI_DRUG         WHI_DRUG           1                 0
+                    DRI_ALCO        NUM      8    8   DRI_ALCO         DRI_ALCO          28    4.000        0
+                    WHAT_ALC        NUM      8    8   WHAT_ALC         WHAT_ALC          28      239        0
+                    SMOKE           NUM      8    8   SMOKE            SMOKE             11    1.000        0
+                    WHAT_SMO        NUM      8    8   WHAT_SMO         WHAT_SMO          11    4.000        0
+                    HOW_MANY        NUM      8    8   HOW_MANY         HOW_MANY          11   87.000        0
+                    ENOU_EDU        NUM      8    8   ENOU_EDU         ENOU_EDU          13    2.000        0
+                    PRE_ARV         CHAR     1    1   PRE_ARV          PRE_ARV           15                 0
+                    BENEFIC         NUM      8    8   BENEFIC          BENEFIC            4   78.000        0
+                    ADH_COUN        NUM      8    8   ADH_COUN         ADH_COUN          99    6.000        0
+                    BENEFIC1        NUM      8    8   BENEFIC1         BENEFIC1          11   78.000        0
+                    NO_WHY          CHAR    63   63   NO_WHY           NO_WHY             6                 2
+                    ADD_SUPP        NUM      8    8   ADD_SUPP         ADD_SUPP          15    1.000        0
+                    WHAT_SUP1       CHAR    19   14   WHAT_SUP1        WHAT_SUP1         15                 0
+                    ACC_SERV        NUM      8    8   ACC_SERV         ACC_SERV           6    1.000        0
+                    WHAT_SER        NUM      8    8   WHAT_SER         WHAT_SER           6      155        0
+                    FEEL_TIR        NUM      8    8   FEEL_TIR         FEEL_TIR          67    3.000        0
+                    FEEL_NER        NUM      8    8   FEEL_NER         FEEL_NER          46    3.000        0
+                    NOT_CALM        NUM      8    8   NOT_CALM         NOT_CALM          28    2.000        0
+                    HOPELESS        NUM      8    8   HOPELESS         HOPELESS          37    3.000        0
+                    REST_FID        NUM      8    8   REST_FID         REST_FID          25    2.000        0
+                    SO_REST         NUM      8    8   SO_REST          SO_REST           15    2.000        0
+                    FEEL_SAD        NUM      8    8   FEEL_SAD         FEEL_SAD          70    3.000        0
+                    SO_DEP          NUM      8    8   SO_DEP           SO_DEP            59    3.000        0
+                    EVER_EFF        NUM      8    8   EVER_EFF         EVER_EFF          38    3.000        0
+                    WORTHLESS       NUM      8    8   WORTHLESS        WORTHLESS         22    3.000        0
+                    SCORE           NUM      8    8   SCORE            SCORE            100   13.000        0
+                    DIFF_ARV        CHAR   181  255   DIFF_ARV         DIFF_ARV          76                 0
+                    DIFF_HEA        CHAR   158  230   DIFF_HEA         DIFF_HEA         101                 0
+                    DIFF_CLI        CHAR   102  127   DIFF_CLI         DIFF_CLI          23                 0
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  10
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                                   Variables with Unequal Values
+
+                    Variable        Type  Len1 Len2   Label            Compare Label   Ndif   MaxDif  MissDif
+
+                    ADD_COMM        CHAR   255  255   ADD_COMM         ADD_COMM          23                 0
+                    RES_COUN        NUM      8    8   RES_COUN         RES_COUN           2    1.000        0
+                    RES_DOCT        NUM      8    8   RES_DOCT         RES_DOCT           2    1.000        0
+                    FORWARD         NUM      8    8   FORWARD          FORWARD           91    5.000        0
+                    BACKWARD        NUM      8    8   BACKWARD         BACKWARD          85    6.000        0
+                    TMT_A           NUM      8    8   TMT-A            TMT-A            105   58.000        1
+                    TMT_B           NUM      8    8   TMT-B            TMT-B            107      117        1
+                    DEATH_DISENROL  CHAR    43   30   DEATH/DISENROL   DEATH/DISENROL     9                 0
+                    dob             NUM      8    8                    DOB              110        0      110
+
+
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  STUDY NO#
+                                                ||  Base Value           Compare Value
+                                            Obs ||  STUDY_NO_             STUDY_NO_
+                                      ________  ||  ________              ________
+                                                ||
+                                             1  ||  CON  001              CAS 001
+                                             2  ||  CON 002               CAS 002
+                                             3  ||  CON 003               CAS 003
+                                             4  ||  CON 004               CAS 004
+                                             5  ||  CON 005               CAS 005
+                                             6  ||  CON 006               CAS 006
+                                             7  ||  CON 007               CAS 007
+                                             8  ||  CON 008               CAS 008
+                                             9  ||  CON 009               CAS 009
+                                            10  ||  CON 010               CAS 010
+                                            11  ||  CON 011               CAS 011
+                                            12  ||  CON 012               CAS 012
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  11
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  STUDY NO#
+                                                ||  Base Value           Compare Value
+                                            Obs ||  STUDY_NO_             STUDY_NO_
+                                      ________  ||  ________              ________
+                                                ||
+                                            13  ||  CON 013               CAS 013
+                                            14  ||  CON 014               CAS 014
+                                            15  ||  CON 015               CAS 015
+                                            16  ||  CON 016               CAS 016
+                                            17  ||  CON 017               CAS 017
+                                            18  ||  CON 018               CAS 018
+                                            19  ||  CON 019               CAS 019
+                                            20  ||  CON 020               CAS 020
+                                            21  ||  CON 021               CAS 021
+                                            22  ||  CON 022               CAS 022
+                                            23  ||  CON 023               CAS 023
+                                            24  ||  CON 024               CAS 024
+                                            25  ||  CON 025               CAS 025
+                                            26  ||  CON 026               CAS 026
+                                            27  ||  CON 027               CAS 027
+                                            28  ||  CON 028               CAS 028
+                                            29  ||  CON 029               CAS 029
+                                            30  ||  CON 030               CAS 030
+                                            31  ||  CON 031               CAS 031
+                                            32  ||  CON 032               CAS 032
+                                            33  ||  CON 033               CAS 033
+                                            34  ||  CON 034               CAS 034
+                                            35  ||  CON 035               CAS 035
+                                            36  ||  CON 036               CAS 036
+                                            37  ||  CON 037               CAS 037
+                                            38  ||  CON 038               CAS 038
+                                            39  ||  CON 039               CAS 039
+                                            40  ||  CON 040               CAS 040
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  12
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  STUDY NO#
+                                                ||  Base Value           Compare Value
+                                            Obs ||  STUDY_NO_             STUDY_NO_
+                                      ________  ||  ________              ________
+                                                ||
+                                            41  ||  CON 041               CAS 041
+                                            42  ||  CON 042               CAS 042
+                                            43  ||  CON 043               CAS 043
+                                            44  ||  CON 044               CAS 044
+                                            45  ||  CON 045               CAS 045
+                                            46  ||  CON 046               CAS 046
+                                            47  ||  CON 047               CAS 047
+                                            48  ||  CON 048               CAS 048
+                                            49  ||  CON 049               CAS 049
+                                            50  ||  CON 050               CAS 050
+
+NOTE: The MAXPRINT=50 printing limit has been reached for the variable STUDY_NO_. No more values will be printed for this
+      comparison.
+                                     __________________________________________________________
+
+
+                                     __________________________________________________________
+                                                ||  DATE
+                                                ||       Base    Compare
+                                            Obs ||       DATE       DATE      Diff.     % Diff
+                                      ________  ||  _________  _________  _________  _________
+                                                ||
+                                             1  ||  25OCT2010  18OCT2010    -7.0000    -0.0377
+                                             2  ||  28OCT2010  18OCT2010   -10.0000    -0.0539
+                                             3  ||  01NOV2010  25OCT2010    -7.0000    -0.0377
+                                             4  ||  01NOV2010  28OCT2010    -4.0000    -0.0215
+                                             5  ||  11NOV2010  28OCT2010   -14.0000    -0.0754
+                                             6  ||  15NOV2010  01NOV2010   -14.0000    -0.0753
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  13
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  DATE
+                                                ||       Base    Compare
+                                            Obs ||       DATE       DATE      Diff.     % Diff
+                                      ________  ||  _________  _________  _________  _________
+                                                ||
+                                             7  ||  15NOV2010  04NOV2010   -11.0000    -0.0592
+                                             8  ||  18NOV2010  08NOV2010   -10.0000    -0.0538
+                                             9  ||  18NOV2010  08NOV2010   -10.0000    -0.0538
+                                            10  ||  22NOV2010  08NOV2010   -14.0000    -0.0753
+                                            11  ||  22NOV2010  08NOV2010   -14.0000    -0.0753
+                                            12  ||  22NOV2010  11NOV2010   -11.0000    -0.0592
+                                            13  ||  22NOV2010  11NOV2010   -11.0000    -0.0592
+                                            14  ||  25NOV2010  15NOV2010   -10.0000    -0.0538
+                                            15  ||  25NOV2010  15NOV2010   -10.0000    -0.0538
+                                            16  ||  25NOV2010  18NOV2010    -7.0000    -0.0377
+                                            20  ||  06DEC2010  02DEC2010    -4.0000    -0.0215
+                                            22  ||  06DEC2010  09DEC2010     3.0000     0.0161
+                                            23  ||  03JAN2011  09DEC2010   -25.0000    -0.1342
+                                            24  ||  06JAN2011  09DEC2010   -28.0000    -0.1503
+                                            25  ||  10JAN2011  03JAN2011    -7.0000    -0.0376
+                                            26  ||  10JAN2011  03JAN2011    -7.0000    -0.0376
+                                            27  ||  13JAN2011  03JAN2011   -10.0000    -0.0536
+                                            28  ||  13JAN2011  06JAN2011    -7.0000    -0.0376
+                                            29  ||  17JAN2011  06JAN2011   -11.0000    -0.0590
+                                            30  ||  17JAN2011  10JAN2011    -7.0000    -0.0375
+                                            31  ||  17JAN2011  10JAN2011    -7.0000    -0.0375
+                                            32  ||  20JAN2011  13JAN2011    -7.0000    -0.0375
+                                            33  ||  20JAN2011  17JAN2011    -3.0000    -0.0161
+                                            34  ||  20JAN2011  24JAN2011     4.0000     0.0215
+                                            35  ||  24JAN2011  27JAN2011     3.0000     0.0161
+                                            36  ||  24JAN2011  03FEB2011    10.0000     0.0536
+                                            37  ||  24JAN2011  17FEB2011    24.0000     0.1287
+                                            38  ||  27JAN2011  21FEB2011    25.0000     0.1340
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  14
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  DATE
+                                                ||       Base    Compare
+                                            Obs ||       DATE       DATE      Diff.     % Diff
+                                      ________  ||  _________  _________  _________  _________
+                                                ||
+                                            39  ||  27JAN2011  21FEB2011    25.0000     0.1340
+                                            40  ||  31JAN2011  03MAR2011    31.0000     0.1661
+                                            41  ||  31JAN2011  03MAR2011    31.0000     0.1661
+                                            42  ||  31JAN2011  03MAR2011    31.0000     0.1661
+                                            43  ||  31JAN2011  10MAR2011    38.0000     0.2037
+                                            44  ||  03FEB2011  14MAR2011    39.0000     0.2090
+                                            45  ||  03FEB2011  17MAR2011    42.0000     0.2251
+                                            46  ||  07FEB2011  17MAR2011    38.0000     0.2036
+                                            47  ||  07FEB2011  28MAR2011    49.0000     0.2625
+                                            48  ||  07FEB2011  28MAR2011    49.0000     0.2625
+                                            49  ||  07FEB2011  31MAR2011    52.0000     0.2786
+                                            50  ||  10FEB2011  04APR2011    53.0000     0.2839
+                                            51  ||  10FEB2011  04APR2011    53.0000     0.2839
+                                            52  ||  10FEB2011  07APR2011    56.0000     0.3000
+                                            53  ||  14FEB2011  11APR2011    56.0000     0.2999
+                                            54  ||  14FEB2011  11APR2011    56.0000     0.2999
+
+NOTE: The MAXPRINT=50 printing limit has been reached for the variable DATE. No more values will be printed for this comparison.
+                                     __________________________________________________________
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  15
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  GENDER
+                                                ||       Base    Compare
+                                            Obs ||     GENDER     GENDER      Diff.     % Diff
+                                      ________  ||  _________  _________  _________  _________
+                                                ||
+                                             1  ||     1.0000          0    -1.0000  -100.0000
+                                             2  ||     1.0000          0    -1.0000  -100.0000
+                                             3  ||     1.0000          0    -1.0000  -100.0000
+                                             6  ||     1.0000          0    -1.0000  -100.0000
+                                             7  ||     1.0000          0    -1.0000  -100.0000
+                                             8  ||     1.0000          0    -1.0000  -100.0000
+                                             9  ||     1.0000          0    -1.0000  -100.0000
+                                            12  ||          0     1.0000     1.0000          .
+                                            18  ||          0     1.0000     1.0000          .
+                                            19  ||     1.0000          0    -1.0000  -100.0000
+                                            21  ||     1.0000          0    -1.0000  -100.0000
+                                            24  ||     1.0000          0    -1.0000  -100.0000
+                                            25  ||     1.0000          0    -1.0000  -100.0000
+                                            26  ||     1.0000          0    -1.0000  -100.0000
+                                            27  ||     1.0000          0    -1.0000  -100.0000
+                                            28  ||     1.0000          0    -1.0000  -100.0000
+                                            31  ||          0     1.0000     1.0000          .
+                                            34  ||          0     1.0000     1.0000          .
+                                            38  ||          0     1.0000     1.0000          .
+                                            39  ||          0     1.0000     1.0000          .
+                                            43  ||     1.0000          0    -1.0000  -100.0000
+                                            47  ||     1.0000          0    -1.0000  -100.0000
+                                            50  ||          0     1.0000     1.0000          .
+                                            51  ||          0     1.0000     1.0000          .
+                                            52  ||     1.0000          0    -1.0000  -100.0000
+                                            57  ||     1.0000          0    -1.0000  -100.0000
+                                            58  ||     1.0000          0    -1.0000  -100.0000
+                                            60  ||          0     1.0000     1.0000          .
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  16
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  GENDER
+                                                ||       Base    Compare
+                                            Obs ||     GENDER     GENDER      Diff.     % Diff
+                                      ________  ||  _________  _________  _________  _________
+                                                ||
+                                            61  ||          0     1.0000     1.0000          .
+                                            65  ||          0     1.0000     1.0000          .
+                                            66  ||     1.0000          0    -1.0000  -100.0000
+                                            68  ||     1.0000          0    -1.0000  -100.0000
+                                            69  ||          0     1.0000     1.0000          .
+                                            70  ||     1.0000          0    -1.0000  -100.0000
+                                            71  ||     1.0000          0    -1.0000  -100.0000
+                                            74  ||     1.0000          0    -1.0000  -100.0000
+                                            76  ||          0     1.0000     1.0000          .
+                                            78  ||     1.0000          0    -1.0000  -100.0000
+                                            79  ||          0     1.0000     1.0000          .
+                                            80  ||          0     1.0000     1.0000          .
+                                            82  ||     1.0000          0    -1.0000  -100.0000
+                                            83  ||     1.0000          0    -1.0000  -100.0000
+                                            84  ||          0     1.0000     1.0000          .
+                                            86  ||          0     1.0000     1.0000          .
+                                            89  ||     1.0000          0    -1.0000  -100.0000
+                                            91  ||     1.0000          0    -1.0000  -100.0000
+                                            92  ||          0     1.0000     1.0000          .
+                                            94  ||          0     1.0000     1.0000          .
+                                            95  ||          0     1.0000     1.0000          .
+                                            96  ||     1.0000          0    -1.0000  -100.0000
+
+NOTE: The MAXPRINT=50 printing limit has been reached for the variable GENDER. No more values will be printed for this comparison.
+                                     __________________________________________________________
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  17
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  RACE_ETH
+                                                ||       Base    Compare
+                                            Obs ||   RACE_ETH   RACE_ETH      Diff.     % Diff
+                                      ________  ||  _________  _________  _________  _________
+                                                ||
+                                            23  ||     2.0000     1.0000    -1.0000   -50.0000
+                                            81  ||     2.0000     1.0000    -1.0000   -50.0000
+                                     __________________________________________________________
+
+
+                                     __________________________________________________________
+                                                ||  ETH_GRP
+                                                ||       Base    Compare
+                                            Obs ||    ETH_GRP    ETH_GRP      Diff.     % Diff
+                                      ________  ||  _________  _________  _________  _________
+                                                ||
+                                             5  ||     4.0000     1.0000    -3.0000   -75.0000
+                                            19  ||     4.0000     1.0000    -3.0000   -75.0000
+                                            20  ||     4.0000     1.0000    -3.0000   -75.0000
+                                            23  ||   -77.0000     1.0000    78.0000  -101.2987
+                                            24  ||     1.0000     3.0000     2.0000   200.0000
+                                            30  ||     1.0000     4.0000     3.0000   300.0000
+                                            38  ||     1.0000     4.0000     3.0000   300.0000
+                                            45  ||     4.0000     1.0000    -3.0000   -75.0000
+                                            62  ||     3.0000     1.0000    -2.0000   -66.6667
+                                            73  ||     2.0000     1.0000    -1.0000   -50.0000
+                                            77  ||     4.0000     1.0000    -3.0000   -75.0000
+                                            81  ||   -77.0000     1.0000    78.0000  -101.2987
+                                            82  ||     2.0000     1.0000    -1.0000   -50.0000
+                                            89  ||     1.0000     4.0000     3.0000   300.0000
+                                            94  ||     4.0000     1.0000    -3.0000   -75.0000
+                                            95  ||     3.0000     1.0000    -2.0000   -66.6667
+                                     __________________________________________________________
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  18
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  OTHER
+                                                ||  Base Value           Compare Value
+                                            Obs ||  OTHER                 OTHER
+                                      ________  ||  ___________           ___________
+                                                ||
+                                             5  ||  SOTHO                 -77
+                                            19  ||  SOTHO                 -77
+                                            20  ||  SOTHO                 -77
+                                            30  ||  -77
+                                            38  ||  -77
+                                            45  ||  AFRICAN MIX           -77
+                                            77  ||  SWATI                 -77
+                                            89  ||  -77
+                                            94  ||  SOTHO                 -77
+                                     __________________________________________________________
+
+
+                                     __________________________________________________________
+                                                ||  ADDRESS
+                                                ||  Base Value           Compare Value
+                                            Obs ||  ADDRESS               ADDRESS
+                                      ________  ||  ___________________+  ___________________+
+                                                ||
+                                             1  ||  NGOJE ROAD,MARIANHIL  CATO CREST,MAYVILLE,
+                                             2  ||  SECTION D,PARKGATE,D  BORROW ROAD,MAYVILLE
+                                             3  ||  NGQINYA ROAD,MBUMBUL  GEORGEDALE ROAD,HAMM
+                                             4  ||  MANDAWE ROAD,MANDAWE  POSTUM ROAD,ISIPINGO
+                                             5  ||  NOHEMO ROAD,KWA MASH  SAGANGA HIGHWAY,HAMM
+                                             6  ||  NDLOVU ROAD,KLAARWAT  SAINT GATE ROAD,CATO
+                                             7  ||  BRAMA AVENUE,DURBAN   INSASA GROOVE,NTUZUM
+                                             8  ||  PALMET DRIVE,WESTVIL  IPHITHI AVENUE, NTUZ
+                                             9  ||  OHLONGENI,ADAMS MISS  ILLOVU,AMANZIMTOTI,
+                                            10  ||  VELAKUQALA DRIVE, UM  LILLIAN CRST,CATO MA
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  19
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  ADDRESS
+                                                ||  Base Value           Compare Value
+                                            Obs ||  ADDRESS               ADDRESS
+                                      ________  ||  ___________________+  ___________________+
+                                                ||
+                                            11  ||  ILLOVU VILLAGE,ILLOV  MPALA ROAD,NTUZUMA,
+                                            12  ||  NJOJE ROAD,TSHELIMNY  INGWE ROAD,KWA MASHU
+                                            13  ||  ROAD 6501,HAMMERSDAL  BOMBO ROAD,KWA MASHU
+                                            14  ||  PHAMBILI ROAD,UMLAZI  POINT ROAD,DURBAN
+                                            15  ||  MARIOT ROAD,OVERPORT  MLAMULI NXELE ROAD,U
+                                            16  ||  CELE ROAD,FOLWENI,DU  DLOKWE ROAD,KWA MASH
+                                            17  ||  HOPE STREET,MOUNT MA  NTONTO ZULU ROAD,UML
+                                            18  ||  AMANZIMTOTI ROAD,KWA  NHLANGAKAZI ROAD,KWA
+                                            19  ||  DLADLA ROAD,KWA MASH  VERULAM ROAD,INANDA,
+                                            20  ||  BOWDEN ROAD,MALVERN,  ILLOVU,AMANZIMTOTI,D
+                                            21  ||  CHIEF ALBERT ROAD,ST  FEDVILLE ROAD,HAMMER
+                                            22  ||  STAMBU ROAD,UMLAZI,D  DLADLA ROAD,KWA MASH
+                                            23  ||  UNIT 13/HLMMUKA CRES  PHUKANE ROAD,KWA MAS
+                                            24  ||  PARK DRIVE,WESTVILLE  NORWITCH CRESCENT,WO
+                                            25  ||  POINT ROAD,MANHATTAN  LUTHULI ROAD,HAMMARS
+                                            26  ||  NTUNTU ROAD,UMLAZI,D  FALLBROK PLACE,PHOEN
+                                            27  ||  ST ABDREWS STREET,GR  MPOSHENI,ISIPINGO,DU
+                                            28  ||  UMGABABA AREA,UMGABA  MPUMALANGA ROAD,HAMM
+                                            29  ||  ROAD 18,CHESTERVILLE  DESIRE ROAD,KWA NDEN
+                                            30  ||  NXAMALALA ROAD,KWA M  SMITH STREET,BIG DEN
+                                            31  ||  KINGS ROAD,CLAREMONT  CRESTHOLME DRIVE,MOL
+                                            32  ||  F UMLAZI TOWNSHIP,UM  MAIN ROAD,INANDA,DUR
+                                            33  ||  L UMLAZI TOWNSHIP,UM  GREENFIED,AVOCA HILL
+                                            34  ||  NORTH ROAD,CLAREMONT  BRAELD COURT,PINETOW
+                                            35  ||  ENDENE GARDENS,NEWLA  J UMLAZI TOWNSHIP,UM
+                                            36  ||  BOLOMORAL DRIVE,DURB  OLIVER LEA DRIVE,UMB
+                                            37  ||  Z UMLAZI TOWNSHIP,UM  MPUMALANGA ROAD,HAMM
+                                            38  ||  CURRY ROAD,BEREA,DUR  SAGWALA ROAD,NTUZUMA
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  20
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  ADDRESS
+                                                ||  Base Value           Compare Value
+                                            Obs ||  ADDRESS               ADDRESS
+                                      ________  ||  ___________________+  ___________________+
+                                                ||
+                                            39  ||  SIR DUNCAN ROAD,GLEN  GWINSI ROAD,KWA MASH
+                                            40  ||  QOPHAMUTHI ROAD,KWA   INANDA MISSION,INAND
+                                            41  ||  DESAI CRESCENT,KWA N  MSHAZI,KWA NGCOLOSI,
+                                            42  ||  ISIYANDA ROAD,KWA MA  B UMLAZI TOWNSHIP,UM
+                                            43  ||  AFOLWENI TOWNSHIP,FO  UMNYOVU ROAD,KWA MAS
+                                            44  ||  MENS HOSTEL,KWA MASH  Y UMLAZI TOWNSHIP,UM
+                                            45  ||  PARK MANSION,NEW GER  KNOWN STREET,VALLEYS
+                                            46  ||  IBHU ROAD,KWA MASHU,  28TH AVENUE,CLAREMON
+                                            47  ||  BROOK FARM,PHOENIX.D  SWAYIMANI ROAD,PINET
+                                            48  ||  GARDENER STREET,GUIL  UMGENI ROAD,UMGENI,D
+                                            49  ||  ST LAWERENCE,BOTHAS   IZIKO RESERVE,KWA MA
+                                            50  ||  EMPOLA ROAD,HOZEN HO  BUCKINGHAM ROAD;BONE
+
+NOTE: The MAXPRINT=50 printing limit has been reached for the variable ADDRESS. No more values will be printed for this comparison.
+                                     __________________________________________________________
+
+
+                                     __________________________________________________________
+                                                ||  GR_EDUC
+                                                ||       Base    Compare
+                                            Obs ||    GR_EDUC    GR_EDUC      Diff.     % Diff
+                                      ________  ||  _________  _________  _________  _________
+                                                ||
+                                             1  ||     5.0000    11.0000     6.0000   120.0000
+                                             2  ||    11.0000     7.0000    -4.0000   -36.3636
+                                             6  ||     9.0000    11.0000     2.0000    22.2222
+                                             7  ||    11.0000    12.0000     1.0000     9.0909
+                                             8  ||     9.0000    12.0000     3.0000    33.3333
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  21
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  GR_EDUC
+                                                ||       Base    Compare
+                                            Obs ||    GR_EDUC    GR_EDUC      Diff.     % Diff
+                                      ________  ||  _________  _________  _________  _________
+                                                ||
+                                             9  ||     4.0000    11.0000     7.0000   175.0000
+                                            10  ||    12.0000    11.0000    -1.0000    -8.3333
+                                            13  ||    11.0000    12.0000     1.0000     9.0909
+                                            15  ||     4.0000    12.0000     8.0000   200.0000
+                                            16  ||     5.0000     7.0000     2.0000    40.0000
+                                            18  ||    10.0000    12.0000     2.0000    20.0000
+                                            19  ||    12.0000     6.0000    -6.0000   -50.0000
+                                            20  ||    11.0000     5.0000    -6.0000   -54.5455
+                                            21  ||    12.0000    10.0000    -2.0000   -16.6667
+                                            22  ||     7.0000    11.0000     4.0000    57.1429
+                                            24  ||     8.0000    12.0000     4.0000    50.0000
+                                            26  ||    12.0000    11.0000    -1.0000    -8.3333
+                                            27  ||    11.0000    12.0000     1.0000     9.0909
+                                            28  ||    11.0000     7.0000    -4.0000   -36.3636
+                                            29  ||     9.0000    10.0000     1.0000    11.1111
+                                            31  ||    10.0000    12.0000     2.0000    20.0000
+                                            32  ||     7.0000    11.0000     4.0000    57.1429
+                                            33  ||     6.0000    11.0000     5.0000    83.3333
+                                            35  ||    12.0000    11.0000    -1.0000    -8.3333
+                                            36  ||     6.0000    12.0000     6.0000   100.0000
+                                            38  ||    11.0000    12.0000     1.0000     9.0909
+                                            39  ||     5.0000    12.0000     7.0000   140.0000
+                                            40  ||    10.0000    12.0000     2.0000    20.0000
+                                            41  ||    12.0000    10.0000    -2.0000   -16.6667
+                                            42  ||     4.0000    11.0000     7.0000   175.0000
+                                            43  ||    12.0000     8.0000    -4.0000   -33.3333
+                                            44  ||    11.0000    12.0000     1.0000     9.0909
+                                            46  ||          0    12.0000    12.0000          .
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  22
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  GR_EDUC
+                                                ||       Base    Compare
+                                            Obs ||    GR_EDUC    GR_EDUC      Diff.     % Diff
+                                      ________  ||  _________  _________  _________  _________
+                                                ||
+                                            47  ||    12.0000    10.0000    -2.0000   -16.6667
+                                            48  ||    12.0000    10.0000    -2.0000   -16.6667
+                                            49  ||    11.0000    12.0000     1.0000     9.0909
+                                            51  ||     8.0000    12.0000     4.0000    50.0000
+                                            52  ||    12.0000    10.0000    -2.0000   -16.6667
+                                            54  ||     4.0000    12.0000     8.0000   200.0000
+                                            55  ||    12.0000    10.0000    -2.0000   -16.6667
+                                            57  ||    12.0000    11.0000    -1.0000    -8.3333
+                                            60  ||    12.0000     6.0000    -6.0000   -50.0000
+                                            61  ||    10.0000    12.0000     2.0000    20.0000
+                                            63  ||    11.0000    12.0000     1.0000     9.0909
+                                            65  ||     5.0000    12.0000     7.0000   140.0000
+                                            66  ||    10.0000    11.0000     1.0000    10.0000
+                                            67  ||    12.0000    10.0000    -2.0000   -16.6667
+                                            68  ||    12.0000    10.0000    -2.0000   -16.6667
+                                            69  ||    10.0000    11.0000     1.0000    10.0000
+                                            71  ||    12.0000    11.0000    -1.0000    -8.3333
+
+NOTE: The MAXPRINT=50 printing limit has been reached for the variable GR_EDUC. No more values will be printed for this comparison.
+                                     __________________________________________________________
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  23
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  READ
+                                                ||       Base    Compare
+                                            Obs ||       READ       READ      Diff.     % Diff
+                                      ________  ||  _________  _________  _________  _________
+                                                ||
+                                             3  ||    12.0000   123.0000   111.0000   925.0000
+                                             7  ||    12.0000   123.0000   111.0000   925.0000
+                                            12  ||    12.0000   123.0000   111.0000   925.0000
+                                            13  ||    12.0000   123.0000   111.0000   925.0000
+                                            15  ||     1.0000    12.0000    11.0000       1100
+                                            16  ||    12.0000     1.0000   -11.0000   -91.6667
+                                            19  ||   123.0000    12.0000  -111.0000   -90.2439
+                                            20  ||   123.0000     1.0000  -122.0000   -99.1870
+                                            22  ||    12.0000   123.0000   111.0000   925.0000
+                                            23  ||    23.0000    12.0000   -11.0000   -47.8261
+                                            24  ||    12.0000   123.0000   111.0000   925.0000
+                                            25  ||   123.0000    12.0000  -111.0000   -90.2439
+                                            26  ||   123.0000    12.0000  -111.0000   -90.2439
+                                            30  ||    12.0000    23.0000    11.0000    91.6667
+                                            35  ||    12.0000   123.0000   111.0000   925.0000
+                                            38  ||    12.0000   123.0000   111.0000   925.0000
+                                            45  ||   123.0000    12.0000  -111.0000   -90.2439
+                                            46  ||     4.0000    12.0000     8.0000   200.0000
+                                            48  ||    12.0000     1.0000   -11.0000   -91.6667
+                                            54  ||     1.0000    12.0000    11.0000       1100
+                                            62  ||   123.0000    12.0000  -111.0000   -90.2439
+                                            73  ||   123.0000    12.0000  -111.0000   -90.2439
+                                            81  ||    23.0000    12.0000   -11.0000   -47.8261
+                                            82  ||    23.0000    12.0000   -11.0000   -47.8261
+                                            89  ||    12.0000   123.0000   111.0000   925.0000
+                                            95  ||    23.0000   123.0000   100.0000   434.7826
+                                            97  ||     4.0000    12.0000     8.0000   200.0000
+                                           100  ||     1.0000    12.0000    11.0000       1100
+                                     __________________________________________________________
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  24
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  OTHER1
+                                                ||  Base Value           Compare Value
+                                            Obs ||  OTHER1                OTHER1
+                                      ________  ||  ___________           _______________
+                                                ||
+                                             2  ||  AFRIKAANS             XHOSA
+                                             3  ||  -77                   XHOSA
+                                             4  ||  SOTHO                 AFRIKAANS
+                                             5  ||  XHOSA.SOTHO           XHOSA.AFRIKAANS
+                                             7  ||  -77                   AFRIKAANS
+                                            12  ||  -77                   XHOSA
+                                            13  ||  -77                   AFRIKAANS
+                                            19  ||  SOTHO                 -77
+                                            20  ||  SOTHO                 -77
+                                            22  ||  -77                   SOTHO
+                                            23  ||  AFRIKAANS             -77
+                                            24  ||                        CHICHEWA
+                                            25  ||  XHOSA                 -77
+                                            26  ||  AFRIKAANS             -77
+                                            30  ||  -77                   SOTHO
+                                            35  ||  -77                   XHOSA
+                                            38  ||  -77                   SOTHO
+                                            45  ||  NYANJA                -77
+                                            62  ||  CHEWA                 -77
+                                            73  ||  XHOSA                 -77
+                                            77  ||  SWATI                 SOTHO
+                                            81  ||  AFRIKAANS             -77
+                                            82  ||  XHOSA                 -77
+                                            89  ||  -77                   SOTHO
+                                            95  ||  CHICHEWA              XHOSA
+                                     __________________________________________________________
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  25
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  OTHER2
+                                                ||  Base Value           Compare Value
+                                            Obs ||  OTHER2                OTHER2
+                                      ________  ||  ___________           ___________
+                                                ||
+                                             2  ||  XHOSA                 XHOSA.SOTHO
+                                             3  ||  -77                   XHOSA
+                                             4  ||  SOTHO                 AFRIKAANS
+                                             5  ||  XHOSA.SOTHO           XHOSA
+                                             7  ||  -77                   AFRIKAANS
+                                            12  ||  -77                   XHOSA
+                                            13  ||  -77                   AFRIKAANS
+                                            14  ||  SETHSHWANA            -77
+                                            17  ||  XHOSA                 -77
+                                            19  ||  SOTHO                 -77
+                                            20  ||  SOTHO                 -77
+                                            22  ||  -77                   SOTHO
+                                            23  ||  AFRIKAANS             -77
+                                            24  ||  -77                   CHICHEWA
+                                            25  ||  XHOSA                 -77
+                                            26  ||  XHOSA                 -77
+                                            30  ||  -77                   SOTHO
+                                            35  ||  -77                   XHOSA
+                                            38  ||  -77                   SOTHO
+                                            45  ||  NYANJA                -77
+                                            62  ||  CHEWA                 -77
+                                            73  ||  XHOSA                 -77
+                                            77  ||  SWATI                 SOTHO
+                                            81  ||  AFRIKAANS             -77
+                                            82  ||  XHOSA                 -77
+                                            89  ||  -77                   SOTHO
+                                            90  ||  XHOSA                 -77
+                                            95  ||  CHICHEWA              XHOSA
+                                     __________________________________________________________
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  26
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  SPEAK
+                                                ||       Base    Compare
+                                            Obs ||      SPEAK      SPEAK      Diff.     % Diff
+                                      ________  ||  _________  _________  _________  _________
+                                                ||
+                                             2  ||    12.0000   123.0000   111.0000   925.0000
+                                             3  ||    12.0000   123.0000   111.0000   925.0000
+                                             5  ||   123.0000    12.0000  -111.0000   -90.2439
+                                             7  ||    12.0000   123.0000   111.0000   925.0000
+                                            13  ||    12.0000   123.0000   111.0000   925.0000
+                                            16  ||    12.0000     1.0000   -11.0000   -91.6667
+                                            17  ||   123.0000    12.0000  -111.0000   -90.2439
+                                            19  ||   123.0000    12.0000  -111.0000   -90.2439
+                                            20  ||   123.0000    12.0000  -111.0000   -90.2439
+                                            22  ||    12.0000   123.0000   111.0000   925.0000
+                                            23  ||   123.0000    12.0000  -111.0000   -90.2439
+                                            24  ||    12.0000   123.0000   111.0000   925.0000
+                                            25  ||   123.0000    12.0000  -111.0000   -90.2439
+                                            26  ||   123.0000    12.0000  -111.0000   -90.2439
+                                            30  ||    12.0000    23.0000    11.0000    91.6667
+                                            35  ||    12.0000   123.0000   111.0000   925.0000
+                                            38  ||    12.0000   123.0000   111.0000   925.0000
+                                            45  ||   123.0000    12.0000  -111.0000   -90.2439
+                                            46  ||     1.0000    12.0000    11.0000       1100
+                                            48  ||    12.0000     1.0000   -11.0000   -91.6667
+                                            54  ||     1.0000    12.0000    11.0000       1100
+                                            60  ||    12.0000     1.0000   -11.0000   -91.6667
+                                            62  ||   123.0000    12.0000  -111.0000   -90.2439
+                                            73  ||   123.0000    12.0000  -111.0000   -90.2439
+                                            81  ||    23.0000    12.0000   -11.0000   -47.8261
+                                            82  ||   123.0000    12.0000  -111.0000   -90.2439
+                                            89  ||    12.0000   123.0000   111.0000   925.0000
+                                            90  ||   123.0000    12.0000  -111.0000   -90.2439
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  27
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  SPEAK
+                                                ||       Base    Compare
+                                            Obs ||      SPEAK      SPEAK      Diff.     % Diff
+                                      ________  ||  _________  _________  _________  _________
+                                                ||
+                                            95  ||    23.0000   123.0000   100.0000   434.7826
+                                            97  ||     1.0000    12.0000    11.0000       1100
+                                           100  ||     1.0000    12.0000    11.0000       1100
+                                     __________________________________________________________
+
+
+                                     __________________________________________________________
+                                                ||  OTHER3
+                                                ||  Base Value           Compare Value
+                                            Obs ||  OTHER3                OTHER3
+                                      ________  ||  ___________           ___________
+                                                ||
+                                             2  ||  -77                   XHOSA.SOTHO
+                                             3  ||  -77                   XHOSA
+                                             4  ||  SOTHO                 AFRIKAANS
+                                             5  ||  XHOSA.SOTHO           -77
+                                             7  ||  -77                   AFRIKAANS
+                                            13  ||  -77                   AFRIKAANS
+                                            17  ||  XHOSA                 -77
+                                            19  ||  SOTHO                 -77
+                                            20  ||  SOTHO                 -77
+                                            22  ||  -77                   SOTHO
+                                            23  ||  AFRIKAANS             -77
+                                            24  ||  -77                   CHICHEWA
+                                            25  ||  XHOSA                 -77
+                                            26  ||  XHOSA                 -77
+                                            30  ||  -77                   SOTHO
+                                            35  ||  -77                   XHOSA
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  28
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  OTHER3
+                                                ||  Base Value           Compare Value
+                                            Obs ||  OTHER3                OTHER3
+                                      ________  ||  ___________           ___________
+                                                ||
+                                            38  ||  -77                   SOTHO
+                                            45  ||  NYANJA                -77
+                                            62  ||  CHEWA                 -77
+                                            73  ||  XHOSA                 -77
+                                            77  ||  SWATI                 SOTHO
+                                            81  ||  AFRIKAANS             -77
+                                            82  ||  XHOSA                 -77
+                                            89  ||  -77                   SOTHO
+                                            90  ||  XHOSA                 -77
+                                            95  ||  CHICHEWA              XHOSA
+                                     __________________________________________________________
+
+
+                                     __________________________________________________________
+                                                ||  SENS_IMP
+                                                ||       Base    Compare
+                                            Obs ||   SENS_IMP   SENS_IMP      Diff.     % Diff
+                                      ________  ||  _________  _________  _________  _________
+                                                ||
+                                             1  ||     4.0000     2.0000    -2.0000   -50.0000
+                                             4  ||     4.0000     2.0000    -2.0000   -50.0000
+                                             5  ||     2.0000     4.0000     2.0000   100.0000
+                                             8  ||     2.0000     4.0000     2.0000   100.0000
+                                            10  ||     4.0000     2.0000    -2.0000   -50.0000
+                                            11  ||     2.0000     4.0000     2.0000   100.0000
+                                            12  ||     4.0000     2.0000    -2.0000   -50.0000
+                                            15  ||     2.0000     4.0000     2.0000   100.0000
+                                            16  ||     2.0000     4.0000     2.0000   100.0000
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  29
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  SENS_IMP
+                                                ||       Base    Compare
+                                            Obs ||   SENS_IMP   SENS_IMP      Diff.     % Diff
+                                      ________  ||  _________  _________  _________  _________
+                                                ||
+                                            17  ||     4.0000     2.0000    -2.0000   -50.0000
+                                            19  ||     2.0000     4.0000     2.0000   100.0000
+                                            20  ||     4.0000     2.0000    -2.0000   -50.0000
+                                            25  ||     2.0000     4.0000     2.0000   100.0000
+                                            26  ||     4.0000     2.0000    -2.0000   -50.0000
+                                            29  ||     2.0000     1.0000    -1.0000   -50.0000
+                                            31  ||     4.0000     2.0000    -2.0000   -50.0000
+                                            39  ||     2.0000     4.0000     2.0000   100.0000
+                                            40  ||     2.0000     4.0000     2.0000   100.0000
+                                            42  ||     2.0000     4.0000     2.0000   100.0000
+                                            44  ||     4.0000     1.0000    -3.0000   -75.0000
+                                            50  ||     4.0000     2.0000    -2.0000   -50.0000
+                                            55  ||     2.0000     4.0000     2.0000   100.0000
+                                            56  ||     2.0000     4.0000     2.0000   100.0000
+                                            60  ||     4.0000     2.0000    -2.0000   -50.0000
+                                            62  ||     4.0000     2.0000    -2.0000   -50.0000
+                                            64  ||     2.0000    12.0000    10.0000   500.0000
+                                            65  ||     4.0000     2.0000    -2.0000   -50.0000
+                                            67  ||     2.0000     4.0000     2.0000   100.0000
+                                            71  ||     4.0000     2.0000    -2.0000   -50.0000
+                                            73  ||     4.0000     2.0000    -2.0000   -50.0000
+                                            76  ||     4.0000     2.0000    -2.0000   -50.0000
+                                            78  ||     2.0000     4.0000     2.0000   100.0000
+                                            80  ||     4.0000     2.0000    -2.0000   -50.0000
+                                            81  ||     2.0000     4.0000     2.0000   100.0000
+                                            84  ||     4.0000     2.0000    -2.0000   -50.0000
+                                            85  ||     4.0000     2.0000    -2.0000   -50.0000
+                                            87  ||     4.0000     2.0000    -2.0000   -50.0000
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  30
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  SENS_IMP
+                                                ||       Base    Compare
+                                            Obs ||   SENS_IMP   SENS_IMP      Diff.     % Diff
+                                      ________  ||  _________  _________  _________  _________
+                                                ||
+                                            89  ||     2.0000     4.0000     2.0000   100.0000
+                                            90  ||     2.0000     4.0000     2.0000   100.0000
+                                            92  ||     4.0000     2.0000    -2.0000   -50.0000
+                                            97  ||     4.0000     2.0000    -2.0000   -50.0000
+                                            99  ||     2.0000     4.0000     2.0000   100.0000
+                                           101  ||     4.0000     2.0000    -2.0000   -50.0000
+                                           103  ||     2.0000     4.0000     2.0000   100.0000
+                                           105  ||     4.0000     2.0000    -2.0000   -50.0000
+                                           107  ||     2.0000     4.0000     2.0000   100.0000
+                                     __________________________________________________________
+
+
+                                     __________________________________________________________
+                                                ||  INCOME
+                                                ||       Base    Compare
+                                            Obs ||     INCOME     INCOME      Diff.     % Diff
+                                      ________  ||  _________  _________  _________  _________
+                                                ||
+                                             2  ||          0     1.0000     1.0000          .
+                                             3  ||     1.0000          0    -1.0000  -100.0000
+                                             4  ||          0     1.0000     1.0000          .
+                                             9  ||     1.0000          0    -1.0000  -100.0000
+                                            12  ||     1.0000          0    -1.0000  -100.0000
+                                            14  ||     1.0000          0    -1.0000  -100.0000
+                                            16  ||     1.0000          0    -1.0000  -100.0000
+                                            23  ||          0     1.0000     1.0000          .
+                                            25  ||     1.0000          0    -1.0000  -100.0000
+                                            29  ||     1.0000          0    -1.0000  -100.0000
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  31
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  INCOME
+                                                ||       Base    Compare
+                                            Obs ||     INCOME     INCOME      Diff.     % Diff
+                                      ________  ||  _________  _________  _________  _________
+                                                ||
+                                            30  ||          0     1.0000     1.0000          .
+                                            34  ||     1.0000          0    -1.0000  -100.0000
+                                            35  ||     1.0000          0    -1.0000  -100.0000
+                                            39  ||     1.0000          0    -1.0000  -100.0000
+                                            46  ||     1.0000          0    -1.0000  -100.0000
+                                            47  ||          0     1.0000     1.0000          .
+                                            49  ||          0     1.0000     1.0000          .
+                                            51  ||          0     1.0000     1.0000          .
+                                            52  ||     1.0000          0    -1.0000  -100.0000
+                                            58  ||          0     1.0000     1.0000          .
+                                            60  ||     1.0000          0    -1.0000  -100.0000
+                                            65  ||          0     1.0000     1.0000          .
+                                            71  ||          0     1.0000     1.0000          .
+                                            72  ||     1.0000          0    -1.0000  -100.0000
+                                            80  ||          0     1.0000     1.0000          .
+                                            86  ||     1.0000          0    -1.0000  -100.0000
+                                            87  ||          0     1.0000     1.0000          .
+                                            89  ||          0     1.0000     1.0000          .
+                                            92  ||     1.0000          0    -1.0000  -100.0000
+                                            94  ||     1.0000          0    -1.0000  -100.0000
+                                           101  ||     1.0000          0    -1.0000  -100.0000
+                                           102  ||     1.0000          0    -1.0000  -100.0000
+                                           103  ||     1.0000          0    -1.0000  -100.0000
+                                           104  ||     1.0000          0    -1.0000  -100.0000
+                                           105  ||     1.0000          0    -1.0000  -100.0000
+                                           106  ||          0     1.0000     1.0000          .
+                                           108  ||          0     1.0000     1.0000          .
+                                     __________________________________________________________
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  32
+
+                                                       The COMPARE Procedure
+                                         Comparison of WORK.QUEST_CON with WORK.QUEST_CASE
+                                                           (Method=EXACT)
+
+                                               Value Comparison Results for Variables
+
+                                     __________________________________________________________
+                                                ||  YES_SUPP
+                                                ||       Base    Compare
+                                            Obs ||   YES_SUPP   YES_SUPP      Diff.     % Diff
+                                      ________  ||  _________  _________  _________  _________
+                                                ||
+                                             2  ||          0     5.0000     5.0000          .
+                                             3  ||          0   -77.0000   -77.0000          .
+
+NOTE: The MAXPRINT=(50,500) printing limit has been reached. No more values will be printed.
+                                     __________________________________________________________
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  33
+
+                                                       The CONTENTS Procedure
+
+                          Data Set Name        WORK.QUEST_CASE                  Observations          110 
+                          Member Type          DATA                             Variables             195 
+                          Engine               V9                               Indexes               0   
+                          Created              Thu, Dec 08, 2011 04:13:34 PM    Observation Length    2776
+                          Last Modified        Thu, Dec 08, 2011 04:13:34 PM    Deleted Observations  0   
+                          Protection                                            Compressed            NO  
+                          Data Set Type                                         Sorted                NO  
+                          Label                                                                           
+                          Data Representation  WINDOWS_32                                                 
+                          Encoding             wlatin1  Western (Windows)                                 
+
+
+                                                 Engine/Host Dependent Information
+
+      Data Set Page Size          16384                                                                                      
+      Number of Data Set Pages    24                                                                                         
+      First Data Page             2                                                                                          
+      Max Obs per Page            5                                                                                          
+      Obs in First Data Page      4                                                                                          
+      Number of Data Set Repairs  0                                                                                          
+      Filename                    C:\DOCUME~1\bwu2\LOCALS~1\Temp\SAS Temporary Files\_TD3116_12D-BIOS075_\quest_case.sas7bdat
+      Release Created             9.0301M0                                                                                   
+      Host Created                XP_PRO                                                                                     
+
+
+                                             Alphabetic List of Variables and Attributes
+ 
+                              #    Variable          Type    Len    Format    Informat    Label
+
+                            165    ACC_SERV          Num       8                          ACC_SERV      
+                              8    ADDRESS           Char     45    $45.      $45.        ADDRESS       
+                            182    ADD_COMM          Char    255    $255.     $255.       ADD_COMM      
+                            163    ADD_SUPP          Num       8                          ADD_SUPP      
+                            160    ADH_COUN          Num       8                          ADH_COUN      
+                             89    ALCOHOL           Num       8                          ALCOHOL       
+                            112    ALT_TREA          Num       8                          ALT_TREA      
+                             34    AMT_FOOD          Num       8                          AMT_FOOD      
+                             73    AVOI_SID          Num       8                          AVOI_SID      
+                             69    AWAY_HME          Num       8                          AWAY_HME      
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  34
+
+                                                       The CONTENTS Procedure
+
+                                             Alphabetic List of Variables and Attributes
+ 
+                              #    Variable          Type    Len    Format    Informat    Label
+
+                            186    BACKWARD          Num       8                          BACKWARD      
+                            152    BAD_DRIN          Num       8                          BAD_DRIN      
+                            159    BENEFIC           Num       8                          BENEFIC       
+                            161    BENEFIC1          Num       8                          BENEFIC1      
+                            126    CARE_OF           Num       8                          CARE_OF       
+                             75    CHA_EVRY          Num       8                          CHA_EVRY      
+                            125    CHILDREN          Num       8                          CHILDREN      
+                             57    CHIL_CARE         Num       8                          CHIL_CARE     
+                            128    CHIL_POS          Num       8                          CHIL_POS      
+                            127    CHIL_TES          Num       8                          CHIL_TES      
+                             94    CHR_DENO          Char     47    $47.      $47.        CHR_DENO      
+                            102    COLOR             Num       8                          COLOR         
+                             51    COST_VIS          Num       8                          COST_VIS      
+                             52    COS_TRAN          Num       8                          COS_TRAN      
+                            151    CRIT_DRI          Num       8                          CRIT_DRI      
+                            150    CUT_DRIN          Num       8                          CUT_DRIN      
+                              2    DATE              Num       8    DATE9.    DATE9.      DATE          
+                            189    DEATH_DISENROL    Char     30    $30.      $30.        DEATH/DISENROL
+                            130    DIED              Num       8                          DIED          
+                            179    DIFF_ARV          Char    255    $255.     $255.       DIFF_ARV      
+                            181    DIFF_CLI          Char    127    $127.     $127.       DIFF_CLI      
+                            180    DIFF_HEA          Char    230    $230.     $230.       DIFF_HEA      
+                             86    DIFF_SWA          Num       8                          DIFF_SWA      
+                             85    DISL_PIL          Num       8                          DISL_PIL      
+                              3    DOB               Num       8    DATE9.    DATE9.      DOB           
+                            148    DRI_ALCO          Num       8                          DRI_ALCO      
+                            153    DRI_MORN          Num       8                          DRI_MORN      
+                             90    DRUGS             Num       8                          DRUGS         
+                             76    DRUG_HUR          Num       8                          DRUG_HUR      
+                            133    EMO_SUPP          Char     21    $21.      $21.        EMO_SUPP      
+                             19    EMP_STAT          Num       8                          EMP_STAT      
+                            157    ENOU_EDU          Num       8                          ENOU_EDU      
+                              6    ETH_GRP           Num       8                          ETH_GRP       
+                            176    EVER_EFF          Num       8                          EVER_EFF      
+                             59    FAM_CIRC          Num       8                          FAM_CIRC      
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  35
+
+                                                       The CONTENTS Procedure
+
+                                             Alphabetic List of Variables and Attributes
+ 
+                              #    Variable          Type    Len    Format    Informat    Label
+
+                            105    FEEL              Num       8                          FEEL          
+                             45    FEEL_CLI          Num       8                          FEEL_CLI      
+                            169    FEEL_NER          Num       8                          FEEL_NER      
+                            174    FEEL_SAD          Num       8                          FEEL_SAD      
+                            168    FEEL_TIR          Num       8                          FEEL_TIR      
+                             79    FELT_DEP          Num       8                          FELT_DEP      
+                             78    FELT_ILL          Num       8                          FELT_ILL      
+                             77    FEL_ASLP          Num       8                          FEL_ASLP      
+                             87    FEL_GOOD          Num       8                          FEL_GOOD      
+                             81    FORG_OBT          Num       8                          FORG_OBT      
+                             71    FORG_PIL          Num       8                          FORG_PIL      
+                            100    FORM              Num       8                          FORM          
+                            185    FORWARD           Num       8                          FORWARD       
+                              4    GENDER            Num       8                          GENDER        
+                             53    GET_TRAN          Num       8                          GET_TRAN      
+                              9    GR_EDUC           Num       8                          GR_EDUC       
+                            137    HAVE_HUR          Num       8                          HAVE_HUR      
+                            139    HAVE_SEX          Num       8                          HAVE_SEX      
+                            171    HOPELESS          Num       8                          HOPELESS      
+                            111    HOW_FEEL          Num       8                          HOW_FEEL      
+                            114    HOW_FEEL1         Num       8                          HOW_FEEL1     
+                            138    HOW_HURT          Num       8                          HOW_HURT      
+                            156    HOW_MANY          Num       8                          HOW_MANY      
+                            106    HOW_MED           Num       8                          HOW_MED       
+                            119    HOW_OFT           Num       8                          HOW_OFT       
+                             58    ILL               Num       8                          ILL           
+                             17    INCOME            Num       8                          INCOME        
+                             25    INF_SETT          Num       8                          INF_SETT      
+                             56    KNOW_HIV          Num       8                          KNOW_HIV      
+                             27    LIV_ARR           Num       8                          LIV_ARR       
+                             72    MANY_PIL          Num       8                          MANY_PIL      
+                            117    MAR_STAT          Num       8                          MAR_STAT      
+                             48    MISTREAT          Num       8                          MISTREAT      
+                             63    MONTH             Num       8                          MONTH         
+                            190    MONTH1            Num       8                                        
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  36
+
+                                                       The CONTENTS Procedure
+
+                                             Alphabetic List of Variables and Attributes
+ 
+                              #    Variable          Type    Len    Format    Informat    Label
+
+                             83    MON_ARVS          Num       8                          MON_ARVS      
+                             99    NAME              Char     11    $11.      $11.        NAME          
+                            170    NOT_CALM          Num       8                          NOT_CALM      
+                             33    NOT_ENOU          Num       8                          NOT_ENOU      
+                            162    NO_WHY            Char     63    $63.      $63.        NO_WHY        
+                            120    NUM_PART          Num       8                          NUM_PART      
+                             28    NUM_PEOP          Num       8                          NUM_PEOP      
+                              7    OTHER             Char     11    $11.      $11.        OTHER         
+                             11    OTHER1            Char     15    $15.      $15.        OTHER1        
+                             13    OTHER2            Char     11    $11.      $11.        OTHER2        
+                             15    OTHER3            Char     11    $11.      $11.        OTHER3        
+                             24    OTHER4            Char     21    $21.      $21.        OTHER4        
+                             37    OTHER5            Char     21    $21.      $21.        OTHER5        
+                             39    OTHER6            Num       8                          OTHER6        
+                             42    OTHER7            Num       8                          OTHER7        
+                             44    OTHER8            Char      8    $8.       $8.         OTHER8        
+                             61    OTHER10           Char     56    $56.      $56.        OTHER10       
+                             66    OTHER11           Num       8                          OTHER11       
+                             68    OTHER12           Char      8    $8.       $8.         OTHER12       
+                             91    OTHER13           Char     28    $28.      $28.        OTHER13       
+                            116    OTHER15           Char     11    $11.      $11.        OTHER15       
+                            132    OTHER17           Char     13    $13.      $13.        OTHER17       
+                            141    OTHER19           Char     10    $10.      $10.        OTHER19       
+                            144    OTHER20           Char     10    $10.      $10.        OTHER20       
+                            167    OTHER21           Num       8                          OTHER21       
+                             21    OTHR_FIN          Num       8                          OTHR_FIN      
+                             74    OTH_SEE           Num       8                          OTH_SEE       
+                            124    PART_ARV          Num       8                          PART_ARV      
+                            121    PART_LIV          Num       8                          PART_LIV      
+                            123    PART_POS          Num       8                          PART_POS      
+                            122    PART_TES          Num       8                          PART_TES      
+                             43    PAYMENT           Num       8                          PAYMENT       
+                            142    PERF_SEX          Num       8                          PERF_SEX      
+                            129    POSITIVE          Num       8                          POSITIVE      
+                             95    PRAC_REL          Num       8                          PRAC_REL      
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  37
+
+                                                       The CONTENTS Procedure
+
+                                             Alphabetic List of Variables and Attributes
+ 
+                              #    Variable          Type    Len    Format    Informat    Label
+
+                            158    PRE_ARV           Char      1    $1.       $1.         PRE_ARV       
+                             80    PROB_PIL          Num       8                          PROB_PIL      
+                              5    RACE_ETH          Num       8                          RACE_ETH      
+                             82    RAN_PILL          Num       8                          RAN_PILL      
+                             10    READ              Num       8                          READ          
+                            103    REASON            Num       8                          REASON        
+                            115    RECOMMEN          Num       8                          RECOMMEN      
+                             49    REFU_MED          Num       8                          REFU_MED      
+                            136    RELAT             Char     14    $14.      $14.        RELAT         
+                             92    RELIGION          Num       8                          RELIGION      
+                             67    REM_PICK          Num       8                          REM_PICK      
+                             65    REM_TAKE          Num       8                          REM_TAKE      
+                             23    RESIDE            Num       8                          RESIDE        
+                            172    REST_FID          Num       8                          REST_FID      
+                            183    RES_COUN          Num       8                          RES_COUN      
+                            184    RES_DOCT          Num       8                          RES_DOCT      
+                            101    ROUTE             Num       8                          ROUTE         
+                            118    SAFE_SEX          Char      3    $3.       $3.         SAFE_SEX      
+                            178    SCORE             Num       8                          SCORE         
+                             55    SEEN_CLI          Num       8                          SEEN_CLI      
+                             16    SENS_IMP          Num       8                          SENS_IMP      
+                            107    SIDE_EFF          Num       8                          SIDE_EFF      
+                            154    SMOKE             Num       8                          SMOKE         
+                            175    SO_DEP            Num       8                          SO_DEP        
+                            173    SO_REST           Num       8                          SO_REST       
+                             14    SPEAK             Num       8                          SPEAK         
+                             96    STOP_ARV          Num       8                          STOP_ARV      
+                              1    STUDY_NO_         Char      8    $8.       $8.         STUDY NO#     
+                            109    TAKE_SUP          Num       8                          TAKE_SUP      
+                             50    TALK_PUB          Num       8                          TALK_PUB      
+                             54    TIME_WRK          Num       8                          TIME_WRK      
+                             84    TIR_ARVS          Num       8                          TIR_ARVS      
+                            187    TMT_A             Num       8                          TMT-A         
+                            188    TMT_B             Num       8                          TMT-B         
+                             47    TOUC_HIV          Num       8                          TOUC_HIV      
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  38
+
+                                                       The CONTENTS Procedure
+
+                                             Alphabetic List of Variables and Attributes
+ 
+                              #    Variable          Type    Len    Format    Informat    Label
+
+                             60    TRAD_HEA          Num       8                          TRAD_HEA      
+                             88    TRAD_HEA1         Num       8                          TRAD_HEA1     
+                             97    TRAD_MED          Num       8                          TRAD_MED      
+                             41    TRAN_CLI          Num       8                          TRAN_CLI      
+                             40    TRAV_TIM          Num       8                          TRAV_TIM      
+                            135    TREA_SUP          Num       8                          TREA_SUP      
+                             12    UNDRSTND          Num       8                          UNDRSTND      
+                            146    USE_DRUG          Num       8                          USE_DRUG      
+                             62    WEEK              Num       8                          WEEK          
+                             64    WEEK1             Num       8                          WEEK1         
+                             70    WER_BUSY          Num       8                          WER_BUSY      
+                            149    WHAT_ALC          Num       8                          WHAT_ALC      
+                             36    WHAT_CLI          Num       8                          WHAT_CLI      
+                             29    WHAT_FAC          Num       8                          WHAT_FAC      
+                             22    WHAT_FIN          Char     43    $43.      $43.        WHAT_FIN      
+                             31    WHAT_FLO          Char     10    $10.      $10.        WHAT_FLO      
+                            166    WHAT_SER          Num       8                          WHAT_SER      
+                            155    WHAT_SMO          Num       8                          WHAT_SMO      
+                            110    WHAT_SUP          Char     24    $24.      $24.        WHAT_SUP      
+                            164    WHAT_SUP1         Char     14    $14.      $14.        WHAT_SUP1     
+                            113    WHAT_TRE          Num       8                          WHAT_TRE      
+                             30    WHAT_WAL          Char      6    $6.       $6.         WHAT_WAL      
+                             20    WHAT_WRK          Char     31    $31.      $31.        WHAT_WRK      
+                             98    WHEN              Num       8                          WHEN          
+                            145    WHEN_LAS          Num       8                          WHEN_LAS      
+                            104    WHERE             Num       8                          WHERE         
+                             38    WHER_ARV          Num       8                          WHER_ARV      
+                             93    WHICH             Char     29    $29.      $29.        WHICH         
+                            147    WHI_DRUG          Char      5    $5.       $5.         WHI_DRUG      
+                             32    WHI_HAVE          Num       8                          WHI_HAVE      
+                            108    WHI_REM           Num       8                          WHI_REM       
+                            140    WHOM              Num       8                          WHOM          
+                            143    WHOM1             Num       8                          WHOM1         
+                            131    WHO_HIV           Num       8                          WHO_HIV       
+                             46    WHY_WORR          Num       8                          WHY_WORR      
+                                           Comparison of Variables in Different Data Sets       16:13 Thursday, December 8, 2011  39
+
+                                                       The CONTENTS Procedure
+
+                                             Alphabetic List of Variables and Attributes
+ 
+                              #    Variable          Type    Len    Format    Informat    Label
+
+                            177    WORTHLESS         Num       8                          WORTHLESS     
+                             35    WOUT_FOO          Num       8                          WOUT_FOO      
+                             26    YES_DATE          Num       8                          YES_DATE      
+                             18    YES_SUPP          Num       8                          YES_SUPP      
+                            195    live_you          Num       8                                        
+                            134    live_you_tmp      Num       8                          LIVE_YOU      
+                            191    other9            Char      7                                        
+                            192    other14           Char      7                                        
+                            193    other16           Char      7                                        
+                            194    other18           Char      7                                        

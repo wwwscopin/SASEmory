@@ -1,0 +1,1151 @@
+This is TeX, Version 3.14159 (Web2C 7.4.5) (format=latex 2004.7.7)  13 APR 2011 11:56
+**open.tex
+(./open.tex
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, n
+ohyphenation, loaded.
+(/usr/local/share/texmf/tex/latex/base/article.cls
+Document Class: article 2001/04/21 v1.4e Standard LaTeX document class
+(/usr/local/share/texmf/tex/latex/base/size10.clo
+File: size10.clo 2001/04/21 v1.4e Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/local/share/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/share/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/local/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/local/share/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2001/08/31 v1.1 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: dvips.def on input line 80.
+
+(/usr/local/share/texmf/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+(/usr/local/share/texmf/tex/latex/misc/rotating.sty
+Package: rotating 1997/09/26, v2.13 Rotation package
+
+(/usr/local/share/texmf/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\c@r@tfl@t=\count87
+\rot@float@box=\box26
+) (./open.aux)
+\openout1 = `open.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+
+Overfull \hbox (31.56267pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     1
+ []
+
+[1
+
+] (./open.lot
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 1.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 1.
+
+Overfull \hbox (31.56267pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     2
+ []
+
+[2
+
+])
+\tf@lot=\write3
+\openout3 = `open.lot'.
+
+ (./open.lof
+Overfull \hbox (31.56267pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     3
+ []
+
+[3])
+\tf@lof=\write4
+\openout4 = `open.lof'.
+
+
+Overfull \hbox (31.56267pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     4
+ []
+
+[4]
+File: //glnd//sas//reporting//recruitment.ps Graphic file (type eps)
+ <//glnd//sas//reporting//recruitment.ps>
+File: //glnd//sas//reporting//rc13.ps Graphic file (type eps)
+ <//glnd//sas//reporting//rc13.ps>
+Overfull \hbox (31.56267pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     5
+ []
+
+[5]
+Overfull \hbox (31.56267pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     6
+ []
+
+[6]
+Overfull \hbox (31.56267pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     7
+ []
+
+[7]
+File: //glnd//sas//reporting//rc45.ps Graphic file (type eps)
+ <//glnd//sas//reporting//rc45.ps>
+Overfull \hbox (31.56267pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     8
+ []
+
+[8]
+Overfull \hbox (31.56267pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     9
+ []
+
+[9]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     10
+ []
+
+[10]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     11
+ []
+
+[11]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     12
+ []
+
+[12]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     13
+ []
+
+[13]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     14
+ []
+
+[14]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     15
+ []
+
+[15]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     16
+ []
+
+[16]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     17
+ []
+
+[17]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     18
+ []
+
+[18]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     19
+ []
+
+[19]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     20
+ []
+
+[20]
+File: //glnd//sas//reporting//df_reporting//form_submission_blood_a.ps Graphic 
+file (type eps)
+ <//glnd//sas//reporting//df_reporting//form_submission_blood_a.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     21
+ []
+
+[21]
+File: //glnd//sas//reporting//df_reporting//form_submission_blood_b.ps Graphic 
+file (type eps)
+ <//glnd//sas//reporting//df_reporting//form_submission_blood_b.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     22
+ []
+
+[22]
+File: //glnd//sas//reporting//df_reporting//qc_report.ps Graphic file (type eps
+)
+ <//glnd//sas//reporting//df_reporting//qc_report.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     23
+ []
+
+[23]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     24
+ []
+
+[24]
+
+LaTeX Warning: Float too large for page by 29.12392pt on input line 961.
+
+
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     25
+ []
+
+[25]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     26
+ []
+
+[26]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     27
+ []
+
+[27]
+File: //glnd//sas//reporting//race_ethnic.ps Graphic file (type eps)
+ <//glnd//sas//reporting//race_ethnic.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     28
+ []
+
+[28]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     29
+ []
+
+[29]
+Overfull \hbox (10.00006pt too wide) in paragraph at lines 1197--1197
+ \OT1/cmr/m/n/10 med. [Q1, Q3], n 
+ []
+
+
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     30
+ []
+
+[30]
+Overfull \hbox (41.97235pt too wide) in paragraph at lines 1255--1255
+ \OT1/cmr/m/n/10 Summary 
+ []
+
+
+Overfull \hbox (15.05556pt too wide) in paragraph at lines 1255--1255
+ \OT1/cmr/m/n/10 Yes 
+ []
+
+
+Overfull \hbox (32.94447pt too wide) in paragraph at lines 1255--1255
+ \OT1/cmr/m/n/10 Percent 
+ []
+
+
+Overfull \hbox (32.50008pt too wide) in paragraph at lines 1255--1255
+ \OT1/cmr/m/n/10 Median 
+ []
+
+
+Overfull \hbox (17.50005pt too wide) in paragraph at lines 1255--1255
+ \OT1/cmr/m/n/10 Min 
+ []
+
+
+Overfull \hbox (19.4445pt too wide) in paragraph at lines 1255--1255
+ \OT1/cmr/m/n/10 Max 
+ []
+
+
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     31
+ []
+
+[31]
+Overfull \hbox (10.80527pt too wide) in paragraph at lines 1296--1315
+ [] 
+ []
+
+
+Overfull \hbox (10.80527pt too wide) in paragraph at lines 1324--1343
+ [] 
+ []
+
+
+Overfull \hbox (10.80527pt too wide) in paragraph at lines 1352--1371
+ [] 
+ []
+
+File: //glnd//sas//reporting//kcal1.ps Graphic file (type eps)
+<//glnd//sas//reporting//kcal1.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     32
+ []
+
+[32]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     33
+ []
+
+[33]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     34
+ []
+
+[34]
+File: //glnd//sas//reporting//kcal2.ps Graphic file (type eps)
+ <//glnd//sas//reporting//kcal2.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     35
+ []
+
+[35]
+File: //glnd//sas//reporting//kcal3.ps Graphic file (type eps)
+ <//glnd//sas//reporting//kcal3.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     36
+ []
+
+[36]
+File: //glnd//sas//reporting//kcal4.ps Graphic file (type eps)
+ <//glnd//sas//reporting//kcal4.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     37
+ []
+
+[37]
+File: //glnd//sas//reporting//kcal5.ps Graphic file (type eps)
+ <//glnd//sas//reporting//kcal5.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     38
+ []
+
+[38]
+File: //glnd//sas//reporting//nut11440.ps Graphic file (type eps)
+ <//glnd//sas//reporting//nut11440.ps> Adding sideways figure on 
+right hand page
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     39
+ []
+
+[39]
+File: //glnd//sas//reporting//nut11443.ps Graphic file (type eps)
+ <//glnd//sas//reporting//nut11443.ps> Adding sideways figure on 
+right hand page
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     40
+ []
+
+[40]
+File: //glnd//sas//reporting//nut11448.ps Graphic file (type eps)
+ <//glnd//sas//reporting//nut11448.ps> Adding sideways figure on 
+right hand page
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     41
+ []
+
+[41]
+File: //glnd//sas//reporting//nut12446.ps Graphic file (type eps)
+ <//glnd//sas//reporting//nut12446.ps> Adding sideways figure on 
+right hand page
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     42
+ []
+
+[42]
+File: //glnd//sas//reporting//nut31346.ps Graphic file (type eps)
+ <//glnd//sas//reporting//nut31346.ps> Adding sideways figure on 
+right hand page
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     43
+ []
+
+[43]
+File: //glnd//sas//reporting//nut31351.ps Graphic file (type eps)
+ <//glnd//sas//reporting//nut31351.ps> Adding sideways figure on 
+right hand page
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     44
+ []
+
+[44]
+File: //glnd//sas//reporting//nut32336.ps Graphic file (type eps)
+ <//glnd//sas//reporting//nut32336.ps> Adding sideways figure on 
+right hand page
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     45
+ []
+
+[45]
+File: //glnd//sas//reporting//nut32344.ps Graphic file (type eps)
+ <//glnd//sas//reporting//nut32344.ps> Adding sideways figure on 
+right hand page
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     46
+ []
+
+[46]
+File: //glnd//sas//reporting//nut32349.ps Graphic file (type eps)
+ <//glnd//sas//reporting//nut32349.ps> Adding sideways figure on 
+right hand page
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     47
+ []
+
+[47]
+File: //glnd//sas//reporting//nut42163.ps Graphic file (type eps)
+ <//glnd//sas//reporting//nut42163.ps> Adding sideways figure on 
+right hand page
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     48
+ []
+
+[48]
+File: //glnd//sas//reporting//nut51071.ps Graphic file (type eps)
+ <//glnd//sas//reporting//nut51071.ps> Adding sideways figure on 
+right hand page
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     49
+ []
+
+[49]
+Overfull \hbox (45.22197pt too wide) in paragraph at lines 1476--1498
+ [] 
+ []
+
+
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     50
+ []
+
+[50]
+File: //glnd//sas//reporting//blood1.ps Graphic file (type eps)
+ <//glnd//sas//reporting//blood1.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     51
+ []
+
+[51]
+File: //glnd//sas//reporting//blood2.ps Graphic file (type eps)
+ <//glnd//sas//reporting//blood2.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     52
+ []
+
+[52]
+File: //glnd//sas//reporting//blood3.ps Graphic file (type eps)
+ <//glnd//sas//reporting//blood3.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     53
+ []
+
+[53]
+File: //glnd//sas//reporting//blood4.ps Graphic file (type eps)
+ <//glnd//sas//reporting//blood4.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     54
+ []
+
+[54]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     55
+ []
+
+[55]
+File: //glnd//sas//reporting//bloodemory.ps Graphic file (type eps)
+ <//glnd//sas//reporting//bloodemory.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     56
+ []
+
+[56]
+File: //glnd//sas//reporting//bloodvandy.ps Graphic file (type eps)
+ <//glnd//sas//reporting//bloodvandy.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     57
+ []
+
+[57]
+File: //glnd//sas//reporting//bloodcolorado.ps Graphic file (type eps)
+ <//glnd//sas//reporting//bloodcolorado.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     58
+ []
+
+[58]
+File: //glnd//sas//reporting//bloodwisconsin.ps Graphic file (type eps)
+ <//glnd//sas//reporting//bloodwisconsin.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     59
+ []
+
+[59]
+File: //glnd//sas//reporting//bg.ps Graphic file (type eps)
+ <//glnd//sas//reporting//bg.ps> Adding sideways figure on 
+right hand page
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     60
+ []
+
+[60]
+File: //glnd//sas//reporting//insulin.ps Graphic file (type eps)
+ <//glnd//sas//reporting//insulin.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     61
+ []
+
+[61]
+File: //glnd//sas//reporting//insulin_e.ps Graphic file (type eps)
+ <//glnd//sas//reporting//insulin_e.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     62
+ []
+
+[62]
+File: //glnd//sas//reporting//insulin_v.ps Graphic file (type eps)
+ <//glnd//sas//reporting//insulin_v.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     63
+ []
+
+[63]
+File: //glnd//sas//reporting//insulin_c.ps Graphic file (type eps)
+ <//glnd//sas//reporting//insulin_c.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     64
+ []
+
+[64]
+File: //glnd//sas//reporting//insulin_w.ps Graphic file (type eps)
+ <//glnd//sas//reporting//insulin_w.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     65
+ []
+
+[65]
+File: //glnd//sas//reporting//sofa.ps Graphic file (type eps)
+ <//glnd//sas//reporting//sofa.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     66
+ []
+
+[66]
+File: //glnd//sas//reporting//sofa_sur_nonsur.ps Graphic file (type eps)
+ <//glnd//sas//reporting//sofa_sur_nonsur.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     67
+ []
+
+[67]
+Overfull \hbox (3.72229pt too wide) in paragraph at lines 1665--1665
+ \OT1/cmr/m/n/10 survivor*mean 
+ []
+
+
+Overfull \hbox (4.66635pt too wide) in paragraph at lines 1660--1677
+ [] 
+ []
+
+
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     68
+ []
+
+[68]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     69
+ []
+
+[69]
+File: //glnd//sas//reporting//deathdetailsemorya.ps Graphic file (type eps)
+ <//glnd//sas//reporting//deathdetailsemorya.ps>
+Adding sideways figure on  right hand page
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     70
+ []
+
+[70]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     71
+ []
+
+[71]
+File: //glnd//sas//reporting//deathdetailsemoryb.ps Graphic file (type eps)
+ <//glnd//sas//reporting//deathdetailsemoryb.ps>
+Adding sideways figure on  right hand page
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     72
+ []
+
+[72]
+File: //glnd//sas//reporting//deathdetailsmir.ps Graphic file (type eps)
+ <//glnd//sas//reporting//deathdetailsmir.ps> Adding sideways figure on 
+right hand page
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     73
+ []
+
+[73]
+File: //glnd//sas//reporting//deathdetailsvan.ps Graphic file (type eps)
+ <//glnd//sas//reporting//deathdetailsvan.ps> Adding sideways figure on 
+right hand page
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     74
+ []
+
+[74]
+File: //glnd//sas//reporting//deathdetailscol.ps Graphic file (type eps)
+ <//glnd//sas//reporting//deathdetailscol.ps> Adding sideways figure on 
+right hand page
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     75
+ []
+
+[75]
+File: //glnd//sas//reporting//deathdetailswis.ps Graphic file (type eps)
+ <//glnd//sas//reporting//deathdetailswis.ps> Adding sideways figure on 
+right hand page
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     76
+ []
+
+[76]
+Overfull \hbox (5.79759pt too wide) in paragraph at lines 1829--1829
+[]$[]$| 
+ []
+
+
+Overfull \hbox (5.79759pt too wide) in paragraph at lines 1829--1829
+[]$[]$| 
+ []
+
+
+Overfull \hbox (5.79759pt too wide) in paragraph at lines 1829--1829
+[]$[]$| 
+ []
+
+
+Overfull \hbox (5.79759pt too wide) in paragraph at lines 1829--1829
+[]$[]$| 
+ []
+
+
+Overfull \hbox (5.79759pt too wide) in paragraph at lines 1829--1829
+[]$[]$| 
+ []
+
+
+Overfull \hbox (5.79759pt too wide) in paragraph at lines 1829--1829
+[]$[]$| 
+ []
+
+
+Overfull \hbox (5.79759pt too wide) in paragraph at lines 1829--1830
+[]$[]$| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1834--1834
+[]\OT1/cmr/m/n/10 Aspiration
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1834--1834
+[]\OT1/cmr/m/n/10 Multi-organ
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1834--1834
+[]\OT1/cmr/m/n/10 Respiratory
+ []
+
+
+Overfull \hbox (2.29762pt too wide) in paragraph at lines 1835--1835
+[]\OT1/cmr/m/n/10 Mediastinitis| 
+ []
+
+
+Overfull \hbox (8.43654pt too wide) in paragraph at lines 1835--1835
+[]\OT1/cmr/m/n/10 MODS/Multi-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1835--1835
+\OT1/cmr/m/n/10 system or-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1835--1835
+[]\OT1/cmr/m/n/10 Multiorgan
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1836--1836
+[]\OT1/cmr/m/n/10 Aortic oc-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1836--1836
+\OT1/cmr/m/n/10 clu-sion
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1836--1836
+\OT1/cmr/m/n/10 aneurism)
+ []
+
+
+Underfull \hbox (badness 2237) in paragraph at lines 1836--1836
+\OT1/cmr/m/n/10 and mesen-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1836--1836
+\OT1/cmr/m/n/10 teric is-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1836--1837
+[]\OT1/cmr/m/n/10 Multi-organ
+ []
+
+
+Overfull \hbox (9.43652pt too wide) in paragraph at lines 1837--1837
+[]\OT1/cmr/m/n/10 Atheroembolic
+ []
+
+
+Underfull \hbox (badness 2237) in paragraph at lines 1837--1837
+[]\OT1/cmr/m/n/10 Cardiac ar-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1837--1837
+\OT1/cmr/m/n/10 rest (listed
+ []
+
+
+Underfull \hbox (badness 1242) in paragraph at lines 1837--1837
+\OT1/cmr/m/n/10 on form as
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1837--1837
+\OT1/cmr/m/n/10 car-diopul-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1837--1837
+\OT1/cmr/m/n/10 monary
+ []
+
+
+Underfull \hbox (badness 1242) in paragraph at lines 1868--1869
+[]\OT1/cmr/m/n/10 multi sys-tem or-gan fail-ure
+ []
+
+
+Underfull \hbox (badness 4341) in paragraph at lines 1868--1869
+\OT1/cmr/m/n/10 com-pli-cat-ing car-dio-tho-racic
+ []
+
+
+Overfull \hbox (34.36554pt too wide) in paragraph at lines 1905--1923
+ [] 
+ []
+
+
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     77
+ []
+
+[77]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     78
+ []
+
+[78]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     79
+ []
+
+[79]
+File: //glnd//sas//reporting//mortopen.ps Graphic file (type eps)
+ <//glnd//sas//reporting//mortopen.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     80
+ []
+
+[80]
+File: //glnd//sas//reporting//mort.ps Graphic file (type eps)
+ <//glnd//sas//reporting//mort.ps>
+File: //glnd//sas//reporting//nosocomialopena.ps Graphic file (type eps)
+
+<//glnd//sas//reporting//nosocomialopena.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     81
+ []
+
+[81]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     82
+ []
+
+[82]
+File: //glnd//sas//reporting//nosocomialopenb.ps Graphic file (type eps)
+ <//glnd//sas//reporting//nosocomialopenb.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     83
+ []
+
+[83]
+File: //glnd//sas//reporting//nosocomial_rates_open.ps Graphic file (type eps)
+ <//glnd//sas//reporting//nosocomial_rates_open.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     84
+ []
+
+[84]
+File: //glnd//sas//reporting//nosoa.ps Graphic file (type eps)
+ <//glnd//sas//reporting//nosoa.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     85
+ []
+
+[85]
+File: //glnd//sas//reporting//nosob.ps Graphic file (type eps)
+ <//glnd//sas//reporting//nosob.ps>
+File: //glnd//sas//reporting//nosoc.ps Graphic file (type eps)
+ <//glnd//sas//reporting//nosoc.ps>
+File: //glnd//sas//reporting//nosod.ps Graphic file (type eps)
+
+<//glnd//sas//reporting//nosod.ps>
+File: //glnd//sas//reporting//nosoe.ps Graphic file (type eps)
+ <//glnd//sas//reporting//nosoe.ps>
+File: //glnd//sas//reporting//nosof.ps Graphic file (type eps)
+
+<//glnd//sas//reporting//nosof.ps>
+File: //glnd//sas//reporting//nosog.ps Graphic file (type eps)
+ <//glnd//sas//reporting//nosog.ps>
+File: //glnd//sas//reporting//nosocomial_center_table_open.ps Graphic file (typ
+e eps)
+
+<//glnd//sas//reporting//nosocomial_center_table_open.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     86
+ []
+
+[86]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     87
+ []
+
+[87]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     88
+ []
+
+[88]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     89
+ []
+
+[89]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     90
+ []
+
+[90]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     91
+ []
+
+[91]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     92
+ []
+
+[92]
+File: ns.ps Graphic file (type eps)
+ <ns.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     93
+ []
+
+[93]
+File: //glnd//sas//reporting//nosocomial_before_adj_open.ps Graphic file (type 
+eps)
+ <//glnd//sas//reporting//nosocomial_before_adj_open.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     94
+ []
+
+[94]
+File: //glnd//sas//reporting//nosocomial_after_adj_open.ps Graphic file (type e
+ps)
+ <//glnd//sas//reporting//nosocomial_after_adj_open.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     95
+ []
+
+[95]
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     96
+ []
+
+[96]
+File: //glnd//sas//reporting//organ1.ps Graphic file (type eps)
+ <//glnd//sas//reporting//organ1.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     97
+ []
+
+[97]
+File: //glnd//sas//reporting//organ2.ps Graphic file (type eps)
+ <//glnd//sas//reporting//organ2.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     98
+ []
+
+[98]
+File: //glnd//sas//reporting//organ3.ps Graphic file (type eps)
+ <//glnd//sas//reporting//organ3.ps>
+Overfull \hbox (36.56268pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     99
+ []
+
+[99]
+File: //glnd//sas//reporting//organ4.ps Graphic file (type eps)
+ <//glnd//sas//reporting//organ4.ps>
+Overfull \hbox (41.5627pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     100
+ []
+
+[100]
+File: //glnd//sas//reporting//redox1.ps Graphic file (type eps)
+ <//glnd//sas//reporting//redox1.ps>
+Overfull \hbox (41.5627pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     101
+ []
+
+[101]
+File: //glnd//sas//reporting//redox2.ps Graphic file (type eps)
+ <//glnd//sas//reporting//redox2.ps>
+Overfull \hbox (41.5627pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     102
+ []
+
+[102]
+File: //glnd//sas//reporting//redox3.ps Graphic file (type eps)
+ <//glnd//sas//reporting//redox3.ps>
+Overfull \hbox (41.5627pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     103
+ []
+
+[103]
+File: //glnd//sas//reporting//hsp_open.ps Graphic file (type eps)
+ <//glnd//sas//reporting//hsp_open.ps>
+Overfull \hbox (41.5627pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     104
+ []
+
+[104]
+File: //glnd//sas//reporting//flag_lps_tiled_2.ps Graphic file (type eps)
+ <//glnd//sas//reporting//flag_lps_tiled_2.ps>
+Overfull \hbox (41.5627pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     105
+ []
+
+[105]
+File: //glnd//sas//reporting//flag_lps_tiled_3.ps Graphic file (type eps)
+ <//glnd//sas//reporting//flag_lps_tiled_3.ps>
+Overfull \hbox (41.5627pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     106
+ []
+
+[106]
+File: //glnd//sas//reporting//cyto_open_p1.ps Graphic file (type eps)
+ <//glnd//sas//reporting//cyto_open_p1.ps>
+Overfull \hbox (41.5627pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     107
+ []
+
+[107]
+File: //glnd//sas//reporting//cyto_open_p2.ps Graphic file (type eps)
+ <//glnd//sas//reporting//cyto_open_p2.ps>
+Overfull \hbox (41.5627pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     108
+ []
+
+[108]
+File: //glnd//sas//reporting//immune_function_open_1.ps Graphic file (type eps)
+
+ <//glnd//sas//reporting//immune_function_open_1.ps>
+Overfull \hbox (41.5627pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     109
+ []
+
+[109]
+File: //glnd//sas//reporting//immune_function_open_2.ps Graphic file (type eps)
+
+ <//glnd//sas//reporting//immune_function_open_2.ps>
+Overfull \hbox (41.5627pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 11:52:35 EDT 2011     110
+ []
+
+[110] (./open.aux) ) 
+Here is how much of TeX's memory you used:
+ 791 strings out of 95847
+ 11221 string characters out of 1195583
+ 74866 words of memory out of 1000001
+ 3693 multiletter control sequences out of 10000+50000
+ 5205 words of font info for 19 fonts, out of 500000 for 1000
+ 14 hyphenation exceptions out of 1000
+ 25i,12n,21p,546b,482s stack positions out of 1500i,500n,5000p,200000b,5000s
+
+Output written on open.dvi (110 pages, 162056 bytes).

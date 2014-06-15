@@ -1,0 +1,1978 @@
+                                                           The SAS System
+
+                                                        The MEANS Procedure
+
+                                          TTCMV LBWI      N
+                                                  ID    Obs    Variable              Maximum
+                                        ----------------------------------------------------
+                                             1001011      2    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             1001411      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             1001811      6    LeftIVHGrade                .
+                                                               RightIVHGrade       4.0000000
+
+                                             1002021      3    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             1003111      1    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             1003511      3    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             1006121      4    LeftIVHGrade                .
+                                                               RightIVHGrade       4.0000000
+
+                                             1007111      8    LeftIVHGrade        4.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             1011111      1    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             1012611     12    LeftIVHGrade        4.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             1012631      2    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             1012811      1    LeftIVHGrade        4.0000000
+                                                               RightIVHGrade       3.0000000
+
+                                             1022411      3    LeftIVHGrade        3.0000000
+                                                               RightIVHGrade               .
+
+                                             1022611      4    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             1024221      1    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             2000311      4    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             2000811      2    LeftIVHGrade        3.0000000
+                                                               RightIVHGrade       4.0000000
+
+                                             2001011      1    LeftIVHGrade        2.0000000
+                                        ----------------------------------------------------
+                                                           The SAS System
+
+                                                        The MEANS Procedure
+
+                                          TTCMV LBWI      N
+                                                  ID    Obs    Variable              Maximum
+                                        ----------------------------------------------------
+                                             2001011      1    RightIVHGrade       2.0000000
+
+                                             2001311      3    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             2002411      4    LeftIVHGrade                .
+                                                               RightIVHGrade       3.0000000
+
+                                             2002811      1    LeftIVHGrade                .
+                                                               RightIVHGrade       2.0000000
+
+                                             2003211      3    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             2003221      1    LeftIVHGrade        3.0000000
+                                                               RightIVHGrade       3.0000000
+
+                                             2004111      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             2006311      2    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             2006911      2    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade               .
+
+                                             2007211      6    LeftIVHGrade        3.0000000
+                                                               RightIVHGrade       4.0000000
+
+                                             2007911      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             2008311      1    LeftIVHGrade                .
+                                                               RightIVHGrade       4.0000000
+
+                                             2008611      6    LeftIVHGrade        3.0000000
+                                                               RightIVHGrade       4.0000000
+
+                                             2010211      4    LeftIVHGrade        4.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             2017511      3    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade               .
+
+                                             2018411      2    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             2019311      1    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             2021611      2    LeftIVHGrade        4.0000000
+                                                               RightIVHGrade       3.0000000
+                                        ----------------------------------------------------
+                                                           The SAS System
+
+                                                        The MEANS Procedure
+
+                                          TTCMV LBWI      N
+                                                  ID    Obs    Variable              Maximum
+                                        ----------------------------------------------------
+                                             2023111      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3000121      3    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3001011      6    LeftIVHGrade        3.0000000
+                                                               RightIVHGrade       3.0000000
+
+                                             3001611      2    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             3002011      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3003511      2    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3004331      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3004511      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3006011      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3007511      2    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3010311      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3010411      3    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3010911      2    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3010921      1    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3012511      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3013211      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3013411      1    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3013611      4    LeftIVHGrade        2.0000000
+                                        ----------------------------------------------------
+                                                           The SAS System
+
+                                                        The MEANS Procedure
+
+                                          TTCMV LBWI      N
+                                                  ID    Obs    Variable              Maximum
+                                        ----------------------------------------------------
+                                             3013611      4    RightIVHGrade       3.0000000
+
+                                             3013621      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3013921      4    LeftIVHGrade        3.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             3014011      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3015311      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3015411      1    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3015711      4    LeftIVHGrade        3.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             3016111      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3016711      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3017111      4    LeftIVHGrade        3.0000000
+                                                               RightIVHGrade       3.0000000
+
+                                             3018511      2    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3020811      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3021311      4    LeftIVHGrade        3.0000000
+                                                               RightIVHGrade       3.0000000
+
+                                             3021511      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3021711      1    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3021811      3    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3022311      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3022411      3    LeftIVHGrade                .
+                                                               RightIVHGrade       2.0000000
+                                        ----------------------------------------------------
+                                                           The SAS System
+
+                                                        The MEANS Procedure
+
+                                          TTCMV LBWI      N
+                                                  ID    Obs    Variable              Maximum
+                                        ----------------------------------------------------
+                                             3022511      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3023511      6    LeftIVHGrade        4.0000000
+                                                               RightIVHGrade       4.0000000
+
+                                             3024611      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3024911      3    LeftIVHGrade                .
+                                                               RightIVHGrade       4.0000000
+
+                                             3025311      1    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3026211      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3026221      2    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3026311      1    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3026911      3    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             3027011      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3028211      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3028711      3    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3028811      1    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3029611      8    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       3.0000000
+
+                                             3029811      3    LeftIVHGrade        3.0000000
+                                                               RightIVHGrade       3.0000000
+
+                                             3030611      1    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3030811      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3032611      3    LeftIVHGrade        2.0000000
+                                        ----------------------------------------------------
+                                                           The SAS System
+
+                                                        The MEANS Procedure
+
+                                          TTCMV LBWI      N
+                                                  ID    Obs    Variable              Maximum
+                                        ----------------------------------------------------
+                                             3032611      3    RightIVHGrade       2.0000000
+
+                                             3033111      4    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             3033511      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3033611      1    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3033621      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3035511      3    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             3037911      2    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3037921      3    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3039611      5    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             3039621      4    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             3040111      1    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3040121      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3041211      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3041711      1    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3042011      1    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3042211      3    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3042311      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3042911      4    LeftIVHGrade        3.0000000
+                                                               RightIVHGrade       3.0000000
+                                        ----------------------------------------------------
+                                                           The SAS System
+
+                                                        The MEANS Procedure
+
+                                          TTCMV LBWI      N
+                                                  ID    Obs    Variable              Maximum
+                                        ----------------------------------------------------
+                                             3043911      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3044211      1    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3044221      8    LeftIVHGrade        3.0000000
+                                                               RightIVHGrade       3.0000000
+
+                                             3044511      3    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3045811      3    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             3047511      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3047711      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3047811      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3047911      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3048411      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3048911      1    LeftIVHGrade                .
+                                                               RightIVHGrade       2.0000000
+
+                                             3049011      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3049021      3    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             3049211      3    LeftIVHGrade                .
+                                                               RightIVHGrade       3.0000000
+
+                                             3049221      6    LeftIVHGrade        3.0000000
+                                                               RightIVHGrade       3.0000000
+
+                                             3049921      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3049931      3    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3052511      5    LeftIVHGrade        3.0000000
+                                        ----------------------------------------------------
+                                                           The SAS System
+
+                                                        The MEANS Procedure
+
+                                          TTCMV LBWI      N
+                                                  ID    Obs    Variable              Maximum
+                                        ----------------------------------------------------
+                                             3052511      5    RightIVHGrade       3.0000000
+
+                                             3052711      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3053011      7    LeftIVHGrade        3.0000000
+                                                               RightIVHGrade       3.0000000
+
+                                             3053211      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3053311      2    LeftIVHGrade                .
+                                                               RightIVHGrade       2.0000000
+
+                                             3053611      2    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3054011      3    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3054111      1    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3054711      3    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             3054911      4    LeftIVHGrade        3.0000000
+                                                               RightIVHGrade       3.0000000
+
+                                             3055111      4    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             3055311      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3056111      4    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3056411      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3056421      2    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3056711      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3057111      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3058411      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+                                        ----------------------------------------------------
+                                                           The SAS System
+
+                                                        The MEANS Procedure
+
+                                          TTCMV LBWI      N
+                                                  ID    Obs    Variable              Maximum
+                                        ----------------------------------------------------
+                                             3059111      3    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             3059121      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3059511      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3059611     10    LeftIVHGrade        3.0000000
+                                                               RightIVHGrade       3.0000000
+
+                                             3060211     12    LeftIVHGrade        4.0000000
+                                                               RightIVHGrade       3.0000000
+
+                                             3062611      3    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             3062911      2    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             3063811      1    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             3063911      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3065211      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3065221      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3065511      1    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3066411      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3066631      2    LeftIVHGrade                .
+                                                               RightIVHGrade       1.0000000
+
+                                             3067111      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3067121      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3067911      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3068011      2    LeftIVHGrade        1.0000000
+                                        ----------------------------------------------------
+                                                           The SAS System
+
+                                                        The MEANS Procedure
+
+                                          TTCMV LBWI      N
+                                                  ID    Obs    Variable              Maximum
+                                        ----------------------------------------------------
+                                             3068011      2    RightIVHGrade               .
+
+                                             3068111      1    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade       1.0000000
+
+                                             3068121      2    LeftIVHGrade        1.0000000
+                                                               RightIVHGrade               .
+
+                                             3068311      6    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       4.0000000
+
+                                             3068321      3    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       2.0000000
+
+                                             3070411      2    LeftIVHGrade        2.0000000
+                                                               RightIVHGrade       2.0000000
+                                        ----------------------------------------------------
+                                                           The SAS System
+
+                                                         The FREQ Procedure
+
+                                                       Table of indo by grade
+
+                                       indo      grade
+
+                                       Frequency|
+                                       Percent  |
+                                       Row Pct  |
+                                       Col Pct  |       1|       2|       3|       4|  Total
+                                       ---------+--------+--------+--------+--------+
+                                              0 |     92 |     22 |     17 |      8 |    139
+                                                |  56.44 |  13.50 |  10.43 |   4.91 |  85.28
+                                                |  66.19 |  15.83 |  12.23 |   5.76 |
+                                                |  92.93 |  73.33 |  89.47 |  53.33 |
+                                       ---------+--------+--------+--------+--------+
+                                              1 |      7 |      8 |      2 |      7 |     24
+                                                |   4.29 |   4.91 |   1.23 |   4.29 |  14.72
+                                                |  29.17 |  33.33 |   8.33 |  29.17 |
+                                                |   7.07 |  26.67 |  10.53 |  46.67 |
+                                       ---------+--------+--------+--------+--------+
+                                       Total          99       30       19       15      163
+                                                   60.74    18.40    11.66     9.20   100.00
+
+                                                       Frequency Missing = 72
+                                                 Table1: Indomethacin by IVH grade
+
+                                            Grade I     Grade II     Grade III    Grade IV      Total
+                           Indomethacin     (n=99)       (n=30)       (n=19)       (n=15)      (n=163)
+
+                               No          92(92.9%)    22(73.3%)    17(89.5%)    8(53.3%)    139(85.3%)
+                               Yes          7(7.1%)      8(26.7%)     2(10.5%)    7(46.7%)     24(14.7%)
+                                                 Table1: Indomethacin by IVH grade
+
+                                                      The UNIVARIATE Procedure
+                                             Variable:  Platelet  (2.5 Platelet count)
+
+                                                              Moments
+
+                                  N                         160    Sum Weights                160
+                                  Mean                 210.5625    Sum Observations         33690
+                                  Std Deviation      76.7386062    Variance            5888.81368
+                                  Skewness           0.59866326    Kurtosis            1.12594084
+                                  Uncorrected SS        8030172    Corrected SS        936321.375
+                                  Coeff Variation     36.444574    Std Error Mean       6.0667195
+
+
+                                                     Basic Statistical Measures
+ 
+                                           Location                    Variability
+
+                                       Mean     210.5625     Std Deviation           76.73861
+                                       Median   207.5000     Variance                    5889
+                                       Mode     209.0000     Range                  456.00000
+                                                             Interquartile Range     89.50000
+
+
+                                                     Tests for Location: Mu0=0
+ 
+                                          Test           -Statistic-    -----p Value------
+
+                                          Student's t    t   34.7078    Pr > |t|    <.0001
+                                          Sign           M        80    Pr >= |M|   <.0001
+                                          Signed Rank    S      6440    Pr >= |S|   <.0001
+
+
+                                                      Quantiles (Definition 5)
+ 
+                                                       Quantile      Estimate
+
+                                                       100% Max         481.0
+                                                       99%              475.0
+                                                       95%              335.5
+                                                       90%              311.5
+                                                       75% Q3           253.5
+                                                       50% Median       207.5
+                                                       25% Q1           164.0
+                                                       10%              118.5
+                                                       5%                88.0
+                                                       1%                54.0
+                                                       0% Min            25.0
+
+
+                                                        Extreme Observations
+ 
+                                                ----Lowest----        ----Highest---
+ 
+                                                Value      Obs        Value      Obs
+
+                                                   25       38          353       90
+                                                   54      156          365       58
+                                                   66       64          429       45
+                                                 Table1: Indomethacin by IVH grade
+
+                                                      The UNIVARIATE Procedure
+                                             Variable:  Platelet  (2.5 Platelet count)
+
+                                                        Extreme Observations
+ 
+                                                ----Lowest----        ----Highest---
+ 
+                                                Value      Obs        Value      Obs
+
+                                                   66       63          475      111
+                                                   79       74          481      148
+
+
+                                                           Missing Values
+ 
+                                                                   -----Percent Of-----
+                                            Missing                             Missing
+                                              Value       Count     All Obs         Obs
+
+                                                  .           3        1.84      100.00
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                                 3.1 Indomethacin within 24 hours?
+ 
+                                                                          Cumulative    Cumulative
+                                 Indomethacin    Frequency     Percent     Frequency      Percent
+                                 -----------------------------------------------------------------
+                                            0         139       85.28           139        85.28  
+                                            1          24       14.72           163       100.00  
+                                                 Table1: Indomethacin by IVH grade
+
+                                                        The MEANS Procedure
+
+                                           Analysis Variable : Platelet 2.5 Platelet count
+ 
+                              3.1
+                     Indomethacin
+                        within 24      N
+                           hours?    Obs      N            Mean         Std Dev         Minimum         Maximum
+                     ------------------------------------------------------------------------------------------
+                                0    139    139     210.7410072      78.7262122      25.0000000     481.0000000
+
+                                1     24     21     209.3809524      63.6352702     118.0000000     352.0000000
+                     ------------------------------------------------------------------------------------------
+                                                 Table1: Indomethacin by IVH grade
+
+                                                       The NPAR1WAY Procedure
+
+                                         Wilcoxon Scores (Rank Sums) for Variable Platelet
+                                                Classified by Variable Indomethacin
+ 
+                                                        Sum of      Expected       Std Dev          Mean
+                            Indomethacin       N        Scores      Under H0      Under H0         Score
+                            ----------------------------------------------------------------------------
+                            0                139       11170.0      11189.50    197.887502     80.359712
+                            1                 21        1710.0       1690.50    197.887502     81.428571
+
+                                                 Average scores were used for ties.
+
+
+                                                     Wilcoxon Two-Sample Test
+
+                                                  Statistic             1710.0000
+                                                                                 
+                                                  Normal Approximation           
+                                                  Z                        0.0960
+                                                  One-Sided Pr >  Z        0.4618
+                                                  Two-Sided Pr > |Z|       0.9235
+                                                                                 
+                                                  t Approximation                
+                                                  One-Sided Pr >  Z        0.4618
+                                                  Two-Sided Pr > |Z|       0.9236
+
+                                             Z includes a continuity correction of 0.5.
+
+
+                                                        Kruskal-Wallis Test
+
+                                                  Chi-Square               0.0097
+                                                  DF                            1
+                                                  Pr > Chi-Square          0.9215
+                                                 Table1: Indomethacin by IVH grade
+
+                                                        The MEANS Procedure
+
+                                          Analysis Variable : GestAge 2.1. Gestational Age
+ 
+                              3.1
+                     Indomethacin
+                        within 24      N
+                           hours?    Obs      N            Mean         Std Dev         Minimum         Maximum
+                     ------------------------------------------------------------------------------------------
+                                0    139    139      27.2661871       2.4511918      22.0000000      32.0000000
+
+                                1     24     24      25.9166667       1.4116493      24.0000000      29.0000000
+                     ------------------------------------------------------------------------------------------
+                                                 Table1: Indomethacin by IVH grade
+
+                                                       The NPAR1WAY Procedure
+
+                                          Wilcoxon Scores (Rank Sums) for Variable GestAge
+                                                Classified by Variable Indomethacin
+ 
+                                                        Sum of      Expected       Std Dev          Mean
+                            Indomethacin       N        Scores      Under H0      Under H0         Score
+                            ----------------------------------------------------------------------------
+                            0                139       11944.0       11398.0    211.535336     85.928058
+                            1                 24        1422.0        1968.0    211.535336     59.250000
+
+                                                 Average scores were used for ties.
+
+
+                                                     Wilcoxon Two-Sample Test
+
+                                                  Statistic             1422.0000
+                                                                                 
+                                                  Normal Approximation           
+                                                  Z                       -2.5788
+                                                  One-Sided Pr <  Z        0.0050
+                                                  Two-Sided Pr > |Z|       0.0099
+                                                                                 
+                                                  t Approximation                
+                                                  One-Sided Pr <  Z        0.0054
+                                                  Two-Sided Pr > |Z|       0.0108
+
+                                             Z includes a continuity correction of 0.5.
+
+
+                                                        Kruskal-Wallis Test
+
+                                                  Chi-Square               6.6622
+                                                  DF                            1
+                                                  Pr > Chi-Square          0.0098
+                                                 Table1: Indomethacin by IVH grade
+
+                                                        The MEANS Procedure
+
+                                        Analysis Variable : BirthWeight 2.2 LBWI Birth Weight
+ 
+                              3.1
+                     Indomethacin
+                        within 24      N
+                           hours?    Obs      N            Mean         Std Dev         Minimum         Maximum
+                     ------------------------------------------------------------------------------------------
+                                0    139    139     987.9496403     267.9428699     426.0000000         1500.00
+
+                                1     24     24     830.5833333     158.1430054     630.0000000         1191.00
+                     ------------------------------------------------------------------------------------------
+                                                 Table1: Indomethacin by IVH grade
+
+                                                       The NPAR1WAY Procedure
+
+                                        Wilcoxon Scores (Rank Sums) for Variable BirthWeight
+                                                Classified by Variable Indomethacin
+ 
+                                                        Sum of      Expected       Std Dev          Mean
+                            Indomethacin       N        Scores      Under H0      Under H0         Score
+                            ----------------------------------------------------------------------------
+                            0                139       12013.0       11398.0    213.519726     86.424460
+                            1                 24        1353.0        1968.0    213.519726     56.375000
+
+                                                 Average scores were used for ties.
+
+
+                                                     Wilcoxon Two-Sample Test
+
+                                                  Statistic             1353.0000
+                                                                                 
+                                                  Normal Approximation           
+                                                  Z                       -2.8780
+                                                  One-Sided Pr <  Z        0.0020
+                                                  Two-Sided Pr > |Z|       0.0040
+                                                                                 
+                                                  t Approximation                
+                                                  One-Sided Pr <  Z        0.0023
+                                                  Two-Sided Pr > |Z|       0.0045
+
+                                             Z includes a continuity correction of 0.5.
+
+
+                                                        Kruskal-Wallis Test
+
+                                                  Chi-Square               8.2961
+                                                  DF                            1
+                                                  Pr > Chi-Square          0.0040
+                                                 Table1: Indomethacin by IVH grade
+
+                                                        The MEANS Procedure
+
+                            Analysis Variable : SNAPTotalScore SNAP (Score for Neonatal Acute Physiology)
+ 
+                              3.1
+                     Indomethacin
+                        within 24      N
+                           hours?    Obs      N            Mean         Std Dev         Minimum         Maximum
+                     ------------------------------------------------------------------------------------------
+                                0    139    137      10.7080292       5.1394675               0      23.0000000
+
+                                1     24     24      13.7916667       5.0301626       5.0000000      25.0000000
+                     ------------------------------------------------------------------------------------------
+                                                 Table1: Indomethacin by IVH grade
+
+                                                       The NPAR1WAY Procedure
+
+                                      Wilcoxon Scores (Rank Sums) for Variable SNAPTotalScore
+                                                Classified by Variable Indomethacin
+ 
+                                                        Sum of      Expected       Std Dev          Mean
+                            Indomethacin       N        Scores      Under H0      Under H0         Score
+                            ----------------------------------------------------------------------------
+                            0                137      10649.50       11097.0    210.158229     77.733577
+                            1                 24       2391.50        1944.0    210.158229     99.645833
+
+                                                 Average scores were used for ties.
+
+
+                                                     Wilcoxon Two-Sample Test
+
+                                                  Statistic             2391.5000
+                                                                                 
+                                                  Normal Approximation           
+                                                  Z                        2.1270
+                                                  One-Sided Pr >  Z        0.0167
+                                                  Two-Sided Pr > |Z|       0.0334
+                                                                                 
+                                                  t Approximation                
+                                                  One-Sided Pr >  Z        0.0175
+                                                  Two-Sided Pr > |Z|       0.0350
+
+                                             Z includes a continuity correction of 0.5.
+
+
+                                                        Kruskal-Wallis Test
+
+                                                  Chi-Square               4.5341
+                                                  DF                            1
+                                                  Pr > Chi-Square          0.0332
+                                                 Table1: Indomethacin by IVH grade
+
+                                                        The MEANS Procedure
+
+                                      Analysis Variable : Apgar5Min 2.6 LBWI Apgar 5- min score
+ 
+                              3.1
+                     Indomethacin
+                        within 24      N
+                           hours?    Obs      N            Mean         Std Dev         Minimum         Maximum
+                     ------------------------------------------------------------------------------------------
+                                0    139    138       7.5144928       1.8766156       1.0000000       9.0000000
+
+                                1     24     24       6.0833333       1.6918389       3.0000000       9.0000000
+                     ------------------------------------------------------------------------------------------
+                                                 Table1: Indomethacin by IVH grade
+
+                                                       The NPAR1WAY Procedure
+
+                                         Wilcoxon Scores (Rank Sums) for Variable Apgar5Min
+                                                Classified by Variable Indomethacin
+ 
+                                                        Sum of      Expected       Std Dev          Mean
+                            Indomethacin       N        Scores      Under H0      Under H0         Score
+                            ----------------------------------------------------------------------------
+                            0                138       12059.0       11247.0    204.780951     87.384058
+                            1                 24        1144.0        1956.0    204.780951     47.666667
+
+                                                 Average scores were used for ties.
+
+
+                                                     Wilcoxon Two-Sample Test
+
+                                                  Statistic             1144.0000
+                                                                                 
+                                                  Normal Approximation           
+                                                  Z                       -3.9628
+                                                  One-Sided Pr <  Z        <.0001
+                                                  Two-Sided Pr > |Z|       <.0001
+                                                                                 
+                                                  t Approximation                
+                                                  One-Sided Pr <  Z        <.0001
+                                                  Two-Sided Pr > |Z|       0.0001
+
+                                             Z includes a continuity correction of 0.5.
+
+
+                                                        Kruskal-Wallis Test
+
+                                                  Chi-Square              15.7229
+                                                  DF                            1
+                                                  Pr > Chi-Square          <.0001
+                                                 Table1: Indomethacin by IVH grade
+
+                                                        The MEANS Procedure
+
+                                                  Analysis Variable : Fio2 12. Fio2
+ 
+                              3.1
+                     Indomethacin
+                        within 24      N
+                           hours?    Obs      N            Mean         Std Dev         Minimum         Maximum
+                     ------------------------------------------------------------------------------------------
+                                0    139    135      26.9703704      11.5796661      21.0000000      85.0000000
+
+                                1     24     24      27.8333333       7.8000372      21.0000000      45.0000000
+                     ------------------------------------------------------------------------------------------
+                                                 Table1: Indomethacin by IVH grade
+
+                                                       The NPAR1WAY Procedure
+
+                                           Wilcoxon Scores (Rank Sums) for Variable Fio2
+                                                Classified by Variable Indomethacin
+ 
+                                                        Sum of      Expected       Std Dev          Mean
+                            Indomethacin       N        Scores      Under H0      Under H0         Score
+                            ----------------------------------------------------------------------------
+                            0                135       10512.0       10800.0    188.662584     77.866667
+                            1                 24        2208.0        1920.0    188.662584     92.000000
+
+                                                 Average scores were used for ties.
+
+
+                                                     Wilcoxon Two-Sample Test
+
+                                                  Statistic             2208.0000
+                                                                                 
+                                                  Normal Approximation           
+                                                  Z                        1.5239
+                                                  One-Sided Pr >  Z        0.0638
+                                                  Two-Sided Pr > |Z|       0.1275
+                                                                                 
+                                                  t Approximation                
+                                                  One-Sided Pr >  Z        0.0648
+                                                  Two-Sided Pr > |Z|       0.1295
+
+                                             Z includes a continuity correction of 0.5.
+
+
+                                                        Kruskal-Wallis Test
+
+                                                  Chi-Square               2.3303
+                                                  DF                            1
+                                                  Pr > Chi-Square          0.1269
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                                   Table of grade by Indomethacin
+
+                                                grade
+                                                          Indomethacin(3.1 Indomethacin within 24 hours?)
+
+                                                Frequency|
+                                                Row Pct  |       0|       1|  Total
+                                                ---------+--------+--------+
+                                                       1 |     92 |      7 |     99
+                                                         |  92.93 |   7.07 |
+                                                ---------+--------+--------+
+                                                       2 |     22 |      8 |     30
+                                                         |  73.33 |  26.67 |
+                                                ---------+--------+--------+
+                                                       3 |     17 |      2 |     19
+                                                         |  89.47 |  10.53 |
+                                                ---------+--------+--------+
+                                                       4 |      8 |      7 |     15
+                                                         |  53.33 |  46.67 |
+                                                ---------+--------+--------+
+                                                Total         139       24      163
+
+
+                                           Statistics for Table of grade by Indomethacin
+
+                                       Statistic                     DF       Value      Prob
+                                       ------------------------------------------------------
+                                       Chi-Square                     3     20.4821    0.0001
+                                       Likelihood Ratio Chi-Square    3     17.3409    0.0006
+                                       Mantel-Haenszel Chi-Square     1     13.0275    0.0003
+                                       Phi Coefficient                       0.3545          
+                                       Contingency Coefficient               0.3341          
+                                       Cramer's V                            0.3545          
+
+                                        WARNING: 38% of the cells have expected counts less 
+                                                 than 5. Chi-Square may not be a valid test.
+
+
+                                                        Fisher's Exact Test
+                                                 ----------------------------------
+                                                 Table Probability (P)    2.854E-06
+                                                 Pr <= P                  2.246E-04
+
+                                                         Sample Size = 163
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                            Summary Statistics for grade by Indomethacin
+
+                                    Cochran-Mantel-Haenszel Statistics (Based on Table Scores)
+ 
+                                  Statistic    Alternative Hypothesis    DF       Value      Prob
+                                  ---------------------------------------------------------------
+                                      1        Nonzero Correlation        1     13.0275    0.0003
+                                      2        Row Mean Scores Differ     3     20.3565    0.0001
+                                      3        General Association        3     20.3565    0.0001
+
+
+                                                      Total Sample Size = 163
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                                   Table of gplt by Indomethacin
+
+                                            gplt
+                                                              Indomethacin(3.1 Indomethacin within 24 hours?)
+
+                                            Frequency        |
+                                            Row Pct          |       0|       1|  Total
+                                            -----------------+--------+--------+
+                                            Platelet Count<= |     35 |      5 |     40
+                                            Q1( 164 킠)      |  87.50 |  12.50 |
+                                            -----------------+--------+--------+
+                                            Platelet Count i |     37 |      5 |     42
+                                            n Q1~Q2( 208 킠) |  88.10 |  11.90 |
+                                            -----------------+--------+--------+
+                                            Platelet Count i |     31 |      7 |     38
+                                            n Q2~Q3( 254 킠) |  81.58 |  18.42 |
+                                            -----------------+--------+--------+
+                                            Platelet Count>Q |     36 |      4 |     40
+                                            3( 254 킠)       |  90.00 |  10.00 |
+                                            -----------------+--------+--------+
+                                            Total                 139       21      160
+
+                                                       Frequency Missing = 3
+
+
+                                            Statistics for Table of gplt by Indomethacin
+
+                                       Statistic                     DF       Value      Prob
+                                       ------------------------------------------------------
+                                       Chi-Square                     3      1.3459    0.7183
+                                       Likelihood Ratio Chi-Square    3      1.2851    0.7327
+                                       Mantel-Haenszel Chi-Square     1      0.0025    0.9605
+                                       Phi Coefficient                       0.0917          
+                                       Contingency Coefficient               0.0913          
+                                       Cramer's V                            0.0917          
+
+
+                                                        Fisher's Exact Test
+                                                 ----------------------------------
+                                                 Table Probability (P)       0.0067
+                                                 Pr <= P                     0.7389
+
+                                                    Effective Sample Size = 160
+                                                       Frequency Missing = 3
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                            Summary Statistics for gplt by Indomethacin
+
+                                    Cochran-Mantel-Haenszel Statistics (Based on Table Scores)
+ 
+                                  Statistic    Alternative Hypothesis    DF       Value      Prob
+                                  ---------------------------------------------------------------
+                                      1        Nonzero Correlation        1      0.0025    0.9605
+                                      2        Row Mean Scores Differ     3      1.3375    0.7203
+                                      3        General Association        3      1.3375    0.7203
+
+
+                                                    Effective Sample Size = 160
+                                                       Frequency Missing = 3
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                                    Table of tbc by Indomethacin
+
+                                            tbc
+                                                              Indomethacin(3.1 Indomethacin within 24 hours?)
+
+                                            Frequency        |
+                                            Row Pct          |       0|       1|  Total
+                                            -----------------+--------+--------+
+                                            Platelet Count>= |    112 |     16 |    128
+                                            150 *1000/킠     |  87.50 |  12.50 |
+                                            -----------------+--------+--------+
+                                            Platelet Count<1 |     27 |      5 |     32
+                                            50 *1000/킠      |  84.38 |  15.63 |
+                                            -----------------+--------+--------+
+                                            Total                 139       21      160
+
+                                                       Frequency Missing = 3
+
+
+                                            Statistics for Table of tbc by Indomethacin
+
+                                       Statistic                     DF       Value      Prob
+                                       ------------------------------------------------------
+                                       Chi-Square                     1      0.2193    0.6396
+                                       Likelihood Ratio Chi-Square    1      0.2112    0.6458
+                                       Continuity Adj. Chi-Square     1      0.0308    0.8606
+                                       Mantel-Haenszel Chi-Square     1      0.2179    0.6407
+                                       Phi Coefficient                       0.0370          
+                                       Contingency Coefficient               0.0370          
+                                       Cramer's V                            0.0370          
+
+                                        WARNING: 25% of the cells have expected counts less 
+                                                 than 5. Chi-Square may not be a valid test.
+
+
+                                                        Fisher's Exact Test
+                                                 ----------------------------------
+                                                 Cell (1,1) Frequency (F)       112
+                                                 Left-sided Pr <= F          0.7821
+                                                 Right-sided Pr >= F         0.4138
+                                                                                   
+                                                 Table Probability (P)       0.1959
+                                                 Two-sided Pr <= P           0.5736
+
+                                                    Effective Sample Size = 160
+                                                       Frequency Missing = 3
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                             Summary Statistics for tbc by Indomethacin
+
+                                    Cochran-Mantel-Haenszel Statistics (Based on Table Scores)
+ 
+                                  Statistic    Alternative Hypothesis    DF       Value      Prob
+                                  ---------------------------------------------------------------
+                                      1        Nonzero Correlation        1      0.2179    0.6407
+                                      2        Row Mean Scores Differ     1      0.2179    0.6407
+                                      3        General Association        1      0.2179    0.6407
+
+
+                                         Estimates of the Common Relative Risk (Row1/Row2)
+ 
+                             Type of Study     Method                  Value     95% Confidence Limits
+                             -------------------------------------------------------------------------
+                             Case-Control      Mantel-Haenszel        1.2963       0.4365       3.8500
+                               (Odds Ratio)    Logit                  1.2963       0.4365       3.8500
+
+                             Cohort            Mantel-Haenszel        1.0370       0.8812       1.2204
+                               (Col1 Risk)     Logit                  1.0370       0.8812       1.2204
+
+                             Cohort            Mantel-Haenszel        0.8000       0.3168       2.0204
+                               (Col2 Risk)     Logit                  0.8000       0.3168       2.0204
+
+
+                                                    Effective Sample Size = 160
+                                                       Frequency Missing = 3
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                                   Table of ttbc by Indomethacin
+
+                                            ttbc
+                                                              Indomethacin(3.1 Indomethacin within 24 hours?)
+
+                                            Frequency        |
+                                            Row Pct          |       0|       1|  Total
+                                            -----------------+--------+--------+
+                                            Normal(>=150*100 |    112 |     16 |    128
+                                            0/킠)            |  87.50 |  12.50 |
+                                            -----------------+--------+--------+
+                                            Mild(100-149*100 |     18 |      5 |     23
+                                            0/킠)            |  78.26 |  21.74 |
+                                            -----------------+--------+--------+
+                                            Moderate(50-99*1 |      8 |      0 |      8
+                                            000/킠)          | 100.00 |   0.00 |
+                                            -----------------+--------+--------+
+                                            Very Severe(<30* |      1 |      0 |      1
+                                            1000/킠)         | 100.00 |   0.00 |
+                                            -----------------+--------+--------+
+                                            Total                 139       21      160
+
+                                                       Frequency Missing = 3
+
+
+                                            Statistics for Table of ttbc by Indomethacin
+
+                                       Statistic                     DF       Value      Prob
+                                       ------------------------------------------------------
+                                       Chi-Square                     3      2.9003    0.4072
+                                       Likelihood Ratio Chi-Square    3      3.8638    0.2766
+                                       Mantel-Haenszel Chi-Square     1      0.0608    0.8053
+                                       Phi Coefficient                       0.1346          
+                                       Contingency Coefficient               0.1334          
+                                       Cramer's V                            0.1346          
+
+                                        WARNING: 50% of the cells have expected counts less 
+                                                 than 5. Chi-Square may not be a valid test.
+
+
+                                                        Fisher's Exact Test
+                                                 ----------------------------------
+                                                 Table Probability (P)       0.0327
+                                                 Pr <= P                     0.3688
+
+                                                    Effective Sample Size = 160
+                                                       Frequency Missing = 3
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                            Summary Statistics for ttbc by Indomethacin
+
+                                    Cochran-Mantel-Haenszel Statistics (Based on Table Scores)
+ 
+                                  Statistic    Alternative Hypothesis    DF       Value      Prob
+                                  ---------------------------------------------------------------
+                                      1        Nonzero Correlation        1      0.0608    0.8053
+                                      2        Row Mean Scores Differ     3      2.8822    0.4101
+                                      3        General Association        3      2.8822    0.4101
+
+
+                                                    Effective Sample Size = 160
+                                                       Frequency Missing = 3
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                                    Table of plt by Indomethacin
+
+                                                plt
+                                                          Indomethacin(3.1 Indomethacin within 24 hours?)
+
+                                                Frequency|
+                                                Row Pct  |       0|       1|  Total
+                                                ---------+--------+--------+
+                                                       0 |    112 |     20 |    132
+                                                         |  84.85 |  15.15 |
+                                                ---------+--------+--------+
+                                                       1 |     27 |      4 |     31
+                                                         |  87.10 |  12.90 |
+                                                ---------+--------+--------+
+                                                Total         139       24      163
+
+
+                                            Statistics for Table of plt by Indomethacin
+
+                                       Statistic                     DF       Value      Prob
+                                       ------------------------------------------------------
+                                       Chi-Square                     1      0.1011    0.7506
+                                       Likelihood Ratio Chi-Square    1      0.1039    0.7472
+                                       Continuity Adj. Chi-Square     1      0.0013    0.9711
+                                       Mantel-Haenszel Chi-Square     1      0.1004    0.7513
+                                       Phi Coefficient                      -0.0249          
+                                       Contingency Coefficient               0.0249          
+                                       Cramer's V                           -0.0249          
+
+                                        WARNING: 25% of the cells have expected counts less 
+                                                 than 5. Chi-Square may not be a valid test.
+
+
+                                                        Fisher's Exact Test
+                                                 ----------------------------------
+                                                 Cell (1,1) Frequency (F)       112
+                                                 Left-sided Pr <= F          0.5025
+                                                 Right-sided Pr >= F         0.7155
+                                                                                   
+                                                 Table Probability (P)       0.2180
+                                                 Two-sided Pr <= P           1.0000
+
+                                                         Sample Size = 163
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                             Summary Statistics for plt by Indomethacin
+
+                                    Cochran-Mantel-Haenszel Statistics (Based on Table Scores)
+ 
+                                  Statistic    Alternative Hypothesis    DF       Value      Prob
+                                  ---------------------------------------------------------------
+                                      1        Nonzero Correlation        1      0.1004    0.7513
+                                      2        Row Mean Scores Differ     1      0.1004    0.7513
+                                      3        General Association        1      0.1004    0.7513
+
+
+                                         Estimates of the Common Relative Risk (Row1/Row2)
+ 
+                             Type of Study     Method                  Value     95% Confidence Limits
+                             -------------------------------------------------------------------------
+                             Case-Control      Mantel-Haenszel        0.8296       0.2619       2.6276
+                               (Odds Ratio)    Logit                  0.8296       0.2619       2.6276
+
+                             Cohort            Mantel-Haenszel        0.9742       0.8356       1.1358
+                               (Col1 Risk)     Logit                  0.9742       0.8356       1.1358
+
+                             Cohort            Mantel-Haenszel        1.1742       0.4321       3.1910
+                               (Col2 Risk)     Logit                  1.1742       0.4321       3.1910
+
+
+                                                      Total Sample Size = 163
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                                  Table of idx_plt by Indomethacin
+
+                                                idx_plt
+                                                          Indomethacin(3.1 Indomethacin within 24 hours?)
+
+                                                Frequency|
+                                                Row Pct  |       0|       1|  Total
+                                                ---------+--------+--------+
+                                                       0 |    112 |     20 |    132
+                                                         |  84.85 |  15.15 |
+                                                ---------+--------+--------+
+                                                       1 |     22 |      3 |     25
+                                                         |  88.00 |  12.00 |
+                                                ---------+--------+--------+
+                                                       2 |      5 |      1 |      6
+                                                         |  83.33 |  16.67 |
+                                                ---------+--------+--------+
+                                                Total         139       24      163
+
+
+                                          Statistics for Table of idx_plt by Indomethacin
+
+                                       Statistic                     DF       Value      Prob
+                                       ------------------------------------------------------
+                                       Chi-Square                     2      0.1850    0.9117
+                                       Likelihood Ratio Chi-Square    2      0.1926    0.9082
+                                       Mantel-Haenszel Chi-Square     1      0.0391    0.8432
+                                       Phi Coefficient                       0.0337          
+                                       Contingency Coefficient               0.0337          
+                                       Cramer's V                            0.0337          
+
+                                        WARNING: 33% of the cells have expected counts less 
+                                                 than 5. Chi-Square may not be a valid test.
+
+
+                                                        Fisher's Exact Test
+                                                 ----------------------------------
+                                                 Table Probability (P)       0.0956
+                                                 Pr <= P                     1.0000
+
+                                                         Sample Size = 163
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                           Summary Statistics for idx_plt by Indomethacin
+
+                                    Cochran-Mantel-Haenszel Statistics (Based on Table Scores)
+ 
+                                  Statistic    Alternative Hypothesis    DF       Value      Prob
+                                  ---------------------------------------------------------------
+                                      1        Nonzero Correlation        1      0.0391    0.8432
+                                      2        Row Mean Scores Differ     2      0.1839    0.9122
+                                      3        General Association        2      0.1839    0.9122
+
+
+                                                      Total Sample Size = 163
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                               Table of Hypertension by Indomethacin
+
+                                                Hypertension(Hypertension during pregnancy)
+                                                          Indomethacin(3.1 Indomethacin within 24 hours?)
+
+                                                Frequency|
+                                                Row Pct  |       0|       1|  Total
+                                                ---------+--------+--------+
+                                                No       |     97 |     17 |    114
+                                                         |  85.09 |  14.91 |
+                                                ---------+--------+--------+
+                                                Yes      |     17 |      3 |     20
+                                                         |  85.00 |  15.00 |
+                                                ---------+--------+--------+
+                                                Total         114       20      134
+
+                                                       Frequency Missing = 29
+
+
+                                        Statistics for Table of Hypertension by Indomethacin
+
+                                       Statistic                     DF       Value      Prob
+                                       ------------------------------------------------------
+                                       Chi-Square                     1      0.0001    0.9919
+                                       Likelihood Ratio Chi-Square    1      0.0001    0.9919
+                                       Continuity Adj. Chi-Square     1      0.0000    1.0000
+                                       Mantel-Haenszel Chi-Square     1      0.0001    0.9919
+                                       Phi Coefficient                       0.0009          
+                                       Contingency Coefficient               0.0009          
+                                       Cramer's V                            0.0009          
+
+                                        WARNING: 25% of the cells have expected counts less 
+                                                 than 5. Chi-Square may not be a valid test.
+
+
+                                                        Fisher's Exact Test
+                                                 ----------------------------------
+                                                 Cell (1,1) Frequency (F)        97
+                                                 Left-sided Pr <= F          0.6551
+                                                 Right-sided Pr >= F         0.6081
+                                                                                   
+                                                 Table Probability (P)       0.2632
+                                                 Two-sided Pr <= P           1.0000
+
+                                                    Effective Sample Size = 134
+                                                       Frequency Missing = 29
+
+                                               WARNING: 18% of the data are missing.
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                        Summary Statistics for Hypertension by Indomethacin
+
+                                    Cochran-Mantel-Haenszel Statistics (Based on Table Scores)
+ 
+                                  Statistic    Alternative Hypothesis    DF       Value      Prob
+                                  ---------------------------------------------------------------
+                                      1        Nonzero Correlation        1      0.0001    0.9919
+                                      2        Row Mean Scores Differ     1      0.0001    0.9919
+                                      3        General Association        1      0.0001    0.9919
+
+
+                                         Estimates of the Common Relative Risk (Row1/Row2)
+ 
+                             Type of Study     Method                  Value     95% Confidence Limits
+                             -------------------------------------------------------------------------
+                             Case-Control      Mantel-Haenszel        1.0069       0.2660       3.8117
+                               (Odds Ratio)    Logit                  1.0069       0.2660       3.8117
+
+                             Cohort            Mantel-Haenszel        1.0010       0.8200       1.2221
+                               (Col1 Risk)     Logit                  1.0010       0.8200       1.2221
+
+                             Cohort            Mantel-Haenszel        0.9942       0.3206       3.0827
+                               (Col2 Risk)     Logit                  0.9942       0.3206       3.0827
+
+
+                                                    Effective Sample Size = 134
+                                                       Frequency Missing = 29
+
+                                               WARNING: 18% of the data are missing.
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                              Table of IsChorloConfirm by Indomethacin
+
+                                                IsChorloConfirm
+                                                          Indomethacin(3.1 Indomethacin within 24 hours?)
+
+                                                Frequency|
+                                                Row Pct  |       0|       1|  Total
+                                                ---------+--------+--------+
+                                                       0 |    108 |     18 |    126
+                                                         |  85.71 |  14.29 |
+                                                ---------+--------+--------+
+                                                       1 |      2 |      2 |      4
+                                                         |  50.00 |  50.00 |
+                                                ---------+--------+--------+
+                                                Total         110       20      130
+
+                                                       Frequency Missing = 33
+
+
+                                      Statistics for Table of IsChorloConfirm by Indomethacin
+
+                                       Statistic                     DF       Value      Prob
+                                       ------------------------------------------------------
+                                       Chi-Square                     1      3.7987    0.0513
+                                       Likelihood Ratio Chi-Square    1      2.7295    0.0985
+                                       Continuity Adj. Chi-Square     1      1.5506    0.2131
+                                       Mantel-Haenszel Chi-Square     1      3.7695    0.0522
+                                       Phi Coefficient                       0.1709          
+                                       Contingency Coefficient               0.1685          
+                                       Cramer's V                            0.1709          
+
+                                        WARNING: 50% of the cells have expected counts less 
+                                                 than 5. Chi-Square may not be a valid test.
+
+
+                                                        Fisher's Exact Test
+                                                 ----------------------------------
+                                                 Cell (1,1) Frequency (F)       108
+                                                 Left-sided Pr <= F          0.9885
+                                                 Right-sided Pr >= F         0.1117
+                                                                                   
+                                                 Table Probability (P)       0.1003
+                                                 Two-sided Pr <= P           0.1117
+
+                                                    Effective Sample Size = 130
+                                                       Frequency Missing = 33
+
+                                               WARNING: 20% of the data are missing.
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                       Summary Statistics for IsChorloConfirm by Indomethacin
+
+                                    Cochran-Mantel-Haenszel Statistics (Based on Table Scores)
+ 
+                                  Statistic    Alternative Hypothesis    DF       Value      Prob
+                                  ---------------------------------------------------------------
+                                      1        Nonzero Correlation        1      3.7695    0.0522
+                                      2        Row Mean Scores Differ     1      3.7695    0.0522
+                                      3        General Association        1      3.7695    0.0522
+
+
+                                         Estimates of the Common Relative Risk (Row1/Row2)
+ 
+                             Type of Study     Method                  Value     95% Confidence Limits
+                             -------------------------------------------------------------------------
+                             Case-Control      Mantel-Haenszel        6.0000       0.7940      45.3424
+                               (Odds Ratio)    Logit                  6.0000       0.7940      45.3424
+
+                             Cohort            Mantel-Haenszel        1.7143       0.6417       4.5794
+                               (Col1 Risk)     Logit                  1.7143       0.6417       4.5794
+
+                             Cohort            Mantel-Haenszel        0.2857       0.0981       0.8323
+                               (Col2 Risk)     Logit                  0.2857       0.0981       0.8323
+
+
+                                                    Effective Sample Size = 130
+                                                       Frequency Missing = 33
+
+                                               WARNING: 20% of the data are missing.
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                               Table of DeliveryMode by Indomethacin
+
+                                            DeliveryMode(Final Delivery Mode)
+                                                              Indomethacin(3.1 Indomethacin within 24 hours?)
+
+                                            Frequency        |
+                                            Row Pct          |       0|       1|  Total
+                                            -----------------+--------+--------+
+                                            Vaginal vertex   |     28 |      8 |     36
+                                                             |  77.78 |  22.22 |
+                                            -----------------+--------+--------+
+                                            Caesarean sectio |     87 |     13 |    100
+                                            n                |  87.00 |  13.00 |
+                                            -----------------+--------+--------+
+                                            Vaginal breech   |      2 |      0 |      2
+                                                             | 100.00 |   0.00 |
+                                            -----------------+--------+--------+
+                                            Total                 117       21      138
+
+                                                       Frequency Missing = 25
+
+
+                                        Statistics for Table of DeliveryMode by Indomethacin
+
+                                       Statistic                     DF       Value      Prob
+                                       ------------------------------------------------------
+                                       Chi-Square                     2      2.1092    0.3483
+                                       Likelihood Ratio Chi-Square    2      2.2872    0.3187
+                                       Mantel-Haenszel Chi-Square     1      2.0746    0.1498
+                                       Phi Coefficient                       0.1236          
+                                       Contingency Coefficient               0.1227          
+                                       Cramer's V                            0.1236          
+
+                                        WARNING: 33% of the cells have expected counts less 
+                                                 than 5. Chi-Square may not be a valid test.
+
+
+                                                        Fisher's Exact Test
+                                                 ----------------------------------
+                                                 Table Probability (P)       0.0631
+                                                 Pr <= P                     0.4194
+
+                                                    Effective Sample Size = 138
+                                                       Frequency Missing = 25
+
+                                               WARNING: 15% of the data are missing.
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                        Summary Statistics for DeliveryMode by Indomethacin
+
+                                    Cochran-Mantel-Haenszel Statistics (Based on Table Scores)
+ 
+                                  Statistic    Alternative Hypothesis    DF       Value      Prob
+                                  ---------------------------------------------------------------
+                                      1        Nonzero Correlation        1      2.0746    0.1498
+                                      2        Row Mean Scores Differ     2      2.0939    0.3510
+                                      3        General Association        2      2.0939    0.3510
+
+
+                                                    Effective Sample Size = 138
+                                                       Frequency Missing = 25
+
+                                               WARNING: 15% of the data are missing.
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                                Table of BirthResus by Indomethacin
+
+                                                BirthResus(2.7 LBWI Birth Resuscitation)
+                                                          Indomethacin(3.1 Indomethacin within 24 hours?)
+
+                                                Frequency|
+                                                Row Pct  |       0|       1|  Total
+                                                ---------+--------+--------+
+                                                       0 |      3 |      0 |      3
+                                                         | 100.00 |   0.00 |
+                                                ---------+--------+--------+
+                                                       1 |    130 |     24 |    154
+                                                         |  84.42 |  15.58 |
+                                                ---------+--------+--------+
+                                                Total         133       24      157
+
+                                                       Frequency Missing = 6
+
+
+                                         Statistics for Table of BirthResus by Indomethacin
+
+                                       Statistic                     DF       Value      Prob
+                                       ------------------------------------------------------
+                                       Chi-Square                     1      0.5519    0.4575
+                                       Likelihood Ratio Chi-Square    1      1.0059    0.3159
+                                       Continuity Adj. Chi-Square     1      0.0000    1.0000
+                                       Mantel-Haenszel Chi-Square     1      0.5484    0.4590
+                                       Phi Coefficient                       0.0593          
+                                       Contingency Coefficient               0.0592          
+                                       Cramer's V                            0.0593          
+
+                                        WARNING: 50% of the cells have expected counts less 
+                                                 than 5. Chi-Square may not be a valid test.
+
+
+                                                        Fisher's Exact Test
+                                                 ----------------------------------
+                                                 Cell (1,1) Frequency (F)         3
+                                                 Left-sided Pr <= F          1.0000
+                                                 Right-sided Pr >= F         0.6058
+                                                                                   
+                                                 Table Probability (P)       0.6058
+                                                 Two-sided Pr <= P           1.0000
+
+                                                    Effective Sample Size = 157
+                                                       Frequency Missing = 6
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                         Summary Statistics for BirthResus by Indomethacin
+
+                                    Cochran-Mantel-Haenszel Statistics (Based on Table Scores)
+ 
+                                  Statistic    Alternative Hypothesis    DF       Value      Prob
+                                  ---------------------------------------------------------------
+                                      1        Nonzero Correlation        1      0.5484    0.4590
+                                      2        Row Mean Scores Differ     1      0.5484    0.4590
+                                      3        General Association        1      0.5484    0.4590
+
+
+                                         Estimates of the Common Relative Risk (Row1/Row2)
+ 
+                             Type of Study     Method                  Value     95% Confidence Limits
+                             -------------------------------------------------------------------------
+                             Case-Control      Mantel-Haenszel         .            .            .    
+                               (Odds Ratio)    Logit **               1.3142       0.0658      26.2497
+
+                             Cohort            Mantel-Haenszel        1.1846       1.1069       1.2678
+                               (Col1 Risk)     Logit                  1.1846       1.1069       1.2678
+
+                             Cohort            Mantel-Haenszel        0.0000        .            .    
+                               (Col2 Risk)     Logit **               0.7908       0.0577      10.8421
+
+                                    To avoid undefined results, some estimates are not computed.
+                                 ** These logit estimators use a correction of 0.5 in every cell  
+                                      of those tables that contain a zero.
+
+
+                                                    Effective Sample Size = 157
+                                                       Frequency Missing = 6
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                             Table of BirthResusOxygen by Indomethacin
+
+                                                BirthResusOxygen(Birth Resuscitation by Oxygen)
+                                                          Indomethacin(3.1 Indomethacin within 24 hours?)
+
+                                                Frequency|
+                                                Row Pct  |       0|       1|  Total
+                                                ---------+--------+--------+
+                                                       0 |     14 |      5 |     19
+                                                         |  73.68 |  26.32 |
+                                                ---------+--------+--------+
+                                                       1 |    125 |     19 |    144
+                                                         |  86.81 |  13.19 |
+                                                ---------+--------+--------+
+                                                Total         139       24      163
+
+
+                                      Statistics for Table of BirthResusOxygen by Indomethacin
+
+                                       Statistic                     DF       Value      Prob
+                                       ------------------------------------------------------
+                                       Chi-Square                     1      2.3016    0.1292
+                                       Likelihood Ratio Chi-Square    1      1.9924    0.1581
+                                       Continuity Adj. Chi-Square     1      1.3752    0.2409
+                                       Mantel-Haenszel Chi-Square     1      2.2875    0.1304
+                                       Phi Coefficient                      -0.1188          
+                                       Contingency Coefficient               0.1180          
+                                       Cramer's V                           -0.1188          
+
+                                        WARNING: 25% of the cells have expected counts less 
+                                                 than 5. Chi-Square may not be a valid test.
+
+
+                                                        Fisher's Exact Test
+                                                 ----------------------------------
+                                                 Cell (1,1) Frequency (F)        14
+                                                 Left-sided Pr <= F          0.1230
+                                                 Right-sided Pr >= F         0.9609
+                                                                                   
+                                                 Table Probability (P)       0.0839
+                                                 Two-sided Pr <= P           0.1628
+
+                                                         Sample Size = 163
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                      Summary Statistics for BirthResusOxygen by Indomethacin
+
+                                    Cochran-Mantel-Haenszel Statistics (Based on Table Scores)
+ 
+                                  Statistic    Alternative Hypothesis    DF       Value      Prob
+                                  ---------------------------------------------------------------
+                                      1        Nonzero Correlation        1      2.2875    0.1304
+                                      2        Row Mean Scores Differ     1      2.2875    0.1304
+                                      3        General Association        1      2.2875    0.1304
+
+
+                                         Estimates of the Common Relative Risk (Row1/Row2)
+ 
+                             Type of Study     Method                  Value     95% Confidence Limits
+                             -------------------------------------------------------------------------
+                             Case-Control      Mantel-Haenszel        0.4256       0.1376       1.3168
+                               (Odds Ratio)    Logit                  0.4256       0.1376       1.3168
+
+                             Cohort            Mantel-Haenszel        0.8488       0.6440       1.1188
+                               (Col1 Risk)     Logit                  0.8488       0.6440       1.1188
+
+                             Cohort            Mantel-Haenszel        1.9945       0.8430       4.7188
+                               (Col2 Risk)     Logit                  1.9945       0.8430       4.7188
+
+
+                                                      Total Sample Size = 163
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                              Table of BirthResusCPAP by Indomethacin
+
+                                                BirthResusCPAP(Birth Resuscitation by CPAP)
+                                                          Indomethacin(3.1 Indomethacin within 24 hours?)
+
+                                                Frequency|
+                                                Row Pct  |       0|       1|  Total
+                                                ---------+--------+--------+
+                                                       0 |     52 |     12 |     64
+                                                         |  81.25 |  18.75 |
+                                                ---------+--------+--------+
+                                                       1 |     87 |     12 |     99
+                                                         |  87.88 |  12.12 |
+                                                ---------+--------+--------+
+                                                Total         139       24      163
+
+
+                                       Statistics for Table of BirthResusCPAP by Indomethacin
+
+                                       Statistic                     DF       Value      Prob
+                                       ------------------------------------------------------
+                                       Chi-Square                     1      1.3603    0.2435
+                                       Likelihood Ratio Chi-Square    1      1.3343    0.2480
+                                       Continuity Adj. Chi-Square     1      0.8836    0.3472
+                                       Mantel-Haenszel Chi-Square     1      1.3520    0.2449
+                                       Phi Coefficient                      -0.0914          
+                                       Contingency Coefficient               0.0910          
+                                       Cramer's V                           -0.0914          
+
+
+                                                        Fisher's Exact Test
+                                                 ----------------------------------
+                                                 Cell (1,1) Frequency (F)        52
+                                                 Left-sided Pr <= F          0.1733
+                                                 Right-sided Pr >= F         0.9171
+                                                                                   
+                                                 Table Probability (P)       0.0904
+                                                 Two-sided Pr <= P           0.2642
+
+                                                         Sample Size = 163
+                                                 Table1: Indomethacin by IVH grade
+
+                                                         The FREQ Procedure
+
+                                       Summary Statistics for BirthResusCPAP by Indomethacin
+
+                                    Cochran-Mantel-Haenszel Statistics (Based on Table Scores)
+ 
+                                  Statistic    Alternative Hypothesis    DF       Value      Prob
+                                  ---------------------------------------------------------------
+                                      1        Nonzero Correlation        1      1.3520    0.2449
+                                      2        Row Mean Scores Differ     1      1.3520    0.2449
+                                      3        General Association        1      1.3520    0.2449
+
+
+                                         Estimates of the Common Relative Risk (Row1/Row2)
+ 
+                             Type of Study     Method                  Value     95% Confidence Limits
+                             -------------------------------------------------------------------------
+                             Case-Control      Mantel-Haenszel        0.5977       0.2502       1.4278
+                               (Odds Ratio)    Logit                  0.5977       0.2502       1.4278
+
+                             Cohort            Mantel-Haenszel        0.9246       0.8049       1.0620
+                               (Col1 Risk)     Logit                  0.9246       0.8049       1.0620
+
+                             Cohort            Mantel-Haenszel        1.5469       0.7411       3.2286
+                               (Col2 Risk)     Logit                  1.5469       0.7411       3.2286
+
+
+                                                      Total Sample Size = 163
+                         Approach #2: Impact of Prophylactic Indomethacin and Initial Platelet Count on IVH
+
+                                                                                            Prophylactic Indomethacin               
+                                  Characteristic  .                                         (n=24)                                  
+IVH Grade                                         I                                                    7/24( 29.2%)                 
+                                                  II                                                   8/24( 33.3%)                 
+                                                  III                                                  2/24(  8.3%)                 
+                                                  IV                                                   7/24( 29.2%)                 
+Platelet Count at Birth(*1000/킠), Mean � SD (N)                                            209.4 � 63.6(21)                        
+Thrombocytopenia at Birth*                        Platelet Count>=150 *1000/킠                        16/21( 76.2%)                 
+                                                  Platelet Count<150 *1000/킠                          5/21( 23.8%)                 
+Thrombocytopenia at Birth                         Normal(>=150*1000/킠)                               16/21( 76.2%)                 
+                                                  Mild(100-149*1000/킠)                                5/21( 23.8%)                 
+                                                  Moderate(50-99*1000/킠)                              0/21(  0.0%)                 
+                                                  Very Severe(<30*1000/킠)                             0/21(  0.0%)                 
+Platelet Transfusion                              No                                                  20/24( 83.3%)                 
+                                                  Yes                                                  4/24( 16.7%)                 
+Platelet Transfusion by Number                    tx=0                                                20/24( 83.3%)                 
+                                                  tx=1-2                                               3/24( 12.5%)                 
+                                                  tx>=3                                                1/24(  4.2%)                 
+Hypertension existed prior to pregnancy?          No                                                  17/20( 85.0%)                 
+                                                  Yes                                                  3/20( 15.0%)                 
+Chorioamnionitis                                  No                                                  18/20( 90.0%)                 
+                                                  Yes                                                  2/20( 10.0%)                 
+Mode of Delivery                                  Vaginal vertex                                       8/21( 38.1%)                 
+                                                  Caesarean section                                   13/21( 61.9%)                 
+                                                  Vaginal breech                                       0/21(  0.0%)                 
+                         Approach #2: Impact of Prophylactic Indomethacin and Initial Platelet Count on IVH
+
+                                          No Prophylactic Indomethacin              p     
+                                          (n=139)                                   value 
+                                                    92/139( 66.2%)                  <0.001
+                                                    22/139( 15.8%)                        
+                                                    17/139( 12.2%)                        
+                                                     8/139(  5.8%)                        
+                                          210.7 � 78.7(139)                         0.924 
+                                                   112/139( 80.6%)                  0.574 
+                                                    27/139( 19.4%)                        
+                                                   112/139( 80.6%)                  0.369 
+                                                    18/139( 12.9%)                        
+                                                     8/139(  5.8%)                        
+                                                     1/139(  0.7%)                        
+                                                   112/139( 80.6%)                  1.000 
+                                                    27/139( 19.4%)                        
+                                                   112/139( 80.6%)                  1.000 
+                                                    22/139( 15.8%)                        
+                                                     5/139(  3.6%)                        
+                                                    97/114( 85.1%)                  1.000 
+                                                    17/114( 14.9%)                        
+                                                   108/110( 98.2%)                  0.112 
+                                                     2/110(  1.8%)                        
+                                                    28/117( 23.9%)                  0.419 
+                                                    87/117( 74.4%)                        
+                                                     2/117(  1.7%)                        
+                         Approach #2: Impact of Prophylactic Indomethacin and Initial Platelet Count on IVH
+
+                                                                                            Prophylactic Indomethacin               
+                                  Characteristic  .                                         (n=24)                                  
+Gestational Age(week), Median[Q1-Q3], N                                                      25.9 � 1.4(24)                         
+Birthweight(g), Mean � SD (N)                                                               830.6 � 158.1(24)                       
+SNAP score, Median[Q1-Q3], N                                                                 13.8 � 5.0(24)                         
+APGAR at 5 min, Median[Q1-Q3], N                                                              6.1 � 1.7(24)                         
+FiO2 at Birth, Median[Q1-Q3], N                                                              27.8 � 7.8(24)                         
+Delivery room resuscitation                       No                                                   0/24(  0.0%)                 
+                                                  Yes                                                 24/24(100.0%)                 
+Birth resuscitation/stabilization with Oxygen     No                                                   5/24( 20.8%)                 
+                                                  Yes                                                 19/24( 79.2%)                 
+Birth resuscitation/stabilization with CPAP       No                                                  12/24( 50.0%)                 
+                                                  Yes                                                 12/24( 50.0%)                 
+                         Approach #2: Impact of Prophylactic Indomethacin and Initial Platelet Count on IVH
+
+                                          No Prophylactic Indomethacin              p     
+                                          (n=139)                                   value 
+                                           27.3 � 2.5(139)                          0.011 
+                                          987.9 � 267.9(139)                        0.005 
+                                           10.7 � 5.1(137)                          0.035 
+                                            7.5 � 1.9(138)                          <0.001
+                                           27.0 � 11.6(135)                         0.130 
+                                                     3/133(  2.3%)                  1.000 
+                                                   130/133( 97.7%)                        
+                                                    14/139( 10.1%)                  0.163 
+                                                   125/139( 89.9%)                        
+                                                    52/139( 37.4%)                  0.264 
+                                                    87/139( 62.6%)                        

@@ -1,0 +1,28 @@
+f.date.fix <- function(x,sep="/",collapse="/")
+{
+x <- as.character(x)
+n <- length(x)
+x[x==""] <- "00/00/0000"
+x[x=="."] <- "00/00/0000"
+x[x=="NA"] <- "00/00/0000"
+x[x=="//NA"] <- "00/00/0000"
+write(x,file="aaa.dat")
+x <- scan(file="aaa.dat",sep=sep)
+unix("rm aaa.dat")
+x <- t(matrix(x,3,n))
+x[,1] <- f.format(x[,1],width=2,adj=1,fill="0")
+x[,2] <- f.format(x[,2],width=2,adj=1,fill="0")
+x[,3] <- ifelse(nchar(x[,3])==2,paste("19",x[,3],sep=""),x[,3])
+x[,3] <- ifelse(nchar(x[,3])==1,paste("190",x[,3],sep=""),x[,3])
+x <- apply(x,1,paste,collapse=collapse)
+x[x=="99/99/1999"] <- "99/99/9999"
+x[x=="99991999"] <- "99999999"
+x[x=="88/88/1988"] <- "99/99/9999"
+x[x=="88881988"] <- "99999999"
+x[x=="00/00/1900"] <- ""
+x[x=="00/00/0000"] <- ""
+x[x=="00/00/00"] <- ""
+x[x=="00/00/0"] <- ""
+return(x)
+}
+

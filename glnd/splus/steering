@@ -1,0 +1,6 @@
+sas monthly
+cp /glnd/sas/reporting/recruitment.pdf recruitment.pdf
+pdf2ps recruitment.pdf recruitment.ps
+Splus7 < steering.in
+cp report.pdf steering.pdf
+cp report.ps steering.ps

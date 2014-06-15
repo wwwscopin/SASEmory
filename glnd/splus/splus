@@ -1,0 +1,18 @@
+
+cp /glnd/sas/reporting/*.pdf .
+pdf2ps  nutrition_p1.pdf nut1.ps
+pdf2ps  nutrition_p2.pdf nut2.ps
+pdf2ps  nutrition_p3.pdf nut3.ps
+pdf2ps  nutrition_p4.pdf nut4.ps
+pdf2ps  nutrition_p5.pdf nut5.ps
+pdf2ps  nutrition_p6.pdf nut6.ps
+pdf2ps blood_gluc_tiled.pdf blood.ps
+pdf2ps recruitment.pdf recruitment.ps
+pdf2ps nut11002.pdf nut11002.ps
+pdf2ps nut11004.pdf nut11004.ps
+pdf2ps nut11009.pdf nut11009.ps
+pdf2ps nut11012.pdf nut11012.ps
+pdf2ps nut12013.pdf nut12013.ps
+Splus7 < base.in
+cp report.pdf base.pdf
+cp report.ps base.ps

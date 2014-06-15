@@ -1,0 +1,532 @@
+# dfdaily - a script to extract data from DataFax and create SAS datasets, to be run on a daily basis
+cd /ttcmv/sas/programs/data_mgt
+
+echo " "
+echo "*** TT-CMV Study DFdaily ***"
+echo "*** Downloading LBWI data... ***" 
+echo " "
+
+DFsas plate_001
+cp p_001.sas plate_001.sas
+sas plate_001.sas
+
+DFsas plate_002
+cp p_002.sas plate_002.sas
+sas plate_002.sas
+
+DFsas plate_003
+cp p_003.sas plate_003.sas
+sas plate_003.sas
+
+# merge the two elgiiblity plats together
+sas eligibility.sas
+
+# MOC enrollment blood collection
+DFsas plate_004
+cp p_004.sas plate_004.sas
+sas plate_004.sas
+
+
+# LBWI demographic form
+DFsas plate_005
+cp p_005.sas plate_005.sas
+sas plate_005.sas
+
+DFsas plate_006
+cp p_006.sas plate_006.sas
+sas plate_006.sas
+
+# merge
+sas lbwi_demo.sas
+
+
+# MOC demographic form
+DFsas plate_007
+cp p_007.sas plate_007.sas
+sas plate_007.sas
+
+DFsas plate_008
+cp p_008.sas plate_008.sas
+sas plate_008.sas
+
+# placental infection; merge w/demographic
+DFsas plate_009
+cp p_009.sas plate_009.sas
+sas plate_009.sas
+
+# merge
+sas MOC_demo.sas
+
+
+# LBWI medical record review
+DFsas plate_015
+cp p_015.sas plate_015.sas
+sas plate_015.sas
+
+DFsas plate_016
+cp p_016.sas plate_016.sas
+sas plate_016.sas
+
+# merge
+sas Med_review.sas
+
+# create missing data stat. the below code is added in med_review.sas
+#sas med_rev_missing.sas
+
+# LBWI SNAP
+DFsas plate_010
+cp p_010.sas plate_010.sas
+sas plate_010.sas
+
+DFsas plate_011
+cp p_011.sas plate_011.sas
+sas plate_011.sas
+
+
+DFsas plate_012
+cp p_012.sas plate_012.sas
+sas plate_012.sas
+
+
+# merge
+sas snap.sas
+
+# snap 2
+DFsas plate_018
+cp p_018.sas plate_018.sas
+sas plate_018.sas
+
+# blood collection
+DFsas plate_017
+cp p_017.sas plate_017.sas
+sas plate_017.sas
+
+
+# Summary
+DFsas plate_020
+cp p_020.sas plate_020.sas
+sas plate_020.sas
+
+DFsas plate_021
+cp p_021.sas plate_021.sas
+sas plate_021.sas
+
+DFsas plate_022
+cp p_022.sas plate_022.sas
+sas plate_022.sas
+
+# merge 
+sas summary.sas
+
+
+
+# MOC discharge blood collection
+DFsas plate_023
+cp p_023.sas plate_023.sas
+sas plate_023.sas
+
+
+# LBWI RBC TX form
+DFsas plate_031
+cp p_031.sas plate_031.sas
+sas plate_031.sas
+
+
+# rename data as RBCTx
+sas RBCTx.sas
+
+
+# LBWI PlateletTX form
+
+DFsas plate_033
+cp p_033.sas plate_033.sas
+sas plate_033.sas
+
+
+# LBWI FFPTX form
+
+DFsas plate_035
+cp p_035.sas plate_035.sas
+sas plate_035.sas
+
+
+# LBWI cryoTX form
+
+DFsas plate_037
+cp p_037.sas plate_037.sas
+sas plate_037.sas
+
+
+# LBWI granTX form
+
+
+# sus CMV cases
+
+
+DFsas plate_051
+cp p_051.sas plate_051.sas
+sas plate_051.sas
+
+DFsas plate_052
+cp p_052.sas plate_052.sas
+sas plate_052.sas
+
+DFsas plate_053
+cp p_053.sas plate_053.sas
+sas plate_053.sas
+
+
+DFsas plate_054
+cp p_054.sas plate_054.sas
+sas plate_054.sas
+
+DFsas plate_055
+cp p_055.sas plate_055.sas
+sas plate_055.sas
+
+
+
+# merge the five sus_cmv plates together
+sas sus_cmv.sas
+
+# OUTCOMES
+
+# NEC
+
+DFsas plate_057
+cp p_057.sas plate_057.sas
+sas plate_057.sas
+
+DFsas plate_058
+cp p_058.sas plate_058.sas
+sas plate_058.sas
+
+DFsas plate_059
+cp p_059.sas plate_059.sas
+sas plate_059.sas
+
+
+# infection
+DFsas plate_082
+cp p_082.sas plate_082.sas
+sas plate_082.sas 
+
+DFsas plate_083
+cp p_083.sas plate_083.sas
+sas plate_083.sas 
+
+# merge the infection plates together
+sas infection.sas
+
+# Con meds log
+
+DFsas plate_091
+cp p_091.sas plate_091.sas
+sas plate_091.sas
+
+# breast feed log
+
+DFsas plate_093
+cp p_093.sas plate_093.sas
+sas plate_093.sas
+
+
+# Mech vent log
+
+DFsas plate_095
+cp p_095.sas plate_095.sas
+sas plate_095.sas
+
+# assemble NEC into one dataset
+
+# merge the three NEC plates together
+sas nec.sas
+
+# NEC images 
+
+DFsas plate_121
+cp p_121.sas plate_121.sas
+sas plate_121.sas
+
+DFsas plate_122
+cp p_122.sas plate_122.sas
+sas plate_122.sas
+
+DFsas plate_123
+cp p_123.sas plate_123.sas
+sas plate_123.sas
+
+# merge the three nec image cases plates together
+sas nec_image.sas
+
+
+# NEC Feeding Log
+
+DFsas plate_065
+cp p_065.sas plate_065.sas
+sas plate_065.sas
+
+DFsas plate_066
+cp p_066.sas plate_066.sas
+sas plate_066.sas
+
+# merge two plates together
+sas nec_feeding_log.sas
+
+
+
+# IVH cases
+
+DFsas plate_068
+cp p_068.sas plate_068.sas
+sas plate_068.sas
+
+DFsas plate_069
+cp p_069.sas plate_069.sas
+sas plate_069.sas
+
+# merge the two ivh plats together
+sas ivh.sas
+
+# ivh images
+
+DFsas plate_180
+cp p_180.sas plate_180.sas
+sas plate_180.sas
+
+
+
+
+
+
+# BPD cases
+
+DFsas plate_076
+cp p_076.sas plate_076.sas
+sas plate_076.sas
+
+
+# ROP cases
+
+DFsas plate_078
+cp p_078.sas plate_078.sas
+sas plate_078.sas
+
+
+# PDA cases
+
+DFsas plate_080
+cp p_080.sas plate_080.sas
+sas plate_080.sas
+
+
+# Death (Outcome)
+
+DFsas plate_100
+cp p_100.sas plate_100.sas
+sas plate_100.sas
+
+
+# Death (SAE)
+
+DFsas plate_101
+cp p_101.sas plate_101.sas
+sas plate_101.sas
+
+
+
+# end of study
+
+DFsas plate_105
+cp p_105.sas plate_105.sas
+sas plate_105.sas
+
+
+# Transfer
+
+DFsas plate_110
+cp p_110.sas plate_110.sas
+sas plate_110.sas
+
+# Protocol deviation
+
+DFsas plate_115
+cp p_115.sas plate_115.sas
+sas plate_115.sas
+
+
+# vasopressor log
+
+DFsas plate_131
+cp p_131.sas plate_131.sas
+sas plate_131.sas
+
+
+
+
+# LBWI URINE NAT Result 
+
+DFsas plate_200
+cp p_200.sas plate_200.sas
+sas plate_200.sas
+
+
+# LBWI Blood NAT Result 
+
+DFsas plate_201
+cp p_201.sas plate_201.sas
+sas plate_201.sas
+
+
+# LBWI Blood IgGIgM Result 
+
+#DFsas plate_202
+#cp p_202.sas plate_202.sas
+#sas plate_202.sas
+
+
+
+
+# MOC NAT Result 
+
+DFsas plate_203
+cp p_203.sas plate_203.sas
+sas plate_203.sas
+
+
+# MOC Sero Result 
+
+DFsas plate_204
+cp p_204.sas plate_204.sas
+sas plate_204.sas
+
+
+# MOC Sero Results - Unscheduled
+DFsas plate_209
+cp p_209.sas plate_209.sas
+sas plate_209.sas
+
+
+# Breast Milk location 
+
+DFsas plate_205
+cp p_205.sas plate_205.sas
+sas plate_205.sas
+
+
+# Breast Milk NAT
+
+DFsas plate_206
+cp p_206.sas plate_206.sas
+sas plate_206.sas
+
+
+# LBWI Unscheduled Blood NAT Result
+DFsas plate_210
+cp p_210.sas plate_210.sas
+sas plate_210.sas
+sas plate_210_long.sas
+
+
+
+# LBWI Unscheduled Urine NAT Result
+DFsas plate_211
+cp p_211.sas plate_211.sas
+sas plate_211.sas
+sas plate_211_long.sas
+
+
+# MOC IGG enrollment 
+
+DFsas plate_215
+cp p_215.sas plate_215.sas
+sas plate_215.sas
+
+# MOC BMilk Culture result page 1
+DFsas plate_216
+cp p_216.sas plate_216.sas
+sas plate_216.sas
+sas plate_216_long.sas
+
+### status dataset
+
+sas status
+
+###
+### Run file to update ANTHRO data
+###
+sas /ttcmv/sas/programs/cdc/gc-setup.sas
+sas /ttcmv/sas/programs/cdc/kramer.sas
+
+###
+### Run file to calculate if time windows were missed
+###
+sas /ttcmv/sas/programs/reporting/time_window_check.sas
+
+
+##
+## Create list of ids with baseline demographic information
+##
+sas /ttcmv/sas/programs/reporting/create_valid_ids.sas
+
+echo " "
+echo "*** Download of LBWI data complete! ***"
+echo " "
+echo " "
+echo "*** Downloading Blood Unit data... ***" 
+echo " "
+
+DFsas plate_001_bu
+cp p_001_bu.sas plate_001_bu.sas
+sas plate_001_bu.sas
+
+DFsas plate_002_bu
+cp p_002_bu.sas plate_002_bu.sas
+sas plate_002_bu.sas
+
+DFsas plate_003_bu
+cp p_003_bu.sas plate_003_bu.sas
+sas plate_003_bu.sas
+
+DFsas plate_101_bu
+cp p_101_bu.sas plate_101_bu.sas
+sas plate_101_bu.sas
+
+
+
+
+chmod -f g+rw *
+chgrp studies *
+
+cd /ttcmv/sas/programs/reporting
+sas unit_status_listing_qc.sas
+sas lab_result_listing.sas
+
+sas weight_length_age_lineplot.sas
+sas lab_line.sas
+
+sas	pat.sas
+sas	mech_vent_center.sas
+
+# sendmessage -s "GLND Patient Status Update" -r nfreret@sph.emory.edu -a patient_status.pdf
+
+cd ..
+
+
+echo " "
+echo "*** Download of Blood Unit data complete! ***"
+
+#
+# Get birthdays and end of study dates for Neeta's web calendar
+#
+/usr/local/apps/datafax/bin/DFexport.rpc -s primary -w -z -f "7,8,11" 20 005 /ttcmv/DataFax/work/birthdates.csv
+/usr/local/apps/datafax/bin/DFexport.rpc -s primary -w -z -f "7,8,11" 20 105 /ttcmv/DataFax/work/endofstudydates.csv
+
+
+cd ../reporting
+chmod -f g+rw *
+chgrp studies *
+
+cd /ttcmv/sas/data
+chmod -f g+w *
+chgrp -f studies *

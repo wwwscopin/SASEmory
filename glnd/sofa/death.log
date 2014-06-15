@@ -1,0 +1,157 @@
+1                                                          The SAS System                             12:21 Tuesday, October 5, 2010
+
+NOTE: Copyright (c) 2002-2003 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) 9.1 (TS1M3)
+      Licensed to EMORY UNIVERSITY - T&R, Site 0014217002.
+NOTE: This session is executing on the SunOS 5.9 platform.
+
+
+
+NOTE: SAS 9.1.3 Service Pack 4
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.28 seconds
+      cpu time            0.07 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is /home/bwu2/sofa/autoexec.sas.
+
+NOTE: Libref RAND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/randomization
+NOTE: Libref GLND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+NOTE: Libref GLND_REP was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting
+NOTE: Libref GLND_EXT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/external_data
+NOTE: Libname LIBRARY refers to the same physical library as GLND.
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+NOTE: Libname REPORT refers to the same physical library as GLND_REP.
+NOTE: Libref REPORT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting
+
+NOTE: AUTOEXEC processing completed.
+
+1          /* sofa_plot_censor_adjust_open.sas
+2                                                          The SAS System                             12:21 Tuesday, October 5, 2010
+
+2           *
+3           * For all patients, plot total sofa scores longitudinally and draw boxplots. 
+4           * Annotate with sample sizes at each day (SOFA scores are recordable when a patient
+5           * is in the SICU)
+6           *
+7           * This version was created (2/5/2010) per the DSMB recommendations to keep people who leave the SICU or die by assigning
+7        !  them a min or max score (0 if leave SICU, 24 if die)
+8           *
+9           */
+10         
+11         options pagesize= 60 linesize = 85 center nodate nonumber;
+12         
+13         data all;
+14         	set glnd.followup_all_long(keep=id);
+15         run;
+
+NOTE: There were 2655 observations read from the data set GLND.FOLLOWUP_ALL_LONG.
+NOTE: The data set WORK.ALL has 2655 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.03 seconds
+      
+
+16         
+17         data dead;
+18         	set glnd_rep.death_details_open(keep=id);
+19         run;
+
+NOTE: There were 39 observations read from the data set GLND_REP.DEATH_DETAILS_OPEN.
+NOTE: The data set WORK.DEAD has 39 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+20         
+21         proc sql;
+22         	create table sur as
+23         	select *
+24               from all
+25            except
+26            select *
+27               from dead;
+NOTE: Table WORK.SUR created, with 91 rows and 1 columns.
+
+28         
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+      
+
+29         proc sort data=all nodup;by id;run;
+
+NOTE: There were 2655 observations read from the data set WORK.ALL.
+NOTE: 2525 duplicate observations were deleted.
+NOTE: The data set WORK.ALL has 130 observations and 1 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+                                   The SAS System
+
+      cpu time            0.01 seconds
+      
+
+30         proc sort data=dead nodup;by id;run;
+
+NOTE: There were 39 observations read from the data set WORK.DEAD.
+NOTE: 0 duplicate observations were deleted.
+NOTE: The data set WORK.DEAD has 39 observations and 1 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+31         proc sort data=sur nodup;by id;run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+32         proc sort data = glnd.followup_all_long; by id day; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           0.41 seconds
+      cpu time            0.18 seconds
+      

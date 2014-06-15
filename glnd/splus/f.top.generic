@@ -1,0 +1,22 @@
+f.top.generic <- function(file,header,top.margin="-0.70in")
+{
+file.tex <- paste(file,"tex",sep=".")
+
+report.top <- c(
+"\\documentclass[dvips,10pt]{article}",
+"\\usepackage{graphicx}",
+c(
+"\\setlength{\\oddsidemargin}{-0.3in}",
+"\\setlength{\\textwidth}{7.0in}",
+paste("\\setlength{\\topmargin}{",top.margin,"}",sep=""),
+"\\setlength{\\textheight}{10.0in}"),
+c("\\pagestyle{myheadings}",
+  "\\markright{ {\\rm {", header, "}}}",
+  "\\headsep=0.2in"),
+"\\begin{document}")
+
+cat(report.top,file=file.tex,sep="\n")
+
+return(NULL)
+}
+

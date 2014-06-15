@@ -1,0 +1,78 @@
+f.list <- function(x,
+ file=as.character(substitute(x)),
+ caption=" ", vdigits=0,
+ dir.table=NULL,worknote=NULL,footnote=NULL,
+ fix.labels=T, # do this
+ center.collab=T,miss.symbol=NULL,
+ pos.col=NULL,
+ tab.caption=T,clearpage=F,
+ csep="1.5em",width.note="5in",zero=F,append=F,
+ subset=rep(T,dim(x)[1]),subset.name="Subset")
+{
+# center.collab  drops centering of column labels - no extra blank line
+# vdigits separately for each numeric variable.
+
+table.tex <- T # prints table with a number. F gives caption only.
+caption <- paste(caption,".",sep="")
+caption <- if(any(subset==F) & !is.null(subset.name)) {
+ paste(subset.name,caption,sep=". ")} else caption
+subset[is.na(subset)] <- F
+#
+#modified by george for S+ 8
+var.labels <- unlist(lapply(x,attr,"label"))
+#the next for loop somehow deletes the label for character variables
+#as a fix as var.labels BEFORE this loop
+
+for(i in names(x)) if(is.numeric(x[,i]))  {
+ x[,i] <- f.round(x[,i],vdigits)
+ if(!is.null(miss.symbol))  x[x[,i]=="NA",i] <- miss.symbol
+} else { x[,i] <- as.character(x[,i])
+ for(irow in 1:dim(x)[1]) x[irow,i] <- f.fix.labels(x[irow,i])
+ }
+
+file.tex <- 
+ if(is.null(dir.table)) paste(file,".tex",sep="") else
+ paste(unix("echo $HOME"),"/",dir.table,"/",file,".tex",sep="")
+
+table.top <- c(
+# if want table numbers table.tex is true
+ if(!table.tex) paste("\\center{",caption,"}") else
+  c("\\begin{table}[t]", paste("\\caption\n{", caption, "}")),
+ "\\begin{center}",
+# columns specification
+  "\\begin{tabular}{ @{}l@{}",
+  paste(if(is.null(pos.col)) rep("@{}c@{}",dim(x)[2]) else
+   paste("@{}",pos.col,"@{}",sep=""),collapse=
+  paste("@{}p{",csep,"}@{}",sep="")),"}",
+  "\\hline\n")
+cat(table.top,file=file.tex,sep="\n",append=append)
+#
+#modified by george for S+ 8
+#var.labels <- unlist(lapply(x,attr,"label"))
+if(fix.labels) {
+ for(i in 1:length(var.labels)) var.labels[i] <- f.fix.labels(var.labels[i])
+}
+cat( c(paste("&", paste(
+  if(center.collab) { paste("\\parbox{6em}{\\begin{center}",
+  var.labels,"\\end{center}}",sep="") } else var.labels,
+  collapse=" && "),"\\\\\n"),"\\hline\n","\\\\"),
+  file=file.tex,sep="\n",append=append)
+
+cat(paste("&",apply(x,1,paste,collapse=" && "),"\\\\")[subset],
+ file=file.tex,sep="\n",append=append)
+
+cat(c("\\\\","\\hline \\\\", "\n\\end{tabular}\n"), 
+ file=file.tex,sep="\n",append=T)
+#---------------------------
+if(!is.null(footnote)) for(i in footnote)
+ cat(paste("\n\\parbox{",width.note,"}{",i,"} \\\\\n"),"\\vspace{1em}",
+ file=file.tex, append=T)
+#---------------------------
+if(!is.null(worknote)) cat(
+ paste("\n\\parbox{",width.note,"}{",c(worknote,file.tex,date()),
+ "} \\\\\n"), file=file.tex,append=T)
+#---------------------------
+cat("\\end{center}\n","\\end{table}\n",file=file.tex,append=T)
+if(clearpage) cat("\\clearpage\n",file=file.tex,append=T)
+}
+

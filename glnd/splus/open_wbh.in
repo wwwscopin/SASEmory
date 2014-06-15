@@ -1,0 +1,74 @@
+#################################################################################################
+#
+# Program:	glnd_baseline.in
+#
+# Purpose:	Produce recruitment and baseline  results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+#||||||||||||||||||||||||||||||||
+# ERROR in percent_iv_lipid, percent_iv_dex
+#basedsmc from libs not from frozen!!!!!!!
+################################################################################################
+
+source("start0.in")
+
+
+ff.top("open",
+ prepare.date=date(),
+ asof.date="April 4, 2011",
+ report.type="Recruitment, Baseline, and Follow-up  OPEN SESSION",
+ meet.date="May 14, 2011",
+ header="GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SESSION")
+ 
+lib="/dfax/glnd/sas"
+libr="/dfax/glnd/sas/reporting"
+libdf="/dfax/glnd/sas/reporting/df_reporting" 
+libs="/dfax/glnd/splus"
+
+### Recruitment by Center
+
+days2<- f.sas.get(library=libr,member="percent_enteral1", format.library=libs,  formats=T)
+f.list(file="open", x=days2[,c("day","patients","had.en.s","col.0.25","col.25.50","col.50.75","col.75.100"), drop=F],
+    caption="Median Proportion of Total kcal Given Enterally", 
+    append=T, pos=c("l","c","c","c","c","c","c"))       
+     
+
+lipid<- f.sas.get(library=libr,member="percent_iv_lipid", format.library=libs,  formats=T)
+xlipid=  lipid[,c("day","patients", "had.pn.s","col.0","col.0.15","col.15.30","col.30.100")]                 
+f.list(file="open", x=xlipid,
+   caption="Median Proportion of IV kcal Composed of Lipid, Over Time in Patients Receiving TPN", 
+   append=T, pos=c("l","c","c","c","c","c","c"))   
+         
+cat("\\clearpage",sep="\n",file="open.tex",append=T)        
+        
+dex<- f.sas.get(library=libr,member="percent_iv_dextrose", format.library=libs,  formats=T)
+xdex=dex[,c("day","patients","had.pn.s","col.0","col.0.30","col.30.60","col.60.100")]                              
+f.list(file="open",x=xdex,
+     caption="Median Proportion of IV kcal Composed of Dextrose, Over Time in Patients Receiving TPN", 
+     append=T, pos=c("l","c","c","c","c","c","c")) 
+
+cat("",c("\\begin{figure}", paste("\\resizebox{6.5in}{!}{\\rotatebox{180}{",
+ "\\includegraphics{//dfax//glnd//sas//reporting//kcal5.eps}}}",sep=""),
+ "\\caption{Kcal Administered}",
+ "\\end{figure}"),
+file=paste("open","tex",sep="."),sep="\n",append=T)
+
+
+cat("",c("\\begin{sidewaystable}",
+ paste("\\resizebox{9in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//dfax//glnd//sas//reporting//nut11485.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries -11485}",
+ "\\end{sidewaystable}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+ 
+### Finish
+
+f.bottom("open")
+unix("/home/gcotson/bin/laps open",output=F)
+unix("/home/gcotson/bin/laps open",output=F)
+unix("/home/gcotson/bin/lapdf open",output=F)
+unix("/home/gcotson/bin/lapdf open",output=F)

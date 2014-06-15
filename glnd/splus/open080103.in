@@ -1,0 +1,862 @@
+#################################################################################################
+#
+# Program:	glnd_baseline.in
+#
+# Purpose:	Produce recruitment and baseline  results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.top("open",
+ prepare.date=date(),
+ asof.date="Jan 3, 2008",
+ report.type="Recruitment, Baseline, and Follow-up  OPEN SESSION",
+ meet.date="Feb 10, 2008",
+ header="GLND DSMB Report - Recruitment, Baseline, and Follow-up  OPEN SESSION")
+
+# lib="/glnd/sas/reporting"
+lib="/glnd/sas/dsmc/20080103"
+libr="/glnd/sas/reporting"
+ libs="/glnd/sas"
+ 
+
+
+### Recruitment by Center
+
+recruitment <- f.sas.get(library=lib,member="dsmc_recruitment",
+                            format.library=lib,formats=T)
+tmp.tab1=recruitment[,c("center","nscreened","e","r","irb")]
+
+f.list(file="open", x=tmp.tab1,
+       caption="Patient Screening and Enrollment" ,append=T,
+       pos=c("l","c","c","c","c"))
+
+
+        
+             recr<- f.sas.get(library=libr,member="recruit_6",
+                            format.library=lib,formats=T)
+            tmp.tab1=recr[,c("str.month","n.patients","sum.patients")]
+f.list(file="open", x=tmp.tab1,
+       caption="Recruitment in the last 6 months",
+      append=T,
+       pos=c("c","c","c"))
+
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{90}{",
+ "\\includegraphics{recruitment.ps}}}",sep=""),
+ "\\caption{Recruitment Projections}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{rc.ps}}}",sep=""),
+ "\\caption{Recruitment Projections by Center}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ 
+cat("\\clearpage",sep="\n",file="open.tex",append=T)
+
+### Reasons patients were ineligible at initial screening by center
+
+
+
+inelig_screen1 <- f.sas.get(library=lib,member="inelig_screen1",
+                               format.library=lib,formats=T)
+
+
+f.tab(file="open",
+      x=ineglig_screen1[,c("reason"),
+      drop=F],
+     
+      caption="Reasons Patients Were Ineligible at Screening (Emory)", 
+      append=T, zero=F, 
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)   
+      
+
+inelig_screen2 <- f.sas.get(library=lib,member="inelig_screen2",
+                               format.library=lib,formats=T)
+
+
+f.tab(file="open",
+      x=ineglig_screen2[,c("reason"),
+      drop=F],
+     
+      caption="Reasons Patients Were Ineligible at Screening (Miriam)", 
+      append=T, zero=F, 
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)  
+
+
+
+
+inelig_screen3 <- f.sas.get(library=lib,member="inelig_screen3",
+                               format.library=lib,formats=T)
+
+
+f.tab(file="open",
+      x=ineglig_screen3[,c("reason"),
+      drop=F],
+     
+      caption="Reasons Patients Were Ineligible at Screening (Vanderbilt)", 
+      append=T, zero=F, 
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T) 
+      
+     
+inelig_screen4 <- f.sas.get(library=lib,member="inelig_screen4",
+                               format.library=lib,formats=T)
+
+
+f.tab(file="open",
+      x=ineglig_screen4[,c("reason"),
+      drop=F],
+     
+      caption="Reasons Patients Were Ineligible at Screening (Colorado)", 
+      append=T, zero=F, 
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)   
+
+
+
+
+cat("\\clearpage",sep="\n",file="open.tex",append=T)
+
+
+
+
+### Reasons patients eligible at initial screening were not enrolled
+
+not_enrolled1<- f.sas.get(library=lib,member="not_enrolled",
+                                  format.library=lib,formats=T)
+
+tmp.tab=not_enrolled1[,c("affil","glndid","reason")]
+
+f.list(file="open", x=tmp.tab,
+       caption="Reasons Patients Eligible at Screening Were Not Enrolled" ,append=T,
+       pos=c("l","c","l"))
+
+
+
+cat("\\clearpage",sep="\n",file="open.tex",append=T)
+
+
+emory=f.sas.get(library=lib,member="emory")
+
+tmp.tab=emory[,c("form","expected","received","pct.received")]
+
+f.list(file="open", x=tmp.tab,
+       caption="GLND Scheduled Forms Received and Expected - Emory" ,append=T,
+       pos=c("l","c","c","c"))
+
+cat("\\clearpage",sep="\n",file="open.tex",append=T)
+
+mir=f.sas.get(library=lib,member="mir")
+
+tmp.tab=mir[,c("form","expected","received","pct.received")]
+
+f.list(file="open", x=tmp.tab,
+       caption="GLND Scheduled Forms Received and Expected - Miriam" ,append=T,
+       pos=c("l","c","c","c"))
+
+cat("\\clearpage",sep="\n",file="open.tex",append=T)
+
+
+
+van=f.sas.get(library=lib,member="van")
+
+tmp.tab=van[,c("form","expected","received","pct.received")]
+
+f.list(file="open", x=tmp.tab,
+       caption="GLND Scheduled Forms Received and Expected - Vanderbilt" ,append=T,
+       pos=c("l","c","c","c"))
+
+cat("\\clearpage",sep="\n",file="open.tex",append=T)
+
+col=f.sas.get(library=lib,member="col")
+
+tmp.tab=col[,c("form","expected","received","pct.received")]
+
+f.list(file="open", x=tmp.tab,
+       caption="GLND Scheduled Forms Received and Expected - Colorado" ,append=T,
+       pos=c("l","c","c","c"))
+
+cat("\\clearpage",sep="\n",file="open.tex",append=T)
+
+qc1=f.sas.get(library=lib,member="qcstatus1")
+
+
+tmp.tab=qc1[,c("display","center","tot.records","tot.qcs","num.resolved","pct.resolved")]
+
+f.list(file="open", x=tmp.tab,
+       caption="Center QC Reports " ,append=T,
+       pos=c("l","c","c","c","c","c"))
+
+
+
+
+cat("\\clearpage",sep="\n",file="open.tex",append=T)
+
+
+### Baseline patient characteristics 
+
+base_pat_char2 <- f.sas.get(library=lib,member="basedemo",
+                           format.library=lib,formats=T)
+
+f.tab(file="open",
+      x=base_pat_char2[,c("gender","rac","hispanic","affil","apache.id",
+                         "ards","mech.vent","age"),
+      drop=F],
+     footnote="mad - median of the absolute values of the deviation from the median",
+      caption="Patient Characteristics", 
+      append=T, zero=F, 
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+      
+      cat("\\clearpage",sep="\n",file="open.tex",append=T)
+      
+      
+      
+f.tab(file="open",
+      x=base_pat_char2[,c("bmi","surg","diag","int.aortic.pump","nosc.infect","nutr.status","wbc.count"),
+      drop=F],
+     
+      caption="Patient Characteristics (Continued)", 
+      append=T, zero=F, 
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+      
+      
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ f.tab(file="open",
+      x=base_pat_char2[,c("indication.pn.1","indication.pn.2","indication.pn.3",
+      "indication.pn.4","indication.pn.5","indication.pn.6","ent.nutr","parent.nutr"),
+      drop=F],
+     
+      caption="Patient Characteristics (Continued)", 
+      append=T, zero=F, 
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+      
+      
+      
+      
+cat("\\clearpage",sep="\n",file="open.tex",append=T)
+conmeds=f.sas.get(library=libr,member="concom_summary", 
+        format.library=lib,formats=T)
+
+
+tmp.tab=conmeds[,c("med.code","ever.used","percent","median.unique.days")]
+
+f.list(file="open", x=tmp.tab,
+       caption="Concomitant Medication" ,append=T,
+       pos=c("l","c","c","c"))
+
+      
+ status <- f.sas.get(library=lib,member="status",
+                           format.library=lib,formats=T)
+
+f.tab(file="open",
+      x=status[,c("days.sicu","days.sicu.post.entry","days.hosp","days.hosp.post.entry",
+                         "ever.on.ventilation.study"),
+      drop=F],
+     
+      caption="Clinical Outcomes During Hospitalization", 
+      append=T, zero=F, 
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)   
+      
+      
+     
+      
+  cat("\\clearpage",sep="\n",file="open.tex",append=T)
+
+ mechvent <- f.sas.get(library=libr,member="mechvent",
+                           format.library=lib,formats=T)
+f.list(file="open",
+      x=mechvent[,c("row.label","xn","xmin","xmedian","xmax"),
+      drop=F],
+     
+      caption="Mechanical Ventilation Summary", 
+      append=T, pos=c("l","c","c","c","c"))   
+      
+      
+enpns <- f.sas.get(library=libr,member="en_pn_prior1")
+                           
+f.listcompressed(file="open",
+      x=enpns[,c("row","yes","pct","median","min","max"),
+      drop=F],
+     
+      caption="Summary of Parenteral and Enteral Nutrition at Baseline", 
+      append=T, pos=c("l","l","l","l","l","l"))   
+     
+     
+    
+days1 <- f.sas.get(library=libr,member="days_to_en1")
+                           
+f.list(file="open",
+      x=days1[,c("row","n","first.en.day.med","first.en.day.min","first.en.day.max"),
+      drop=F],
+     
+      caption="Summary of Time to Enteral Nutrition",
+      append=T, pos=c("l","c","c","c","c"))   
+cat("\\clearpage",sep="\n",file="open.tex",append=T)
+   
+     
+     
+ 
+ days2<- f.sas.get(library=libr,member="percent_enteral1", format.library=libs,  formats=T)
+                           
+f.list(file="open",
+      x=days2[,c("day","patients","had.en.s","col.0.25","col.25.50","col.50.75","col.75.100"),
+      drop=F],
+     
+      caption="Median proportion of total kcal given enterally", 
+      footnote=" Note: patients with daily nutritional information not yet submitted appear as not receiving TPN.  
+      One patient currently has incomplete PN information through day 7 and is excluded from the lipid summary",
+      
+      append=T, pos=c("l","c","c","c","c","c","c"))       
+     
+
+lipid<- f.sas.get(library=libr,member="percent_iv_lipid", format.library=libs,  formats=T)
+                           
+f.list(file="open",
+      x=lipid[,c("day","patients","had.pn.s","col.0.30","col.30.100"),
+      drop=F],
+     
+      caption="Median proportion of IV kcal composed of lipid, over time in patients receiving TPN", 
+      footnote=" Note: patients with daily nutritional information not yet submitted appear as not receiving TPN.  
+      One patient currently has incomplete PN information through day 7 and is excluded from the lipid summary",
+      
+      append=T, pos=c("l","c","c","c","c"))   
+      
+      
+      
+dex<- f.sas.get(library=libr,member="percent_iv_dextrose", format.library=libs,  formats=T)
+                           
+f.list(file="open",
+      x=dex[,c("day","patients","had.pn.s","col.0.60","col.60.100"),
+      drop=F],
+     
+      caption="Median proportion of IV kcal composed of dextrose, over time in patients receiving TPN", 
+      footnote=" Note: patients with daily nutritional information not yet submitted appear as not receiving TPN.  
+      One patient currently has incomplete PN information through day 7 and is excluded from the dextrose summary",
+      
+      append=T, pos=c("l","c","c","c","c"))   
+     
+     
+     
+
+
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut11076.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Emory }",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut12046a.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Emory (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+ 
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut12046b.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Emory (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ 
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut12060a.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Emory (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)     
+ 
+   cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut12060b.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Emory (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)     
+     
+      cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut12062.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Emory (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut12063.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Emory (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)  
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut12064.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Emory (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)      
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut12074.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Emory (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)      
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut21017.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Miriam }",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)      
+ 
+     
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut21020.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Miriam (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)      
+     
+     
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut22018.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Miriam (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)      
+            
+            
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut22021.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Miriam (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)      
+            
+            
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut31045.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Vanderbilt }",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)      
+            
+                      
+                   
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut31050.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Vanderbilt (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)      
+                   
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut31060.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Vanderbilt (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)      
+                   
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut32051.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Vanderbilt (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)      
+                   
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut32064.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Vanderbilt (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)      
+                   
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut41032.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Colorado }",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)      
+            
+       cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut41036.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Colorado (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)      
+                 
+                 cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut42026.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Colorado (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T) 
+      
+            cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//nut42031.ps}}}",sep=""),
+ "\\caption{Daily Nutritional kcal Summaries - Colorado (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)      
+            
+            
+            
+            
+     
+      
+      studypn<- f.sas.get(library=lib,member="studypn",
+                            format.library=lib,formats=T)
+                        
+tmp.tab=studypn[,c("gr","mean","median","q1","q3", "min", "max")]
+f.list(file="open", x=tmp.tab, 
+       caption="Days on Study PN" ,append=T,
+       pos=c("l","c","c","c","c","c","c"))
+       
+  cat("\\clearpage",sep="\n",file="open.tex",append=T)
+
+ 
+  cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//blood1.ps}}}",sep=""),
+ "\\caption{Blood Glucose - Individual Tracking}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//blood2.ps}}}",sep=""),
+ "\\caption{Blood Glucose Boxplots}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+ 
+    cat("",c("\\begin{figure}",   
+     paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//blood3.ps}}}",sep=""),
+ "\\caption{Blood Glucose - Longitudinal Model}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//blood4.ps}}}",sep=""),
+ "\\caption{Blood Glucose - Morning Longitudinal Model}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//bloodemory.ps}}}",sep=""),
+ "\\caption{Blood Glucose - Emory}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+ 
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//bloodmiriam.ps}}}",sep=""),
+ "\\caption{Blood Glucose - Miriam}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//bloodvanderbilt.ps}}}",sep=""),
+ "\\caption{Blood Glucose - Vanderbilt}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//bloodcolorado.ps}}}",sep=""),
+ "\\caption{Blood Glucose - Colorado}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+ 
+gluc<- f.sas.get(library=libr,member="glucose_mixed_open",
+                            format.library=lib,formats=T)
+
+
+f.list(file="open", x=gluc,
+       caption="Blood glucose longitudinal model means (mg/Dl)",
+       footnote="*Model-based mean:  Estimated means taking into consideration the fact that
+       not all patients have been measured at all time intervals.  These are maximum likelihood
+       estimates obtained using a repeated measures model." ,append=T,
+       pos=c("c","c","c","c")) 
+
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//sofa.ps}}}",sep=""),
+ "\\caption{Total SOFA Score}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+  
+
+
+### ae 2 parts
+
+
+### ae 2 parts
+
+dsmcaeunrel <- f.sas.get(library=lib,member="dsmcaeunrel",
+                            format.library=lib,formats=T)
+                        
+tmp.tab=dsmcaeunrel[,c("ae","tae","maedayst")]
+f.list(file="open", x=tmp.tab, footnote="\\# AEs (\\# Pat) \\% Pat",
+       caption="AE Unrelated to Glutamine" ,append=T,
+       pos=c("l","c","c"))
+       
+
+dsmcaerel <- f.sas.get(library=lib,member="dsmcaerel",
+                            format.library=lib,formats=T)
+
+tmp.tab=dsmcaerel[,c("ae","tae","maedayst")]
+f.list(file="open", x=tmp.tab, footnote="\\# AEs (\\# Pat) \\% Pat",
+       caption="AE Potentially Related to Glutamine" ,append=T,
+       pos=c("l","c","c"))
+
+   cat("\\clearpage",sep="\n",file="open.tex",append=T)
+
+### SAE
+
+dsmcsaeall <- f.sas.get(library=lib,member="dsmcsaeall",
+                            format.library=lib,formats=T)
+                        
+tmp.tab=dsmcsaeall[,c("sae","tsae","msaedayst")]
+f.list(file="open", x=tmp.tab, footnote="\\# SAEs (\\# Pat) \\% Pat",
+       caption="SAE" ,append=T,
+       pos=c("l","c","c"))
+
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//deathdetails.ps}}}",sep=""),
+ "\\caption{Patient Death Summary}", 
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+ 
+ mort=f.sas.get(library=libr,member="other_mortality")
+
+tmp.tab=mort[,c("row","overall.disp","low.apache.disp","hi.apache.disp")]
+f.list(file="open", x=tmp.tab,
+       caption="Mortality Rates by APACHE2" ,append=T,
+       pos=c("l","c","c","c"))
+
+tmp.tab=mort[,c("row","overall.disp","emory.disp","miriam.disp","vandy.disp","colorado.disp")]
+f.list(file="open", x=tmp.tab,
+       caption="Mortality Rates by Center" ,append=T,
+       pos=c("l","c","c","c","c","c"))
+       
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//dsmc//20080103//mort.ps}}}",sep=""),
+ "\\caption{Mortality Curve}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ 
+
+
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//nosocomialopen.ps}}}",sep=""),
+ "\\caption{Nosocomial Infection by Cultured Organism}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//nosocomialepisodea.ps}}}",sep=""),
+ "\\caption{Nosocomial Infection by Clinical Site and Type}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//nosocomialepisodeb.ps}}}",sep=""),
+ "\\caption{Nosocomial Infection by Clinical Site and Type}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ards <- f.sas.get(library=libr,member="ards_summary",
+                            format.library=lib,formats=T)
+                        
+tmp.tab=ards[,c("prevalent","incident")]
+f.list(file="open", x=tmp.tab, 
+       caption="ARDS Incidence and Prevalence" ,append=T,
+       pos=c("l","c"))
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+
+
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//organ1.ps}}}",sep=""),
+ "\\caption{Secondary Endpoint - Organ Chemistries}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+ 
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//organ2.ps}}}",sep=""),
+ "\\caption{Secondary Endpoint - Organ Chemistries (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+ 
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//organ3.ps}}}",sep=""),
+ "\\caption{Secondary Endpoint - Organ Chemistries (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+
+ 
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//organ4.ps}}}",sep=""),
+ "\\caption{Secondary Endpoint - Organ Chemistries (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+ 
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//redox1.ps}}}",sep=""),
+ "\\caption{Secondary Endpoint - Redox}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+ 
+ 
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//redox2.ps}}}",sep=""),
+ "\\caption{Secondary Endpoint - Redox (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+ 
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//redox3.ps}}}",sep=""),
+ "\\caption{Secondary Endpoint - Redox (continued)}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+  cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//cytokine_plot_open_1.ps}}}",sep=""),
+ "\\caption{Recruitment Projections}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+ 
+ 
+      
+      ifn<- f.sas.get(library=libr,member="ifn_summary_open",
+                            format.library=lib,formats=T)
+                        
+tmp.tab=ifn[,c("day","nd.disp","under.one.tenth.disp","under.one.half.disp",
+           "over.one.half.disp")]
+f.list(file="open", x=tmp.tab, 
+       caption="IFN" ,append=T,
+       pos=c("c","c","c","c","c"))
+       
+ 
+ 
+ 
+      
+      tnf<- f.sas.get(library=libr,member="tnf_summary_open",
+                            format.library=lib,formats=T)
+                        
+tmp.tab=tnf[,c("day","nd.disp","under.one.tenth.disp","under.one.half.disp",
+           "over.one.half.disp")]
+f.list(file="open", x=tmp.tab, 
+       caption="TNF" ,append=T,
+       pos=c("c","c","c","c","c"))
+       
+  cat("\\clearpage",sep="\n",file="open.tex",append=T)
+
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.75in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//hsp_open.ps}}}",sep=""),
+ "\\caption{HSP}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+
+### Finish
+
+f.bottom("open")
+unix("/home/gcotson/bin/laps open",output=F)
+unix("/home/gcotson/bin/laps open",output=F)
+unix("/home/gcotson/bin/lapdf open",output=F)
+unix("/home/gcotson/bin/lapdf open",output=F)

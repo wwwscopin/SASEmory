@@ -1,0 +1,286 @@
+f.event <- function(time,status,group=rep(1,length(time)),
+ event="Event",event.xlab=event,tit=NULL,grp.abbr=NULL,
+ xat=round(seq(min(time),max(time),length=6)[-1]),
+ xby=(xat[2]-xat[1])/4,
+ xdisp.at=xat,
+ pcex=1.1,
+ abbr.paste=T,
+ ylim=c(0,1),
+ yby=diff(ylim)/10,
+ xlim=c(0,max(time)),
+ file=NULL,pagex=NULL,figx=NULL,
+ datex=T,pvalue=T,percent=T,
+ lty=1:length(table(group)),lwd=2,
+ subset=ifelse(is.na(time),TRUE,
+  !(ifelse(time==0,time+0.000001,time)<= xlim[1] & status==1)),
+ subset.name="",
+ atrisk=T,
+ ylab="Months after Randomization",
+ position=c(0+max(time,na.rm=T)/20,mean(ylim),quantile(time,0.50,na.rm=T),3))
+{ 
+print(lty)
+print(position)
+if(is.null(tit)) {tit <- "" # attr(group,"label")
+if(!all(subset)) tit <- paste(subset.name, " Patients",". ",tit,sep="")}
+# make default lines as many as group levels same with lwd
+# make defalt "pretty" xby and xat and yby
+# allow for na group as in surv.plot
+# allign numbers alonf the slash in the bottom display of the plot
+# add subset.name with proper pasting to the title
+if (event=="death" | event=="Death" |
+ event=="dead" | event=="Dead") event <- "death"
+xaxs <- "i"
+subset <- subset & !is.na(group) & !is.na(time) & !is.na(status)
+time <- time[subset]
+status <- status[subset]
+group.attributes <- attributes(group)
+group <- group[subset]
+attributes(group) <- group.attributes
+group.names <- names(table(group))
+group.abbr <- if(is.null(grp.abbr)) substring(group.names,1,1) else grp.abbr
+names(group.abbr) <- group.names
+if(any(table(group)==0)) {
+aaa.tmp <- group.names[table(group)!=0]
+group <- f.code(group,label=attr(group,"label"),levels=aaa.tmp,
+ labels=aaa.tmp)
+group.names <- names(table(group))
+group.abbr <- if(is.null(grp.abbr)) substring(group.names,1,1) else grp.abbr
+names(group.abbr) <- group.names
+}
+
+# group.names.legend <- group.names
+#for(i in 1:length(group.names)) {
+#if(nchar(group.names[i])>8) group.names.legend[i] <- paste(group.names[i],
+# " ",group.abbr[i])
+#print(group.names.legend[i])
+#}
+
+group.names.legend <- if(max(nchar(group.names))>8) 
+  paste(group.names, "  (",group.abbr,")",sep="") else group.names
+
+# *** need to eliminate empty levels
+
+# censoring observations at max time
+status[time > xlim[2]] <- 0
+time[time > xlim[2]] <- xlim[2]
+
+# setup of the size of the plot
+par(mfrow=c(1,1),mar=c(10,6,3,3), oma=c(22,2,2,2),cex=1.0)
+
+d <- survfit(Surv(time,status) ~ group)
+print(d)
+
+f.plot.event(d,conf.int=F,lty=lty,lwd=lwd,cex=pcex,xaxs=xaxs, 
+  mark.time=F,xlim=xlim,ylim=ylim,xlab="",ylab="",xaxt="n",yaxt="n")
+
+axis(side=1,at=c(min(xlim),seq(0,xlim[2],by=xby)),
+ labels=rep(" ",2+floor(xlim[2]/xby)))
+mtext(text=paste(c(min(xlim),xat)),side=1,line=0.5,at=c(min(xlim),xat),cex=pcex)
+
+if(percent) {
+axis(side=2,at=seq(ceiling(ylim[1]*10)/10,ylim[2],by=yby),
+ labels=f.round(100*seq(ceiling(ylim[1]*10)/10,ylim[2],by=yby)),
+ srt=0,adj=0.8,cex=pcex) } else {
+axis(side=2,at=seq(ceiling(ylim[1]*10)/10,ylim[2],by=yby),
+ labels=f.round(seq(ceiling(ylim[1]*10)/10,ylim[2],by=yby),2),
+ srt=0,adj=0.8,cex=pcex)
+}
+
+if(is.null(tit)) tit <- ""
+mtext(tit, side=3,line=1)
+
+if(percent) {
+mtext(text=if(event=="death") "Percent Surviving" else 
+ paste("Percent with",paste(event,collapse=" ")),
+ side=2,line=3,cex=pcex) } else {
+mtext(text=if(event=="death") "Proportion Surviving" else 
+ paste("Estimated Probability of",paste(event,collapse=" ")),
+ side=2, 3.5,cex=pcex) 
+}
+
+if(length(group.names)>=2) {
+legend(c(position[1],position[1]),c(position[2],position[2]),
+ legend=group.names.legend,
+ lty=lty,lwd=lwd,bty="n")
+d.diff <- surv.diff(time=time,status=status,group=group)
+if(pvalue) {
+pvalue <- 
+ f.round.pvalue(1-pchisq(d.diff$chisq,length(group.names)-1),tex=F)$rpvalue
+mtext(text=pvalue,side=1,line=-position[4],at=position[3],cex=1.2,adj=0)
+}
+}
+
+if(!is.null(file)) {
+out <- list()
+for(k in group.names) 
+ out[[k]] <- stepfun(c(0,d$time[d$strata%==%k]),c(1,d$surv[d$strata%==%k]))
+write(format(t(cbind(out$grp1$x,out$grp1$y))),ncol=2,
+ file=paste(file,"grp1",sep="."))
+write(format(t(cbind(out$grp2$x,out$grp2$y))),ncol=2,
+ file=paste(file,"grp2",sep="."))
+}
+
+mtext(ylab,side=1,line=2,cex=pcex)
+par(cex=0.95)
+ns.dist <- 1.3
+
+if(percent) {
+mtext(text=paste(if(atrisk) "No. of Patients / " else "", 
+ if(event=="death") "Percent Surviving" else 
+ paste("Percent with",paste(event.xlab,collapse=" ")),sep=""),
+ side=1,line=3.7,at=min(xlim),adj=0) } else {
+mtext(text=paste(if(atrisk) "No. of Patients / " else "", 
+ if(event=="death") "Proportion Surviving" else 
+ paste("Estimated Probability of",paste(event.xlab,collapse=" ")),sep=""),
+ side=1,line=3.7,at=min(xlim),adj=0)
+}
+
+at.risk <- list()
+surv.prob <- list()
+#------------
+if(length(group.names)==1) d$strata <- group[1:length(d$surv)]
+print(group.names)
+print("ok")
+line.count <- 4
+for(k in group.names) {
+ at.risk[[k]] <- d$n.risk[d$strata%==%k][1]
+ for(i in xdisp.at) at.risk[[k]] <- c(at.risk[[k]],d$n.risk[d$strata%==%k][
+  d$time[d$strata%==%k] >= i][1])
+ surv.prob[[k]] <- NULL
+ for(i in xdisp.at)  {
+  tmp.surv <- rev(d$surv[d$strata%==%k][d$time[d$strata%==%k]<= i])[1]
+  surv.prob[[k]] <- c(surv.prob[[k]],ifelse(is.na(tmp.surv),1,tmp.surv))
+  }
+print(k)
+print(surv.prob[[k]])
+#------------
+line.count <- line.count+1
+
+if(atrisk) {
+if(percent) {
+aaa <- paste(at.risk[[k]][-1],"/",
+ f.round(100*(1-surv.prob[[k]]),1),sep="") } else {
+aaa <- paste(at.risk[[k]][-1],"/",
+ f.round(1-surv.prob[[k]],2),sep="")
+}
+} else {
+
+if(percent) {
+aaa <- f.round(100*(1-surv.prob[[k]]),1) } else {
+aaa <- f.round(1-surv.prob[[k]],2)
+}
+}
+
+aaa <- ifelse(is.na(at.risk[[k]][-1]),"",aaa)
+mtext(aaa,side=1,line=line.count,at=xdisp.at)
+
+if(atrisk) {
+mtext(paste(at.risk[[k]][1]),side=1,line=line.count,at=min(xlim),adj=0)} else { 
+mtext(f.round(0.0,1),side=1,line=line.count,at=min(xlim),adj=0) }
+
+if(length(group.names)>=2) {
+ if(max(nchar(group.names))>8) {
+   mtext(paste(group.abbr[k],"    ",sep=""),
+   side=1,line=line.count, at=xlim[1],adj=1)} else {
+  mtext(paste(k,"  ",sep=""),side=1,line=line.count, at=xlim[1],adj=1) }
+}
+}
+
+d$surv.prob <- surv.prob
+
+
+if(datex) {
+datex.line <- line.count+11-(length(group.names))+2
+mtext(date(),side=1,line=datex.line,at=xlim[2],adj=1,outer=T)
+if(!is.null(pagex)) {
+ mtext(paste("Page",pagex),side=1,line=datex.line,adj=0.4,outer=T)
+ page.counter <<- pagex + 1
+ } else {
+ mtext(paste("Page",page.counter),side=1,line=datex.line,adj=0.4,outer=T)
+ page.counter <<- page.counter + 1
+ }}
+if(!is.null(figx)) {
+ figx.line <- line.count+11-(length(group.names))+2
+ mtext(paste("Figure",figx),side=1,line=figx.line,adj=0.1,outer=T)
+ }
+return(d)
+}
+
+
+
+f.plot.event <-
+ function(surv, conf.int, mark.time = T, mark = 3, col = 1, lty = 1, lwd = 1, 
+	na.strata = T, mark.cex = 1, log = F, yscale = 1, xlab = "Time", ylab =
+	"Survival", xaxs = "e", ...)
+{
+	cnames <- match(c("time", "surv", "n.risk"), names(surv))
+	if(any(is.na(cnames)))
+		stop("`surv' must be the result of surv.fit")
+	if(missing(conf.int)) {
+		if(is.null(surv$strata))
+			conf.int <- T
+		else conf.int <- F
+	}
+	strata <- surv$strata
+	if(is.null(strata))
+		strata <- rep(1, length(surv$time))
+	strata <- as.category(strata)
+	strata[is.na(strata)] <- max(strata, na.rm = T) + 1
+	ngroups <- length(unique(strata))	
+	# set default values for missing parameters
+	mark <- rep(mark, length = ngroups)
+	col <- rep(col, length = ngroups)
+	lty <- rep(lty, length = ngroups)
+	lwd <- rep(lwd, length = ngroups)
+	if(is.numeric(mark.time)) mark.time <- sort(mark.time[mark.time > 0])	#
+# for log plots we have to be tricky about the y axis scaling
+#
+	if(log) {
+		plot(c(0, max(surv$time)), yscale * c(0.99, min(0.1, surv$surv[
+			surv$surv > 0], na.rm = T)), type = "n", log = "y", 
+			xlab = xlab, ylab = ylab, xaxs = xaxs, ...)
+	}
+  else plot(c(0, max(surv$time)), yscale * c(0, 1), type = "n", xlab = 
+			xlab, ylab = ylab, xaxs = xaxs, ...)
+	if(yscale != 1) par(usr = par("usr")/c(1, 1, yscale, yscale))	#
+# put up the curves one by one
+#   surv.fit has already put them into the "right" order
+	i <- 0
+	xend <- NULL
+	yend <- NULL
+	for(j in unique(strata)) {
+		i <- i + 1
+		who <- (strata == j)	
+	# next line identifies all of the 'step downs' or 'last point'
+		drops <- (surv$n.event > 0 | surv$time == max(surv$time[who]))
+		xx <- c(0, surv$time[who & drops])
+		yy <- c(1, surv$surv[who & drops]) 
+                yy <- 1-yy # gives event rate
+		lines(stepfun(xx, yy), lty = lty[i], col = col[i], lwd = lwd[i]
+			)
+		if(is.numeric(mark.time)) {
+			nn <- length(xx)
+			indx <- mark.time
+			for(k in seq(along = mark.time))
+				indx[k] <- sum(mark.time[k] > xx)
+			points(mark.time[indx < nn], yy[indx[indx < nn]], pch
+				 = mark[i], col = col[i], cex = mark.cex)
+		}
+		else if(mark.time == T & any(surv$n.event[who] == 0))
+			points(surv$time[who & surv$n.event == 0], surv$surv[
+				who & surv$n.event == 0], pch = mark[i], col = 
+				col[i], cex = mark.cex)
+		xend <- c(xend, max(xx))
+		yend <- c(yend, min(yy))
+		if(conf.int == T && !is.null(surv$upper)) {
+			if(ngroups == 1)
+				lty[i] <- lty[i] + 1
+			yy <- c(1, surv$upper[who & drops])
+			lines(stepfun(xx, yy), lty = lty[i], col = col[i])
+			yy <- c(1, surv$lower[who & drops])
+			lines(stepfun(xx, yy), lty = lty[i], col = col[i])
+		}
+	}
+	print(list(x = xend, y = yend))
+	invisible(list(x = xend, y = yend))
+}

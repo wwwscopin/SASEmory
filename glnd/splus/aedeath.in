@@ -1,0 +1,70 @@
+#################################################################################################
+#
+# Program:	ae.in
+#
+# Purpose:	Produce ae reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.top("report",
+ prepare.date=date(),
+ asof.date=date(),
+ report.type="AE, SAE, and  Death Report CLOSED SESSION",
+ meet.date=" ",
+ header="AE, SAE, and  Death Report CLOSED SESSION")
+
+lib="/glnd/sas"
+
+
+### ae 2 parts
+
+dsmcaeunrel <- f.sas.get(library=lib,member="dsmcaeunrel",
+                            format.library=lib,formats=T)
+                        
+
+f.list(file="report", x=dsmcaeunrel, footnote="\\# AEs (\\# Pat) \\% Pat",
+       caption="AE Unrelated to Glutamine" ,append=T,
+       pos=c("l","c","c","c"))
+
+dsmcaerel <- f.sas.get(library=lib,member="dsmcaerel",
+                            format.library=lib,formats=T)
+
+
+f.list(file="report", x=dsmcaerel, footnote="\\# AEs (\\# Pat) \\% Pat",
+       caption="AE Potentially Related to Glutamine" ,append=T,
+       pos=c("l","c","c","c"))
+
+  
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+
+
+### SAE
+
+dsmcsaeall <- f.sas.get(library=lib,member="dsmcsaeall",
+                            format.library=lib,formats=T)
+                        
+
+f.list(file="report", x=dsmcsaeall, footnote="\\# SAEs (\\# Pat) \\% Pat",
+       caption="SAE" ,append=T,
+       pos=c("l","c","c","c"))
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.8in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{d.ps}}}",sep=""),
+  "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T)
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+
+f.bottom("report")
+unix("/home/gcotson/bin/laps report",output=F)
+unix("/home/gcotson/bin/laps report",output=F)
+unix("/home/gcotson/bin/lapdf report",output=F)
+unix("/home/gcotson/bin/lapdf report",output=F)

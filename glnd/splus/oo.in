@@ -1,0 +1,94 @@
+#################################################################################################
+#
+# Program:	glnd_baseline.in
+#
+# Purpose:	Produce recruitment and baseline  results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+#||||||||||||||||||||||||||||||||
+# ERROR in percent_iv_lipid, percent_iv_dex
+#basedsmc from libs not from frozen!!!!!!!
+################################################################################################
+
+source("start.in")
+
+
+f.top("open",
+ prepare.date=date(),
+ asof.date="April 4, 2011",
+ report.type="Recruitment, Baseline, and Follow-up  OPEN SESSION",
+ meet.date="May 3, 2011",
+ header="GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SESSION")
+
+#lib="/glnd/sas/reporting"
+lib="/glnd/sas/dsmc/20110404"
+#libr="/glnd/sas/reporting"
+libr="/glnd/sas/dsmc/20110404/reporting"
+#libs="/glnd/sas"  CHECK THIS 
+libs="/glnd/sas/dsmc/20110404"
+#libdf="/glnd/sas/reporting/df_reporting" 
+libdf="/glnd/sas/dsmc/20110404/reporting/df_reporting"
+
+### Recruitment by Center
+ 
+cat("",c("\\begin{sidewaystable}",
+ paste("\\resizebox{9in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//deathdetailswis.ps}}}",sep=""),
+ "\\caption{Patient Death Summary - Wisconsin}", 
+ "\\end{sidewaystable}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="open.tex",append=T)
+ 
+
+mrfcod<- f.sas.get(library=libr,member="mrfcod",
+                            format.library=lib,formats=T)
+#immed_cause_desc1  immed_cause_desc2  under_cause_desc1 under_cause_desc2
+tmp.tab=mrfcod[,c("id","under.cause.desc1","under.cause.desc2","under.cause.desc3",
+                  "immed.cause.desc1","immed.cause.desc2","immed.cause.desc3")]
+f.list(file="open", x=tmp.tab,
+       caption="Central Mortality Review" ,append=T,
+       pos=c("p{0.75in}","p{0.75in}","p{0.75in}","p{0.75in}","p{0.75in}","p{0.75in}","p{0.75in}"))
+
+
+
+
+ccod<- f.sas.get(library=libr,member="ccod",
+                            format.library=lib,formats=T)
+tmp.tab=ccod[,c("id","ccause1","ccause2","ccause3")]
+f.list(file="open", x=tmp.tab,
+       caption="Mortality Review: Contributing Causes of Death" ,append=T,
+       pos=c("l","p{1.75in}","p{1.75in}", "p{1.75in}"))
+       
+       
+  wc<- f.sas.get(library=libr,member="wc",
+                            format.library=lib,formats=T)
+tmp.tab=wc[,c("id","withdraw.care1","withdraw.care2","withdraw.care3",
+              "dnr.ordered1","dnr.ordered2","dnr.ordered3" )]
+         
+
+f.list(file="open", x=tmp.tab,
+       caption="Mortality Review: Withdrawal of Care" ,append=T,
+       pos=c("l","p{1.0in}","p{1.0in}","p{1.0in}","p{1.0in}","p{1.0in}","p{1.0in}"))
+
+cat("\\clearpage",sep="\n",file="open.tex",append=T)
+
+       
+cat("",c("\\begin{table}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//mortopen.ps}}}",sep=""),
+ "\\caption{Mortality Summary}",
+ "\\end{table}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+cat("\\clearpage",sep="\n",file="open.tex",append=T)
+   
+  
+ 
+### Finish
+
+f.bottom("open")
+unix("/home/gcotson/bin/laps open",output=F)
+unix("/home/gcotson/bin/laps open",output=F)
+unix("/home/gcotson/bin/lapdf open",output=F)
+unix("/home/gcotson/bin/lapdf open",output=F)

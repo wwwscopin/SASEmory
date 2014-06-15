@@ -1,0 +1,9 @@
+
+cp /glnd/sas/reporting/*.pdf .
+pdf2ps  nutrition_1_to_7_tiled_p1.pdf nut1.ps
+pdf2ps  nutrition_1_to_7_tiled_p2.pdf nut2.ps
+pdf2ps  nutrition_1_to_7_tiled_p3.pdf nut3.ps
+pdf2ps  nutrition_1_to_7_tiled_p4.pdf nut4.ps
+pdf2ps  nutrition_1_to_7_tiled_p5.pdf nut5.ps
+pdf2ps  nutrition_1_to_7_tiled_p6.pdf nut6.ps
+pdf2ps  nutrition_1_to_7_tiled_p7.pdf nut7.ps

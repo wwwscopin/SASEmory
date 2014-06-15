@@ -1,0 +1,446 @@
+
+# doseper expenrol inrmain2 inrmain3 inrtimes medcomp1 patients
+
+
+f.top("report",
+ meeting.date=date(),
+ enroll.date="January 28, 2003",
+ fup.date="January 28, 2003")
+
+source("recr.in")  # creation of figures recr.grant.ps  recr.15.ps
+
+f.tab(file="report",
+ x=patients[,c("affil"),drop=F],
+ caption="Number of Patients by Clinical Center", append=T,
+ font="small",
+ footnote="* = Centers no longer enrolling patients.",center=F,
+ vpvalue=F,vn=T,vmean=T,vmedian=F,vcut=F,vrange=T,vdigits=1,total=T)
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.8in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{recr.grant.ps}}}",sep=""),
+ "\\caption{WASID Enrollment (Expected Based On Grant Projection)}",
+ "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T)
+
+f.tab(file="report",
+ x=patients[,c("treatmnt"),drop=F],
+ caption="Number of Patients by Treatment Assignment", append=T,
+ vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report",
+ x=patients[,c("sex","race","age","event","edays"),drop=F],
+ group=patients[,"treatmnt"],
+ caption="Patient Characteristics", append=T,
+ vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+f.tab(file="report",
+ x=patients[,c("qwar","qasp","qaspd","qtic","qclo","qdip","qivh","qshe",
+  "qnomeds"),drop=F],
+ group=patients[,"treatmnt"],
+ caption="Medications Used at Time of Qualifying Event", 
+ center.collab=F,
+ append=T, zero=T, 
+ vpvalue=F,vn=T,vmean=T,vmedian=F,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report",
+ x=patients[,c("swar","sasp","stic","sclo","sdip","sivh","sshe","snomeds"),
+  drop=F],
+ group=patients[,"treatmnt"],
+ caption="Medications Used Between Event and Randomization", 
+ append=T, zero=T, 
+ vpvalue=F,vn=T,vmean=T,vmedian=F,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report",
+ x=patients[,c("mi", "angin", "angio", "cabs", "cad", "chf", "pvd", "dvt", "pe",
+  "bval", "ovabn", "cardio")],
+ group=patients[,"treatmnt"],
+ caption="Medical History", append=T, center.collab=F,
+ font="small",vspace="-0.5em",
+ vpvalue=F,vn=T,vmean=T,vmedian=F,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report",
+ x=patients[,c("is", "tia", "rce", "lce", "cere")],
+ group=patients[,"treatmnt"],
+ caption="Medical History", append=T,
+ vpvalue=F,vn=T,vmean=T,vmedian=F,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report",
+ x=patients[,c("hyper", "diab", "lipid", "smoke", "psmok","drink", "activ", 
+  "fstro", "fmi")],
+ group=patients[,"treatmnt"],
+ caption="Medical History", append=T,
+ vpvalue=F,vn=T,vmean=T,vmedian=F,vcut=F,vrange=T,vdigits=1,total=T)
+
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+
+f.tab(file="report",
+ x=patients[,c("sbp","dbp","sbp4","dbp4","sbp8","dbp8","sbp12","dbp12")],
+ group=patients[,"treatmnt"],
+ caption="Laboratory Results", append=T,width.label="60mm",
+ vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report",
+ x=patients[,c("cholr", "hdlr", "ldlr","trir", "hemor",
+  "chol12", "hdl12", "ldl12","tri12", "hemo12")],
+ group=patients[,"treatmnt"],
+ caption="Laboratory Results", append=T,
+ vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report",
+ x=patients[,c("hbp","hbp4","hbp8","hbp12","hbp24",
+   "hbp150","hbp4150","hbp8150","hbp12150","hbp24150",
+   "a1c","a1c12","a1c24")],
+ group=patients[,"treatmnt"],
+ caption="Laboratory Results", append=T,width.label="65mm",
+ vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report",
+ x=patients[,c("hbp","hbp4","hbp8","hbp12","hbp24",
+  "hbp150","hbp4150","hbp8150","hbp12150","hbp24150")],
+ group=patients[,c("hyper.ny","treatmnt")],
+ caption="Laboratory Results", append=T,width.label="65mm",
+ vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=F)
+
+f.tab(file="report",
+ x=patients[,c("a1c","a1c12","a1c24")],
+ group=patients[,c("diab.ny","treatmnt")],
+ caption="Laboratory Results", append=T,width.label="65mm",
+ vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=F)
+
+
+f.tab(file="report",
+ x=patients[,c("echol","echol12","echol24",
+               "eldl","eldl12","eldl24",
+               "etri","etri12","etri24",
+               "dhdl","dhdl12","dhdl24")],
+ group=patients[,"treatmnt"],
+ caption="Laboratory Results", append=T,width.label="65mm",
+ font="small",
+ vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report",
+ x=patients[,c("echol","echol12","echol24",
+               "eldl","eldl12","eldl24",
+               "etri","etri12","etri24",
+               "dhdl","dhdl12","dhdl24")],
+ group=patients[,c("lipid.ny","treatmnt")],
+ caption="Laboratory Results", append=T,width.label="65mm",
+ font="small",
+ vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=F)
+
+
+f.tab(file="report",
+ x=patients[,c("nlesions", "loc.nmiss")],
+ group=patients[,"treatmnt"],
+ fix.levels=T,
+ caption="Location of Stenotic Arteries by Angiogram", append=T,
+ vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+# new tables
+f.tab(file="report",
+ x=cen.ang[,c("sten.r","sten.trt"),drop=F],
+ group=cen.ang[,"treatmnt"],
+ fix.levels=T,
+ caption="Measurement of Intracranial Stenosis According to Central Readers",
+ append=T,
+ vpvalue=F,vn=T,vmean=T,vmedian=F,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report",
+ x=cen.ang[,"affil",drop=F],
+ group=cen.ang[,"sten.cen"],
+ fix.levels=T,row.percent = T,
+ caption="",
+ append=T,csep="0.2em",font="small",
+ footnote="* = Centers no longer enrolling patients.",
+ vpvalue=F,vn=T,vmean=T,vmedian=F,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report",
+ x=cen.ang[,c("lc.dif","lc.cat"),drop=F],
+ fix.levels=T,
+ caption="Difference between Central and Local Measurement of Stenosis",
+ append=T,
+ footnote=paste("A negative difference indicates that the local measurement",
+  "was less than the central measurement."),
+ vpvalue=F,vn=T,vmean=T,vmedian=F,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report",
+ x=cen.ang[,"affil",drop=F],
+ group=cen.ang[,"lc.cat"],
+ fix.levels=T,row.percent = T,
+ caption="Difference between Central and Local Measurement of Stenosis",
+ append=T,csep="0.2em",font="small",
+ footnote="* = Centers no longer enrolling patients.",
+ vpvalue=F,vn=T,vmean=T,vmedian=F,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report",
+ x=cen.ang[,c("sten.r","sten.trt"),drop=F],
+ group=cen.ang[,"pyang"],
+ fix.levels=T,
+ caption="Measurement of Intracranial Stenosis According to Central Readers",
+ append=T,
+ vpvalue=F,vn=T,vmean=T,vmedian=F,vcut=F,vrange=T,vdigits=1,total=T)
+
+
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+f.tab(file="report",
+ x=doseper[,c("masp","masp.numeric","mdose"),drop=F],
+ caption="Daily Dose of Medications During Follow-up",
+ append=T, vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report",
+ x=medcomp1[,c("warsp","aspsp","warspc","aspspc"),drop=F],
+ caption="Medication Compliance Based on Pill Counts",
+ append=T, vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+
+f.tab(file="report",
+ x=patients[,c("mwarp","maspp","warp","aspp"),drop=F],
+ caption="Medication Compliance Based on Patient Averages",
+ append=T, vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+tmp.tab <- data.frame(
+as.numeric(table(patients[,"affil"])),
+table(patients[,"affil"],ifelse(is.na(patients[,"dtemp"]),0,1))[,2],
+table(patients[,"affil"],ifelse(is.na(patients[,"dperm"]),0,1))[,2]
+)
+tmp.tab <- data.frame(I(c("All centers",names(table(patients[,"affil"])))),
+ rbind(apply(tmp.tab,2,sum),tmp.tab))
+names(tmp.tab) <- c("center","n","temp","perm")
+tmp.tab[,"temp"] <- paste("\\makebox[1.5em][r]{",
+ tmp.tab[,"temp"],
+ "}\\makebox[4.0em][r]{(", 
+ f.round(100*tmp.tab[,"temp"]/tmp.tab[,"n"],1),
+ ")}",sep="") 
+tmp.tab[,"perm"] <- paste("\\makebox[1.5em][r]{",
+ tmp.tab[,"perm"],
+ "}\\makebox[4.0em][r]{(", 
+ f.round(100*tmp.tab[,"perm"]/tmp.tab[,"n"],1),
+ ")}",sep="") 
+attr(tmp.tab[,"center"],"label") <- "Center"
+attr(tmp.tab[,"n"],"label") <- "Enrolled"
+attr(tmp.tab[,"temp"],"label") <- 
+ "Temporary interruption of therapy"
+attr(tmp.tab[,"perm"],"label")<- 
+ "Permanent discontinuation of study medication"
+
+f.list(file="report", x=tmp.tab, 
+ caption=paste("Interruption/Discontinuation of Study Medications.",
+  "Number (\\%) by Clinical Center"),font="small",
+ footnote="* = Centers no longer enrolling patients.",
+ csep="0em", append=T,clear=T, miss="", pos=c("l","c","c","c"))
+
+rm(tmp.tab)
+
+tmp.tab <- patients[,c("affil","dperm","char.reason")]
+attr(tmp.tab[,"dperm"],"label") <- "Time until permanent discontinuation (days)"
+attr(tmp.tab[,"char.reason"],"label") <- "Reason for discontinuation"
+
+f.list(file="report", x=tmp.tab,
+ caption="Reasons for Permanent Discontinuation of Study Medication",
+ subset.name=NULL,
+ subset=(nchar(as.character(patients[,"char.reason"]))>0) & 
+  ifelse(1:dim(tmp.tab)[1] < 150,T,F), 
+ footnote="Upper case text is ``Other Reason'' as provided by Center.",
+ pos=c("p{2.0in}","c","p{3.3in}"), csep="0em",append=T,clear=T, miss="---")
+
+f.list(file="report", x=tmp.tab,
+ caption=
+ "Reasons for Permanent Discontinuation of Study Medication. Continuation",
+ subset.name=NULL,
+ subset=(nchar(as.character(patients[,"char.reason"]))>0) & 
+  ifelse(1:dim(tmp.tab)[1] >= 150 & 1:dim(tmp.tab)[1] < 250,T,F), 
+ footnote="Upper case text is ``Other Reason'' as provided by Center.",
+ pos=c("p{2.0in}","c","p{3.3in}"), csep="0em",append=T,clear=T, miss="---")
+
+f.list(file="report", x=tmp.tab,
+ caption=
+ "Reasons for Permanent Discontinuation of Study Medication. Continuation",
+ subset.name=NULL,
+ subset=(nchar(as.character(patients[,"char.reason"]))>0) & 
+  ifelse(1:dim(tmp.tab)[1] >= 250 & 1:dim(tmp.tab)[1] < 350,T,F),
+ footnote="Upper case text is ``Other Reason'' as provided by Center.",
+ pos=c("p{2.0in}","c","p{3.3in}"), csep="0em",append=T,clear=T, miss="---")
+
+f.list(file="report", x=tmp.tab,
+ caption=
+ "Reasons for Permanent Discontinuation of Study Medication. Continuation",
+ subset.name=NULL,
+ subset=(nchar(as.character(patients[,"char.reason"]))>0) &
+  ifelse(1:dim(tmp.tab)[1] >= 350 & 1:dim(tmp.tab)[1] < 450,T,F),
+ footnote="Upper case text is ``Other Reason'' as provided by Center.",
+ pos=c("p{2.0in}","c","p{3.3in}"), csep="0em",append=T,clear=T, miss="---")
+
+f.list(file="report", x=tmp.tab,
+ caption=
+ "Reasons for Permanent Discontinuation of Study Medication. Continuation",
+ subset.name=NULL,
+ subset=(nchar(as.character(patients[,"char.reason"]))>0) &
+  ifelse(1:dim(tmp.tab)[1] >= 450,T,F),
+ footnote="Upper case text is ``Other Reason'' as provided by Center.",
+ pos=c("p{2.0in}","c","p{3.3in}"), csep="0em",append=T,clear=T, miss="---")
+
+
+
+rm(tmp.tab)
+
+if(F) {
+tmp.tab <- data.frame( c(14010,26005,26006,43006,49004,49017),
+ I(c("Johns Hopkins Medical Center", 
+     "Saint Louis University", "Saint Louis University",
+     "Henry Ford Hospital","Wayne State","Wayne State"))
+     )
+names(tmp.tab) <- c("id","center")
+attr(tmp.tab[,"id"],"label") <- "Patient Id"
+attr(tmp.tab[,"center"],"label") <- "Center"
+}
+
+tmp.tab <- patients[patients[,"lost"]=="Yes",c("id","affil")]
+attr(tmp.tab[,"id"],"label") <- "Patient Id"
+
+f.list(file="report", x=tmp.tab,
+ caption="Patients Lost to Follow-up",
+ pos=c("p{2in}","p{3in}"), append=T,clear=T, miss="---",
+ footnote=paste("Patients are considered lost if the patient has not died",
+ "or had an endpoint and the center cannot obtain information on the",
+ "patient's status from the patient, the family, or a physician"))
+
+rm(tmp.tab)
+
+source("custom.in")
+cat("","\\input custom.tex","",sep="\n",file="report.tex",append=T)
+
+ps.options(horizontal=F,pointsize=12,reset=T)
+postscript(file="anticoag.all.ps")
+tmp.event.all <-  f.event(
+  time=ifelse(patients[,"antidays"]==0,patients[,"antidays"]+0.01, 
+              patients[,"antidays"]),
+  status=patients[,"status"],
+ event="Achieving INR >= 2",event.xlab="Achieving INR >= 2",
+ percent=F,atrisk=F,
+ xby=7, xat=seq(7,90,by=7),
+ date=F,pvalue=F,
+ tit=" ",
+ xlim=c(0,90),
+ subset=!is.na(patients[,"antidays"]),
+ position=c(43,0.5,6.0,2.5),
+ ylab="Days from Enrollment until INR >=2")$surv.prob[[1]][1:3]
+dev.off()
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{7in}{!}{\\rotatebox{0}{",
+ "\\includegraphics*[65,360][525,740]{anticoag.all.ps}}}",sep=""),
+ paste("\\caption{WASID Anticoagulation During Induction Period",
+  "(Time Until INR $\\ge 2$)}"),"\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T)
+
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+ps.options(horizontal=F,pointsize=12,reset=T)
+postscript(file="anticoag.sites.ps")
+tmp.affil <- c("All Centers","")
+tmp.event <-  rbind(tmp.event.all,c(NA,NA,NA)) 
+tmp.subset <- !is.na(patients[,"antidays"]) & patients[,"treatmnt"]=="B"
+for(i in names(table(patients[,"affil"],tmp.subset)[,2])[
+ (table(patients[,"affil"],tmp.subset)[,2] >= 2) & 
+ (apply(table(patients[,"affil"],tmp.subset),1,sum) >= 4)  
+ ])  {
+ tmp.affil <- c(tmp.affil,i)
+ tmp.event <-  rbind(tmp.event, f.event(
+  time=ifelse(patients[,"antidays"]==0,patients[,"antidays"]+0.01,
+              patients[,"antidays"]),
+  status=patients[,"status"],
+ event="Achieving INR >= 2",event.xlab="Achieving INR >= 2",
+ percent=F,atrisk=F,
+ xby=7, xat=seq(7,90,by=7),
+ date=F,pvalue=F,
+ tit=i,
+ xlim=c(0,90),
+ subset=!is.na(patients[,"antidays"]) & as.character(patients[,"affil"])==i,
+ position=c(43,0.5,6.0,2.5),
+ ylab="Days from Enrollment until INR >=2")$surv.prob[[1]][1:3])
+}
+dev.off()
+tmp.event <- data.frame(I(tmp.affil),1-tmp.event)
+names(tmp.event) <- c("center","7days","14days","21days")
+attr(tmp.event[,"center"],"label") <- "Center"
+attr(tmp.event[,"7days"],"label") <- "At 7 days"
+attr(tmp.event[,"14days"],"label") <- "At 14 days"
+attr(tmp.event[,"21days"],"label") <- "At 21 days"
+
+f.list(file="report", x=tmp.event,
+ caption=paste("Estimated Probability of Achieving INR $\\ge 2$.",
+  "Centers with $\\ge 4$ Patients and",
+  "$\\ge 2$ Warfarin Patients with INR Measured"),
+ vdigits=2,append=T,clear=T, miss.symbol=" ", pos=c("l","c","c","c"))
+
+rm(tmp.affil,tmp.event,tmp.subset)
+
+rm(tmp.event.all)
+
+f.tab(file="report",
+ x=inrtimes[,c("cr","ch"),drop=F],
+ caption="Turn-Around Times for INR Testing",
+ append=T, vpvalue=F,vn=T,vmean=T,vmedian=F,vcut=F,vrange=T,vdigits=1,
+ total=T,footnote=paste(
+ "$^{*}$ The reporting dates received from Quest are for the final report",
+ "after any data issues, for example missing demographics, are resolved.",
+ "Therefore these data do not accurately depict when INR results were",
+ "first reported to clinical centers."
+ ))
+
+f.tab(file="report",
+ x=patients[,c("maintime"),drop=F],
+ caption="Time in Maintenance Phase",
+ append=T, vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+if(F) {
+f.tab(file="report",
+ x=inrmain2[,c("inrcatti"),drop=F],
+ caption="Person-days Spent in Each INR Category (Maintenance Phase)",
+ append=T, vpvalue=F,vn=T,vmean=T,vmedian=F,vcut=F,vrange=T,vdigits=1,total=T)
+}
+
+f.tmp.affil <- function(x=patients) {
+# affiliation of sites with at least 4 randomized patients and
+# at least 2 warfarin patients among randomized patients 
+tmp.categ <- !is.na(x[,"antidays"]) & x[,"treatmnt"]=="B"
+out <- names(table(x[,"affil"],tmp.categ)[,2])[
+ (table(x[,"affil"],tmp.categ)[,2] >= 2) &
+ (apply(table(x[,"affil"],tmp.categ),1,sum) >= 4) ]
+return(out)
+}
+
+
+f.tab(file="report",
+ x=inrmain2[,c("total","new.affil"),drop=F],
+ group=inrmain2[,c("inrcatti")],
+ caption=paste(
+  "Percent of Person-days Spent in Each INR Category (Maintenance Phase).",
+  "Centers with $\\ge 4$ Patients and",
+  "$\\ge 2$ Warfarin Patients with INR Measured.",
+  "Tabulation by Center"),
+ level.display = "total",tab.caption=F,
+ subset=(inrmain2[,"new.affil"]%==%f.tmp.affil(patients)),
+ subset.name=NULL,
+ nperc = F, row.percent=T, only.percent = T, csep = "0.0em", 
+ append=T, vpvalue=F,vn=T,vmean=T,vmedian=F,vcut=F,vrange=T,vdigits=1,total=T)
+
+
+f.bottom("report")
+unix("laps report",output=F)
+unix("laps report",output=F)
+
+unix("lapdf report",output=F)
+unix("lapdf report",output=F)
+
+
+

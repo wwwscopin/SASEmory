@@ -1,0 +1,21 @@
+f.date <- function(julian,string=T, sas=F) {
+  if(sas) julian <- julian + 2436935
+  j <- julian - 1721119
+  y <- (4 * j - 1) %/% 146097
+  j <- 4 * j - 1 - 146097 * y
+  d <- j %/% 4
+  j <- (4 * d + 3) %/% 1461
+  d <- 4 * d + 3 - 1461 * j
+  d <- (d + 4) %/% 4
+  m <- (5 * d -3) %/% 153
+  d <- 5 * d - 3 - 153 * m
+  d <- (d + 5) %/% 5
+  y <- 100 * y + j
+  y <- y + ifelse(m < 10, 0, 1)
+  m <- m + ifelse(m < 10, 3, -9)
+  if(string) {
+   m <- ifelse(m<10,paste("0",m,sep=""),m)
+   d <- ifelse(d<10,paste("0",d,sep=""),d)
+   return(ifelse(m=="NA" | d=="NA" | y=="NA","",paste(m,d,y, sep="/")))} else
+  return(list(month=m,day=d,year=y))
+}

@@ -1,0 +1,400 @@
+1                                                          The SAS System                            11:53 Wednesday, April 13, 2011
+
+NOTE: Copyright (c) 2002-2003 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) 9.1 (TS1M3)
+      Licensed to EMORY UNIVERSITY - T&R, Site 0014217002.
+NOTE: This session is executing on the SunOS 5.9 platform.
+
+
+
+NOTE: SAS 9.1.3 Service Pack 4
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.08 seconds
+      cpu time            0.06 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is /dfax/glnd/splus/autoexec.sas.
+
+NOTE: Libref RAND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/randomization
+NOTE: Libref GLND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+NOTE: Libname LIBRARY refers to the same physical library as GLND.
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+
+NOTE: AUTOEXEC processing completed.
+
+1          /* Macro sas_get (modified by F. Harrell 30Jan90, Bill Dunlap Dec90, FH Mar92)
+2              Sets up for conversion of SAS dataset to S dataset.
+3              Arguments:
+4          	dataset - name of SAS dataset
+5          	temp1	- Name of temporary dataset to contain data dictionary 		  	  	  (unquoted)
+6          		  default=/tmp/file.1
+7          	temp2	- Name of temporary dataset to contain ASCII version of SAS
+8          		  dataset (unquoted)
+9          		  default=/tmp/file.2
+10         	temp3   - Name of temporary dataset to contain ASCII file with S
+11         		  program to store format values and labels
+2                                                          The SAS System                            11:53 Wednesday, April 13, 2011
+
+12         	temp4   - Name of temporary dataset to contain ASCII file with
+13         		  locations of special missing values
+14         	dates	- SAS to store date variables in SAS format (# days from 1/1/60)
+15         		  (default)
+16         		- YEARFRAC to store as days from 1/1/1900, divided by 365.25
+17         		- YEARFRAC2 to store as year + fraction of current year
+18         		- YYMMDD to store as numeric YYMMDD
+19         	vars    - list of variable in dataset that you want returned to Splus
+20                           (unquoted, separate variable names with spaces)  If empty,
+21                           then return all variables.
+22                 ifs     - sequence of SAS subsetting if statements, (unquoted,
+23                           separated by semicolons).
+24         	formats - 0 (default) - do not create file on temp3 containing S
+25         		  statements to store format values and labels, 1 do create
+26         	specmiss- 0 (default).  Set to 1 to write a data file on temp4 with
+27         		  the fields: variable name, special missing value code,
+28         		  observation number
+29                                                                                       */
+30         %macro sas_get(dataset,  temp1, temp2, temp3, temp4, dates=SAS, vars=, ifs=,
+31         	formats=0, specmiss=0);
+32         %IF %QUOTE(&temp1)=  %THEN %LET temp1=/tmp/file.1;
+33         %IF %QUOTE(&temp2)=  %THEN %LET temp2=/tmp/file.2;
+34         %IF %QUOTE(&temp3)=  %THEN %LET temp3=/tmp/file.3;
+35         %IF %QUOTE(&temp4)=  %THEN %LET temp4=/tmp/file.4;
+36         %LET dates=%UPCASE(&dates);
+37         %LET _s_=_sav_;
+38         /* BILL: Can these 2 subsets be combined into one pass of the data? -Frank*/
+39         /* Subset by observation first */
+40         %IF &ifs^= %THEN %DO;
+41          data _osub_ ;
+42           set &dataset ;
+43           &ifs ;
+44          %LET dataset=_osub_ ;
+45          %END;
+46         /* Then subset by variable */
+47         %IF &vars^= %THEN %DO;
+48          data _vsub_ ;
+49           set &dataset ;
+50           keep &vars ;
+51          %LET dataset=_vsub_ ;
+52          %END;
+53         proc contents data=&dataset out=&_s_(KEEP=name type length label format nobs
+54          varnum) noprint;
+55         %IF &formats=1 %THEN %DO;
+56            PROC FORMAT LIBRARY=LIBRARY CNTLOUT=f(KEEP=fmtname type start end label);
+57            DATA f; SET f; RETAIN n 0; n+1; IF type="C" THEN fmtname="$"||fmtname;
+58            PROC SORT DATA=f OUT=f(DROP=n); BY fmtname n;
+59           *Sort by n instead of start for numerics so 13 sorts after 2;
+60           *Dont consider formats containing ANY range of values;
+61           *Dont consider formats that dont have at least one non-missing (if
+62            numeric) starting value.  This gets rid of formats that are used
+63            only to label special missing values;
+64            DATA f2; SET f; BY fmtname; RETAIN anyrange 0 anynmiss 0;
+65               IF FIRST.fmtname THEN DO;anyrange=0;anynmiss=0;END;
+66               IF start^=end THEN anyrange=1;
+67               IF TYPE="C" THEN anynmiss=1;
+68               ELSE IF (start+0)>. THEN anynmiss=1;
+69               IF LAST.fmtname & anynmiss & ^anyrange THEN OUTPUT; KEEP fmtname;
+3                                                          The SAS System                            11:53 Wednesday, April 13, 2011
+
+70            DATA f; MERGE f f2(IN=in2); BY fmtname; IF in2;
+71               IF TYPE="N" THEN DO; IF (start+0)>.;  *S cannot handle special missings;
+72                  END;
+73               RENAME fmtname=format start=value; DROP end;
+74            PROC SORT DATA=&_s_(KEEP=format) OUT=sform; BY format;
+75            DATA sform; SET sform; BY format; IF LAST.format;
+76            DATA f; MERGE sform(IN=in1) f(IN=in2); BY format;
+77               IF in1 & in2;
+78            *This keeps formats ever used by any variable;
+79            DATA _NULL_; SET f END=_eof_; BY format;
+80               ARRAY val{*} $ 16 val1-val500; ARRAY lab{*} $ 40 lab1-lab500;
+81               RETAIN done 0 nform 0 nval 0 val1-val500 " " lab1-lab500 " " bk -1;
+82               FILE "&temp3";
+83               IF FIRST.format THEN DO;
+84                  IF ^done THEN PUT 'list(' @@;  done=1;
+85                  nform=nform+1; nval=0;
+86                  format=TRANSLATE(format,".abcdefghijklmnopqrstuvwxyz",
+87                                          "_ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+88                   IF nform=1 THEN PUT '"' format +bk '"=list(' @@;
+89                  ELSE PUT ', "' format +bk '"=list(' @@;
+90                  END;
+91               nval=nval+1;
+92               IF nval>500 THEN DO; ERROR ">500 format values not allowed";ABORT ABEND;
+93                  END;
+94               val{nval}=value; lab{nval}=label;
+95               IF LAST.format THEN DO;
+96                  PUT "values=c(" @@;
+97                  DO i=1 TO nval; IF i>1 THEN PUT "," @@;
+98                     IF type="N" THEN PUT val{i} +bk @@;
+99                     ELSE PUT '"' val{i} +bk '"'  @@;
+100                    END;
+101                 PUT "),labels=c(" @@;
+102                 DO i=1 TO nval; IF i>1 THEN PUT "," @@;
+103                    PUT '"' lab{i} +bk '"' @@;
+104                    END;
+105                 PUT "))";
+106                 END;
+107              IF _eof_ THEN PUT ")";
+108           %END;
+109        PROC SORT DATA=&_s_;BY varnum;
+110        data _null_;
+111         set &_s_ end=eof;
+112         file "&temp1";  RETAIN _bk_ -1;
+113         if _n_ = 1 then do;
+114        %IF &specmiss=0 %THEN %LET ofile=_NULL_;
+115        %ELSE %LET ofile=smiss(KEEP=vname val obs);
+116          put "data &ofile; set &dataset end=eof;";
+117          put '  file "&temp2" RECFM=D LRECL=4096;';
+118          put "  retain __delim 18 _bk_ -1 obs 0; LENGTH _xx_ $ 20 obs 3;obs+1; ";
+119        %IF &specmiss=1 %THEN %DO;
+120          put "LENGTH vname $ 8 val $ 1;"; %END;
+121          end;
+122         IF type=2 THEN DO;
+123          PUT 'FORMAT ' name ';' @;
+124          PUT 'IF ' name '=" " THEN PUT __delim IB1. @;';
+125        /* $char added F.H. 24Mar92, dropped  +_bk_ before __delim */
+126        /* $CHAR. removed FEH 2Aug92, added null FORMAT above, added back +_bk_ */
+127          PUT 'ELSE PUT ' name '+_bk_ __delim IB1. @;';
+4                                                          The SAS System                            11:53 Wednesday, April 13, 2011
+
+128          END;
+129         ELSE DO;
+130          PUT 'IF ' name '<=.Z THEN _xx_="NA";' @;
+131          PUT 'ELSE _xx_=LEFT(PUT(' @;
+132          format=UPCASE(format);
+133          IF format="DATE"|format="MMDDYY"|format="YYMMDD"|format="DDMMYY"|format="YYQ"|format="MONYY"|format="JULIAN" THEN DO;
+134           %IF &dates=SAS %THEN
+135            PUT name ",BEST18.)";
+136           %ELSE %IF &dates=YYMMDD %THEN
+137            PUT name ",YYMMDD6.)";
+138           %ELSE %IF &dates=YEARFRAC %THEN
+139            PUT "(" name "-MDY(1,1,1900))/365.25,7.3)";
+140           %ELSE %IF &dates=YEARFRAC2 %THEN %DO;
+141            PUT "YEAR(" name ")-1900+(" name "-MDY(1,1,YEAR(" name ")))/" @;
+142            PUT "(MDY(12,31,YEAR(" name "))-MDY(1,1,YEAR(" name "))+1),7.3)";
+143            %END;
+144           ;
+145           END;	
+146          ELSE DO;PUT name ",BEST18.)" @;END;
+147          PUT ');  PUT _xx_ +_bk_ __delim IB1. @;';  *Added +_bk_ 2Aug92;
+148        %IF &specmiss=1 %THEN %DO;
+149          put 'IF .A<=' name '<=.Z THEN DO; vname="' name +_bk_ '"; val=put(' name ',1.); OUTPUT; END;';
+150          %END;
+151          END;
+152        if eof then PUT 'PUT; RUN;';
+153        run;
+154        %include "&temp1";
+155        data _null_; set &_s_;
+156         retain __delim 18 _bk_ -1;
+157         file "&temp1";
+158         name=TRANSLATE(name,".abcdefghijklmnopqrstuvwxyz",
+159        		     "_ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+160         format=TRANSLATE(format,".abcdefghijklmnopqrstuvwxyz",
+161                                 "_ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+162         put name +_bk_ __delim IB1. type +_bk_ __delim IB1. length +_bk_ __delim IB1.
+163          format +_bk_ __delim IB1. label +_bk_ __delim IB1. nobs +_bk_ __delim IB1.;
+164        run;
+165        %IF &specmiss=1 %THEN %DO;
+166         PROC SORT DATA=smiss OUT=smiss;BY vname val obs;
+167         DATA _NULL_; SET smiss;FILE "&temp4" RECFM=D LRECL=30;
+168         RETAIN _bk_ -1 __delim 18;
+169         vname=TRANSLATE(vname,".abcdefghijklmnopqrstuvwxyz",
+170        		       "_ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+171         PUT vname +_bk_ __delim IB1. val +_bk_ __delim IB1. obs +_bk_ __delim IB1.;
+172         RUN;
+173         %END;
+174        %mend sas_get;
+175        libname temp '/glnd/sas/dsmc/20110404/reporting';
+NOTE: Libref TEMP was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/dsmc/20110404/reporting
+176        libname library '/glnd/sas/dsmc/20110404';
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/dsmc/20110404
+177        %sas_get(temp.ards_summary ,/tmp/_Splus_bwu2/SaS17531.1 ,/tmp/_Splus_bwu2/SaS17531.2 ,/tmp/_Splus_bwu2/SaS17531.4,
+177      ! /tmp/_Splus_bwu2/SaS17531.5, dates=sas, vars=, ifs=, formats=1, specmiss=0);
+
+5                                                          The SAS System                            11:53 Wednesday, April 13, 2011
+
+NOTE: The data set WORK._SAV_ has 3 observations and 7 variables.
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.04 seconds
+      
+
+
+NOTE: The data set WORK.F has 710 observations and 5 variables.
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 710 observations read from the data set WORK.F.
+NOTE: The data set WORK.F has 710 observations and 6 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 710 observations read from the data set WORK.F.
+NOTE: The data set WORK.F has 710 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      177:209   
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      2 at 177:214   
+NOTE: There were 710 observations read from the data set WORK.F.
+NOTE: The data set WORK.F2 has 81 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      177:147   
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      2 at 177:152   
+NOTE: There were 710 observations read from the data set WORK.F.
+NOTE: There were 81 observations read from the data set WORK.F2.
+NOTE: The data set WORK.F has 708 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 3 observations read from the data set WORK._SAV_.
+6                                                          The SAS System                            11:53 Wednesday, April 13, 2011
+
+NOTE: The data set WORK.SFORM has 3 observations and 1 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 3 observations read from the data set WORK.SFORM.
+NOTE: The data set WORK.SFORM has 1 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.SFORM.
+NOTE: There were 708 observations read from the data set WORK.F.
+NOTE: The data set WORK.F has 0 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: The file "/tmp/_Splus_bwu2/SaS17531.4" is:
+      File Name=/tmp/_Splus_bwu2/SaS17531.4,
+      Owner Name=bwu2,Group Name=staff,
+      Access Permission=rw-r-----
+
+NOTE: 0 records were written to the file "/tmp/_Splus_bwu2/SaS17531.4".
+NOTE: There were 0 observations read from the data set WORK.F.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 3 observations read from the data set WORK._SAV_.
+NOTE: The data set WORK._SAV_ has 3 observations and 7 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: The file "/tmp/_Splus_bwu2/SaS17531.1" is:
+      File Name=/tmp/_Splus_bwu2/SaS17531.1,
+      Owner Name=bwu2,Group Name=staff,
+      Access Permission=rw-r-----
+
+NOTE: 10 records were written to the file "/tmp/_Splus_bwu2/SaS17531.1".
+      The minimum record length was 9.
+      The maximum record length was 65.
+NOTE: There were 3 observations read from the data set WORK._SAV_.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+7                                                          The SAS System                            11:53 Wednesday, April 13, 2011
+
+
+
+NOTE: Variable _xx_ is uninitialized.
+NOTE: The file "/tmp/_Splus_bwu2/SaS17531.2" is:
+      File Name=/tmp/_Splus_bwu2/SaS17531.2,
+      Owner Name=bwu2,Group Name=staff,
+      Access Permission=rw-r-----
+
+NOTE: 1 record was written to the file "/tmp/_Splus_bwu2/SaS17531.2".
+      The minimum record length was 39.
+      The maximum record length was 39.
+NOTE: There were 1 observations read from the data set TEMP.ARDS_SUMMARY.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: The file "/tmp/_Splus_bwu2/SaS17531.1" is:
+      File Name=/tmp/_Splus_bwu2/SaS17531.1,
+      Owner Name=bwu2,Group Name=staff,
+      Access Permission=rw-r-----
+
+NOTE: 3 records were written to the file "/tmp/_Splus_bwu2/SaS17531.1".
+      The minimum record length was 14.
+      The maximum record length was 71.
+NOTE: There were 3 observations read from the data set WORK._SAV_.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           0.40 seconds
+      cpu time            0.30 seconds
+      

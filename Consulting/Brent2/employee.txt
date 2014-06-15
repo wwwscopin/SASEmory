@@ -1,0 +1,4 @@
+ruth  39 11
+jose  32 22
+sue   30 33
+john  40 44

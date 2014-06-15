@@ -1,0 +1,1 @@
+latex $1.tex; dvips -Pwww $1.dvi -o

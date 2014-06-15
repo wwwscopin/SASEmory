@@ -1,0 +1,39 @@
+#################################################################################################
+#
+# Program:	ae.in
+#
+# Purpose:	Produce ae reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+f.top("report",
+ prepare.date=date(),
+ asof.date="June 19, 2007",
+ report.type="AE and Death Report CLOSED SESSION",
+ meet.date=" ",
+ header="GLND DSMC AE and Death Report- CLOSED SESSION")
+
+
+
+lib="/glnd/sas"
+
+
+       
+  
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{nosocomial_table_open.ps}}}",sep=""),
+  "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T)
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+f.bottom("report")
+unix("/home/gcotson/bin/laps report",output=F)
+unix("/home/gcotson/bin/laps report",output=F)
+unix("/home/gcotson/bin/lapdf report",output=F)
+unix("/home/gcotson/bin/lapdf report",output=F)

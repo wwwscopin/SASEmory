@@ -1,0 +1,159 @@
+                                           GLND Patient Death Summary -  38 total deaths
+
+ 
+                                                                                       Hosp.
+                         GLND ID    Age at                                           admission
+  Treatment    Center      No.      death     Gender    Race                           date       Primary diagnosis
+
+      A        Emory      11041      68.5     Female    Black or African American    07/22/07     Vascular aneurysm               
+      A        Emory      11116      70.7     Female    White                        04/29/08     Other                           
+      B        Emory      11141      61.1     Male      White                        08/11/08     Intestinal obstruction          
+      A        Emory      11146      53.5     Male      Black or African American    07/21/08     Intestinal fistula/stricture/adh
+      B        Emory      11291      51.1     Male      White                        09/13/09     Intestinal ischemia             
+      B        Emory      12026      59.3     Female    White                        04/10/07     Intestinal perforation          
+      A        Emory      12029      77.2     Male      White                        04/26/07     Valve malfunction               
+      B        Emory      12038      82.6     Female    White                        07/13/07     CAD                             
+      A        Emory      12046      80.0     Male      White                        08/16/07     Vascular aneurysm               
+      A        Emory      12060      80.9     Male      White                        10/08/07     Intestinal fistula/stricture/adh
+      B        Emory      12118      82.0     Male      White                        05/06/08     Diverticulitis                  
+      A        Emory      12155      45.7     Male      Black or African American    09/06/08     Intestinal obstruction          
+      B        Emory      12207      47.4     Female    White                        03/11/09     Vascular aneurysm               
+
+                                                                                                 Days in
+                                                                                                  hosp.
+  Eligibility                                                              Apache    In-hosp.     until
+  operation               Indications for PN                                score     death?      death
+
+  Vascular                Ileus,Intolerence to enteral feeding,              11        No            .  
+  Intestinal resection    Ileus,                                             15        Yes          15  
+  Intestinal resection    Ileus,Hemodynamic instability,                     13        Yes          29  
+  Intestinal resection    Ileus,                                             15        Yes         119  
+  Vascular                Ileus,Ischemic bowel,Hemodynamic instability,      14        Yes          21  
+  Intestinal resection    Ileus,Hemodynamic instability,Other                16        Yes          15  
+  Cardiac valve           Ileus,Hemodynamic instability,                     29        Yes          30  
+  CABG                    Hemodynamic instability,                           18        No            .  
+  Vascular                Ileus,Hemodynamic instability,                     21        No            .  
+  Intestinal resection    Ileus,                                             20        No            .  
+  Intestinal resection    Ileus,Hemodynamic instability,                     34        Yes           3  
+  Intestinal resection    Ileus,                                             17        No            .  
+  Vascular                Ileus,Ischemic bowel,                              26        Yes           7  
+
+  Days on
+   study
+   until
+   death     Causes of death
+
+     45      Massive bleed fr tracheoinnominate fistula                   
+      9      (not specified)                                              
+     18      Withdrawl of life support agreed by family                   
+     81      withdrawal of care                                           
+     11      Mult organ failure,                                          
+      9      Respiratory Failure                                          
+     22      Wound dehiscence,Mediastinitis, sternal wound infection      
+     86      (not specified)                                              
+     41      Mult organ failure,Transferred 2 hospice for end of life care
+     93      (not specified)                                              
+      0      Mult organ failure,                                          
+     86      (not specified)                                              
+      1      withdrawl of lifesupport                                     
+                                           GLND Patient Death Summary -  38 total deaths
+
+ 
+                                                                                       Hosp.
+                         GLND ID    Age at                                           admission
+  Treatment    Center      No.      death     Gender    Race                           date       Primary diagnosis
+
+      B        Emory      12244      66.9     Female    White                        05/29/09     Intestinal ischemia             
+      A        Emory      12269      70.0     Male      White                        07/23/09     Vascular stenosis               
+      A        Emory      12275      78.8     Male      White                        07/31/09     Intestinal obstruction          
+      A        Emory      12370      83.2     Male      White                        06/08/10     Benign intestinal tumors        
+      B        Miriam     22018      86.5     Female    White                        10/03/07     Intestinal ischemia             
+      B        Miriam     22028      82.9     Female    White                        05/11/08     Intestinal perforation          
+
+                                                                                                 Days in
+                                                                                                  hosp.
+  Eligibility                                                              Apache    In-hosp.     until
+  operation               Indications for PN                                score     death?      death
+
+  Vascular                Ileus,Ischemic bowel,                              18        No            .  
+  Vascular                Ileus,                                             24        No            .  
+  Intestinal resection    Ileus,                                             23        Yes          34  
+  Intestinal resection    Ileus,                                             17        No            .  
+  Intestinal resection    Hemodynamic instability,Other                      28        Yes          27  
+  Intestinal resection    Ileus,Intolerence to enteral feeding,              18        Yes          25  
+
+  Days on
+   study
+   until
+   death     Causes of death
+
+     26      (not specified)                                              
+     77      (not specified)                                              
+     20      (not specified)                                              
+     19      (not specified)                                              
+     19      Respiratory Failure, Pulmonary Edema, MRSA                   
+     22      MI,                                                          
+                                           GLND Patient Death Summary -  38 total deaths
+
+ 
+                                                                       Hosp.
+                             GLND ID    Age at                       admission                           Eligibility
+      Treatment    Center      No.      death     Gender    Race       date        Primary diagnosis     operation
+
+          B        Miriam     22040      74.4     Female    White    11/03/08     Intestinal ischemia    Intestinal resection
+          A        Miriam     22042      76.8     Female    White    11/18/08     Vascular aneurysm      Vascular            
+
+                                           Days in    Days on
+                                            hosp.      study
+      Indications    Apache    In-hosp.     until      until
+        for PN        score     death?      death      death                  Causes of death
+
+      Ileus,Other      22        Yes          88         85      Sepsis,pneumonia respiratory failure      
+      Other            20        Yes          30         22      cardiopulmonary arrest following 3 week hx
+                                           GLND Patient Death Summary -  38 total deaths
+
+ 
+                                                                       Hosp.
+                     GLND ID Age at                                  admission                                  Eligibility
+Treatment   Center     No.   death  Gender Race                        date    Primary diagnosis                operation
+
+    A     Vanderbilt  31045   61.4  Female Black or African American 08/16/07  Vascular aneurysm                Vascular            
+    A     Vanderbilt  31144   66.5  Male   Black or African American 09/11/08  Other                            Intestinal resection
+    B     Vanderbilt  32064   73.5  Male   White                     11/20/07  Vascular aneurysm                Vascular            
+    B     Vanderbilt  32082   68.9  Female White                     01/23/08  Intestinal obstruction           Intestinal resection
+    A     Vanderbilt  32145   49.5  Male   White                     09/11/08  CAD                              CABG                
+    B     Vanderbilt  32160   67.8  Male   White                     11/23/08  Intestinal fistula/stricture/adh Intestinal resection
+    A     Vanderbilt  32175   57.8  Male   White                     02/10/09  Intestinal fistula/stricture/adh Intestinal resection
+    A     Vanderbilt  32214   69.9  Male   White                     06/26/09  Vascular aneurysm                Vascular            
+    B     Vanderbilt  32224   61.4  Male   White                     08/21/09  Other                            Intestinal resection
+    B     Colorado    41068   75.7  Male   White                     04/28/08  Intestinal fistula/stricture/adh Intestinal resection
+    B     Colorado    41076   58.0  Female Black or African American 06/21/08  Intestinal ischemia              Intestinal resection
+    A     Colorado    41103   75.3  Female White                     01/08/09  Other                            Intestinal resection
+    A     Colorado    42006   41.9  Male   White                     03/27/07  CAD                              CABG                
+    B     Colorado    42054   56.9  Female White                     02/04/08  Intestinal fistula/stricture/adh Intestinal resection
+    B     Colorado    42119   66.4  Male   White                     06/16/09  Other                            Intestinal resection
+    A     Colorado    42133   63.4  Male   White                     10/30/09  Intestinal perforation           Intestinal resection
+    A     Wisconsin   52049   80.5  Female White                     07/27/10  CAD                              CABG                
+
+                                                   Days in  Days on
+                                                    hosp.    study
+                                 Apache  In-hosp.   until    until
+Indications for PN                score   death?    death    death   Causes of death
+
+Ileus,                             13      Yes        13        4    Ischemic/hem stroke,                                       
+Ileus,                             14      No          .       42    (not specified)                                            
+Hemodynamic instability,           38      Yes        36       29    Mult organ failure,support withdrawn -> respiratory failure
+Ileus,                             20      No          .       81    (not specified)                                            
+Hemodynamic instability,           23      Yes        12        7    Mult organ failure,cardiac arrest                          
+Intolerence to enteral feeding,    22      Yes        22       11    Sepsis,Acute ischemia org.,Mult organ failure,             
+Other                              25      Yes        21       18    ARDS,Mult organ failure,Intra-abdominal infection          
+Intolerence to enteral feeding,    23      No          .        8    MI,cardiopulmonary arrest                                  
+Ileus,                             25      Yes        33       23    Mult organ failure,                                        
+Other                              13      No          .       58    (not specified)                                            
+Ischemic bowel,                    14      No          .      121    (not specified)                                            
+Other                              15      No          .      122    (not specified)                                            
+Hemodynamic instability,           20      No          .       83    (not specified)                                            
+Other                              16      No          .       40    (not specified)                                            
+Ileus,Other                        34      Yes        14        6    (not specified)                                            
+Other                              21      Yes        72       67    Sepsis,Mult organ failure,                                 
+Hemodynamic instability,           17      Yes        24       16    (not specified)                                            

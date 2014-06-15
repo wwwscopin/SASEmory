@@ -1,0 +1,9 @@
+f.format <- function(x,width=max(nchar(as.character(x))),adj=0.5,fill=" ")
+{
+for(i in 1:length(x)) 
+x[i] <- paste(paste(rep(fill,floor(adj*(width - nchar(x[i])))),collapse=""),
+ x[i],paste(rep(fill,ceiling((1-adj)*(width - nchar(x[i])))),collapse=""),
+ sep="")
+# return(paste("x",x,"y",sep=""))
+return(x)
+}

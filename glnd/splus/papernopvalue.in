@@ -1,0 +1,159 @@
+#################################################################################################
+#
+# Program:	glnd_baseline.in
+#
+# Purpose:	Produce recruitment and baseline  results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+#||||||||||||||||||||||||||||||||
+# ERROR in percent_iv_lipid, percent_iv_dex
+#basedsmc from lib not from frozen!!!!!!!
+################################################################################################
+
+source("start.in")
+
+
+f.top("paper",
+ prepare.date=date(),
+ asof.date="March 4, 2012",
+ report.type="Recruitment, Baseline, and Follow-up  paper SESSION",
+ meet.date="April 17, 2012",
+ header="GLND DSMB Paper")
+
+lib="/dfax/glnd/sas"
+#lib="/dfax/glnd/sas/dsmc/20110404"
+libr="/dfax/glnd/sas/reporting"
+#libr="/dfax/glnd/sas/dsmc/20110404/reporting"
+libdf="/dfax/glnd/sas/reporting/df_reporting" 
+#libdf="/dfax/glnd/sas/dsmc/20110404/reporting/df_reporting"
+libs="/dfax/glnd/splus"
+
+
+### Recruitment by Center
+
+
+
+### Reasons patients were ineligible at initial screening by center
+
+       
+
+ 
+ 
+### Baseline Table 1 
+
+
+base_pat_char2 <- f.sas.get(library=lib,member="basedemo", format.library=libs,formats=T)
+f.tab(file="paper", x=base_pat_char2[,c("gender","rac","apache.id", "apachese","ards","age",
+       "daysop", "mech.vent", "wbc.count","ent.nutr","parent.nutr","apachesicu" ),drop=F],
+     group=base_pat_char2[,"treatment"],
+     caption="Table 1", append=T, zero=F, 
+     vpvalue=F,vn=T,vmean=T,vmedian=F,vcut=F,vrange=F,vdigits=1,total=F)
+     
+     
+ 
+#f.tab(file="paper",x=base_pat_char2[,c("daysop", "mech.vent", "wbc.count","ent.nutr","parent.nutr","apachesicu"), drop=F],
+#group=base_pat_char2[,"treatment"],
+#     caption="Table 1 (continued)", append=T, zero=F, 
+#     vpvalue=F,vn=T,vmean=T,vmedian=F,vcut=F,vrange=F,vdigits=1,total=F)
+     
+   status <- f.sas.get(library=lib,member="status", format.library=libs,formats=T)
+f.tabiqr(file="paper",x=status[,c("days.hosp","days.hosp.post.entry"),drop=F],
+ group=status[,"treatment"],
+    caption="Table 1 (continued)", append=T, zero=F, vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=F,
+    )     
+      
+cat("\\clearpage",sep="\n",file="paper.tex",append=T)
+   table1 <- f.sas.get(library=lib,member="paper1_table1", format.library=libs,formats=T)
+f.tabiqr(file="paper",x=table1[,c("sofa.tot","gluc.mrn",
+     "days.in.sicu.hosp.stay","icu.free.days","days.in.sicu.raw","glutamicacid","glutamine","total.glutamine"),drop=F],
+ group=table1[,"treatment"],
+    caption="Table 1 (continued)", append=T, zero=F, vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=F,
+    )     
+      cat("\\clearpage",sep="\n",file="paper.tex",append=T)
+   pn <- f.sas.get(library=lib,member="pndays", format.library=libs,formats=T)
+f.tabiqr(file="paper",x=pn[,c("days.on.pn"),drop=F],
+ group=pn[,"treatment"],
+    caption="Table 1 (continued - pn)", append=T, zero=F, vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=F,
+    )     
+cat("\\clearpage",sep="\n",file="paper.tex",append=T)
+f.tab(file="paper",x=base_pat_char2[,c("bmi","surg","diag"), drop=F],
+ group=base_pat_char2[,"treatment"],
+     caption="Table 1 (continued)", append=T, zero=F, 
+     vpvalue=F,vn=T,vmean=T,vmedian=F,vcut=F,vrange=F,vdigits=1,total=F)
+ 
+
+cat("\\clearpage",sep="\n",file="paper.tex",append=T)
+
+cat("",c("\\begin{table}",
+paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//dfax//glnd//sas//table2.ps}}}",sep=""),
+ "\\caption{Recruitment Projections by Center}",
+ "\\end{table}"),
+file=paste("paper","tex",sep="."),sep="\n",append=T)
+
+
+cat("\\clearpage",sep="\n",file="paper.tex",append=T)
+ 
+ 
+cat("",c("\\begin{table}",
+paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//dfax//glnd//sas//reporting/omclosed_geo.ps}}}",sep=""),
+ "\\caption{GLND Mortaility Summary}",
+ "\\end{table}"),
+file=paste("paper","tex",sep="."),sep="\n",append=T)
+
+
+cat("\\clearpage",sep="\n",file="paper.tex",append=T)
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//dfax//glnd//sas//reporting//mortclosed.ps}}}",sep=""),
+ "\\caption{Mortality Curve - by Treatment}", 
+ "\\end{figure}"),
+ file=paste("paper","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="paper.tex",append=T)
+
+
+
+foot_sae <-paste("\\# AEs (\\# Pat) \\% Pat","\\newline",
+ "Per protocol, an SAE form is completed only for events that occur within 30
+  days of study drug discontinuation.  An additional 12 patients have died within
+  the 6 month follow-up period ."  )
+
+
+### SAE
+
+
+dsmcsaeall <- f.sas.get(library=lib,member="dsmcsaeall", format.library=libs,formats=T)                   
+tmp.tab=dsmcsaeall[,c("sae","asae","msaedaysa","bsae","msaedaysb")]
+f.list(file="paper", x=tmp.tab, footnote=foot_sae,
+       caption="SAE by Treatment" ,append=T,
+       pos=c("l","c","c","c","c"))
+
+
+cat("",c("\\begin{table}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//dfax//glnd//sas//reporting//sofa_mean.ps}}}",sep=""),
+ "\\caption{Total SOFA Score Longitudinal Model Means}",
+ "\\end{table}"),
+ file=paste("paper","tex",sep="."),sep="\n",append=T)
+
+ 
+ cat("",c("\\begin{table}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//dfax//glnd//sas//reporting//glutamine_mean.ps}}}",sep=""),
+ "\\caption{Total Glutamine Longitudinal Model Means}",
+ "\\end{table}"),
+ file=paste("paper","tex",sep="."),sep="\n",append=T)
+
+ 
+
+cat("\\clearpage",sep="\n",file="paper.tex",append=T)
+
+f.bottom("paper")
+unix("/home/gcotson/bin/laps paper",output=F)
+unix("/home/gcotson/bin/laps paper",output=F)
+unix("/home/gcotson/bin/lapdf paper",output=F)
+unix("/home/gcotson/bin/lapdf paper",output=F)

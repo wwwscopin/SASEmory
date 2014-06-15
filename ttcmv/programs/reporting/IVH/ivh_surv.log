@@ -1,0 +1,335 @@
+1                                                          The SAS System                                15:27 Tuesday, May 21, 2013
+
+NOTE: Copyright (c) 2002-2010 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.3 (TS1M0) 
+      Licensed to EMORY UNIVERSITY-T&R, Site 70088042.
+NOTE: This session is executing on the SunOS 5.10 (SUN X64) platform.
+
+
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is /dfax/ttcmv/sas/programs/reporting/baohua/IVH/autoexec.sas.
+
+NOTE: Libref CMV was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/data/monthly_freeze_2013.05.01
+NOTE: Library CMV_REP does not exist.
+NOTE: Library CMV_QC does not exist.
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/data
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: AUTOEXEC processing completed.
+
+1          options ORIENTATION=landscape nodate nonumber;
+2          libname wbh "/ttcmv/sas/programs/reporting/baohua/IVH";
+NOTE: Libref WBH was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/programs/reporting/baohua/IVH
+2        !                                                        	
+3          
+4          
+5          proc format;
+                                                           The SAS System
+
+6             value grade 1="I" 2="II" 3="III" 4="IV" 0="NA";
+NOTE: Format GRADE has been output.
+7          run;
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+8          
+9          data ivh0;
+10             set cmv.ivh_image(keep=id ImageDate LeftIVHGrade RightIVHGrade);
+11          	if LeftIVHGrade in(2,3,4) or RightIVHGrade in(2,3,4);
+12         run;
+
+NOTE: There were 603 observations read from the data set CMV.IVH_IMAGE.
+NOTE: The data set WORK.IVH0 has 228 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+13         
+14         proc sort; by id imagedate;run;
+
+NOTE: There were 228 observations read from the data set WORK.IVH0.
+NOTE: The data set WORK.IVH0 has 228 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+15         
+16         
+17         data ivh;
+18         	merge ivh0(in=A) cmv.comp_pat(in=comp keep=id dob) cmv.endofstudy(keep=id StudyLeftDate); by id;
+19         	if comp;
+20         	if not A then ivh=0; else ivh=1;
+21         	retain idate;
+22         	if first.id then idate=imagedate;
+23         
+24         	day=StudyLeftDate-dob;
+25         	if ivh then day=iDate-dob;
+26         
+27         	format idate mmddyy8.;
+28         run;
+
+NOTE: There were 228 observations read from the data set WORK.IVH0.
+NOTE: There were 471 observations read from the data set CMV.COMP_PAT.
+NOTE: There were 477 observations read from the data set CMV.ENDOFSTUDY.
+NOTE: The data set WORK.IVH has 635 observations and 9 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+29         
+30         proc sort nodupkey; by id day;run;
+                                                           The SAS System
+
+
+NOTE: There were 635 observations read from the data set WORK.IVH.
+NOTE: 164 observations with duplicate key values were deleted.
+NOTE: The data set WORK.IVH has 471 observations and 9 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+31         
+32         proc lifetest nocensplot data=ivh timelist=0 3 7 14 21 28 35 42 49 56 outsurv=pl1;
+33         ods output productlimitestimates=plt;
+34         	time day*ivh(0);
+35         run;
+
+NOTE: The LOGLOG transform is used to compute the confidence limits for the quartiles of the survivor distribution and the 
+      confidence limit for the survivor function. To suppress using this transform, specify CONFTYPE=LINEAR in the PROC LIFETEST 
+      statement.
+NOTE: The data set WORK.PLT has 10 observations and 9 variables.
+NOTE: The data set WORK.PL1 has 425 observations and 5 variables.
+NOTE: The PROCEDURE LIFETEST printed page 1.
+NOTE: PROCEDURE LIFETEST used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.03 seconds
+      
+
+36         
+37         data _null_;
+38         	set plt;
+39         	if Timelist=0  then call symput( "n0",   compress(put(left, 3.0)));
+40         	if Timelist=3  then call symput( "n3",   compress(put(left, 3.0)));
+41         	if Timelist=7  then call symput( "n7",   compress(put(left, 3.0)));
+42         	if Timelist=14 then call symput( "n14",  compress(put(left, 3.0)));
+43         	if Timelist=21 then call symput( "n21",  compress(put(left, 3.0)));
+44         	if Timelist=28 then call symput( "n28",  compress(put(left, 3.0)));
+45         	if Timelist=35 then call symput( "n35",  compress(put(left, 3.0)));
+46         	if Timelist=42 then call symput( "n42",  compress(put(left, 3.0)));
+47         	if Timelist=49 then call symput( "n49",  compress(put(left, 3.0)));
+48         	if Timelist=56 then call symput( "n56",  compress(put(left, 3.0)));
+49         run;
+
+NOTE: There were 10 observations read from the data set WORK.PLT.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+50         
+51         proc format;
+52         		
+52       !   value dd  2=" " 4=" " 3="3*(&n3)" 5=" " 6=" " 8=" " 9=" " 10=" " 11=" " 12=" " 13=" " 15=" " 16=" " 17=" " 18=" " 19="
+52       ! " 20=" "
+53         		22=" " 23=" " 24=" " 25=" " 26=" " 27=" " 29=" " 30=" " 31=" " 32=" " 33=" " 34=" " 35="35*(&n35) " 36=" " 37=" " 38="
+53       ! " 39=" "
+54          		41=" "	42="42*(&n42) " 43=" " 44=" " 45=" " 46=" " 47=" " 48=" " 50=" " 51=" " 52=" " 53=" " 54=" " 55=" " 0="0*(&n0)"
+55         		1=" " 7="7*(&n7)" 14="14*(&n14)" 21="21*(&n21)" 28="28*(&n28)" 49="49*(&n49)" 56="56*(&n56)"	40=" ";
+NOTE: Format DD has been output.
+56         run;
+                                                           The SAS System
+
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+57         
+58         
+59         proc lifetest /*nocensplot*/ plots=(s) data=ivh confband=all outsurv=pl1;
+60         *ods output productlimitestimates=pl;
+61         	time day*ivh(0);
+62         run;
+
+NOTE: The LOGLOG transform is used to compute the confidence limits for the quartiles of the survivor distribution and the 
+      confidence limit for the survivor function. To suppress using this transform, specify CONFTYPE=LINEAR in the PROC LIFETEST 
+      statement.
+WARNING: Unable to load font '-dt-interface user-medium-r-normal-l*utf*-*-*-*-*-*-*-*-*'.
+WARNING: Defaulting to 'fixed'.
+WARNING: Unable to load font '-dt-interface user-medium-r-normal-l*utf*-*-*-*-*-*-*-*-*'.
+WARNING: Defaulting to 'fixed'.
+WARNING: Some of the text could not be Angled/Rotated using Font Albany AMT.
+         Font SIMULATE substituted for font Albany AMT.
+WARNING: The specified value of 24.2400 inches for HSIZE= is larger than 11.1164 inches which is the maximum for the device Xcolor. 
+         HSIZE is ignored.
+WARNING: The specified value of 12.6533 inches for VSIZE= is larger than 5.7135 inches which is the maximum for the device Xcolor. 
+         VSIZE is ignored.
+NOTE: The data set WORK.PL1 has 425 observations and 9 variables.
+NOTE: The PROCEDURE LIFETEST printed pages 2-12.
+NOTE: PROCEDURE LIFETEST used (Total process time):
+      real time           1.13 seconds
+      cpu time            0.11 seconds
+      
+
+63         
+64         data pl;
+65             set pl1;
+66             prob=1-SURVIVAL;
+67         	lower=1-SDF_UCL;
+68         	upper=1-SDF_LCL;
+69         
+70         	/*
+71         	retain tmp1 tmp2 tmp3;
+72         	if prob^=. then do; tmp1=prob; tmp2=lower; tmp3=upper; end;
+73         	if prob=. then do; prob=tmp1; lower=tmp2; upper=tmp3; end;
+74         	*/
+75         	
+76             keep day prob upper lower;
+77         run;
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      333 at 66:11   407 at 67:9    407 at 68:9    
+NOTE: There were 425 observations read from the data set WORK.PL1.
+NOTE: The data set WORK.PL has 425 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+                                                           The SAS System
+
+
+78         
+79         
+80         proc greplay igout= wbh.graphs  nofs; delete _ALL_; run;
+ERROR: Memname GRAPHS is unknown.
+NOTE: Enter greplay commands or statements.
+NOTE: Need igout catalog; use igout statement.
+
+81         goptions reset=all  gunit=pct colors=(orange green red)
+82         ftitle=zapf ftext=zapf hby = 3;
+83         
+84         symbol2 i=stepjl mode=exclude value=none co=blue cv=blue height=0.6 bwidth=4 width=1.5 l=3;
+85         symbol1 i=stepjl mode=exclude value=circle co=black cv=black height=0.6 bwidth=4 width=1.5 l=1;
+86         symbol3 i=stepjl mode=exclude value=none co=red cv=red height=0.6 bwidth=4 width=1.5 l=3;
+87         
+88         
+89         title h=3 justify=center "Cumulative Incidence of IVH and 95% Confidence Intervals";
+90         
+91         axis1 	label=(h=2.5 'Age of Low Birth Weight Infants' ) split="*" value=(h=2) order= (0 3 7 to 42 by 7) minor=none;
+92         axis2 	label=(h=2.5 a=90 f=zapf "Probability of IVH") order=(0 to 0.20 by 0.05) value=(h=2) ;
+93         
+94         
+
+NOTE: PROCEDURE GREPLAY used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+95         proc gplot data=pl gout=wbh.graphs;
+96         	plot  prob*day upper*day lower*day/overlay haxis = axis1 vaxis = axis2  nolegend;
+97         
+98         	note h=2 m=(0pct, 8.25 pct) "(#At Risk)" ;
+99         	note h=2 m=(0pct, 11.0 pct) "(Day:)" ;
+100        	format day dd.;
+101        run;
+
+WARNING: The intervals on the axis labeled day are not evenly spaced.
+WARNING: No minor tick marks will be drawn because major tick increments have been specified in uneven or unordered intervals.
+NOTE: 333 observation(s) contained a MISSING value for the prob * day request.
+NOTE: 407 observation(s) contained a MISSING value for the upper * day request.
+NOTE: 407 observation(s) contained a MISSING value for the lower * day request.
+WARNING: The specified value of 24.2400 inches for HSIZE= is larger than 11.1164 inches which is the maximum for the device Xcolor. 
+         HSIZE is ignored.
+WARNING: The specified value of 12.6533 inches for VSIZE= is larger than 5.7135 inches which is the maximum for the device Xcolor. 
+         VSIZE is ignored.
+101      !     	
+102        
+103        goptions reset=all  /*device=jpeg*/ gunit=pct noborder colors=(orange green red) ftext=Times hby = 3;
+104        ods pdf file = "ivh_km_curve234.pdf";
+NOTE: Writing ODS PDF output to DISK destination "/dfax/ttcmv/sas/programs/reporting/baohua/IVH/ivh_km_curve234.pdf", printer "PDF".
+105        	
+
+NOTE: There were 425 observations read from the data set WORK.PL.
+NOTE: PROCEDURE GPLOT used (Total process time):
+      real time           0.81 seconds
+      cpu time            0.06 seconds
+      
+
+                                                           The SAS System
+
+105      !  proc greplay igout =wbh.graphs tc=sashelp.templt template=whole nofs;
+NOTE: Building list of graphs from the catalog.
+
+NOTE: Enter greplay commands or statements.
+106        			list igout;
+
+NOTE: Graphs on WBH.GRAPHS
+
+     NAME          DESCRIPTION
+
+  1  GPLOT     I   Plot of prob by day
+
+107        			treplay 1:1;
+WARNING: The specified value of 24.2400 inches for HSIZE= is larger than 11.1164 inches which is the maximum for the device Xcolor. 
+         HSIZE is ignored.
+WARNING: The specified value of 12.6533 inches for VSIZE= is larger than 5.7135 inches which is the maximum for the device Xcolor. 
+         VSIZE is ignored.
+108        run;
+
+109        ods pdf close;
+NOTE: ODS PDF printed 1 page to /dfax/ttcmv/sas/programs/reporting/baohua/IVH/ivh_km_curve234.pdf.
+NOTE: PROCEDURE GREPLAY used (Total process time):
+      real time           1.60 seconds
+      cpu time            0.08 seconds
+      
+
+ERROR: Errors printed on page 5.
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           3.64 seconds
+      cpu time            0.33 seconds
+      

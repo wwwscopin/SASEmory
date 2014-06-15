@@ -1,0 +1,89 @@
+#################################################################################################
+#
+# Program:	closed.in
+#
+# Purpose:	Produce closed results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.top("closed",
+ prepare.date=date(),
+ asof.date="April, 2012",
+ report.type="Baseline and Follow-up CLOSED SESSION",
+ meet.date="April 17, 2012",
+ header="GLND DSMB Report CLOSED SESSION")
+
+
+lib="/dfax/glnd/sas"
+libr="/dfax/glnd/sas/reporting"
+libs="/dfax/glnd/splus"
+libdf="/dfax/glnd/sas/dsmc/20110404/reporting/df_reporting"
+
+      
+ 
+    
+days<- f.sas.get(library=libr,member="percent_enteral_trt", format.library=libs,  formats=T)
+xdays=days[,c("day","treatment","patients","had.en.s","col.0.25","col.25.50","col.50.75","col.75.100")]
+f.list(file="closed", x=xdays, 
+    caption="Median Proportion of Total kcal Given Enterally", 
+    append=T, pos=c("l","c","c","c","c","c","c","c"))       
+               
+     
+
+lipid<- f.sas.get(library=libr,member="percent_iv_lipid_trt", format.library=libs,  formats=T)
+xlipid=  lipid[,c("day","treatment","patients","had.pn.s","col.0","col.0.15","col.15.30","col.30.100")]                 
+f.list(file="closed", x=xlipid, 
+   caption="Median Proportion of IV kcal Composed of Lipid, Over Time in Patients Receiving TPN", 
+   append=T, pos=c("l","c","c","c","c","c","c","c"))   
+         
+cat("\\clearpage",sep="\n",file="closed.tex",append=T)        
+        
+dex<- f.sas.get(library=libr,member="percent_iv_dextrose_trt", format.library=libs,  formats=T)
+xdex=dex[,c("day","treatment","patients","had.pn.s","col.0","col.0.30","col.30.60","col.60.100")]                              
+f.list(file="closed",x=xdex,
+     caption="Median Proportion of IV kcal Composed of Dextrose, Over Time in Patients Receiving TPN", 
+     append=T, pos=c("l","c","c","c","c","c","c","c")) 
+
+
+cat("",c("\\begin{table}", paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//dfax//glnd//sas//reporting//kcal1.ps}}}",sep=""),
+ "\\caption{Kcal and Protein Goals}",
+ "\\end{table}"),
+file=paste("closed","tex",sep="."),sep="\n",append=T)
+
+
+cat("",c("\\begin{table}", paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//dfax//glnd//sas//reporting//kcal2.ps}}}",sep=""),
+ "\\caption{PN Composition}",
+ "\\end{table}"),
+file=paste("closed","tex",sep="."),sep="\n",append=T)
+
+
+cat("",c("\\begin{table}", paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//dfax//glnd//sas//reporting//kcal3.ps}}}",sep=""),
+ "\\caption{Kcal Administered}",
+ "\\end{table}"),
+file=paste("closed","tex",sep="."),sep="\n",append=T)
+  
+
+cat("",c("\\begin{table}", paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//dfax//glnd//sas//reporting//kcal4.ps}}}",sep=""),
+ "\\caption{AA Administered}",
+ "\\end{table}"),
+file=paste("closed","tex",sep="."),sep="\n",append=T)
+
+ 
+    
+### Finish
+
+f.bottom("closed")
+unix("/home/gcotson/bin/laps closed",output=F)
+unix("/home/gcotson/bin/laps closed",output=F)
+unix("/home/gcotson/bin/lapdf closed",output=F)
+unix("/home/gcotson/bin/lapdf closed",output=F)

@@ -1,0 +1,551 @@
+1                                                          The SAS System                            15:29 Tuesday, October 12, 2010
+
+NOTE: Copyright (c) 2002-2003 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) 9.1 (TS1M3)
+      Licensed to EMORY UNIVERSITY - T&R, Site 0014217002.
+NOTE: This session is executing on the SunOS 5.9 platform.
+
+
+
+NOTE: SAS 9.1.3 Service Pack 4
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.07 seconds
+      cpu time            0.06 seconds
+      
+1          *** save.gg_sep15_2010;
+2          *libname save '/home/keasle2/Sokoloff/';
+3          libname save '/home/bwu2/Kirk';
+NOTE: Libref SAVE was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/bwu2/Kirk
+3        !                                
+4          
+5          options ls=132 ps=150;
+6          
+7          /*
+8          data one; set save.gg_sep15_2010;  if _n_ le 1893;  proc print data=one(obs=25);
+9          proc freq; tables subject phenotype; run;
+10         
+11         proc means; class PHENOTYPE; var diameter;
+12         
+13         proc mixed empirical data=one;
+14              class SUBJECT PHENOTYPE;
+15             model diameter= PHENOTYPE;
+16             repeated /sub=SUBJECT type=cs;
+17             contract 'mhciia vs oths' phenotype -1 -1 -1 4 -1;
+18         *    estimate 'linear' phenotype -2 -1 0 1 2;
+19         *** estimate 'linear,A' phenotype -2 -1 0 1 2 region*phenotype    -2 -1 0 1 2        0 0 0 0;
+20         *** estimate 'linear,P' phenotype -2 -1 0 1 2 region*phenotype      0 0 0 0 0      -2 -1 0 1 2;
+21             lsmeans PHENOTYPE /alpha=.05 cl; * pdiff;
+22             ods output lsmeans=save.diameter;  run;
+23         
+24         ODS TRACE OFF;
+25         */
+26         
+27         proc print data=save.diameter;   run;
+
+NOTE: There were 5 observations read from the data set SAVE.DIAMETER.
+NOTE: The PROCEDURE PRINT printed page 1.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+27       !                                      
+28         
+29         data outdia; set save.diameter;
+30           LC=LOWER; UC=UPPER; SEM=STDERR; MEAN=ESTIMATE;
+31            /*
+32          if _n_ ge 8 and _n_ le 12 then do;  group=1; end; ** region a;
+33          if _n_ ge 13 and _n_ le 17 then do; group=2; end; ** region p;
+34              */
+35          if _n_=1 then do;  age=0.9; end;  **  phenotype MCHI;
+36         
+37          if _n_=2 then do;  age=3.9; end;  ** MCHI-IIa;
+38         
+39          if _n_=3 then do;  age=4.9; end;  ** MCHI-IIx;
+40         
+41          if _n_=4 then do;  age=1.9; end;  ** MHCIIIa;
+42         
+43          if _n_=5 then do;  age=2.9; end;  ** MHCIIx;
+
+NOTE: There were 5 observations read from the data set SAVE.DIAMETER.
+NOTE: The data set WORK.OUTDIA has 5 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+44         proc sort; by age;
+45         
+46         GOPTIONS RESET=ALL htext=2;
+47         
+48          *Filename GSASFILE '/home/keasle2/Sokoloff/diameter.ps';
+49          Filename GSASFILE '/home/bwu2/Kirk/diameter.ps';
+50         Goptions device=APPLELW htext=2 ftext=triplex ROTATE=LANDSCAPE
+51                  GACCess=GSASFILE GSFMODE=REPLACE gsFname=GSASFILE
+52                  GEND='0a'x gprolog='25210d0a'x;
+53         
+54         
+
+NOTE: There were 5 observations read from the data set WORK.OUTDIA.
+NOTE: The data set WORK.OUTDIA has 5 observations and 15 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.02 seconds
+      
+
+55         PROC PRINT;
+
+NOTE: There were 5 observations read from the data set WORK.OUTDIA.
+NOTE: The PROCEDURE PRINT printed page 2.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+56         proc format;
+56       !               VALUE group 1='Anterior' 2='Posterior' ;
+NOTE: Format GROUP has been output.
+56       !                                                       
+57         
+58          value age               0='        '
+59                                  1='MHCI    '
+60                                  2='MHCIIA  '
+61                                  3='MHCIIX  '
+62                                  4='MHCI-IIA'
+63                                  5='MHCI-IIX'
+64                                  6='        ';
+NOTE: Format AGE has been output.
+64       !                                       
+65         
+66         
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+67         DATA B1; SET outdia;
+68         
+69         xsys='2'; ysys='2';
+2                                                          The SAS System                            15:29 Tuesday, October 12, 2010
+
+70           X=age;
+71           y=mean;
+72         FUNCTION='MOVE';  OUTPUT;
+73         Y=LC;
+74         FUNCTION='DRAW'; line=1; size=10; color='black';  OUTPUT;
+75         LINK TIPS;
+76         Y=UC;
+77         FUNCTION='DRAW'; line=1; size=10; color='black';  OUTPUT;
+78         LINK TIPS;
+79         
+80         
+81         TIPS: *** dRAW TOP AND BOTTOM OF BARS;
+82           X=age-.03; FUNCTION='DRAW'; line=1; size=.2; color='black'; OUTPUT;
+83           X=age+.03; FUNCTION='DRAW'; line=1; size=.2; color='black'; OUTPUT;
+84           X=age;     FUNCTION='MOVE';                                 OUTPUT;
+85         return;
+86         
+87           axis1 label=(f=triplex h=2.5 'Phenotype') value=(f=triplex h=2.0) order=0 to 6 by 1;
+88           axis2 label=(f=triplex h=2.5 a=90 'Diameter') value=(f=triplex h=2.5) order=20 to 60 by 5;
+89         
+90         
+
+NOTE: There were 5 observations read from the data set WORK.OUTDIA.
+NOTE: The data set WORK.B1 has 60 observations and 23 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+91         proc gplot data=outdia gout=save.graphs;
+92           plot mean*age / frame haxis=axis1 vaxis=axis2
+93                                anno=b1;
+94                     **         description='diameter' name='diameter';
+95         
+96         symbol1 h=1.5 i=join value=dot color=black line=1 w=14;
+97         ** symbol2 h=1.5 i=join value=triangle color=black line=1 w=10;
+98         symbol2 h=1.5 i=join value=circle color=black line=1; * w=5;
+99         ** label group='Group';
+100        TITLE H=2.5 F=SWISS '                                                                   ';
+101        * Title 'Mean and 95% Confidence Intervals By Treatment Group for HDRS (n=62)';
+102        format age age.; *** group group.;
+103          run;
+
+WARNING: TITLE1 is too long. Height has been reduced to 96.61 pct of specified or default size.
+NOTE:  206 RECORDS WRITTEN TO /home/bwu2/Kirk/diameter.ps
+103      !        QUIT;
+
+NOTE: There were 5 observations read from the data set WORK.OUTDIA.
+NOTE: There were 60 observations read from the data set WORK.B1.
+NOTE: PROCEDURE GPLOT used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.05 seconds
+      
+
+103      !              RUN;
+104        /*
+105         *************************************************************************;
+106        proc means data=one; class PHENOTYPE; var PERIMETER;
+107        
+108        proc mixed empirical data=one;
+109             class SUBJECT PHENOTYPE;
+110            model PERIMETER= PHENOTYPE;
+111            repeated /sub=SUBJECT type=cs;
+112            contract 'mhciia vs oths' phenotype -1 -1 -1 4 -1;
+113        *    estimate 'linear' mhc_phenotype -2 -1 0 1 2;
+114        *** estimate 'linear,A' phenotype -2 -1 0 1 2 region*phenotype    -2 -1 0 1 2        0 0 0 0;
+115        *** estimate 'linear,P' phenotype -2 -1 0 1 2 region*phenotype      0 0 0 0 0      -2 -1 0 1 2;
+116            lsmeans PHENOTYPE /alpha=.05 cl; * pdiff;
+117            ods output lsmeans=save.perimeter;
+118        
+119        ODS TRACE OFF;
+120        */
+121        proc print data=save.perimeter;   run;
+
+NOTE: There were 5 observations read from the data set SAVE.PERIMETER.
+NOTE: The PROCEDURE PRINT printed page 3.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+121      !                                       
+122        
+123        
+124        
+125        data outperi; set save.perimeter;
+126          LC=LOWER; UC=UPPER; SEM=STDERR; MEAN=ESTIMATE;
+127        
+128         if _n_=1 then do;  age=0.9; end;  **  phenotype MCHI;
+129        
+130         if _n_=2 then do;  age=3.9; end;  ** MCHI-IIa;
+131        
+132         if _n_=3 then do;  age=4.9; end;  ** MCHI-IIx;
+133        
+134         if _n_=4 then do;  age=1.9; end;  ** MHCIIIa;
+135        
+136         if _n_=5 then do;  age=2.9; end;  ** MHCIIx;
+
+NOTE: There were 5 observations read from the data set SAVE.PERIMETER.
+NOTE: The data set WORK.OUTPERI has 5 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+137        proc sort; by age;
+138        
+139        GOPTIONS RESET=ALL htext=2;
+140        
+141         Filename GSASFILE '/home/bwu2/Kirk/perimeter.ps';
+142        Goptions device=APPLELW htext=2 ftext=triplex ROTATE=LANDSCAPE
+143                 GACCess=GSASFILE GSFMODE=REPLACE gsFname=GSASFILE
+144                 GEND='0a'x gprolog='25210d0a'x;
+145        
+146        
+
+NOTE: There were 5 observations read from the data set WORK.OUTPERI.
+NOTE: The data set WORK.OUTPERI has 5 observations and 15 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+147        PROC PRINT;
+148        
+149        
+
+NOTE: There were 5 observations read from the data set WORK.OUTPERI.
+NOTE: The PROCEDURE PRINT printed page 4.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+150        DATA B1; SET outperi;
+151        
+152        xsys='2'; ysys='2';
+153          X=age;
+154          y=mean;
+155        FUNCTION='MOVE';  OUTPUT;
+156        Y=LC;
+157        FUNCTION='DRAW'; line=1; size=10; color='black';  OUTPUT;
+158        LINK TIPS;
+159        Y=UC;
+160        FUNCTION='DRAW'; line=1; size=10; color='black';  OUTPUT;
+161        LINK TIPS;
+162        
+163        
+3                                                          The SAS System                            15:29 Tuesday, October 12, 2010
+
+164        TIPS: *** dRAW TOP AND BOTTOM OF BARS;
+165          X=age-.03; FUNCTION='DRAW'; line=1; size=.2; color='black'; OUTPUT;
+166          X=age+.03; FUNCTION='DRAW'; line=1; size=.2; color='black'; OUTPUT;
+167          X=age;     FUNCTION='MOVE';                                 OUTPUT;
+168        return;
+169        
+170          axis1 label=(f=triplex h=2.5 'Phenotype') value=(f=triplex h=2.0) order=0 to 6 by 1;
+171          axis2 label=(f=triplex h=2.5 a=90 'Perimeter') value=(f=triplex h=2.5) order=60 to 150 by 10;
+172        
+173        
+
+NOTE: There were 5 observations read from the data set WORK.OUTPERI.
+NOTE: The data set WORK.B1 has 60 observations and 23 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+174        proc gplot data=outperi gout=save.graphs;
+175          plot mean*age / frame haxis=axis1 vaxis=axis2
+176                               anno=b1;
+177        ***                      description='fig4a' name='fig4a';
+178        
+179        symbol1 h=1.5 i=join value=dot color=black line=1 w=14;
+180        ** symbol2 h=1.5 i=join value=triangle color=black line=1 w=10;
+181        symbol2 h=1.5 i=join value=circle color=black line=1; * w=5;
+182        ** label group='Group';
+183        TITLE H=2.5 F=SWISSb '                                                                   ';
+184        * Title 'Mean and 95% Confidence Intervals By Treatment Group for HDRS (n=62)';
+185        format age age.; *** group group.;
+186          run;
+
+WARNING: TITLE1 is too long. Height has been reduced to 96.59 pct of specified or default size.
+NOTE:  219 RECORDS WRITTEN TO /home/bwu2/Kirk/perimeter.ps
+186      !        QUIT;
+
+NOTE: There were 5 observations read from the data set WORK.OUTPERI.
+NOTE: There were 60 observations read from the data set WORK.B1.
+NOTE: PROCEDURE GPLOT used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+      
+
+186      !              RUN;
+187        
+188        /*
+189        proc means data=one; class PHENOTYPE; var csa;
+190        
+191        proc mixed empirical data=one;
+192             class SUBJECT PHENOTYPE;
+193            model csa= PHENOTYPE;
+194            repeated /sub=SUBJECT type=cs;
+195            contrast 'mhciia vs oths' phenotype -1 -1 -1 4 -1;
+196        *   estimate 'linear' phenotype -2 -1 0 1 2;
+197        *** estimate 'linear,A' phenotype -2 -1 0 1 2 region*phenotype    -2 -1 0 1 2        0 0 0 0;
+198        *** estimate 'linear,P' phenotype -2 -1 0 1 2 region*phenotype      0 0 0 0 0      -2 -1 0 1 2;
+199            lsmeans PHENOTYPE /alpha=.05 cl; * pdiff;
+200            ods output lsmeans=save.area;
+201        
+202        ODS TRACE OFF;
+203        proc print data=save.area;   run;
+204        */
+205        
+206        
+207        data outcsa; set save.area;
+208          LC=LOWER; UC=UPPER; SEM=STDERR; MEAN=ESTIMATE;  ** if _n_ ge 8;
+209        
+210         if _n_=1 then do;  age=0.9; end;  **  phenotype MCHI;
+211        
+212         if _n_=2 then do;  age=3.9; end;  ** MCHI-IIa;
+213        
+214         if _n_=3 then do;  age=4.9; end;  ** MCHI-IIx;
+215        
+216         if _n_=4 then do;  age=1.9; end;  ** MHCIIIa;
+217        
+218         if _n_=5 then do;  age=2.9; end;  ** MHCIIx;
+
+NOTE: There were 5 observations read from the data set SAVE.AREA.
+NOTE: The data set WORK.OUTCSA has 5 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+219        proc sort; by age;
+220        
+221        
+222        GOPTIONS RESET=ALL htext=2;
+223        
+224         Filename GSASFILE '/home/bwu2/Kirk/csa.ps';
+225        Goptions device=APPLELW htext=2 ftext=triplex ROTATE=LANDSCAPE
+226                 GACCess=GSASFILE GSFMODE=REPLACE gsFname=GSASFILE
+227                 GEND='0a'x gprolog='25210d0a'x;
+228        
+229        
+
+NOTE: There were 5 observations read from the data set WORK.OUTCSA.
+NOTE: The data set WORK.OUTCSA has 5 observations and 15 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+230        PROC PRINT;
+231        
+
+NOTE: There were 5 observations read from the data set WORK.OUTCSA.
+NOTE: The PROCEDURE PRINT printed page 5.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+232        DATA B1; SET outcsa;
+233        
+234        xsys='2'; ysys='2';
+235          X=age;
+236          y=mean;
+237        FUNCTION='MOVE';  OUTPUT;
+238        Y=LC;
+239        FUNCTION='DRAW'; line=1; size=10; color='black';  OUTPUT;
+240        LINK TIPS;
+241        Y=UC;
+242        FUNCTION='DRAW'; line=1; size=10; color='black';  OUTPUT;
+243        LINK TIPS;
+244        
+245        
+246        TIPS: *** dRAW TOP AND BOTTOM OF BARS;
+247          X=age-.03; FUNCTION='DRAW'; line=1; size=.2; color='black'; OUTPUT;
+248          X=age+.03; FUNCTION='DRAW'; line=1; size=.2; color='black'; OUTPUT;
+249          X=age;     FUNCTION='MOVE';                                 OUTPUT;
+250        return;
+251        
+252          axis1 label=(f=triplex h=2.5 'Phenotype') value=(f=triplex h=2.0) order=0 to 6 by 1;
+253          axis2 label=(f=triplex h=2.5 a=90 'CSA') value=(f=triplex h=2.5) order=200 to 1500 by 100;
+254        
+255        
+
+NOTE: There were 5 observations read from the data set WORK.OUTCSA.
+NOTE: The data set WORK.B1 has 60 observations and 23 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+256        proc gplot data=outcsa gout=save.graphs;
+257          plot mean*age / frame haxis=axis1 vaxis=axis2
+258                               anno=b1;
+4                                                          The SAS System                            15:29 Tuesday, October 12, 2010
+
+259        ***                      description='fig4a' name='fig4a';
+260        
+261        symbol1 h=1.5 i=join value=dot color=black line=1 w=14;
+262        ** symbol2 h=1.5 i=join value=triangle color=black line=1 w=10;
+263        symbol2 h=1.5 i=join value=circle color=black line=1; * w=5;
+264        ** label group='Group';
+265        TITLE H=2.5 F=SWISSb '                                                                   ';
+266        * Title 'Mean and 95% Confidence Intervals By Treatment Group for HDRS (n=62)';
+267        format age age.; *** group group.;
+268          run;
+
+WARNING: TITLE1 is too long. Height has been reduced to 96.59 pct of specified or default size.
+NOTE:  264 RECORDS WRITTEN TO /home/bwu2/Kirk/csa.ps
+268      !        QUIT;
+
+NOTE: There were 5 observations read from the data set WORK.OUTCSA.
+NOTE: There were 60 observations read from the data set WORK.B1.
+NOTE: PROCEDURE GPLOT used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+      
+
+268      !              RUN;
+269        
+270        
+271        filename output "fig_3panel.jpg";
+272        
+273        goptions rotate = portrait reset=global gsfmode=replace gunit=pct border
+274        ctext=black ftitle=triplex ftext=triplex htitle=2 htext=2
+275        device=jpeg gsfname=output gsfmode=replace;
+276        
+277        ods pdf file="fig_3panel.pdf";
+NOTE: Writing ODS PDF output to DISK destination "/home/bwu2/Kirk/fig_3panel.pdf", printer "PDF".
+278        ods ps file="fig_3panel.ps";
+NOTE: Writing ODS PS output to DISK destination "/home/bwu2/Kirk/fig_3panel.ps", printer "POSTSCRIPT".
+279        ods printer sas printer="PostScript EPS Color" file='fig_3panel.eps';
+NOTE: Writing ODS PRINTER output to DISK destination "/home/bwu2/Kirk/fig_3panel.eps", printer "PostScript EPS Color".
+280        proc greplay nofs NOBYLINE;
+NOTE: Enter greplay commands or statements.
+281        igout save.graphs;
+NOTE: Building list of graphs from the catalog.
+
+282        list igout;
+
+NOTE: Graphs on SAVE.GRAPHS
+
+     NAME          DESCRIPTION
+
+  1  GPLOT     I   Plot of MEAN * age
+  2  GPLOT1    I   Plot of MEAN * age
+  3  GPLOT2    I   Plot of MEAN * age
+
+283        tc template;
+284        tdef t1 1 /llx=20   ulx=20   lrx=80  urx=80  lly=0    uly=34     lry=0      ury=34
+285                2 /llx=20   ulx=20   lrx=80  urx=80  lly=34   uly=68     lry=34     ury=68
+286                3 /llx=20   ulx=20   lrx=80  urx=80  lly=68   uly=102    lry=68     ury=102
+287        			;
+288        template t1;
+289        tplay 1:2  2:3  3:1;
+NOTE:  RECORDS WRITTEN TO /home/bwu2/Kirk/fig_3panel.jpg
+NOTE: The SASPRTC device does not support GACCESS or GSFNAME.
+NOTE: The SASPRTC device does not support GACCESS or GSFNAME.
+NOTE: The SASPRTC device does not support GACCESS or GSFNAME.
+290        run;
+
+290      !      quit;
+
+NOTE: PROCEDURE GREPLAY used (Total process time):
+      real time           0.58 seconds
+      cpu time            0.49 seconds
+      
+
+291        ods printer close;
+NOTE: ODS PRINTER printed 1 page to /home/bwu2/Kirk/fig_3panel.eps.
+292        ods ps close;
+NOTE: ODS PS printed 1 page to /home/bwu2/Kirk/fig_3panel.ps.
+293        ods pdf close;
+NOTE: ODS PDF printed 1 page to /home/bwu2/Kirk/fig_3panel.pdf.
+294        
+295        
+296        
+297        
+298        
+299        
+300        
+301        
+302        
+303        
+304        
+305        
+306        
+307        
+308        
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           1.31 seconds
+      cpu time            1.14 seconds
+      

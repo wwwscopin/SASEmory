@@ -1,0 +1,357 @@
+1                                                          The SAS System                        03:03 Wednesday, September 15, 2010
+
+NOTE: Copyright (c) 2002-2003 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) 9.1 (TS1M3)
+      Licensed to EMORY UNIVERSITY - T&R, Site 0014217002.
+NOTE: This session is executing on the SunOS 5.9 platform.
+
+
+
+NOTE: SAS 9.1.3 Service Pack 4
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.10 seconds
+      cpu time            0.06 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is /dfax/glnd/sas/reporting/autoexec.sas.
+
+NOTE: Libref RAND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/randomization
+NOTE: Libref GLND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+NOTE: Libname LIBRARY refers to the same physical library as GLND.
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+NOTE: Libref GLND_DF was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting/df_reporting
+NOTE: Libref GLND_EXT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/external_data
+NOTE: Libref GLND_REP was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting
+
+NOTE: AUTOEXEC processing completed.
+
+1          /* death_details.sas
+2           *
+2                                                          The SAS System                        03:03 Wednesday, September 15, 2010
+
+3           * provides essential details on patients that have died
+4           *
+5           */
+6          
+7           * create library for reporting files and graphs;
+8           libname glnd_rep "/glnd/sas/reporting";
+NOTE: Libref GLND_REP was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting
+9          
+10         proc sort data= glnd.demo_his; by id; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+11         proc sort data= glnd.plate205; by id; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+12         proc sort data= glnd.george; by id; run;
+
+NOTE: There were 130 observations read from the data set GLND.GEORGE.
+NOTE: The data set GLND.GEORGE has 130 observations and 17 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.35 seconds
+      cpu time            0.01 seconds
+      
+
+13         proc sort data= glnd.plate1; by id; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+14         proc sort data= glnd.george; by id; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+15         
+16         * take data from the death form and demographics form;
+17         data glnd_rep.death_details_closed;
+18         	merge 	glnd.demo_his
+19         			glnd.plate205 (in = died)
+20         			glnd.status (keep = id dt_random dt_discharge)
+21         			glnd.plate1 (keep = id in_sicu_choice apache_score)
+3                                                          The SAS System                        03:03 Wednesday, September 15, 2010
+
+22         			glnd.george (keep = id treatment)
+23         		;
+24         
+25         	by id;
+26         
+27         	if ~died then delete;
+28         	
+29         	center = floor(id/10000);
+30         		
+31         	* concatenate reasons for death into one string ;
+32         	
+33         	length reasons_death $200;
+34         	length old_reasons_death $200;
+35         	
+36         	reasons_death= " ";
+37         	old_reasons_death = " ";
+38         
+39         	if ards  then do old_reasons_death= reasons_death; reasons_death= cats(old_reasons_death , "ARDS, "); end;
+40         	if sepsis  then do old_reasons_death= reasons_death; reasons_death= cats(old_reasons_death , "Sepsis, "); end;
+41         	if stroke  then do old_reasons_death= reasons_death; reasons_death= cats(old_reasons_death , "Ischemic/hem stroke, ");
+41       ! end;
+42         	if mi  then do old_reasons_death= reasons_death; reasons_death= cats(old_reasons_death , "MI, "); end;
+43         	if pe  then do old_reasons_death= reasons_death; reasons_death= cats(old_reasons_death , "Pulmonary embolus, "); end;
+44         	if acute_isch  then do old_reasons_death= reasons_death; reasons_death= cats(old_reasons_death, "Acute ischemia org., ")
+44       ! ; end;
+45         	if rupt_bld_ves  then do old_reasons_death= reasons_death; reasons_death= cats(old_reasons_death , "Ruptured bld vessel,
+45       !  "); end;
+46         	if wnd_dehis  then do old_reasons_death= reasons_death; reasons_death= cats(old_reasons_death , "Wound dehiscence, ");
+46       ! end;
+47         	if sys_hemorrhage  then do old_reasons_death= reasons_death; reasons_death= cats(old_reasons_death, "Systemic
+47       ! hemorrhage, "); end;
+48         	if heart_fail  then do old_reasons_death= reasons_death; reasons_death= cats(old_reasons_death , "Heart failure, "); end
+48       ! ;
+49         	if mult_organ_fail  then do old_reasons_death= reasons_death; reasons_death= cats(old_reasons_death , "Mult organ
+49       ! failure, "); end;
+50         	if uncont_seiz  then do old_reasons_death= reasons_death; reasons_death= cats(old_reasons_death , "Uncontrolled seiz.,
+50       ! "); end;
+51         	if other  then do old_reasons_death= reasons_death; reasons_death= cats(old_reasons_death , other_spec) ; end;
+52         
+53         	* concatenate indications for PN into one string;
+54         	length indic_pn $200;
+55         	length old_indic_pn $200;
+56         	
+57         	indic_pn= " ";
+58         	old_indic_pn = " ";
+59         	if indication_pn_1 then do old_indic_pn = indic_pn; indic_pn = cats(old_indic_pn, "Ileus,"); end;	
+60         	if indication_pn_2 then do old_indic_pn = indic_pn; indic_pn = cats(old_indic_pn, "Ischemic bowel,"); end;	
+61         	if indication_pn_3 then do old_indic_pn = indic_pn; indic_pn = cats(old_indic_pn, "Hemodynamic instability,"); end;	
+62         	if indication_pn_4 then do old_indic_pn = indic_pn; indic_pn = cats(old_indic_pn, "Intolerence to enteral feeding,");
+62       ! end;	
+63         	if indication_pn_5 then do old_indic_pn = indic_pn; indic_pn = cats(old_indic_pn, "Bowel obstruction,"); end;	
+64         	if indication_pn_6 then do old_indic_pn = indic_pn; indic_pn = cats(old_indic_pn, "Other"); end;
+65         		
+66         	if reasons_death = "" then reasons_death ="(not specified)";
+67         
+68         	age = (dt_death - dt_birth)/365.25;
+69         	days_study = (dt_death - dt_random);
+70         /*        if deceased & (dt_death <= dt_discharge) then hospital_death = 1 ; else hospital_death = 0;*/
+4                                                          The SAS System                        03:03 Wednesday, September 15, 2010
+
+71         	if died & (dt_death <= dt_discharge) then hospital_death = 1 ; else hospital_death = 0;
+72         	if hospital_death then days_hosp = (dt_death - dt_admission);
+73         	
+74         	if (id = 22028) then hospital_death = 1; ** correction on 6/26/08 because we do not yet have hospital release date **;
+75         
+76         
+77         	format age 4.1;
+78         	format hospital_death yn.;
+79         	format center center.;
+80         	format treatment trt.;
+81         
+82         
+83         	label
+84         		treatment = "Treatment"
+85         		age= "Age at death"
+86         		gender = "Gender"
+87         		race = "Race"
+88         		dt_admission = "Hosp. admission date"
+89         		primary_diag = "Primary diagnosis"
+90         		in_sicu_choice = "Eligibility operation"
+91         		indic_pn = "Indications for PN"
+92         		apache_score = "Apache score"
+93         		days_hosp = "Days in hosp. until death"
+94         		days_study = "Days on study until death"
+95         		reasons_death = "Causes of death"	
+96         		hospital_death = "In-hosp. death?"
+97         		center = "Center"
+98         		;
+99         
+100        
+101        * days post surgery ? ;
+102        
+103        	drop old_reasons_death old_indic_pn;
+104        	keep center id treatment reasons_death gender race age days_study days_hosp dt_death dt_admission primary_diag indic_pn
+104      ! in_sicu_choice apache_score hospital_death;
+105        run;
+
+NOTE: There were 129 observations read from the data set GLND.DEMO_HIS.
+NOTE: There were 38 observations read from the data set GLND.PLATE205.
+NOTE: There were 130 observations read from the data set GLND.STATUS.
+NOTE: There were 979 observations read from the data set GLND.PLATE1.
+NOTE: There were 130 observations read from the data set GLND.GEORGE.
+NOTE: The data set GLND_REP.DEATH_DETAILS_CLOSED has 38 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.32 seconds
+      cpu time            0.06 seconds
+      
+
+106        
+107        		* capture number of total deaths;
+108        			
+108      !    proc means data= glnd_rep.death_details_closed noprint;
+109        				output out= death_n n(id) = id_n;
+110        			run;
+
+NOTE: There were 38 observations read from the data set GLND_REP.DEATH_DETAILS_CLOSED.
+NOTE: The data set WORK.DEATH_N has 1 observations and 3 variables.
+NOTE: PROCEDURE MEANS used (Total process time):
+5                                                          The SAS System                        03:03 Wednesday, September 15, 2010
+
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+110      !        
+111        			
+111      !    data _null_;
+112        				set death_n;
+113        		
+114        				call symput('n_deaths', put(id_n, 3.0));
+115        			run;
+
+NOTE: There were 1 observations read from the data set WORK.DEATH_N.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+116        
+117        title h=3 "GLND Patient Death Summary - &n_deaths total deaths";
+118        options orientation = landscape leftmargin= .1 rightmargin = .1 nodate nonumber;
+WARNING: Units were not specified on the LEFTMARGIN option. Inches will be used.
+WARNING: Units were not specified on the RIGHTMARGIN option. Inches will be used.
+119        
+120        ods pdf file = "/glnd/sas/reporting/death_details_closed.pdf" style=journal;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/death_details_closed.pdf", printer "PDF".
+121        ods ps file = "/glnd/sas/reporting/deathdetailsclosed.ps" style=journal;
+NOTE: Writing ODS PS output to DISK destination "/glnd/sas/reporting/deathdetailsclosed.ps", printer "POSTSCRIPT".
+122        	
+122      !  proc print data = glnd_rep.death_details_closed label noobs;
+123        	where id <= 22028;
+124        		var treatment center id age gender race dt_admission primary_diag in_sicu_choice indic_pn apache_score hospital_death
+124      ! days_hosp days_study reasons_death;
+125        	run;
+
+NOTE: There were 19 observations read from the data set GLND_REP.DEATH_DETAILS_CLOSED.
+      WHERE id<=22028;
+NOTE: The PROCEDURE PRINT printed pages 1-2.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.16 seconds
+      cpu time            0.16 seconds
+      
+
+126        ods ps close;
+NOTE: ODS PS printed 2 pages to /glnd/sas/reporting/deathdetailsclosed.ps.
+127        ods pdf close;
+NOTE: ODS PDF printed 2 pages to /glnd/sas/reporting/death_details_closed.pdf.
+128        
+129        title h=3 "GLND Patient Death Summary - &n_deaths total deaths";
+130        options orientation = landscape leftmargin= .1 rightmargin = .1 nodate nonumber;
+WARNING: Units were not specified on the LEFTMARGIN option. Inches will be used.
+WARNING: Units were not specified on the RIGHTMARGIN option. Inches will be used.
+131        
+132        ods pdf file = "/glnd/sas/reporting/death_details_closed1.pdf" style=journal;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/death_details_closed1.pdf", printer "PDF".
+133        ods ps file = "/glnd/sas/reporting/deathdetailsclosed1.ps" style=journal;
+NOTE: Writing ODS PS output to DISK destination "/glnd/sas/reporting/deathdetailsclosed1.ps", printer "POSTSCRIPT".
+134        	
+                                                           The SAS System
+
+134      !  proc print data = glnd_rep.death_details_closed label noobs;
+135        	where 22028 <id < 30000;
+136        		var treatment center id age gender race dt_admission primary_diag in_sicu_choice indic_pn apache_score hospital_death
+136      ! days_hosp days_study reasons_death;
+137        	run;
+
+NOTE: There were 2 observations read from the data set GLND_REP.DEATH_DETAILS_CLOSED.
+      WHERE (id>22028 and id<30000);
+NOTE: The PROCEDURE PRINT printed page 3.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.08 seconds
+      cpu time            0.09 seconds
+      
+
+138        ods ps close;
+NOTE: ODS PS printed 1 page to /glnd/sas/reporting/deathdetailsclosed1.ps.
+139        ods pdf close;
+NOTE: ODS PDF printed 1 page to /glnd/sas/reporting/death_details_closed1.pdf.
+140        
+141        
+142        
+143        ods pdf file = "/glnd/sas/reporting/death_details_closed2.pdf" style=journal;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/death_details_closed2.pdf", printer "PDF".
+144        ods ps file = "/glnd/sas/reporting/deathdetailsclosed2.ps" style=journal;
+NOTE: Writing ODS PS output to DISK destination "/glnd/sas/reporting/deathdetailsclosed2.ps", printer "POSTSCRIPT".
+145        	
+145      !  proc print data = glnd_rep.death_details_closed label noobs;
+146        	where id >30000;
+147        		var treatment center id age gender race dt_admission primary_diag in_sicu_choice indic_pn apache_score hospital_death
+147      ! days_hosp days_study reasons_death;
+148        	run;
+
+NOTE: There were 17 observations read from the data set GLND_REP.DEATH_DETAILS_CLOSED.
+      WHERE id>30000;
+NOTE: The PROCEDURE PRINT printed page 4.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.12 seconds
+      cpu time            0.13 seconds
+      
+
+149        ods ps close;
+NOTE: ODS PS printed 2 pages to /glnd/sas/reporting/deathdetailsclosed2.ps.
+150        ods pdf close;
+NOTE: ODS PDF printed 2 pages to /glnd/sas/reporting/death_details_closed2.pdf.
+151        run;
+152        
+153        
+154        
+155        
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           1.92 seconds
+      cpu time            0.91 seconds
+      

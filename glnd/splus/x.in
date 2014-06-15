@@ -1,0 +1,42 @@
+#################################################################################################
+#
+# Program:	reportaesae.in
+#
+# Purpose:	Produce ae report report
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.quart("report",
+ prepare.date=date(),
+ asof.date=date(),
+ report.type="Quarterly AE/SAE Report",
+ meet.date=" ",
+ header="Quarterly AE/SAE Report")
+
+lib="/glnd/sas"
+
+
+ 
+ libr="/glnd/sas/reporting"
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{mech_vent_open.ps}}}",sep=""),
+ "\\caption{Mechanical Ventilation}",
+ "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+
+f.bottom("report")
+unix("/home/gcotson/bin/laps report",output=F)
+unix("/home/gcotson/bin/laps report",output=F)
+unix("/home/gcotson/bin/lapdf report",output=F)
+unix("/home/gcotson/bin/lapdf report",output=F)
+

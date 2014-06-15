@@ -1,0 +1,6 @@
+
+f.duplicated <- function(x,yname)
+{
+x <- as.data.frame(x)
+return(x[x[,yname]%==%x[duplicated(x[,yname]),yname],])
+}

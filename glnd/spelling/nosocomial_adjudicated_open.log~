@@ -1,0 +1,2250 @@
+1                                                          The SAS System                        18:42 Wednesday, September 29, 2010
+
+NOTE: Copyright (c) 2002-2003 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) 9.1 (TS1M3)
+      Licensed to EMORY UNIVERSITY - T&R, Site 0014217002.
+NOTE: This session is executing on the SunOS 5.9 platform.
+
+
+
+NOTE: SAS 9.1.3 Service Pack 4
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.32 seconds
+      cpu time            0.08 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is /home/bwu2/spelling/autoexec.sas.
+
+NOTE: Libref RAND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/randomization
+NOTE: Libref GLND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/bwu2/spelling
+NOTE: Libref GLND_DF was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting/df_reporting
+NOTE: Libref GLND_EXT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/external_data
+NOTE: Libref GLND_REP was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting
+
+NOTE: AUTOEXEC processing completed.
+
+1          /* nosocomial_adjudicated_open.sas
+2           *
+3           * partially inherits/supercedes the former "nosocomial_open.sas", last used for the 2/13/2008 DSMB report and now
+2                                                          The SAS System                        18:42 Wednesday, September 29, 2010
+
+3        ! incorporates Dr. Blumberg's
+4           * infection adjudication findings
+5           *
+6           * created July 2008
+7           */
+8          
+9          libname glnd_cur "/glnd/sas";
+NOTE: Libname GLND_CUR refers to the same physical library as GLND.
+NOTE: Libref GLND_CUR was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+10         
+11         options nodate nonumber;
+12         
+13         title ;
+14         
+15         
+16         * macro for making a table BY episode;
+17         *%inc "/glnd/sas/reporting/include/nosocomial_episode_table_open.sas" ;
+18         %inc "nosocomial_episode_table_open.sas" ;
+432        
+433        
+434        ** 1. COMPILED A SAVED DATASET (old one was not stored in GLND) of all reported suspected infections, PRIOR TO
+434      ! ADJUDICATION.
+435        	LEAVING ALL ORIGINAL DATA INTACT (no removing repeate organisms) **;
+436        
+437        
+438         	
+438      !   proc sort data= glnd.status; by id ; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+438      !                                            
+439        	
+439      !  proc sort data= glnd.plate101; by id dfseq; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+439      !                                                  
+440        	
+440      !  proc sort data= glnd.plate102; by id dfseq; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+440      !                                                  
+441        	
+                                                           The SAS System
+
+441      !  proc sort data= glnd.plate103; by id dfseq; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+441      !                                                  
+442        
+443        	* gather dates and infection data from forms;
+444        
+445        	
+445      !  data glnd_rep.suspected_noso_before_adj ;
+446        		merge	glnd.plate101 (in = frozen keep = id dfseq dt_infect cult_obtain cult_positive cult_org_code_1)
+447        				glnd.plate102 (keep = id dfseq cult_org_code_2 cult_org_code_3 cult_org_code_4 cult_org_code_5 )
+448        				glnd.plate103 (keep = id dfseq infect_confirm site_code type_code)
+449        				glnd_cur.plate101 (keep = id dfseq org_spec_1)
+450        				glnd_cur.plate102 (keep = id dfseq org_spec_2 org_spec_3 org_spec_4 org_spec_5)
+451        				;
+452        		by id dfseq;
+453        
+454        ******** fix the output by wbh 09282010 *******************************************;
+455        ***********************************************************************************;
+456        		if lowcase(scan(org_spec_1,1))='yeast' then org_spec_1='Yeast not specified';
+457        		if lowcase(scan(org_spec_2,1))='yeast' then org_spec_2='Yeast not specified';
+458        		if lowcase(scan(org_spec_3,1))='yeast' then org_spec_3='Yeast not specified';
+459        		if lowcase(scan(org_spec_4,1))='yeast' then org_spec_4='Yeast not specified';
+460        		if lowcase(scan(org_spec_5,1))='yeast' then org_spec_5='Yeast not specified';
+461        
+462        		if lowcase(strip(org_spec_1))='enterococcus species' then org_spec_1='Enterococcus species not sepcified';
+463        		if lowcase(strip(org_spec_2))='enterococcus species' then org_spec_2='Enterococcus species not sepcified';
+464        		if lowcase(strip(org_spec_3))='enterococcus species' then org_spec_3='Enterococcus species not sepcified';
+465        		if lowcase(strip(org_spec_4))='enterococcus species' then org_spec_4='Enterococcus species not sepcified';
+466        		if lowcase(strip(org_spec_5))='enterococcus species' then org_spec_5='Enterococcus species not sepcified';
+467        
+468        		if lowcase(strip(org_spec_1))='enterococcus species, beta-lactama ngative' then org_spec_1='Enterococcus species,
+468      ! beta-lactamase ngative';
+469        		if lowcase(strip(org_spec_2))='enterococcus species, beta-lactama ngative' then org_spec_2='Enterococcus species,
+469      ! beta-lactamase ngative';
+470        		if lowcase(strip(org_spec_3))='enterococcus species, beta-lactama ngative' then org_spec_3='Enterococcus species,
+470      ! beta-lactamase ngative';
+471        		if lowcase(strip(org_spec_4))='enterococcus species, beta-lactama ngative' then org_spec_4='Enterococcus species,
+471      ! beta-lactamase ngative';
+472        		if lowcase(strip(org_spec_5))='enterococcus species, beta-lactama ngative' then org_spec_5='Enterococcus species,
+472      ! beta-lactamase ngative';
+473        
+474        
+475        		if lowcase(strip(org_spec_1))='lactobacillus' then org_spec_1='Lactobacillus species';
+476        		if lowcase(strip(org_spec_2))='lactobacillus' then org_spec_2='Lactobacillus species';
+477        		if lowcase(strip(org_spec_3))='lactobacillus' then org_spec_3='Lactobacillus species';
+478        		if lowcase(strip(org_spec_4))='lactobacillus' then org_spec_4='Lactobacillus species';
+479        		if lowcase(strip(org_spec_5))='lactobacillus' then org_spec_5='Lactobacillus species';
+480        
+481        
+482        		if lowcase(scan(org_spec_1,1))='serratia' then org_spec_1='Serratia marcescens';
+483        		if lowcase(scan(org_spec_2,1))='serratia' then org_spec_2='Serratia marcescens';
+484        		if lowcase(scan(org_spec_3,1))='serratia' then org_spec_3='Serratia marcescens';
+                                                           The SAS System
+
+485        		if lowcase(scan(org_spec_4,1))='serratia' then org_spec_4='Serratia marcescens';
+486        		if lowcase(scan(org_spec_5,1))='serratia' then org_spec_5='Serratia marcescens';
+487        			
+488        		if ~frozen then delete;
+489        	run;
+
+NOTE: There were 235 observations read from the data set GLND.PLATE101.
+NOTE: There were 235 observations read from the data set GLND.PLATE102.
+NOTE: There were 235 observations read from the data set GLND.PLATE103.
+NOTE: There were 235 observations read from the data set GLND_CUR.PLATE101.
+NOTE: There were 235 observations read from the data set GLND_CUR.PLATE102.
+NOTE: The data set GLND_REP.SUSPECTED_NOSO_BEFORE_ADJ has 235 observations and 18 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.33 seconds
+      cpu time            0.07 seconds
+      
+
+490        	
+491        
+492        	
+493        	/*
+494        	glnd.plate101 (keep = id dfseq dt_infect cult_obtain cult_positive cult_org_code_1 org_spec_1 )
+495        				glnd.plate102 (keep = id dfseq cult_org_code_2 cult_org_code_3 cult_org_code_4 cult_org_code_5 org_spec_2 org_spec_3
+495      ! org_spec_4 org_spec_5)
+496        				glnd.plate103 (keep = id dfseq infect_confirm site_code type_code)
+497        				*/
+498        	
+499        	
+500        	
+500      !  data glnd_rep.suspected_noso_before_adj ;
+501        		merge 	glnd_rep.suspected_noso_before_adj  (in = has_infection)
+502        				glnd.status	(keep = id dt_random center apache_2)
+503        			;
+504        	
+505        		by id;
+506        
+507        
+508        		* delete people brought in from status with NO infections ;
+509        			if ~has_infection then DELETE;
+510        
+511        		* determine if prevalent or incident. 
+512        			* incident if yes to nosocomial (pg 3) and more than 2 calendar days after randomization (though technically 48 hours
+512      ! after time of study drug starting, we do not record time of infection onset, nor is this something that is possible to
+512      ! determine) ;
+513        			* prevalent if yes to nosocomial (pg 3) and less than 2 calendar days after randomization (though technically 48 hours
+513      !  after time of study drug starting, we do not record time of infection onset, nor is this something that is possible to
+513      ! determine) ;
+514        	
+515        		* determine infection onset ;	 
+516        			days_post_entry = dt_infect - dt_random;	
+517        
+518        			if ((infect_confirm = 1) | (infect_confirm = 2)) & (days_post_entry > 2) then incident = 1;
+519        			else if ((infect_confirm = 1) | (infect_confirm = 2)) & (days_post_entry <= 2) then incident = 0;
+520        
+521        		* recode vars for non-infections;
+522        			if (infect_confirm > 2) then incident = .;  
+523        			if site_code ="0000" then site_code = " ";
+524        			if type_code ="0000" then type_code = " ";
+                                                           The SAS System
+
+525        				
+526        		format
+527        			incident yn.;
+528        			
+529        		
+530        		label
+531        			incident = "Incident"
+532        			days_post_entry = "Days post study entry"
+533        			cult_positive="Culture positive?"
+534        			cult_obtain="Culture obtained?"
+535        	        	site_code="Site code"
+536        	        	type_code="Type code"
+537        			infect_confirm="Infection confirmed?"
+538        			center = "Center"
+539        		;
+540        
+541        	run;
+
+NOTE: There were 235 observations read from the data set GLND_REP.SUSPECTED_NOSO_BEFORE_ADJ.
+NOTE: There were 130 observations read from the data set GLND.STATUS.
+NOTE: The data set GLND_REP.SUSPECTED_NOSO_BEFORE_ADJ has 235 observations and 23 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.20 seconds
+      cpu time            0.02 seconds
+      
+
+542        
+543        
+544        ** CAPTURE SOME SAMPLE SIZES, FOR REPEAT USE **;
+545        
+546        		* capture sample size of number of suspected infections;
+547        			
+547      !    proc means data= glnd_rep.suspected_noso_before_adj noprint;
+548        				output out= noso_n n(id) = id_n;
+549        			run;
+
+NOTE: There were 235 observations read from the data set GLND_REP.SUSPECTED_NOSO_BEFORE_ADJ.
+NOTE: The data set WORK.NOSO_N has 1 observations and 3 variables.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.04 seconds
+      
+
+549      !        
+550        			
+550      !    data _null_;
+551        				set noso_n;
+552        		
+553        				call symput('n_susp_infec', put(id_n, 3.0));
+554        			run;
+
+NOTE: There were 1 observations read from the data set WORK.NOSO_N.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+554      !        
+                                                           The SAS System
+
+555        	
+556        		* capture sample size of total people on study; 
+557        			
+557      !    proc means data= glnd.status noprint;
+558        				output out= study_n n(id) = id_n;
+559        			run;
+
+NOTE: There were 130 observations read from the data set GLND.STATUS.
+NOTE: The data set WORK.STUDY_N has 1 observations and 3 variables.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+      
+
+559      !        
+560        			
+560      !    data _null_;
+561        				set study_n;
+562        		
+563        				call symput('n_study_1', put(id_n, 3.0));
+564        			run;
+
+NOTE: There were 1 observations read from the data set WORK.STUDY_N.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+564      !        
+565        
+566        
+567        
+568        ** compile a SAVED dataset of all reported suspected infections, AFTER ADJUDICATION **;
+569        	
+570        	* combine plates 56 and 57;
+571        	
+571      !  proc sort data = glnd.plate56; by id infect_visitno; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+572        	
+572      !  proc sort data = glnd.plate57; by id infect_visitno; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+573        	
+573      !  proc sort data = glnd_rep.suspected_noso_before_adj; by id dfseq; run;
+
+NOTE: There were 235 observations read from the data set GLND_REP.SUSPECTED_NOSO_BEFORE_ADJ.
+NOTE: The data set GLND_REP.SUSPECTED_NOSO_BEFORE_ADJ has 235 observations and 23 variables.
+                                                           The SAS System
+
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.18 seconds
+      cpu time            0.01 seconds
+      
+
+574        
+575        
+576        
+577        	
+577      !  data adjudication;
+578        		merge
+579        			glnd.plate56 (	in = had_adj
+580        					drop = dfcreate dfmodify dfplate dfraster dfscreen dfstatus dfvalid ptint
+581        						rename = (site_code = site_code_adj type_code = type_code_adj cult_pos = cult_positive_adj infect_confirm =
+581      ! infect_confirm_adj
+582        								inf_onset_dt = dt_infect_adj ) )
+583        			glnd.plate57 (drop = dfcreate dfmodify dfplate dfraster dfscreen dfstatus dfvalid )
+584        			glnd_rep.suspected_noso_before_adj (rename = (dfseq = infect_visitno))
+585        		;
+586        		by id infect_visitno;
+587        		
+588        		
+589        		if (had_adj) then adjudicated = 1; else adjudicated = 0;
+590        
+591        		** make these two changes in the data for this DSMB report only **;
+592        		if (id = 11041) & (infect_visitno = 106) then agree_site = 1;
+593        		if (id = 12063) & (infect_visitno = 102) then agree_site = 1;
+594        		
+595        		if (id = 12155) & (infect_visitno = 103) then agree_site = 0;
+596        		
+597        		if type_code_adj = "PNUI" then type_code_adj = "PNU1"; * 3 such errors for this report;
+598        
+599        		
+600        		format adjudicated yn.;
+601        	run;
+
+NOTE: There were 138 observations read from the data set GLND.PLATE56.
+NOTE: There were 137 observations read from the data set GLND.PLATE57.
+NOTE: There were 235 observations read from the data set GLND_REP.SUSPECTED_NOSO_BEFORE_ADJ.
+NOTE: The data set WORK.ADJUDICATION has 235 observations and 57 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.03 seconds
+      
+
+602        
+603        	
+603      !  proc contents data= glnd_rep.suspected_noso_before_adj ; run;
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.05 seconds
+      
+NOTE: The PROCEDURE CONTENTS printed pages 1-2.
+
+604        	
+604      !  proc contents data= adjudication ; run;
+
+                                                           The SAS System
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+NOTE: The PROCEDURE CONTENTS printed pages 3-4.
+
+605        /**	proc contents data= glnd.plate56 ; run;
+606        	proc contents data= glnd.plate57 ; run;
+607        ***/
+608        
+609        	** Make a table that summarizes the number of cases adjudicated and the basic findings - infections confirmed and
+609      ! whether they are incident or not ** ;	
+610        	
+611        		*** total number of cases and patients ***;
+612        			
+612      !    data ids_adjudicated;
+613        				set adjudication;
+614        				where adjudicated;
+615        				by id;
+616        			
+617        				if ~first.id then delete;
+618        			run;
+
+NOTE: There were 138 observations read from the data set WORK.ADJUDICATION.
+      WHERE adjudicated;
+NOTE: The data set WORK.IDS_ADJUDICATED has 44 observations and 57 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+619        		
+620        			* total cases;
+621        			
+621      !    proc means data = adjudication noprint;
+622        				where (adjudicated) & (adjud_dt > mdy(&last_dsmb_date));
+623        				output out = adjud_cases sum(adjudicated) = adjud_cases;
+624        			run;
+
+NOTE: There were 12 observations read from the data set WORK.ADJUDICATION.
+      WHERE adjudicated and (adjud_dt>MDY(4, 1, 2010));
+NOTE: The data set WORK.ADJUD_CASES has 1 observations and 3 variables.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+625        
+626        			* total people;
+627        			
+627      !    proc means data = ids_adjudicated noprint;
+628        				where (adjud_dt > mdy(&last_dsmb_date));
+629        				output out = adjud_people sum(adjudicated) = adjud_people;
+630        			run;
+
+NOTE: There were 6 observations read from the data set WORK.IDS_ADJUDICATED.
+      WHERE adjud_dt>MDY(4, 1, 2010);
+NOTE: The data set WORK.ADJUD_PEOPLE has 1 observations and 3 variables.
+                                                           The SAS System
+
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.04 seconds
+      
+
+631        			
+632        			* display portions for table;
+633        			
+633      !    data adj_totals;
+634        				merge 	adjud_cases
+635        					adjud_people
+636        				;
+637        				* BY NOTHING - 1 obs;
+638        												
+639        				length row $70;
+640        				length display_1 $25;
+641        				length display_2 $25;
+642        				
+643        				row = " ";
+644        				display_1 = "# infec. (# patients)";
+645        				output;
+646        								
+647        				row = "Infections reviewed since last DSMB report:";
+648        				display_1 = compress(put(adjud_cases, 4.0)) || " (" || compress(put(adjud_people, 4.0)) || ")";
+649        				output;
+650        
+651        				*** store total number of people's records adjudicated - when I report this in the summaries, we are assuming that if
+651      !  the adjudicator has reviewed any records
+652        					for a patient, then he has reviewed them for ALL infection for that patient;
+653        				call symput('n_adjudicated', put(adjud_people, 3.0));
+654        
+655        			run;
+
+NOTE: Variable display_2 is uninitialized.
+NOTE: There were 1 observations read from the data set WORK.ADJUD_CASES.
+NOTE: There were 1 observations read from the data set WORK.ADJUD_PEOPLE.
+NOTE: The data set WORK.ADJ_TOTALS has 2 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+656        			
+657        				
+658        				
+659        		
+660        		*** total agreement with original findings *** ;
+661        		
+662        	
+663        		
+664        			
+664      !    proc freq data = adjudication noprint;
+665        				where adjudicated & (adjud_dt > mdy(&last_dsmb_date));
+666        				tables agree_site / out = agree_summary outcum;
+667        			run;
+
+NOTE: There were 12 observations read from the data set WORK.ADJUDICATION.
+      WHERE adjudicated and (adjud_dt>MDY(4, 1, 2010));
+                                                           The SAS System
+
+NOTE: The data set WORK.AGREE_SUMMARY has 2 observations and 5 variables.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+667      !        		
+668        			
+669        	
+670        			
+670      !    data adj_overview;
+671        				set agree_summary;
+672        				
+673        				length row $70;
+674        				length display_1 $25;
+675        				length display_2 $25;
+676        
+677        				
+678        				if (_N_ = 1) then do;
+679        					row = "Adjudicator agreed with clinical center findings?";
+680        					display_1 = " ";
+681        					output;
+682        					order = -2;
+683        				end;
+684        			
+685        				order = agree_site * -1 ; * remap 0 to 0 and 1 to -1 so that can properly sort;
+686        				
+687        				row = "- " || compress(put(agree_site, yn.));
+688        				display_1 = compress(put(count,4.0)) || "/" || compress(put(count/(percent/100),4.0)) || " (" ||
+688      ! compress(put(percent, 4.1)) || "%)";
+689        				output;
+690        				
+691        				if (agree_site = 0) then call symput("num_cases_not_agreed" , compress(put(count,4.0)));
+692        			run;
+
+NOTE: Variable display_2 is uninitialized.
+NOTE: There were 2 observations read from the data set WORK.AGREE_SUMMARY.
+NOTE: The data set WORK.ADJ_OVERVIEW has 3 observations and 9 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+693        			
+694        			
+694      !    proc sort data = adj_overview; by order; run;
+
+NOTE: There were 3 observations read from the data set WORK.ADJ_OVERVIEW.
+NOTE: The data set WORK.ADJ_OVERVIEW has 3 observations and 9 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+695        			
+696        			
+697        		*** show the changes in general findings ***;
+698        		
+                                                           The SAS System
+
+699        			
+699      !    proc freq data = adjudication noprint;
+700        				where (adjudicated) & (agree_site = 0) & (adjud_dt > mdy(&last_dsmb_date));
+701        				tables infect_confirm / out = orig_finding_summary missing ;
+702        				tables infect_confirm_adj /out = adj_finding_summary missing;
+703        			run;
+
+NOTE: There were 7 observations read from the data set WORK.ADJUDICATION.
+      WHERE adjudicated and (agree_site=0) and (adjud_dt>MDY(4, 1, 2010));
+NOTE: The data set WORK.ORIG_FINDING_SUMMARY has 3 observations and 3 variables.
+NOTE: The data set WORK.ADJ_FINDING_SUMMARY has 2 observations and 3 variables.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+704        			
+705        			
+705      !    data compare_infect_confirm;	
+706        				merge
+707        					orig_finding_summary
+708        					adj_finding_summary (rename = (infect_confirm_adj = infect_confirm  	count = count_adj 	percent = percent_adj))
+709        				;
+710        				by infect_confirm;
+711        			
+712        				if (_N_ = 1) then do;
+713        					row = "Nosocomial infection confirmed?";
+714        					display_1 = "== Locally ==";
+715        					display_2 = "== Centrally ==";
+716        					output;
+717        				end;
+718        			
+719        				if count = . then count = 0; 	* some categories are missing ;
+720        				if count_adj = . then count_adj = 0;
+721        			
+722        				row = "- " || put(infect_confirm, infect_confirm.);
+723        				display_1 = compress(put(count,4.0)) || "/" || compress(&num_cases_not_agreed) || " (" ||
+723      ! compress(put((count/&num_cases_not_agreed) * 100 , 4.1)) || "%)";
+724        				display_2 = compress(put(count_adj,4.0)) || "/" || compress(&num_cases_not_agreed) || " (" ||
+724      ! compress(put((count_adj/&num_cases_not_agreed) * 100, 4.1)) || "%)";
+725        				output;
+726        			run;
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      723:1   724:1   
+NOTE: There were 3 observations read from the data set WORK.ORIG_FINDING_SUMMARY.
+NOTE: There were 2 observations read from the data set WORK.ADJ_FINDING_SUMMARY.
+NOTE: The data set WORK.COMPARE_INFECT_CONFIRM has 5 observations and 8 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+727        	
+728        	
+729        		*** total number of altogether new infections found - data from 	nosocomial_adjudicated_new_infections.sas ***;
+730        			
+730      !    proc means data = glnd.adjudicated_new_infections;
+                                                           The SAS System
+
+731        				
+732        				output out = new_infect sum(adjudicated_new_infect) = total_new_infect;
+733        			run;
+
+NOTE: There were 1 observations read from the data set GLND.ADJUDICATED_NEW_INFECTIONS.
+NOTE: The data set WORK.NEW_INFECT has 1 observations and 3 variables.
+NOTE: The PROCEDURE MEANS printed page 5.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+734        			
+735        			
+735      !    data new_infect;
+736        				set new_infect;
+737        			
+738        				row = "Number of previously unreported infections found:";
+739        				display_1 = "0"; 			***** DONE FOR March 2009 DSMB  compress(put(total_new_infect, 4.0));
+740        				
+741        			run;
+
+NOTE: There were 1 observations read from the data set WORK.NEW_INFECT.
+NOTE: The data set WORK.NEW_INFECT has 1 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+742        	
+743        			
+744        	
+745        		*** a blank row ***;
+746        			
+746      !    data blank_row;
+747        				row = " ";
+748        				display_1 = " ";
+749        				display_2 = " ";
+750        			run;
+
+NOTE: The data set WORK.BLANK_ROW has 1 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+751        			
+752        			
+753        		*** Stack the tables and print ***;
+754        		*** STILL ADD: 	1. incident/prevalent summary *** ;
+755        	
+756        			
+756      !    data glnd_rep.nosocomial_adj_summary_open;
+757        				set 	adj_totals
+758        						blank_row
+759        					adj_overview
+760        						blank_row
+761        					compare_infect_confirm
+                                                           The SAS System
+
+762        						blank_row
+763        					new_infect
+764        				;
+765        			keep row display_1 display_2;	
+766        				label
+767        					row = ' '
+768        					display_1 = ' '
+769        					display_2 = ' '
+770        					;
+771        			run;
+
+NOTE: There were 2 observations read from the data set WORK.ADJ_TOTALS.
+NOTE: There were 1 observations read from the data set WORK.BLANK_ROW.
+NOTE: There were 3 observations read from the data set WORK.ADJ_OVERVIEW.
+NOTE: There were 1 observations read from the data set WORK.BLANK_ROW.
+NOTE: There were 5 observations read from the data set WORK.COMPARE_INFECT_CONFIRM.
+NOTE: There were 1 observations read from the data set WORK.BLANK_ROW.
+NOTE: There were 1 observations read from the data set WORK.NEW_INFECT.
+NOTE: The data set GLND_REP.NOSOCOMIAL_ADJ_SUMMARY_OPEN has 14 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.01 seconds
+      
+
+772        			
+773        
+774        	*ods pdf file = "/glnd/sas/reporting/nosocomial_adjudicated_summary_open.pdf" style = journal ;
+775        	ods pdf file = "nosocomial_adjudicated_summary_open.pdf" style = journal ;
+NOTE: Writing ODS PDF output to DISK destination "/home/bwu2/spelling/nosocomial_adjudicated_summary_open.pdf", printer "PDF".
+776        			title "Summary of nosocomial infection adjudications since the last DSMB report";
+777        			
+777      !    proc print data = glnd_rep.nosocomial_adj_summary_open noobs label style(header) = [just=center];
+778        				var row ;
+779        
+780        				label row='00'x
+781           			   display_1='00'x
+782           			   display_2='00'x;				var display_1 display_2 /style(data) = [just=center];
+783        			run;
+
+NOTE: There were 14 observations read from the data set GLND_REP.NOSOCOMIAL_ADJ_SUMMARY_OPEN.
+NOTE: The PROCEDURE PRINT printed page 6.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.05 seconds
+      
+
+784        	ods pdf close;
+NOTE: ODS PDF printed 1 page to /home/bwu2/spelling/nosocomial_adjudicated_summary_open.pdf.
+785        	
+786        			
+786      !    proc print data = adjudication;
+787        				where (adjudicated) & (agree_site = 0);
+788        				var id infect_visitno infect_confirm_adj;
+789        			run;
+
+NOTE: There were 70 observations read from the data set WORK.ADJUDICATION.
+      WHERE adjudicated and (agree_site=0);
+NOTE: The PROCEDURE PRINT printed pages 7-8.
+                                                           The SAS System
+
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+790        		
+791        
+792        	** Make a table of the pre-adjudication results, for those people who were adjudicated! **;
+793        	
+794        		
+794      !   data adjudicated_people_before;
+795        			set adjudication;
+796        			where adjudicated & (adjud_dt > mdy(&last_dsmb_date));
+797        		run;
+
+NOTE: There were 12 observations read from the data set WORK.ADJUDICATION.
+      WHERE adjudicated and (adjud_dt>MDY(4, 1, 2010));
+NOTE: The data set WORK.ADJUDICATED_PEOPLE_BEFORE has 12 observations and 57 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+798        	
+799        		%nosocomial_episode_table_open(datasource = adjudicated_people_before, filename = nosocomial_before_adj_open, n_study =
+799      !  &n_adjudicated, custom_title = "Details of reported nosocomial infections for &n_adjudicated patients, prior to review")
+799      ! ;
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      799:209   799:246   799:57    799:94    799:157   799:194   799:2     799:39    
+NOTE: There were 12 observations read from the data set WORK.ADJUDICATED_PEOPLE_BEFORE.
+NOTE: The data set WORK.ADJUDICATED_PEOPLE_BEFORE has 12 observations and 62 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 7 observations read from the data set WORK.ADJUDICATED_PEOPLE_BEFORE.
+      WHERE infect_confirm in (1, 2);
+NOTE: The data set WORK.BY_EPISODE has 7 observations and 49 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 7 observations read from the data set WORK.ADJUDICATED_PEOPLE_BEFORE.
+      WHERE infect_confirm in (1, 2);
+NOTE: The data set WORK.BY_ORGANISM_ALL_INFEC has 11 observations and 50 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 11 observations read from the data set WORK.BY_ORGANISM_ALL_INFEC.
+NOTE: The data set WORK.BY_ORGANISM_ALL_INFEC has 11 observations and 50 variables.
+                                                           The SAS System
+
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 5 observations read from the data set WORK.BY_EPISODE.
+      WHERE incident=1;
+NOTE: The data set WORK.EPISODE_INFECT has 12 observations and 5 variables.
+NOTE: The PROCEDURE MEANS printed page 9.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.04 seconds
+      
+
+
+NOTE: There were 4 observations read from the data set WORK.EPISODE_INFECT.
+      WHERE (site_code not = ' ') and (type_code not = ' ');
+NOTE: The data set WORK.EPISODE_INFECT has 4 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 7 observations read from the data set WORK.BY_EPISODE.
+NOTE: The data set WORK.BY_EPISODE has 7 observations and 49 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 7 observations read from the data set WORK.BY_EPISODE.
+NOTE: The data set WORK.EPISODE_PEOPLE has 7 observations and 49 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 7 observations read from the data set WORK.EPISODE_PEOPLE.
+NOTE: The data set WORK.EPISODE_PEOPLE_OUT has 31 observations and 6 variables.
+NOTE: The PROCEDURE MEANS printed page 10.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.05 seconds
+      
+
+
+NOTE: There were 5 observations read from the data set WORK.EPISODE_PEOPLE_OUT.
+      WHERE (site_code not = ' ') and (type_code not = ' ') and (incident not = .);
+NOTE: The data set WORK.EPISODE_PEOPLE_OUT has 5 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+                                                           The SAS System
+
+
+NOTE: There were 1 observations read from the data set WORK.EPISODE_PEOPLE_OUT.
+      WHERE incident=0;
+NOTE: The data set WORK.A has 1 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 4 observations read from the data set WORK.EPISODE_PEOPLE_OUT.
+      WHERE incident=1;
+NOTE: The data set WORK.B has 4 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.A.
+NOTE: The data set WORK.A has 1 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 4 observations read from the data set WORK.B.
+NOTE: The data set WORK.B has 4 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 4 observations read from the data set WORK.EPISODE_INFECT.
+NOTE: The data set WORK.EPISODE_INFECT has 4 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.A.
+NOTE: There were 4 observations read from the data set WORK.B.
+NOTE: There were 4 observations read from the data set WORK.EPISODE_INFECT.
+NOTE: The data set WORK.EPISODE_PEOPLE_OUT has 5 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 11 observations read from the data set WORK.BY_ORGANISM_ALL_INFEC.
+NOTE: The data set WORK.BY_ORGANISM_ALL_INFEC has 11 observations and 50 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+                                                           The SAS System
+
+      
+
+
+NOTE: There were 5 observations read from the data set WORK.EPISODE_PEOPLE_OUT.
+NOTE: There were 11 observations read from the data set WORK.BY_ORGANISM_ALL_INFEC.
+NOTE: The data set WORK.EPISODE_PEOPLE_OUT has 11 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.27 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 11 observations read from the data set WORK.EPISODE_PEOPLE_OUT.
+NOTE: The data set WORK.EPISODE_PEOPLE_OUT has 11 observations and 7 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 11 observations read from the data set WORK.EPISODE_PEOPLE_OUT.
+NOTE: The data set WORK.EPISODE_SUMMARY has 11 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 5 observations read from the data set WORK.BY_EPISODE.
+      WHERE incident=1;
+NOTE: The data set WORK.OVERALL_INFECT has 1 observations and 3 variables.
+NOTE: The PROCEDURE MEANS printed page 11.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.OVERALL_INFECT.
+NOTE: The data set WORK.OVERALL_INFECT has 1 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 7 observations read from the data set WORK.BY_EPISODE.
+NOTE: The data set WORK.BY_EPISODE has 7 observations and 49 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 7 observations read from the data set WORK.BY_EPISODE.
+NOTE: The data set WORK.EPISODE_PEOPLE has 4 observations and 49 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+                                                           The SAS System
+
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 4 observations read from the data set WORK.EPISODE_PEOPLE.
+NOTE: The data set WORK.OVERALL_PEOPLE_OUT has 3 observations and 4 variables.
+NOTE: The PROCEDURE MEANS printed page 12.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.06 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.OVERALL_PEOPLE_OUT.
+      WHERE incident not = .;
+NOTE: The data set WORK.OVERALL_PEOPLE_OUT has 2 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.OVERALL_PEOPLE_OUT.
+      WHERE incident=0;
+NOTE: The data set WORK.A has 1 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.OVERALL_PEOPLE_OUT.
+      WHERE incident=1;
+NOTE: The data set WORK.B has 1 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.A.
+NOTE: There were 1 observations read from the data set WORK.B.
+NOTE: There were 1 observations read from the data set WORK.OVERALL_INFECT.
+NOTE: The data set WORK.OVERALL_PEOPLE_OUT has 1 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.OVERALL_PEOPLE_OUT.
+NOTE: The data set WORK.SUMMARY_TEMP has 1 observations and 8 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+                                                           The SAS System
+
+NOTE: There were 11 observations read from the data set WORK.EPISODE_SUMMARY.
+NOTE: There were 1 observations read from the data set WORK.SUMMARY_TEMP.
+NOTE: The data set WORK.EPISODE_SUMMARY has 12 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+NOTE: Format $SITE_CODE has been output.
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: Writing ODS PS output to DISK destination "/home/bwu2/spelling/nosocomial_before_adj_open.ps", printer "POSTSCRIPT".
+NOTE: Writing ODS PDF output to DISK destination "/home/bwu2/spelling/nosocomial_before_adj_open.pdf", printer "PDF".
+
+NOTE: There were 12 observations read from the data set WORK.EPISODE_SUMMARY.
+NOTE: The data set WORK.EPISODE_SUMMARY has 12 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 12 observations read from the data set WORK.EPISODE_SUMMARY.
+NOTE: The PROCEDURE PRINT printed page 13.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.07 seconds
+      
+
+
+NOTE: There were 12 observations read from the data set WORK.EPISODE_SUMMARY.
+NOTE: The data set GLND_REP.NOSOCOMIAL_BEFORE_ADJ_OPEN has 12 observations and 14 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.01 seconds
+      
+
+NOTE: ODS PDF printed 1 page to /home/bwu2/spelling/nosocomial_before_adj_open.pdf.
+NOTE: ODS PS printed 1 page to /home/bwu2/spelling/nosocomial_before_adj_open.ps.
+800        
+801        
+802        
+803        	** Now go through the changed infections and update those records **;
+804        
+805        	* reduce dataset to only those infections which have changed ;
+806        	
+806      !  data adj_changed;
+807        		set adjudication;
+808        	
+809        		incident_prev = incident;
+810        
+811        		if (agree_site = 0) then do;
+812        
+813        			** SECTION 1 ** ;
+                                                                                                                      The SAS System
+
+814        			if (infect_confirm_adj ~= .) then do;
+815        			
+816        				infect_confirm = infect_confirm_adj;
+817        				site_code = site_code_adj;
+818        				type_code = type_code_adj;
+819        			end;
+820        			
+821        
+822        			if (dt_infect_adj ~= .) then do;
+823        			
+824        				*** update date of infection;
+825        				dt_infect = dt_infect_adj;
+826        			
+827        				days_post_entry = dt_infect - dt_random;	
+828        
+829        			end;
+830        
+831        			if (cult_positive_adj ~= .) then cult_positive = cult_positive_adj;
+832        
+833        			*** recalculate incidence ;
+834        				
+835        				if ((infect_confirm = 1) | (infect_confirm = 2)) & (days_post_entry > 2) then incident = 1;
+836        				else if ((infect_confirm = 1) | (infect_confirm = 2)) & (days_post_entry <= 2) then incident = 0;
+837        
+838        				* recode vars for non-infections;
+839        				if (infect_confirm > 2) then incident = .;  
+840        			
+841        			* I am skipping the "new infection at the same site question" for now because it does have any bearing on this report.
+842        				This is more of an interal check to ensure that the infection is truly unique. However, Section 1, Q3 (infect_confirm)
+843        				pretty much answers this! ;
+844        			
+845        			
+846        			** CHANGE ORGANISMS **;
+847        			
+848        			if (cult_a_no ~= .) then do;
+849        			
+850        				** ADD/CHANGE **;
+851        				* cannot use CALL SYMPUT or macro variables here since they are saved only once at end of data step, not for each record! thus the huge repetition of code;
+852        				if ~(cult_a_code in (. , 99)) & (cult_a_no = 1) then do; cult_org_code_1 = cult_a_code; org_spec_1 = cult_a_org;  end; * beta-lactamase producer not needed;
+853        				if ~(cult_a_code in (. , 99)) & (cult_a_no = 2) then do; cult_org_code_2 = cult_a_code; org_spec_2 = cult_a_org;  end; * beta-lactamase producer not needed;
+854        				if ~(cult_a_code in (. , 99)) & (cult_a_no = 3) then do; cult_org_code_3 = cult_a_code; org_spec_3 = cult_a_org;  end; * beta-lactamase producer not needed;
+855        				if ~(cult_a_code in (. , 99)) & (cult_a_no = 4) then do; cult_org_code_4 = cult_a_code; org_spec_4 = cult_a_org;  end; * beta-lactamase producer not needed;
+856        				if ~(cult_a_code in (. , 99)) & (cult_a_no = 5) then do; cult_org_code_5 = cult_a_code; org_spec_5 = cult_a_org;  end; * beta-lactamase producer not needed;
+857        							
+858        				** DELETE **;
+859        				if (cult_a_code = 99) & (cult_a_no = 1) then do; cult_org_code_1 = .; org_spec_1 = ""; end; * beta-lactamase producer not needed;
+860        				if (cult_a_code = 99) & (cult_a_no = 2) then do; cult_org_code_2 = .; org_spec_2 = ""; end; * beta-lactamase producer not needed;
+861        				if (cult_a_code = 99) & (cult_a_no = 3) then do; cult_org_code_3 = .; org_spec_3 = ""; end; * beta-lactamase producer not needed;
+862        				if (cult_a_code = 99) & (cult_a_no = 4) then do; cult_org_code_4 = .; org_spec_4 = ""; end; * beta-lactamase producer not needed;
+863        				if (cult_a_code = 99) & (cult_a_no = 5) then do; cult_org_code_5 = .; org_spec_5 = ""; end; * beta-lactamase producer not needed;
+864        				
+865        			end;
+866        			
+867        			if (cult_b_no ~= .) then do;
+868        			
+869        				** ADD/CHANGE **;
+870        				if ~(cult_b_code in (. , 99)) & (cult_b_no = 1) then do; cult_org_code_1 = cult_b_code; org_spec_1 = cult_b_org;  end; * beta-lactamase producer not needed;
+871        				if ~(cult_b_code in (. , 99)) & (cult_b_no = 2) then do; cult_org_code_2 = cult_b_code; org_spec_2 = cult_b_org;  end; * beta-lactamase producer not needed;
+                                                                                                                      The SAS System
+
+872        				if ~(cult_b_code in (. , 99)) & (cult_b_no = 3) then do; cult_org_code_3 = cult_b_code; org_spec_3 = cult_b_org;  end; * beta-lactamase producer not needed;
+873        				if ~(cult_b_code in (. , 99)) & (cult_b_no = 4) then do; cult_org_code_4 = cult_b_code; org_spec_4 = cult_b_org;  end; * beta-lactamase producer not needed;
+874        				if ~(cult_b_code in (. , 99)) & (cult_b_no = 5) then do; cult_org_code_5 = cult_b_code; org_spec_5 = cult_b_org;  end; * beta-lactamase producer not needed;
+875        							
+876        				** DELETE **;
+877        				if (cult_b_code = 99) & (cult_b_no = 1) then do; cult_org_code_1 = .; org_spec_1 = ""; end; * beta-lactamase producer not needed;
+878        				if (cult_b_code = 99) & (cult_b_no = 2) then do; cult_org_code_2 = .; org_spec_2 = ""; end; * beta-lactamase producer not needed;
+879        				if (cult_b_code = 99) & (cult_b_no = 3) then do; cult_org_code_3 = .; org_spec_3 = ""; end; * beta-lactamase producer not needed;
+880        				if (cult_b_code = 99) & (cult_b_no = 4) then do; cult_org_code_4 = .; org_spec_4 = ""; end; * beta-lactamase producer not needed;
+881        				if (cult_b_code = 99) & (cult_b_no = 5) then do; cult_org_code_5 = .; org_spec_5 = ""; end; * beta-lactamase producer not needed;
+882        				
+883        			end;			
+884        			
+885        			if (cult_c_no ~= .) then do;
+886        			
+887        				** ADD/CHANGE **;
+888        				if ~(cult_c_code in (. , 99)) & (cult_c_no = 1) then do; cult_org_code_1 = cult_c_code; org_spec_1 = cult_c_org;  end; * beta-lactamase producer not needed;
+889        				if ~(cult_c_code in (. , 99)) & (cult_c_no = 2) then do; cult_org_code_2 = cult_c_code; org_spec_2 = cult_c_org;  end; * beta-lactamase producer not needed;
+890        				if ~(cult_c_code in (. , 99)) & (cult_c_no = 3) then do; cult_org_code_3 = cult_c_code; org_spec_3 = cult_c_org;  end; * beta-lactamase producer not needed;
+891        				if ~(cult_c_code in (. , 99)) & (cult_c_no = 4) then do; cult_org_code_4 = cult_c_code; org_spec_4 = cult_c_org;  end; * beta-lactamase producer not needed;
+892        				if ~(cult_c_code in (. , 99)) & (cult_c_no = 5) then do; cult_org_code_5 = cult_c_code; org_spec_5 = cult_c_org;  end; * beta-lactamase producer not needed;
+893        							
+894        				** DELETE **;
+895        				if (cult_c_code = 99) & (cult_c_no = 1) then do; cult_org_code_1 = .; org_spec_1 = ""; end; * beta-lactamase producer not needed;
+896        				if (cult_c_code = 99) & (cult_c_no = 2) then do; cult_org_code_2 = .; org_spec_2 = ""; end; * beta-lactamase producer not needed;
+897        				if (cult_c_code = 99) & (cult_c_no = 3) then do; cult_org_code_3 = .; org_spec_3 = ""; end; * beta-lactamase producer not needed;
+898        				if (cult_c_code = 99) & (cult_c_no = 4) then do; cult_org_code_4 = .; org_spec_4 = ""; end; * beta-lactamase producer not needed;
+899        				if (cult_c_code = 99) & (cult_c_no = 5) then do; cult_org_code_5 = .; org_spec_5 = ""; end; * beta-lactamase producer not needed;
+900        				
+901        			end;
+902        					
+903        			** don't worry about text display here. do that in recycled table-layout program! **;
+904        
+905        		end;
+906        
+907        		format site_code_adj $site_code. type_code_adj $type_code.;
+908        
+909        	run;
+
+NOTE: There were 235 observations read from the data set WORK.ADJUDICATION.
+NOTE: The data set WORK.ADJ_CHANGED has 235 observations and 58 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.08 seconds
+      cpu time            0.03 seconds
+      
+
+910        
+911        	title "SHOWING CHANGED ORGANISMS ";
+912        	
+912      !  proc print data = adj_changed;
+913        		var id infect_visitno agree_site cult_a_no cult_a_code cult_org_code_1 cult_org_code_2  cult_org_code_3 ;
+914        	run;
+
+NOTE: There were 235 observations read from the data set WORK.ADJ_CHANGED.
+NOTE: The PROCEDURE PRINT printed pages 14-18.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+                                                                                                                      The SAS System
+
+      
+
+915        
+916        
+917        /*
+918        	proc print data = adj_changed;
+919        		where agree_site = 0;
+920        		var id infect_visitno infect_confirm infect_confirm_adj site_code site_code_adj type_code type_code_adj;
+921        	run;
+922        */
+923        	
+923      !  proc freq data = adj_changed;
+924        		tables incident*incident_prev;
+925        	run;
+
+NOTE: There were 235 observations read from the data set WORK.ADJ_CHANGED.
+NOTE: The PROCEDURE FREQ printed page 19.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+926        
+927        
+928        	* ADD IN ALTOGETHER NEWLY DISCOVERED INFECTIONS DURING ADJUDICATION!
+929        	;
+930        	
+930      !  proc sort data= glnd.plate52; by id dfseq; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+930      !                                                 
+931        	
+931      !  proc sort data= glnd.plate53; by id dfseq; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+931      !                                                 
+932        	
+932      !  proc sort data= glnd.plate54; by id dfseq; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+932      !                                                 
+933        
+934        	* gather dates and infection data from forms;
+                                                                                                                      The SAS System
+
+935        
+936        	
+936      !  data new_noso ;
+937        		merge		glnd.plate52 (in = frozen keep = id dfc dfseq dt_infect cult_obtain cult_positive cult_org_code_1 org_spec_1 rename =(dfc = adjud_dt))
+938        				glnd.plate53 (keep = id dfseq cult_org_code_2 cult_org_code_3 cult_org_code_4 cult_org_code_5 org_spec_2 org_spec_3 org_spec_4 org_spec_5)
+939        				glnd.plate54 (keep = id dfseq site_code type_code)
+940        
+941        				;
+942        		by id dfseq; 		* <--- Note that this dfseq is not in sequence with "infect_visitno". this should be fixed using max (infect_visitno) for each ID + 1;
+943        		
+944        		
+945        		*** ADD THESE VARIABLES TO EACH NEW INFECTION OBSERVATION ***;
+946        		infect_confirm = 1;
+947        		adjudicated = 1;
+948        		adjudicated_new_infect = 1;
+949        		*** END ***;
+950        
+951        
+952        		* determine if prevalent or incident.
+953        			* incident if yes to nosocomial (pg 3) and more than 2 calendar days after randomization (though technically 48 hours after time of study drug starting, we do not record time of infection onset, nor is this something that is possible to
+953      !  determine) ;
+954        			* prevalent if yes to nosocomial (pg 3) and less than 2 calendar days after randomization (though technically 48 hours after time of study drug starting, we do not record time of infection onset, nor is this something that is possible
+954      ! to determine) ;
+955        	
+956        			* determine infection onset ;	
+957        			days_post_entry = dt_infect - dt_random;	
+958        
+959        			if ((infect_confirm = 1) | (infect_confirm = 2)) & (days_post_entry > 2) then incident = 1;
+960        			else if ((infect_confirm = 1) | (infect_confirm = 2)) & (days_post_entry <= 2) then incident = 0;
+961        	
+962        	run;
+
+NOTE: Variable dt_random is uninitialized.
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      2 at 957:32   
+NOTE: There were 2 observations read from the data set GLND.PLATE52.
+NOTE: There were 2 observations read from the data set GLND.PLATE53.
+NOTE: There were 2 observations read from the data set GLND.PLATE54.
+NOTE: The data set WORK.NEW_NOSO has 2 observations and 24 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+963        	
+964        title "wbh";
+965        proc print data=new_noso;run;
+
+NOTE: There were 2 observations read from the data set WORK.NEW_NOSO.
+NOTE: The PROCEDURE PRINT printed page 20.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+966        
+967        	
+                                                                                                                      The SAS System
+
+968        title "new adjudicated infections";
+969        proc contents data = adj_changed;
+970        run;
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+NOTE: The PROCEDURE CONTENTS printed pages 21-22.
+
+971        
+972        proc contents data = new_noso;
+973        run;
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+NOTE: The PROCEDURE CONTENTS printed pages 23-24.
+
+974        
+975        
+976        
+977        
+978        * deal with altogether newly reported infections - CREATE GLND.NOSOCOMIAL_ADJUDICATED_NEW_INFECT.SAS7BDAT? ;
+979        
+980        
+981        
+982        ** NEXT. 1. produce permanent dataset of all infection data, post-adjudication (ADD IN NEW INFECTIONS) **
+983        	2. feed both pre and post dataset to a table-reporting by-cases macro that reports on the infections that were adjudicated ;
+984        
+985        
+986        
+987        
+988        ** PRODUCE THE FULL PRE-ADJUDICATION NOSOCOMIAL INFECTION EPISODE TABLE, AS ORIGINALLY DONE IN NOSOCOMIAL_OPEN.SAS **;
+989        ** discountinued for March 2009 report - we now report this table on the hybrid dataset that is both adjudicated and not **;
+990        *	%nosocomial_episode_table_open(datasource = glnd_rep.suspected_noso_before_adj, filename = nosocomial_episode_table_open, n_study = &n_study_1 , custom_title = "All reported infections for &n_study patients - not adjudicated");
+991        
+992        	
+993        proc print data = glnd_rep.suspected_noso_before_adj;
+994        	title "People with BSI";
+995        	where compress(site_code) = "BSI";
+996        	var id ;
+997        run;
+
+NOTE: There were 40 observations read from the data set GLND_REP.SUSPECTED_NOSO_BEFORE_ADJ.
+      WHERE COMPRESS(site_code)='BSI';
+NOTE: The PROCEDURE PRINT printed page 25.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+998        
+999        title;
+1000       
+1001       ** Make a table of the post-adjudication results, for those people who were adjudicated! **;
+1002       	
+                                                                                                                      The SAS System
+
+1003       		
+1003     !   data glnd_rep.suspected_noso_after_adj;
+1004       			set
+1005       				adj_changed							/* ADJUDICATED CHANGES TO REPORTED INFECTIONS */
+1006       				new_noso	;			/* NEW INFECTIONS DISCOVERED THROUGH ADJUDICATION PROCESS */	
+1007       				* glnd.adjudicated_new_infections;	/* OLD VERSION  */
+1008       
+1009       			where adjudicated;
+1010       		run;
+
+NOTE: There were 138 observations read from the data set WORK.ADJ_CHANGED.
+      WHERE adjudicated;
+NOTE: There were 2 observations read from the data set WORK.NEW_NOSO.
+      WHERE adjudicated;
+NOTE: The data set GLND_REP.SUSPECTED_NOSO_AFTER_ADJ has 140 observations and 60 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.22 seconds
+      cpu time            0.02 seconds
+      
+
+1011       	
+1012       	
+1013       		
+1013     !   data adj_new;
+1014       			set glnd_rep.suspected_noso_after_adj;
+1015       			where (adjud_dt > mdy(&last_dsmb_date));
+1016       		run;
+
+NOTE: There were 12 observations read from the data set GLND_REP.SUSPECTED_NOSO_AFTER_ADJ.
+      WHERE adjud_dt>MDY(4, 1, 2010);
+NOTE: The data set WORK.ADJ_NEW has 12 observations and 60 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+1017       		%nosocomial_episode_table_open(datasource = adj_new, filename = nosocomial_after_adj_open, n_study = &n_adjudicated, custom_title = "Details of confirmed nosocomial infections for &n_adjudicated patients, after review");
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      1017:209   1017:246   1017:57    1017:94    1017:157   1017:194   1017:2     1017:39    
+NOTE: There were 12 observations read from the data set WORK.ADJ_NEW.
+NOTE: The data set WORK.ADJ_NEW has 12 observations and 65 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 6 observations read from the data set WORK.ADJ_NEW.
+      WHERE infect_confirm in (1, 2);
+NOTE: The data set WORK.BY_EPISODE has 6 observations and 52 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 6 observations read from the data set WORK.ADJ_NEW.
+                                                                                                                      The SAS System
+
+      WHERE infect_confirm in (1, 2);
+NOTE: The data set WORK.BY_ORGANISM_ALL_INFEC has 11 observations and 53 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 11 observations read from the data set WORK.BY_ORGANISM_ALL_INFEC.
+NOTE: The data set WORK.BY_ORGANISM_ALL_INFEC has 11 observations and 53 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 5 observations read from the data set WORK.BY_EPISODE.
+      WHERE incident=1;
+NOTE: The data set WORK.EPISODE_INFECT has 10 observations and 5 variables.
+NOTE: The PROCEDURE MEANS printed page 26.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.05 seconds
+      
+
+
+NOTE: There were 3 observations read from the data set WORK.EPISODE_INFECT.
+      WHERE (site_code not = ' ') and (type_code not = ' ');
+NOTE: The data set WORK.EPISODE_INFECT has 3 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 6 observations read from the data set WORK.BY_EPISODE.
+NOTE: The data set WORK.BY_EPISODE has 6 observations and 52 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 6 observations read from the data set WORK.BY_EPISODE.
+NOTE: The data set WORK.EPISODE_PEOPLE has 5 observations and 52 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 5 observations read from the data set WORK.EPISODE_PEOPLE.
+NOTE: The data set WORK.EPISODE_PEOPLE_OUT has 27 observations and 6 variables.
+NOTE: The PROCEDURE MEANS printed page 27.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.05 seconds
+      
+                                                                                                                      The SAS System
+
+
+
+NOTE: There were 4 observations read from the data set WORK.EPISODE_PEOPLE_OUT.
+      WHERE (site_code not = ' ') and (type_code not = ' ') and (incident not = .);
+NOTE: The data set WORK.EPISODE_PEOPLE_OUT has 4 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.EPISODE_PEOPLE_OUT.
+      WHERE incident=0;
+NOTE: The data set WORK.A has 1 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 3 observations read from the data set WORK.EPISODE_PEOPLE_OUT.
+      WHERE incident=1;
+NOTE: The data set WORK.B has 3 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.A.
+NOTE: The data set WORK.A has 1 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 3 observations read from the data set WORK.B.
+NOTE: The data set WORK.B has 3 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 3 observations read from the data set WORK.EPISODE_INFECT.
+NOTE: The data set WORK.EPISODE_INFECT has 3 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.A.
+NOTE: There were 3 observations read from the data set WORK.B.
+NOTE: There were 3 observations read from the data set WORK.EPISODE_INFECT.
+NOTE: The data set WORK.EPISODE_PEOPLE_OUT has 4 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+                                                                                                                      The SAS System
+
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 11 observations read from the data set WORK.BY_ORGANISM_ALL_INFEC.
+NOTE: The data set WORK.BY_ORGANISM_ALL_INFEC has 11 observations and 53 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 4 observations read from the data set WORK.EPISODE_PEOPLE_OUT.
+NOTE: There were 11 observations read from the data set WORK.BY_ORGANISM_ALL_INFEC.
+NOTE: The data set WORK.EPISODE_PEOPLE_OUT has 11 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 11 observations read from the data set WORK.EPISODE_PEOPLE_OUT.
+NOTE: The data set WORK.EPISODE_PEOPLE_OUT has 11 observations and 7 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 11 observations read from the data set WORK.EPISODE_PEOPLE_OUT.
+NOTE: The data set WORK.EPISODE_SUMMARY has 11 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 5 observations read from the data set WORK.BY_EPISODE.
+      WHERE incident=1;
+NOTE: The data set WORK.OVERALL_INFECT has 1 observations and 3 variables.
+NOTE: The PROCEDURE MEANS printed page 28.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.OVERALL_INFECT.
+NOTE: The data set WORK.OVERALL_INFECT has 1 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 6 observations read from the data set WORK.BY_EPISODE.
+NOTE: The data set WORK.BY_EPISODE has 6 observations and 52 variables.
+                                                                                                                      The SAS System
+
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 6 observations read from the data set WORK.BY_EPISODE.
+NOTE: The data set WORK.EPISODE_PEOPLE has 3 observations and 52 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 3 observations read from the data set WORK.EPISODE_PEOPLE.
+NOTE: The data set WORK.OVERALL_PEOPLE_OUT has 3 observations and 4 variables.
+NOTE: The PROCEDURE MEANS printed page 29.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.05 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.OVERALL_PEOPLE_OUT.
+      WHERE incident not = .;
+NOTE: The data set WORK.OVERALL_PEOPLE_OUT has 2 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.OVERALL_PEOPLE_OUT.
+      WHERE incident=0;
+NOTE: The data set WORK.A has 1 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.OVERALL_PEOPLE_OUT.
+      WHERE incident=1;
+NOTE: The data set WORK.B has 1 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.A.
+NOTE: There were 1 observations read from the data set WORK.B.
+NOTE: There were 1 observations read from the data set WORK.OVERALL_INFECT.
+NOTE: The data set WORK.OVERALL_PEOPLE_OUT has 1 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+                                                                                                                      The SAS System
+
+
+
+NOTE: There were 1 observations read from the data set WORK.OVERALL_PEOPLE_OUT.
+NOTE: The data set WORK.SUMMARY_TEMP has 1 observations and 8 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 11 observations read from the data set WORK.EPISODE_SUMMARY.
+NOTE: There were 1 observations read from the data set WORK.SUMMARY_TEMP.
+NOTE: The data set WORK.EPISODE_SUMMARY has 12 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+NOTE: Format $SITE_CODE is already on the library.
+NOTE: Format $SITE_CODE has been output.
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+NOTE: Writing ODS PS output to DISK destination "/home/bwu2/spelling/nosocomial_after_adj_open.ps", printer "POSTSCRIPT".
+NOTE: Writing ODS PDF output to DISK destination "/home/bwu2/spelling/nosocomial_after_adj_open.pdf", printer "PDF".
+
+NOTE: There were 12 observations read from the data set WORK.EPISODE_SUMMARY.
+NOTE: The data set WORK.EPISODE_SUMMARY has 12 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 12 observations read from the data set WORK.EPISODE_SUMMARY.
+NOTE: The PROCEDURE PRINT printed page 30.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.08 seconds
+      
+
+
+NOTE: There were 12 observations read from the data set WORK.EPISODE_SUMMARY.
+NOTE: The data set GLND_REP.NOSOCOMIAL_AFTER_ADJ_OPEN has 12 observations and 14 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.01 seconds
+      
+
+NOTE: ODS PDF printed 1 page to /home/bwu2/spelling/nosocomial_after_adj_open.pdf.
+NOTE: ODS PS printed 1 page to /home/bwu2/spelling/nosocomial_after_adj_open.ps.
+1018       
+1019       
+1020       
+1021       ** Sort pre and post-adjudication datasets, create a hybrid infection dataset that contains the adjudicated records for those adjudicated
+                                                                                                                      The SAS System
+
+1022       	and the non-adjudicated records for those IDs not yet adjudicated ;
+1023       
+1024       	
+1024     !  proc sort data =  glnd_rep.suspected_noso_before_adj; by id site_code type_code dt_infect ; run;
+
+NOTE: There were 235 observations read from the data set GLND_REP.SUSPECTED_NOSO_BEFORE_ADJ.
+NOTE: The data set GLND_REP.SUSPECTED_NOSO_BEFORE_ADJ has 235 observations and 23 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.17 seconds
+      cpu time            0.00 seconds
+      
+
+1025       	
+1025     !  proc sort data =  glnd_rep.suspected_noso_after_adj; by id site_code type_code dt_infect ; run;
+
+NOTE: There were 140 observations read from the data set GLND_REP.SUSPECTED_NOSO_AFTER_ADJ.
+NOTE: The data set GLND_REP.SUSPECTED_NOSO_AFTER_ADJ has 140 observations and 60 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.23 seconds
+      cpu time            0.03 seconds
+      
+
+1026       
+1027       	
+1027     !  data non_adj_folks;
+1028       		merge 	glnd_rep.suspected_noso_before_adj
+1029       				glnd_rep.suspected_noso_after_adj (in = adjudicated keep = id)
+1030       		;
+1031       
+1032       		by id;	
+1033       		
+1034       		if adjudicated then delete;
+1035       
+1036       	run;
+
+NOTE: MERGE statement has more than one data set with repeats of BY values.
+NOTE: There were 235 observations read from the data set GLND_REP.SUSPECTED_NOSO_BEFORE_ADJ.
+NOTE: There were 140 observations read from the data set GLND_REP.SUSPECTED_NOSO_AFTER_ADJ.
+NOTE: The data set WORK.NON_ADJ_FOLKS has 97 observations and 23 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+1037       
+1038       	* this is the patient infections, with the adjudicated infection data for those people adjudicated ;
+1039       	
+1039     !  data glnd_rep.all_infections_with_adj;
+1040       		set
+1041       			non_adj_folks
+1042       			glnd_rep.suspected_noso_after_adj
+1043       			;
+1044       	run;
+
+NOTE: There were 97 observations read from the data set WORK.NON_ADJ_FOLKS.
+NOTE: There were 140 observations read from the data set GLND_REP.SUSPECTED_NOSO_AFTER_ADJ.
+NOTE: The data set GLND_REP.ALL_INFECTIONS_WITH_ADJ has 237 observations and 60 variables.
+NOTE: DATA statement used (Total process time):
+                                                                                                                      The SAS System
+
+      real time           0.21 seconds
+      cpu time            0.02 seconds
+      
+
+WARNING: Apparent symbolic reference N_STUDY not resolved.
+1045       
+1046       
+1047       	%nosocomial_episode_table_open(datasource = glnd_rep.all_infections_with_adj, filename = nosocomial_episode_table_open, n_study = &n_study_1 , custom_title = "All reported infections for &n_study patients - with adjudications applied");
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      1047:209   1047:246   1047:57    1047:94    1047:157   1047:194   1047:2     1047:39    
+NOTE: There were 237 observations read from the data set GLND_REP.ALL_INFECTIONS_WITH_ADJ.
+NOTE: The data set GLND_REP.ALL_INFECTIONS_WITH_ADJ has 237 observations and 65 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.23 seconds
+      cpu time            0.04 seconds
+      
+
+
+NOTE: There were 148 observations read from the data set GLND_REP.ALL_INFECTIONS_WITH_ADJ.
+      WHERE infect_confirm in (1, 2);
+NOTE: The data set WORK.BY_EPISODE has 148 observations and 52 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 148 observations read from the data set GLND_REP.ALL_INFECTIONS_WITH_ADJ.
+      WHERE infect_confirm in (1, 2);
+NOTE: The data set WORK.BY_ORGANISM_ALL_INFEC has 210 observations and 53 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 210 observations read from the data set WORK.BY_ORGANISM_ALL_INFEC.
+NOTE: The data set WORK.BY_ORGANISM_ALL_INFEC has 210 observations and 53 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 97 observations read from the data set WORK.BY_EPISODE.
+      WHERE incident=1;
+NOTE: The data set WORK.EPISODE_INFECT has 43 observations and 5 variables.
+NOTE: The PROCEDURE MEANS printed page 31.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.06 seconds
+      
+
+
+NOTE: There were 17 observations read from the data set WORK.EPISODE_INFECT.
+      WHERE (site_code not = ' ') and (type_code not = ' ');
+NOTE: The data set WORK.EPISODE_INFECT has 17 observations and 3 variables.
+                                                                                                                      The SAS System
+
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 148 observations read from the data set WORK.BY_EPISODE.
+NOTE: The data set WORK.BY_EPISODE has 148 observations and 52 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 148 observations read from the data set WORK.BY_EPISODE.
+NOTE: The data set WORK.EPISODE_PEOPLE has 142 observations and 52 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 142 observations read from the data set WORK.EPISODE_PEOPLE.
+NOTE: The data set WORK.EPISODE_PEOPLE_OUT has 141 observations and 6 variables.
+NOTE: The PROCEDURE MEANS printed pages 32-33.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.04 seconds
+      
+
+
+NOTE: There were 34 observations read from the data set WORK.EPISODE_PEOPLE_OUT.
+      WHERE (site_code not = ' ') and (type_code not = ' ') and (incident not = .);
+NOTE: The data set WORK.EPISODE_PEOPLE_OUT has 34 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 17 observations read from the data set WORK.EPISODE_PEOPLE_OUT.
+      WHERE incident=0;
+NOTE: The data set WORK.A has 17 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 17 observations read from the data set WORK.EPISODE_PEOPLE_OUT.
+      WHERE incident=1;
+NOTE: The data set WORK.B has 17 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+                                                                                                                      The SAS System
+
+NOTE: There were 17 observations read from the data set WORK.A.
+NOTE: The data set WORK.A has 17 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 17 observations read from the data set WORK.B.
+NOTE: The data set WORK.B has 17 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 17 observations read from the data set WORK.EPISODE_INFECT.
+NOTE: The data set WORK.EPISODE_INFECT has 17 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 17 observations read from the data set WORK.A.
+NOTE: There were 17 observations read from the data set WORK.B.
+NOTE: There were 17 observations read from the data set WORK.EPISODE_INFECT.
+NOTE: The data set WORK.EPISODE_PEOPLE_OUT has 24 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 210 observations read from the data set WORK.BY_ORGANISM_ALL_INFEC.
+NOTE: The data set WORK.BY_ORGANISM_ALL_INFEC has 210 observations and 53 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 24 observations read from the data set WORK.EPISODE_PEOPLE_OUT.
+NOTE: There were 210 observations read from the data set WORK.BY_ORGANISM_ALL_INFEC.
+NOTE: The data set WORK.EPISODE_PEOPLE_OUT has 210 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 210 observations read from the data set WORK.EPISODE_PEOPLE_OUT.
+NOTE: The data set WORK.EPISODE_PEOPLE_OUT has 210 observations and 7 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+                                                                                                                      The SAS System
+
+
+NOTE: There were 210 observations read from the data set WORK.EPISODE_PEOPLE_OUT.
+NOTE: The data set WORK.EPISODE_SUMMARY has 210 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 97 observations read from the data set WORK.BY_EPISODE.
+      WHERE incident=1;
+NOTE: The data set WORK.OVERALL_INFECT has 1 observations and 3 variables.
+NOTE: The PROCEDURE MEANS printed page 34.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.05 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.OVERALL_INFECT.
+NOTE: The data set WORK.OVERALL_INFECT has 1 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 148 observations read from the data set WORK.BY_EPISODE.
+NOTE: The data set WORK.BY_EPISODE has 148 observations and 52 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 148 observations read from the data set WORK.BY_EPISODE.
+NOTE: The data set WORK.EPISODE_PEOPLE has 94 observations and 52 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 94 observations read from the data set WORK.EPISODE_PEOPLE.
+NOTE: The data set WORK.OVERALL_PEOPLE_OUT has 3 observations and 4 variables.
+NOTE: The PROCEDURE MEANS printed page 35.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.06 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.OVERALL_PEOPLE_OUT.
+      WHERE incident not = .;
+NOTE: The data set WORK.OVERALL_PEOPLE_OUT has 2 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+                                                                                                                      The SAS System
+
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.OVERALL_PEOPLE_OUT.
+      WHERE incident=0;
+NOTE: The data set WORK.A has 1 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.OVERALL_PEOPLE_OUT.
+      WHERE incident=1;
+NOTE: The data set WORK.B has 1 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.A.
+NOTE: There were 1 observations read from the data set WORK.B.
+NOTE: There were 1 observations read from the data set WORK.OVERALL_INFECT.
+NOTE: The data set WORK.OVERALL_PEOPLE_OUT has 1 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.OVERALL_PEOPLE_OUT.
+NOTE: The data set WORK.SUMMARY_TEMP has 1 observations and 8 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 210 observations read from the data set WORK.EPISODE_SUMMARY.
+NOTE: There were 1 observations read from the data set WORK.SUMMARY_TEMP.
+NOTE: The data set WORK.EPISODE_SUMMARY has 211 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+NOTE: Format $SITE_CODE is already on the library.
+NOTE: Format $SITE_CODE has been output.
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: Writing ODS PS output to DISK destination "/home/bwu2/spelling/nosocomial_episode_table_open.ps", printer "POSTSCRIPT".
+NOTE: Writing ODS PDF output to DISK destination "/home/bwu2/spelling/nosocomial_episode_table_open.pdf", printer "PDF".
+
+                                                                                                                      The SAS System
+
+NOTE: There were 211 observations read from the data set WORK.EPISODE_SUMMARY.
+NOTE: The data set WORK.EPISODE_SUMMARY has 155 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 155 observations read from the data set WORK.EPISODE_SUMMARY.
+NOTE: The PROCEDURE PRINT printed pages 36-39.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.21 seconds
+      cpu time            0.22 seconds
+      
+
+
+NOTE: There were 155 observations read from the data set WORK.EPISODE_SUMMARY.
+NOTE: The data set GLND_REP.NOSOCOMIAL_EPISODE_TABLE_OPEN has 155 observations and 14 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.11 seconds
+      cpu time            0.01 seconds
+      
+
+NOTE: ODS PDF printed 6 pages to /home/bwu2/spelling/nosocomial_episode_table_open.pdf.
+NOTE: ODS PS printed 7 pages to /home/bwu2/spelling/nosocomial_episode_table_open.ps.
+1048       
+1049       
+1050       *** 10/30/08 - I need a listing of the BSI in the adjudicated dataset ;
+1051       
+1052       ods rtf file = "/glnd/sas/reporting/BSI.rtf" style = journal;
+NOTE: Writing RTF Body file: /glnd/sas/reporting/BSI.rtf
+1053       
+1054       	
+1054     !  proc print data = glnd_rep.suspected_noso_after_adj;
+1055       		var id agree_site site_code site_code_adj;
+1056       	run;
+
+NOTE: There were 140 observations read from the data set GLND_REP.SUSPECTED_NOSO_AFTER_ADJ.
+NOTE: The PROCEDURE PRINT printed pages 40-42.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.07 seconds
+      
+
+1057       	
+1058       ods rtf close;
+1059       
+1060       ** 8/13/09 - I need a text listing of all infections "Other" infections ;
+1061       
+1062       options orientation = landscape;
+1063       	
+1064       ods rtf file = "/glnd/sas/reporting/nosocomial_other_infection_listing.rtf" style = journal;
+NOTE: Writing RTF Body file: /glnd/sas/reporting/nosocomial_other_infection_listing.rtf
+1065       	title "Listing of all organisms associated with 'other' infections - 9/9/09";
+1066       	
+1066     !  proc print data = glnd_rep.all_infections_with_adj;
+1067       		where (cult_org_code_1 = 21) | (cult_org_code_2 = 21) | (cult_org_code_3 = 21) | (cult_org_code_4 = 21) | (cult_org_code_5 = 21) ;
+1068       		var id dfseq infect_confirm site_code org_spec_1  org_spec_2 org_spec_3 org_spec_4 org_spec_5;
+                                                                                                                      The SAS System
+
+1069       	run;
+
+NOTE: There were 54 observations read from the data set GLND_REP.ALL_INFECTIONS_WITH_ADJ.
+      WHERE (cult_org_code_1=21) or (cult_org_code_2=21) or (cult_org_code_3=21) or (cult_org_code_4=21) or (cult_org_code_5=21);
+NOTE: The PROCEDURE PRINT printed pages 43-45.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.05 seconds
+      
+
+1070       ods rtf close;
+1071       
+1072       /*
+1073       	proc print data = glnd_rep.suspected_noso_before_adj ;
+1074       		where id = 21039;
+1075       	run;
+1076       
+1077       
+1078       proc contents data=glnd_rep.all_infections_with_adj;run;
+1079       
+1080       */
+1081       
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           7.62 seconds
+      cpu time            3.40 seconds
+      

@@ -1,0 +1,11 @@
+f.table <- function(x,y,subset=NULL)
+{
+if(is.null(subset)) subset <- rep(T,length(x))
+return(table(factor(x[subset]),factor(y[subset])))
+}
+
+f.table(c(0,0,0,0,0,1,1),c(1,1,0,0,1,1,1))
+f.table(factor(c(0,0,0,0,0,0,1)),factor(c(1,1,0,0,1,1,1)),c(rep(T,6),F))
+table(c(0,0,0,0,0,0,1),c(1,1,0,0,1,1,1),c(rep(T,6),F))[,,2]
+
+

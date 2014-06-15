@@ -1,0 +1,106 @@
+#################################################################################################
+#
+# Program:	quarterlyaesae.in
+#
+# Purpose:	Produce ae quarterly report
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.quart("quarterly",
+ prepare.date=date(),
+ asof.date=date(),
+ report.type="Quarterly CLOSED AE/SAE Report",
+ meet.date=" ",
+ header="Quarterly CLOSED AE/SAE Report")
+
+lib="/glnd/sas"
+
+
+### ae 2 parts
+
+dsmcaeunrel <- f.sas.get(library=lib,member="dsmcaeunrel",
+                            format.library=lib,formats=T)
+                        
+
+f.list(file="quarterly", x=dsmcaeunrel[,c("ae","aae","bae","tae"),              
+      drop=F],
+footnote="\\# AEs (\\# Pat) \\% Pat",
+       caption="AE Unrelated to Glutamine" ,append=T,
+       pos=c("l","c","c","c"))
+
+dsmcaerel <- f.sas.get(library=lib,member="dsmcaerel",
+                            format.library=lib,formats=T)
+
+
+foot_relae <-paste("\\# AEs (\\# Pat) \\% Pat","\\newline",
+ "Hypoglycemia information collected since April 1,2008 only"  )
+f.list(file="quarterly", x=dsmcaerel[,c("ae","aae","bae","tae"),              
+      drop=F],
+ footnote=foot_relae,
+       caption="AE Potentially Related to Glutamine" ,append=T,
+       pos=c("l","c","c","c"))
+
+  
+cat("\\clearpage",sep="\n",file="quarterly.tex",append=T)
+
+
+
+### SAE
+
+dsmcsaeall <- f.sas.get(library=lib,member="dsmcsaeall",
+                            format.library=lib,formats=T)
+    foot_sae <-paste("\\# AEs (\\# Pat) \\% Pat","\\newline",
+ "Per protocol, an SAE form is completed only for events that occur within 30
+  days of study drug discontinuation." )                          
+
+f.list(file="quarterly", x=dsmcsaeall[,c("sae","asae","bsae","tsae"),              
+      drop=F],
+ footnote=foot_sae,
+       caption="SAE" ,append=T,
+       pos=c("l","c","c","c"))
+       
+       cat("\\clearpage",sep="\n",file="quarterly.tex",append=T)
+
+ 
+ libr="/glnd/sas/reporting"
+ 
+ om <- f.sas.get(library=libr,member="other_mortality_closed",
+                           format.library=lib,formats=T)
+   tmp.tab=om[,c("row","overall.disp.a","overall.disp.b")]               
+   
+f.list(file="quarterly",
+      x=tmp.tab,
+            caption="Death Summary by Treatment", 
+      append=T, pos=c("l","c","c"))  
+
+
+       
+
+
+cat("\\clearpage",sep="\n",file="quarterly.tex",append=T)
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.8in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{deathdetailsclosed.ps}}}",sep=""),
+  "\\end{figure}"),
+ file=paste("quarterly","tex",sep="."),sep="\n",append=T)
+cat("\\clearpage",sep="\n",file="quarterly.tex",append=T)
+
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.8in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{deathdetailsclosed1.ps}}}",sep=""),
+  "\\end{figure}"),
+ file=paste("quarterly","tex",sep="."),sep="\n",append=T)
+cat("\\clearpage",sep="\n",file="quarterly.tex",append=T)
+
+f.bottom("quarterly")
+unix("/home/gcotson/bin/laps quarterly",output=F)
+unix("/home/gcotson/bin/laps quarterly",output=F)
+unix("/home/gcotson/bin/lapdf quarterly",output=F)
+unix("/home/gcotson/bin/lapdf quarterly",output=F)

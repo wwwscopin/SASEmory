@@ -1,0 +1,2046 @@
+1                                                          The SAS System                                15:07 Tuesday, May 21, 2013
+
+NOTE: Copyright (c) 2002-2010 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.3 (TS1M0) 
+      Licensed to EMORY UNIVERSITY-T&R, Site 70088042.
+NOTE: This session is executing on the SunOS 5.10 (SUN X64) platform.
+
+
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is /dfax/ttcmv/sas/programs/reporting/baohua/IVH/autoexec.sas.
+
+NOTE: Libref CMV was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/data/monthly_freeze_2013.05.01
+NOTE: Library CMV_REP does not exist.
+NOTE: Library CMV_QC does not exist.
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/data
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: AUTOEXEC processing completed.
+
+1          options nodate nonumber;
+2          %include "macro.sas";
+223        
+224        %let mu=%sysfunc(byte(181));
+225        %let pm=%sysfunc(byte(177));
+226        
+227        proc format;
+228           value grade 1="I" 2="II" 3="III" 4="IV" 0="NA";
+NOTE: Format GRADE has been output.
+                                                           The SAS System
+
+229        run;
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+230        
+231        data ivh;
+232        	merge cmv.plate_068(keep=id IVHDiagDate)
+233        			cmv.ivh_image(keep=id ImageDate LeftIVHGrade RightIVHGrade)
+234        			cmv.comp_pat(in=comp keep=id center);
+235        	by id;
+236        	
+237        	if comp;
+238        	retain x_date;
+239        	if first.id then x_date=imagedate;
+240        	if ivhdiagdate=. then ivhdiagdate=x_date;
+241        	
+242        	if LeftIVHGrade=99 then LeftIVHGrade=.;
+243        	if rightIVHGrade=99 then rightIVHGrade=.;	
+244        	
+245        	if LeftIVHGrade in(3,4) or RightIVHGrade in(3,4);
+246        run;
+
+NOTE: There were 189 observations read from the data set CMV.PLATE_068.
+NOTE: There were 603 observations read from the data set CMV.IVH_IMAGE.
+NOTE: There were 471 observations read from the data set CMV.COMP_PAT.
+NOTE: The data set WORK.IVH has 152 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+247        
+248        proc sort; by id imagedate;run;
+
+NOTE: There were 152 observations read from the data set WORK.IVH.
+NOTE: The data set WORK.IVH has 152 observations and 7 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+249        
+250        data ivh_id;
+251            set ivh; by id imagedate;
+252            if first.id;
+253        run;
+
+NOTE: There were 152 observations read from the data set WORK.IVH.
+NOTE: The data set WORK.IVH_ID has 34 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+254        
+                                                           The SAS System
+
+255        proc means data=ivh max;
+256        	class id;
+257        	var LeftIVHGrade RightIVHGrade;
+258        	ods output means.summary=ivh_max;
+259        run;
+
+NOTE: The data set WORK.IVH_MAX has 34 observations and 6 variables.
+NOTE: There were 152 observations read from the data set WORK.IVH.
+NOTE: The PROCEDURE MEANS printed pages 1-2.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.04 seconds
+      
+
+260        
+261        data ivh_grade;
+262            set ivh_max;
+263            grade=max(LeftIVHGrade_max, rightIVHGrade_max);
+264            keep id LeftIVHGrade_max rightIVHGrade_max grade;
+265        run;
+
+NOTE: There were 34 observations read from the data set WORK.IVH_MAX.
+NOTE: The data set WORK.IVH_GRADE has 34 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+266        
+267        proc sort data=cmv.plate_033(keep=id  DateTransfusion plt_TxStartTime) out=tx_plt;by id DateTransfusion plt_TxStartTime;
+267      ! run;
+
+NOTE: There were 342 observations read from the data set CMV.PLATE_033.
+NOTE: The data set WORK.TX_PLT has 342 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+268        
+269        data tx_plt;
+270            merge tx_plt(in=A) ivh_id(keep=id imagedate in=B); by id;
+271            if A and B then if DateTransfusion<=imagedate;
+272            drop imagedate;
+273            if A;
+274        run;
+
+NOTE: There were 342 observations read from the data set WORK.TX_PLT.
+NOTE: There were 34 observations read from the data set WORK.IVH_ID.
+NOTE: The data set WORK.TX_PLT has 287 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+275        
+276        data tx_plt;
+277        	set tx_plt; by id DateTransfusion plt_TxStartTime;
+                                                           The SAS System
+
+278        	retain dt_plt;
+279        	if first.id then do; nplt=0; dt_plt=DateTransfusion; end;
+280        	nplt+1;
+281        	if last.id;
+282        	format dt_plt date9.;
+283        run;
+
+NOTE: There were 287 observations read from the data set WORK.TX_PLT.
+NOTE: The data set WORK.TX_PLT has 85 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+284        
+285        data rbc;
+286        	set cmv.plate_031;
+287            keep id DateTransfusion Hb DateHbHct;
+288        	rename DateHbHct=hbdate DateTransfusion=dt;
+289        run;
+
+NOTE: There were 1405 observations read from the data set CMV.PLATE_031.
+NOTE: The data set WORK.RBC has 1405 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+290        
+291        proc sort nodupkey; by id dt; run;
+
+NOTE: There were 1405 observations read from the data set WORK.RBC.
+NOTE: 84 observations with duplicate key values were deleted.
+NOTE: The data set WORK.RBC has 1321 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+292        
+293        data hb;
+294        	set cmv.plate_015(keep=id hb hbdate BloodCollectDate) rbc(keep=id hbdate Hb); by id;
+295        		if hbdate=. then hbdate=BloodCollectDate;
+296        		if hb=. then delete;
+297        run;
+
+NOTE: There were 3660 observations read from the data set CMV.PLATE_015.
+NOTE: There were 1321 observations read from the data set WORK.RBC.
+NOTE: The data set WORK.HB has 4258 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+298        
+299        proc sort; by id hbdate;run;
+
+NOTE: There were 4258 observations read from the data set WORK.HB.
+                                                           The SAS System
+
+NOTE: The data set WORK.HB has 4258 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+300        
+301        data first_hb;
+302            set hb; by id hbdate;
+303            if first.id;
+304            keep id hb hbdate;
+305        run;
+
+NOTE: There were 4258 observations read from the data set WORK.HB.
+NOTE: The data set WORK.FIRST_HB has 503 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+306        
+307        
+308        data platelet;
+309        	set cmv.plate_033;
+310            keep id DateTransfusion plateletnum DatePlateletCount;
+311        	rename DatePlateletCount=pltdate DateTransfusion=dt plateletnum=platelet;
+312        run;
+
+NOTE: There were 342 observations read from the data set CMV.PLATE_033.
+NOTE: The data set WORK.PLATELET has 342 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+313        
+314        proc sort nodupkey; by id dt; run;
+
+NOTE: There were 342 observations read from the data set WORK.PLATELET.
+NOTE: 33 observations with duplicate key values were deleted.
+NOTE: The data set WORK.PLATELET has 309 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+315        
+316        data plt;
+317        	set cmv.plate_015(keep=id platelet pltdate BloodCollectDate) platelet(keep=id pltdate platelet); by id;
+318        		if pltdate=. then pltdate=BloodCollectDate;
+319        		if platelet^=.;
+320        run;
+
+NOTE: There were 3660 observations read from the data set CMV.PLATE_015.
+NOTE: There were 309 observations read from the data set WORK.PLATELET.
+NOTE: The data set WORK.PLT has 2803 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+                                                           The SAS System
+
+      cpu time            0.00 seconds
+      
+
+321        
+322        proc sort; by id pltdate;run;
+
+NOTE: There were 2803 observations read from the data set WORK.PLT.
+NOTE: The data set WORK.PLT has 2803 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+323        
+324        data first_plt;
+325            set plt; by id pltdate;
+326            if first.id;
+327            keep id platelet pltdate;
+328        run;
+
+NOTE: There were 2803 observations read from the data set WORK.PLT.
+NOTE: The data set WORK.FIRST_PLT has 500 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+329        
+330        
+331        data indom;
+332            merge cmv.med cmv.plate_005(keep=id LBWIDOB); by id;
+333            if medcode=14 and StartDate-LBWIDOB<=1;
+334            keep id;
+335        run;
+
+NOTE: There were 8757 observations read from the data set CMV.MED.
+NOTE: There were 501 observations read from the data set CMV.PLATE_005.
+NOTE: The data set WORK.INDOM has 61 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.02 seconds
+      
+
+336        
+337        proc sort nodupkey; by id;run;
+
+NOTE: There were 61 observations read from the data set WORK.INDOM.
+NOTE: 1 observations with duplicate key values were deleted.
+NOTE: The data set WORK.INDOM has 60 observations and 1 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+338        
+339        data lbwi;
+340        	merge
+341        
+                                                           The SAS System
+
+342        	cmv.plate_005(keep=id LBWIDOB Gender)
+343        	cmv.plate_006
+344        	cmv.plate_008
+345        	cmv.plate_009(keep=id IsChorloConfirm HistoChloro)
+346        	cmv.plate_012(keep=id SNAPTotalScore)
+347        	/*cmv.plate_015(where=(DFSEQ=1)keep=id DFSEQ BloodCollectDate Platelet PltDate)*/
+348        	cmv.plate_068(keep=id IVHDiagDate Indomethacin  AntiConvulsant)
+349        	first_hb first_plt
+350        	ivh_id(in=A)
+351        	indom(in=tmp)
+352            ivh_grade(keep=id grade)
+353        	tx_plt(in=C)
+354        
+355        	cmv.endofstudy(keep=id StudyLeftDate)
+356        	cmv.completedstudylist(in=comp);
+357        		
+358        	by id;
+359        	
+360        	if A and comp;
+361        	if A then ivh=1; else ivh=0;
+362        	if C then plt=1; else plt=0;
+363        	if C then do; if nplt in(1,2) then idx_plt=1; else if nplt>2 then idx_plt=2; end; else idx_plt=0;
+364        	if tmp or Indomethacin then Indomethacin=1; else Indomethacin=0;
+365        	
+366        	if ivh then do;
+367        	if imageDate<=pltdate then platelet=.;
+368        	end;
+369        	
+370        	keep 	id Gender LBWIDOB GestAge BirthWeight birthresus BirthResusOxygen BirthResusCPAP StudyLeftDate day
+371        	        SNAPTotalScore Platelet plt idx_plt dt_plt nplt	IVHDiagDate ImageDate LeftIVHGrade RightIVHGrade ivh
+372        	        Indomethacin Apgar5Min Hypertension DeliveryMode IsChorloConfirm grade;
+373        			
+374        run;
+
+WARNING: The variable day in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: There were 501 observations read from the data set CMV.PLATE_005.
+NOTE: There were 501 observations read from the data set CMV.PLATE_006.
+NOTE: There were 429 observations read from the data set CMV.PLATE_008.
+NOTE: There were 415 observations read from the data set CMV.PLATE_009.
+NOTE: There were 501 observations read from the data set CMV.PLATE_012.
+NOTE: There were 189 observations read from the data set CMV.PLATE_068.
+NOTE: There were 503 observations read from the data set WORK.FIRST_HB.
+NOTE: There were 500 observations read from the data set WORK.FIRST_PLT.
+NOTE: There were 34 observations read from the data set WORK.IVH_ID.
+NOTE: There were 60 observations read from the data set WORK.INDOM.
+NOTE: There were 34 observations read from the data set WORK.IVH_GRADE.
+NOTE: There were 85 observations read from the data set WORK.TX_PLT.
+NOTE: There were 477 observations read from the data set CMV.ENDOFSTUDY.
+NOTE: There were 471 observations read from the data set CMV.COMPLETEDSTUDYLIST.
+NOTE: The data set WORK.LBWI has 34 observations and 26 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+375        
+376        proc univariate data=lbwi;
+377        var Platelet;
+                                                           The SAS System
+
+378        output out=one Q1=Q1 median=Q2 Q3=Q3;
+379        run;
+
+NOTE: The data set WORK.ONE has 1 observations and 3 variables.
+NOTE: The PROCEDURE UNIVARIATE printed pages 3-4.
+NOTE: PROCEDURE UNIVARIATE used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+380        
+381        data _null_;
+382            set one;
+383            call symput("Q1", put(Q1,4.1));
+384        	call symput("Q2", put(Q2,4.1));
+385        	call symput("Q3", put(Q3,4.1));
+386        run;
+
+NOTE: There were 1 observations read from the data set WORK.ONE.
+NOTE: At least one W.D format was too small for the number to be printed. The decimal may be shifted by the "BEST" format.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+387        
+388        proc format;
+389        	
+389      !  value ivh 0="IVH=No" 1="IVH=Yes";
+NOTE: Format IVH has been output.
+390        	
+390      !  value wc  0="Low"  1="Very Low(1000-1500g)" 2="Extremely Low(<1000g)" ;
+NOTE: Format WC has been output.
+391        	
+391      !  value ny 0="No" 1="Yes";
+NOTE: Format NY has been output.
+392        	
+393        	
+393      !  value ntx   0="tx=0" 1="tx=1-2" 2="tx>=3";
+NOTE: Format NTX has been output.
+394        
+395        	
+395      !  value gplt   1="Platelet Count<=Q1(&Q1 &mu.L)" 2="Platelet Count in Q1~Q2(&Q2 &mu.L)" 3="Platelet Count in Q2~Q3(&Q3
+395      ! &mu.L)" 4="Platelet Count>Q3(&Q3 &mu.L)";
+NOTE: Format GPLT has been output.
+396        
+397        	
+397      !  value tbc    1="Platelet Count<150 *1000/&mu.L" 0="Platelet Count>=150 *1000/&mu.L";
+NOTE: Format TBC has been output.
+398        	
+398      !  value ttbc   0="Normal(>=150*1000/&mu.L)" 1="Mild(100-149*1000/&mu.L)" 2="Moderate(50-99*1000/&mu.L)"
+398      ! 3="Severe(30-49*1000/&mu.L)" 4="Very Severe(<30*1000/&mu.L)";
+NOTE: Format TTBC has been output.
+399            value dmode  1="Vaginal vertex" 2="Caesarean section" 3="Vaginal breech" 4="Vaginal NOS" 99="missing"	;
+NOTE: Format DMODE has been output.
+400        
+401            value item
+402                  1="IVH Grade"
+                                                           The SAS System
+
+403                  2="Platelet Count at Birth(*1000/&mu.L), Mean &pm SD (N)"
+404                  3="Platelet Count at Birth by Quartile"
+405                  4="Thrombocytopenia at Birth*"
+406        	      5="Thrombocytopenia at Birth"
+407        	      6="Platelet Transfusion"
+408        	      7="Platelet Transfusion by Number"
+409        	      8="Hypertension existed prior to pregnancy?"
+410        	      9="Chorioamnionitis"
+411        	      10="Mode of Delivery"
+412        	      11="Gestational Age(week), Median[Q1-Q3], N"
+413        	      12="Birthweight(g), Mean &pm SD (N)"
+414        	      13="SNAP score, Median[Q1-Q3], N"
+415        	      14="APGAR at 5 min, Median[Q1-Q3], N"
+416        	      /*15="Delivery room resuscitation"*/
+417            	  15="Birth resuscitation/stabilization with Oxygen"
+418        	      16="Birth resuscitation/stabilization with CPAP"
+419        	      ;
+NOTE: Format ITEM has been output.
+420        	
+421        	
+421      !   value group 1="Platelet + Indomethacin" 2="SNAP + Gestional Age";
+NOTE: Format GROUP has been output.
+422        	
+422      !   value grade 1="I" 2="II" 3="III" 4="IV";
+NOTE: Format GRADE is already on the library.
+NOTE: Format GRADE has been output.
+423        	
+424        run;
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+425        
+426        data lbwi;
+427            set lbwi;
+428            if 0<platelet<=&Q1 then gplt=1; else if &Q1<platelet<=&Q2 then gplt=2;
+429            else if &Q2<platelet<=&Q3 then gplt=3; else if platelet^=. then gplt=4;
+430            if 0<Platelet<150 then tbc=1; else if platelet^=. then tbc=0;
+431        	if 100<=Platelet<150 then ttbc=1; else if 50<=Platelet<100 then ttbc=2; else if 30<=Platelet<50 then ttbc=3;
+432        	else if 0<Platelet<30 then ttbc=4; else if platelet^=. then ttbc=0;
+433        	
+434            if BirthResusCPAP=99 then BirthResusCPAP=.;
+435            if birthresus=99 then birthresus=.;
+436        
+437        	format tbc tbc. ttbc ttbc. gplt gplt. ivh ivh. DeliveryMode dmode. Hypertension ny.;
+438        run;
+
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The data set WORK.LBWI has 34 observations and 29 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+439        
+440        
+                                                           The SAS System
+
+441        *ods trace on/label listing;
+442        proc freq data=lbwi(where=(ivh=1));
+443        	table Indomethacin;
+444        	ods output onewayfreqs=wbh;
+445        run;
+
+NOTE: The data set WORK.WBH has 2 observations and 7 variables.
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+      WHERE ivh=1;
+NOTE: The PROCEDURE FREQ printed page 5.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+446        *ods trace off;
+447        
+448        data _null_;
+449        	set wbh;
+450        	if Indomethacin=0 then call symput("n0", compress(frequency));
+451        	if Indomethacin=1 then call symput("n1", compress(frequency));
+452        run;
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      450:52   451:52   
+NOTE: There were 2 observations read from the data set WORK.WBH.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+453        
+454        %let n=%eval(&n0+&n1);
+455        
+456        %let varlist=Platelet GestAge BirthWeight snaptotalscore Apgar5Min;
+457        %stat(lbwi,Indomethacin,&varlist);
+
+NOTE: The data set WORK.STAT has 0 observations and 0 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The data set WORK.TAB1 has 3 observations and 9 variables.
+NOTE: The PROCEDURE MEANS printed page 6.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      457:124   
+NOTE: There were 3 observations read from the data set WORK.TAB1.
+NOTE: The data set WORK.TAB1 has 3 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+                                                           The SAS System
+
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: The data set WORK.WP1 has 10 observations and 5 variables.
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The PROCEDURE NPAR1WAY printed page 7.
+NOTE: PROCEDURE NPAR1WAY used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      625:109   
+NOTE: There were 10 observations read from the data set WORK.WP1.
+NOTE: The data set WORK.WP1 has 1 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.TAB1.
+      WHERE Indomethacin=9;
+NOTE: There were 1 observations read from the data set WORK.TAB1.
+      WHERE Indomethacin=0;
+NOTE: There were 1 observations read from the data set WORK.TAB1.
+      WHERE Indomethacin=1;
+NOTE: There were 1 observations read from the data set WORK.WP1.
+NOTE: The data set WORK.TAB1 has 1 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 0 observations read from the data set WORK.STAT.
+NOTE: There were 1 observations read from the data set WORK.TAB1.
+NOTE: The data set WORK.STAT has 1 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The data set WORK.TAB2 has 3 observations and 9 variables.
+NOTE: The PROCEDURE MEANS printed page 8.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      457:124   
+NOTE: There were 3 observations read from the data set WORK.TAB2.
+                                                           The SAS System
+
+NOTE: The data set WORK.TAB2 has 3 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: The data set WORK.WP2 has 10 observations and 5 variables.
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The PROCEDURE NPAR1WAY printed page 9.
+NOTE: PROCEDURE NPAR1WAY used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      682:109   
+NOTE: There were 10 observations read from the data set WORK.WP2.
+NOTE: The data set WORK.WP2 has 1 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.TAB2.
+      WHERE Indomethacin=9;
+NOTE: There were 1 observations read from the data set WORK.TAB2.
+      WHERE Indomethacin=0;
+NOTE: There were 1 observations read from the data set WORK.TAB2.
+      WHERE Indomethacin=1;
+NOTE: There were 1 observations read from the data set WORK.WP2.
+NOTE: The data set WORK.TAB2 has 1 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.STAT.
+NOTE: There were 1 observations read from the data set WORK.TAB2.
+NOTE: The data set WORK.STAT has 2 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The data set WORK.TAB3 has 3 observations and 9 variables.
+NOTE: The PROCEDURE MEANS printed page 10.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+                                                           The SAS System
+
+      457:124   
+NOTE: There were 3 observations read from the data set WORK.TAB3.
+NOTE: The data set WORK.TAB3 has 3 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: The data set WORK.WP3 has 10 observations and 5 variables.
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The PROCEDURE NPAR1WAY printed page 11.
+NOTE: PROCEDURE NPAR1WAY used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      739:109   
+NOTE: There were 10 observations read from the data set WORK.WP3.
+NOTE: The data set WORK.WP3 has 1 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.TAB3.
+      WHERE Indomethacin=9;
+NOTE: There were 1 observations read from the data set WORK.TAB3.
+      WHERE Indomethacin=0;
+NOTE: There were 1 observations read from the data set WORK.TAB3.
+      WHERE Indomethacin=1;
+NOTE: There were 1 observations read from the data set WORK.WP3.
+NOTE: The data set WORK.TAB3 has 1 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.STAT.
+NOTE: There were 1 observations read from the data set WORK.TAB3.
+NOTE: The data set WORK.STAT has 3 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The data set WORK.TAB4 has 3 observations and 9 variables.
+NOTE: The PROCEDURE MEANS printed page 12.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+                                                           The SAS System
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      457:124   
+NOTE: There were 3 observations read from the data set WORK.TAB4.
+NOTE: The data set WORK.TAB4 has 3 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: The data set WORK.WP4 has 10 observations and 5 variables.
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The PROCEDURE NPAR1WAY printed page 13.
+NOTE: PROCEDURE NPAR1WAY used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      796:109   
+NOTE: There were 10 observations read from the data set WORK.WP4.
+NOTE: The data set WORK.WP4 has 1 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.TAB4.
+      WHERE Indomethacin=9;
+NOTE: There were 1 observations read from the data set WORK.TAB4.
+      WHERE Indomethacin=0;
+NOTE: There were 1 observations read from the data set WORK.TAB4.
+      WHERE Indomethacin=1;
+NOTE: There were 1 observations read from the data set WORK.WP4.
+NOTE: The data set WORK.TAB4 has 1 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 3 observations read from the data set WORK.STAT.
+NOTE: There were 1 observations read from the data set WORK.TAB4.
+NOTE: The data set WORK.STAT has 4 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The data set WORK.TAB5 has 3 observations and 9 variables.
+NOTE: The PROCEDURE MEANS printed page 14.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+                                                           The SAS System
+
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      457:124   457:77    
+NOTE: There were 3 observations read from the data set WORK.TAB5.
+NOTE: The data set WORK.TAB5 has 3 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+NOTE: The data set WORK.WP5 has 10 observations and 5 variables.
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The PROCEDURE NPAR1WAY printed page 15.
+NOTE: PROCEDURE NPAR1WAY used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      856:109   
+NOTE: There were 10 observations read from the data set WORK.WP5.
+NOTE: The data set WORK.WP5 has 1 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.TAB5.
+      WHERE Indomethacin=9;
+NOTE: There were 1 observations read from the data set WORK.TAB5.
+      WHERE Indomethacin=0;
+NOTE: There were 1 observations read from the data set WORK.TAB5.
+      WHERE Indomethacin=1;
+NOTE: There were 1 observations read from the data set WORK.WP5.
+NOTE: The data set WORK.TAB5 has 1 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 4 observations read from the data set WORK.STAT.
+NOTE: There were 1 observations read from the data set WORK.TAB5.
+NOTE: The data set WORK.STAT has 5 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+458        
+459        
+460        		
+460      !   proc freq data=lbwi;
+461        			table birthresus*Indomethacin/nocol nopercent chisq cmh;
+                                                           The SAS System
+
+462        		run;
+
+NOTE: No statistics are computed for BirthResus * Indomethacin since BirthResus has less than 2 nonmissing levels.
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The PROCEDURE FREQ printed page 16.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+463        
+464        
+465        %let varlist=grade gplt tbc ttbc plt idx_plt Hypertension IsChorloConfirm DeliveryMode BirthResusOxygen BirthResusCPAP;
+466        %tab(lbwi,Indomethacin,tab,&varlist);
+
+NOTE: The data set WORK.TAB has 0 observations and 0 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: The data set WORK.TAB1 has 9 observations and 8 variables.
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The data set WORK.P1 has 2 observations and 46 variables.
+NOTE: The PROCEDURE FREQ printed pages 17-18.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 9 observations read from the data set WORK.TAB1.
+NOTE: The data set WORK.TAB1 has 9 observations and 8 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:67    466:127   
+NOTE: There were 2 observations read from the data set WORK.TAB1.
+      WHERE _type_='01';
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:77    466:118   466:168   
+NOTE: There were 3 observations read from the data set WORK.TAB1.
+      WHERE Indomethacin=1;
+NOTE: There were 3 observations read from the data set WORK.TAB1.
+      WHERE Indomethacin=0;
+NOTE: The data set WORK.TAB1 has 2 observations and 12 variables.
+NOTE: DATA statement used (Total process time):
+                                                           The SAS System
+
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.TAB1.
+NOTE: The data set WORK.TAB1 has 2 observations and 12 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      1 at 951:252   
+NOTE: There were 2 observations read from the data set WORK.P1.
+NOTE: The data set WORK.P1 has 2 observations and 5 variables.
+NOTE: At least one W.D format was too small for the number to be printed. The decimal may be shifted by the "BEST" format.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.P1.
+NOTE: There were 1 observations read from the data set WORK.P1.
+NOTE: The data set WORK.P1 has 1 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.TAB1.
+NOTE: There were 1 observations read from the data set WORK.P1.
+NOTE: The data set WORK.TAB1 has 2 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 0 observations read from the data set WORK.TAB.
+NOTE: There were 2 observations read from the data set WORK.TAB1.
+NOTE: The data set WORK.TAB has 2 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: The data set WORK.TAB2 has 15 observations and 8 variables.
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The data set WORK.P2 has 2 observations and 23 variables.
+NOTE: The PROCEDURE FREQ printed pages 19-20.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+                                                           The SAS System
+
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 15 observations read from the data set WORK.TAB2.
+NOTE: The data set WORK.TAB2 has 15 observations and 8 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:67    466:127   
+NOTE: There were 2 observations read from the data set WORK.TAB2.
+      WHERE _type_='01';
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:77    466:118   466:168   
+NOTE: There were 5 observations read from the data set WORK.TAB2.
+      WHERE Indomethacin=1;
+NOTE: There were 5 observations read from the data set WORK.TAB2.
+      WHERE Indomethacin=0;
+NOTE: The data set WORK.TAB2 has 4 observations and 12 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 4 observations read from the data set WORK.TAB2.
+NOTE: The data set WORK.TAB2 has 4 observations and 12 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Variable _LGOR_ is uninitialized.
+NOTE: Variable L_LGOR is uninitialized.
+NOTE: Variable U_LGOR is uninitialized.
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      2 at 1027:252   
+NOTE: There were 2 observations read from the data set WORK.P2.
+NOTE: The data set WORK.P2 has 2 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.P2.
+                                                           The SAS System
+
+NOTE: There were 1 observations read from the data set WORK.P2.
+NOTE: The data set WORK.P2 has 1 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 4 observations read from the data set WORK.TAB2.
+NOTE: There were 1 observations read from the data set WORK.P2.
+NOTE: The data set WORK.TAB2 has 4 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.TAB.
+NOTE: There were 4 observations read from the data set WORK.TAB2.
+NOTE: The data set WORK.TAB has 6 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: The data set WORK.TAB3 has 9 observations and 8 variables.
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The data set WORK.P3 has 2 observations and 46 variables.
+NOTE: The PROCEDURE FREQ printed pages 21-22.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 9 observations read from the data set WORK.TAB3.
+NOTE: The data set WORK.TAB3 has 9 observations and 8 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:67    466:127   
+NOTE: There were 2 observations read from the data set WORK.TAB3.
+      WHERE _type_='01';
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:77    466:118   466:168   
+NOTE: There were 3 observations read from the data set WORK.TAB3.
+      WHERE Indomethacin=1;
+                                                           The SAS System
+
+NOTE: There were 3 observations read from the data set WORK.TAB3.
+      WHERE Indomethacin=0;
+NOTE: The data set WORK.TAB3 has 2 observations and 12 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.TAB3.
+NOTE: The data set WORK.TAB3 has 2 observations and 12 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      1 at 1103:252   
+NOTE: There were 2 observations read from the data set WORK.P3.
+NOTE: The data set WORK.P3 has 2 observations and 5 variables.
+NOTE: At least one W.D format was too small for the number to be printed. The decimal may be shifted by the "BEST" format.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.P3.
+NOTE: There were 1 observations read from the data set WORK.P3.
+NOTE: The data set WORK.P3 has 1 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.TAB3.
+NOTE: There were 1 observations read from the data set WORK.P3.
+NOTE: The data set WORK.TAB3 has 2 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 6 observations read from the data set WORK.TAB.
+NOTE: There were 2 observations read from the data set WORK.TAB3.
+NOTE: The data set WORK.TAB has 8 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: The data set WORK.TAB4 has 15 observations and 8 variables.
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+                                                           The SAS System
+
+NOTE: The data set WORK.P4 has 2 observations and 23 variables.
+NOTE: The PROCEDURE FREQ printed pages 23-24.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 15 observations read from the data set WORK.TAB4.
+NOTE: The data set WORK.TAB4 has 15 observations and 8 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:67    466:127   
+NOTE: There were 2 observations read from the data set WORK.TAB4.
+      WHERE _type_='01';
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:77    466:118   466:168   
+NOTE: There were 5 observations read from the data set WORK.TAB4.
+      WHERE Indomethacin=1;
+NOTE: There were 5 observations read from the data set WORK.TAB4.
+      WHERE Indomethacin=0;
+NOTE: The data set WORK.TAB4 has 4 observations and 12 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 4 observations read from the data set WORK.TAB4.
+NOTE: The data set WORK.TAB4 has 4 observations and 12 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Variable _LGOR_ is uninitialized.
+NOTE: Variable L_LGOR is uninitialized.
+NOTE: Variable U_LGOR is uninitialized.
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      2 at 1179:252   
+NOTE: There were 2 observations read from the data set WORK.P4.
+NOTE: The data set WORK.P4 has 2 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+                                                           The SAS System
+
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.P4.
+NOTE: There were 1 observations read from the data set WORK.P4.
+NOTE: The data set WORK.P4 has 1 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 4 observations read from the data set WORK.TAB4.
+NOTE: There were 1 observations read from the data set WORK.P4.
+NOTE: The data set WORK.TAB4 has 4 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 8 observations read from the data set WORK.TAB.
+NOTE: There were 4 observations read from the data set WORK.TAB4.
+NOTE: The data set WORK.TAB has 12 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: The data set WORK.TAB5 has 9 observations and 8 variables.
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The data set WORK.P5 has 2 observations and 46 variables.
+NOTE: The PROCEDURE FREQ printed pages 25-26.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 9 observations read from the data set WORK.TAB5.
+NOTE: The data set WORK.TAB5 has 9 observations and 8 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:67    466:127   
+NOTE: There were 2 observations read from the data set WORK.TAB5.
+      WHERE _type_='01';
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+                                                           The SAS System
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:77    466:118   466:168   
+NOTE: There were 3 observations read from the data set WORK.TAB5.
+      WHERE Indomethacin=1;
+NOTE: There were 3 observations read from the data set WORK.TAB5.
+      WHERE Indomethacin=0;
+NOTE: The data set WORK.TAB5 has 2 observations and 12 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.TAB5.
+NOTE: The data set WORK.TAB5 has 2 observations and 12 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      1 at 1255:252   
+NOTE: There were 2 observations read from the data set WORK.P5.
+NOTE: The data set WORK.P5 has 2 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.P5.
+NOTE: There were 1 observations read from the data set WORK.P5.
+NOTE: The data set WORK.P5 has 1 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.TAB5.
+NOTE: There were 1 observations read from the data set WORK.P5.
+NOTE: The data set WORK.TAB5 has 2 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 12 observations read from the data set WORK.TAB.
+NOTE: There were 2 observations read from the data set WORK.TAB5.
+NOTE: The data set WORK.TAB has 14 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+                                                           The SAS System
+
+
+NOTE: The data set WORK.TAB6 has 12 observations and 8 variables.
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The data set WORK.P6 has 2 observations and 23 variables.
+NOTE: The PROCEDURE FREQ printed pages 27-28.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 12 observations read from the data set WORK.TAB6.
+NOTE: The data set WORK.TAB6 has 12 observations and 8 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:67    466:127   
+NOTE: There were 2 observations read from the data set WORK.TAB6.
+      WHERE _type_='01';
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:77    466:118   466:168   
+NOTE: There were 4 observations read from the data set WORK.TAB6.
+      WHERE Indomethacin=1;
+NOTE: There were 4 observations read from the data set WORK.TAB6.
+      WHERE Indomethacin=0;
+NOTE: The data set WORK.TAB6 has 3 observations and 12 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 3 observations read from the data set WORK.TAB6.
+NOTE: The data set WORK.TAB6 has 3 observations and 12 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Variable _LGOR_ is uninitialized.
+NOTE: Variable L_LGOR is uninitialized.
+NOTE: Variable U_LGOR is uninitialized.
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      2 at 1331:252   
+NOTE: There were 2 observations read from the data set WORK.P6.
+NOTE: The data set WORK.P6 has 2 observations and 5 variables.
+                                                           The SAS System
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.P6.
+NOTE: There were 1 observations read from the data set WORK.P6.
+NOTE: The data set WORK.P6 has 1 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 3 observations read from the data set WORK.TAB6.
+NOTE: There were 1 observations read from the data set WORK.P6.
+NOTE: The data set WORK.TAB6 has 3 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 14 observations read from the data set WORK.TAB.
+NOTE: There were 3 observations read from the data set WORK.TAB6.
+NOTE: The data set WORK.TAB has 17 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: The data set WORK.TAB7 has 9 observations and 8 variables.
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The data set WORK.P7 has 2 observations and 46 variables.
+NOTE: The PROCEDURE FREQ printed pages 29-30.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 9 observations read from the data set WORK.TAB7.
+NOTE: The data set WORK.TAB7 has 9 observations and 8 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:67    466:127   
+NOTE: There were 2 observations read from the data set WORK.TAB7.
+      WHERE _type_='01';
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+                                                           The SAS System
+
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:77    466:118   466:168   
+NOTE: There were 3 observations read from the data set WORK.TAB7.
+      WHERE Indomethacin=1;
+NOTE: There were 3 observations read from the data set WORK.TAB7.
+      WHERE Indomethacin=0;
+NOTE: The data set WORK.TAB7 has 2 observations and 12 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.TAB7.
+NOTE: The data set WORK.TAB7 has 2 observations and 12 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      1 at 1407:252   
+NOTE: There were 2 observations read from the data set WORK.P7.
+NOTE: The data set WORK.P7 has 2 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.P7.
+NOTE: There were 1 observations read from the data set WORK.P7.
+NOTE: The data set WORK.P7 has 1 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.TAB7.
+NOTE: There were 1 observations read from the data set WORK.P7.
+NOTE: The data set WORK.TAB7 has 2 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 17 observations read from the data set WORK.TAB.
+NOTE: There were 2 observations read from the data set WORK.TAB7.
+NOTE: The data set WORK.TAB has 19 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+                                                           The SAS System
+
+      cpu time            0.00 seconds
+      
+
+
+NOTE: The data set WORK.TAB8 has 9 observations and 8 variables.
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The data set WORK.P8 has 2 observations and 46 variables.
+NOTE: The PROCEDURE FREQ printed pages 31-32.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 9 observations read from the data set WORK.TAB8.
+NOTE: The data set WORK.TAB8 has 9 observations and 8 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:67    466:127   
+NOTE: There were 2 observations read from the data set WORK.TAB8.
+      WHERE _type_='01';
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:77    466:118   466:168   
+NOTE: There were 3 observations read from the data set WORK.TAB8.
+      WHERE Indomethacin=1;
+NOTE: There were 3 observations read from the data set WORK.TAB8.
+      WHERE Indomethacin=0;
+NOTE: The data set WORK.TAB8 has 2 observations and 12 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.TAB8.
+NOTE: The data set WORK.TAB8 has 2 observations and 12 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      1 at 1483:252   
+NOTE: There were 2 observations read from the data set WORK.P8.
+NOTE: The data set WORK.P8 has 2 observations and 5 variables.
+                                                           The SAS System
+
+NOTE: At least one W.D format was too small for the number to be printed. The decimal may be shifted by the "BEST" format.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.P8.
+NOTE: There were 1 observations read from the data set WORK.P8.
+NOTE: The data set WORK.P8 has 1 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.TAB8.
+NOTE: There were 1 observations read from the data set WORK.P8.
+NOTE: The data set WORK.TAB8 has 2 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 19 observations read from the data set WORK.TAB.
+NOTE: There were 2 observations read from the data set WORK.TAB8.
+NOTE: The data set WORK.TAB has 21 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: The data set WORK.TAB9 has 12 observations and 8 variables.
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The data set WORK.P9 has 2 observations and 23 variables.
+NOTE: The PROCEDURE FREQ printed pages 33-34.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 12 observations read from the data set WORK.TAB9.
+NOTE: The data set WORK.TAB9 has 12 observations and 8 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:67    466:127   
+NOTE: There were 2 observations read from the data set WORK.TAB9.
+      WHERE _type_='01';
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+                                                           The SAS System
+
+      cpu time            0.01 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:77    466:118   466:168   
+NOTE: There were 4 observations read from the data set WORK.TAB9.
+      WHERE Indomethacin=1;
+NOTE: There were 4 observations read from the data set WORK.TAB9.
+      WHERE Indomethacin=0;
+NOTE: The data set WORK.TAB9 has 3 observations and 12 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 3 observations read from the data set WORK.TAB9.
+NOTE: The data set WORK.TAB9 has 3 observations and 12 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Variable _LGOR_ is uninitialized.
+NOTE: Variable L_LGOR is uninitialized.
+NOTE: Variable U_LGOR is uninitialized.
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      2 at 1559:252   
+NOTE: There were 2 observations read from the data set WORK.P9.
+NOTE: The data set WORK.P9 has 2 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.P9.
+NOTE: There were 1 observations read from the data set WORK.P9.
+NOTE: The data set WORK.P9 has 1 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 3 observations read from the data set WORK.TAB9.
+NOTE: There were 1 observations read from the data set WORK.P9.
+NOTE: The data set WORK.TAB9 has 3 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 21 observations read from the data set WORK.TAB.
+                                                           The SAS System
+
+NOTE: There were 3 observations read from the data set WORK.TAB9.
+NOTE: The data set WORK.TAB has 24 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: The data set WORK.TAB10 has 9 observations and 8 variables.
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The data set WORK.P10 has 2 observations and 46 variables.
+NOTE: The PROCEDURE FREQ printed pages 35-36.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 9 observations read from the data set WORK.TAB10.
+NOTE: The data set WORK.TAB10 has 9 observations and 8 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:67    466:127   
+NOTE: There were 2 observations read from the data set WORK.TAB10.
+      WHERE _type_='01';
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:77    466:118   466:168   
+NOTE: There were 3 observations read from the data set WORK.TAB10.
+      WHERE Indomethacin=1;
+NOTE: There were 3 observations read from the data set WORK.TAB10.
+      WHERE Indomethacin=0;
+NOTE: The data set WORK.TAB10 has 2 observations and 12 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.TAB10.
+NOTE: The data set WORK.TAB10 has 2 observations and 12 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+                                                           The SAS System
+
+      Each place is given by: (Number of times) at (Line):(Column).
+      1 at 1635:252   
+NOTE: There were 2 observations read from the data set WORK.P10.
+NOTE: The data set WORK.P10 has 2 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.P10.
+NOTE: There were 1 observations read from the data set WORK.P10.
+NOTE: The data set WORK.P10 has 1 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.TAB10.
+NOTE: There were 1 observations read from the data set WORK.P10.
+NOTE: The data set WORK.TAB10 has 2 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 24 observations read from the data set WORK.TAB.
+NOTE: There were 2 observations read from the data set WORK.TAB10.
+NOTE: The data set WORK.TAB has 26 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: The data set WORK.TAB11 has 9 observations and 8 variables.
+NOTE: There were 34 observations read from the data set WORK.LBWI.
+NOTE: The data set WORK.P11 has 2 observations and 46 variables.
+NOTE: The PROCEDURE FREQ printed pages 37-38.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 9 observations read from the data set WORK.TAB11.
+NOTE: The data set WORK.TAB11 has 9 observations and 8 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:67    466:127   
+NOTE: There were 2 observations read from the data set WORK.TAB11.
+                                                           The SAS System
+
+      WHERE _type_='01';
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      466:77    466:118   466:168   
+NOTE: There were 3 observations read from the data set WORK.TAB11.
+      WHERE Indomethacin=1;
+NOTE: There were 3 observations read from the data set WORK.TAB11.
+      WHERE Indomethacin=0;
+NOTE: The data set WORK.TAB11 has 2 observations and 12 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.TAB11.
+NOTE: The data set WORK.TAB11 has 2 observations and 12 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      1 at 1711:252   
+NOTE: There were 2 observations read from the data set WORK.P11.
+NOTE: The data set WORK.P11 has 2 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.P11.
+NOTE: There were 1 observations read from the data set WORK.P11.
+NOTE: The data set WORK.P11 has 1 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.TAB11.
+NOTE: There were 1 observations read from the data set WORK.P11.
+NOTE: The data set WORK.TAB11 has 2 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 26 observations read from the data set WORK.TAB.
+                                                           The SAS System
+
+NOTE: There were 2 observations read from the data set WORK.TAB11.
+NOTE: The data set WORK.TAB has 28 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+467        
+468        data tab;
+469        	length code0 $100;
+470            set tab; by item code;
+471                if item=1 then  do; code0=put(code, grade.); end;
+472        		if item=2 then  do; code0=put(code, gplt.); end;
+473        		if item=3 then  do; code0=put(code, tbc.); end;
+474        		if item=4 then  do; code0=put(code, ttbc.); end;
+475        		if item=5 then  do; code0=put(code, ny.); end;
+476        
+477        	
+478        		if item=6 then  do; code0=put(code, ntx.); end;
+479        		if item=7 then  do; code0=put(code, ny.); end;
+480        		if item=8 then  do; code0=put(code, ny.); end;
+481        		if item=9 then  do; code0=put(code, dmode.); end;
+482        		
+483        		if item=10  then  do; code0=put(code, ny.); end;
+484        		if item=11 then  do; code0=put(code, ny.); end;
+485        		if item=12 then  do; code0=put(code, ny.); end;
+486        		*format item item.;
+487        run;
+
+NOTE: There were 28 observations read from the data set WORK.TAB.
+NOTE: The data set WORK.TAB has 28 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+488        
+489        data tab_ivh;
+490        	length nfn nfy nft code0 $40;
+491            set tab(where=(item=1) in=A)
+492                stat(where=(item=1) in=B keep=item mean0 mean1 mean9 pv rename=(mean0=nfn mean1=nfy mean9=nft))
+493                tab(where=(1<item<=9) in=C)
+494                stat(where=(item>1) in=D keep=item mean0 mean1 mean9 pv rename=(mean0=nfn mean1=nfy mean9=nft))
+495                tab(where=(item>9) in=E);
+496                by item;
+497        
+498                if B then item=item+1;
+499                if C then item=item+1;
+500                if D then item=item+9;
+501                if E then item=item+5;
+502        
+503                format item item.;
+504                if item=3 then delete;
+505        run;
+
+WARNING: Multiple lengths were specified for the variable code0 by input data set(s). This may cause truncation of data.
+NOTE: There were 2 observations read from the data set WORK.TAB.
+      WHERE item=1;
+                                                           The SAS System
+
+NOTE: There were 1 observations read from the data set WORK.STAT.
+      WHERE item=1;
+NOTE: There were 22 observations read from the data set WORK.TAB.
+      WHERE (item>1 and item<=9);
+NOTE: There were 4 observations read from the data set WORK.STAT.
+      WHERE item>1;
+NOTE: There were 4 observations read from the data set WORK.TAB.
+      WHERE item>9;
+NOTE: The data set WORK.TAB_IVH has 29 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+506        
+507        
+508        
+509        ods rtf file="tab_sivh.rtf" style=journal bodytitle ;
+NOTE: Writing RTF Body file: tab_sivh.rtf
+510        proc report data=tab_ivh nowindows style(column)=[just=center] split="*";
+511        title "Approach #1: Impact of Prophylactic Indomethacin and Initial Platelet Count on Severe IVH";
+512        column item code0 nfy nfn pv;
+513        define item/"Characteristic" group order=internal format=item. style=[just=left];
+514        define code0/"." style=[just=left];
+515        define nfy/"Prophylactic Indomethacin*(n=&n1)";
+516        define nfn/"No Prophylactic Indomethacin*(n=&n0)";
+517        define pv/"p value" group;
+518        run;
+
+NOTE: Groups are not created because the usage of code0 is DISPLAY. To avoid this note, change all GROUP variables to ORDER 
+variables.
+NOTE: There were 29 observations read from the data set WORK.TAB_IVH.
+NOTE: The PROCEDURE REPORT printed pages 39-40.
+NOTE: PROCEDURE REPORT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.03 seconds
+      
+
+519        
+520        ODS ESCAPECHAR="^";
+521        ODS rtf TEXT="^S={LEFTMARGIN=0.9in RIGHTMARGIN=0.9in font_size=11pt}
+522        *Thrombocytopenia was defined by Lindern et al. as a platelet count  below 150 x 10^{super 9}/L : BMC Pediatrics
+522      ! 2011,11:16.
+523        ^n
+524        **There were 2 LBWIs with severe IVH treated prophylactically with Indomethacin that did not have a platelet count
+524      ! measurement available at birth.";
+525        ods rtf close;
+526        
+527        
+528        
+529        
+530        
+531        
+532        
+533        
+534        
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+                                                           The SAS System
+
+NOTE: The SAS System used:
+      real time           0.53 seconds
+      cpu time            0.52 seconds
+      

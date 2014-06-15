@@ -1,0 +1,11 @@
+sas monthly
+cp /glnd/sas/reporting/recruitment.pdf recruitment.pdf
+pdf2ps recruitment.pdf recruitment.ps
+pdf2ps /glnd/sas/reporting/df_reporting/qc_status_report.pdf qc.ps
+#cp /glnd/sas/reporting/df_reporting/qc_status_report.ps qc.ps
+cp /glnd/sas/reporting/blood_gluc_since_last_dsmb_table.ps bg.ps
+
+Splus7 < monthly.in
+
+chmod -f g+rw *
+chgrp -f studies *

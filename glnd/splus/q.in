@@ -1,0 +1,40 @@
+#################################################################################################
+#
+# Program:	quarterlyaesae.in
+#
+# Purpose:	Produce ae quarterly report
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.quart("quarterly",
+ prepare.date=date(),
+ asof.date=date(),
+ report.type="Quarterly AE/SAE Report",
+ meet.date=" ",
+ header="Quarterly AE/SAE Report")
+
+lib="/glnd/sas"
+
+
+### ae 2 parts
+
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.8in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{deathdetails.ps}}}",sep=""),
+  "\\end{figure}"),
+ file=paste("quarterly","tex",sep="."),sep="\n",append=T)
+cat("\\clearpage",sep="\n",file="quarterly.tex",append=T)
+
+
+f.bottom("quarterly")
+unix("/home/gcotson/bin/laps quarterly",output=F)
+unix("/home/gcotson/bin/laps quarterly",output=F)
+unix("/home/gcotson/bin/lapdf quarterly",output=F)
+unix("/home/gcotson/bin/lapdf quarterly",output=F)

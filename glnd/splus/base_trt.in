@@ -1,0 +1,96 @@
+#################################################################################################
+#
+# Program:	glnd_baseline.in
+#
+# Purpose:	Produce recruitment and baseline  results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.top("report",
+ prepare.date=date(),
+ asof.date="Feb 21, 2007",
+ report.type="Baseline and Follow-up CLOSED SESSION",
+ meet.date="Mar 6, 2007",
+ header="GLND DSMC Report - Baseline and Follow-up CLOSED SESSION")
+
+lib="/glnd/sas"
+rm(recruitment)
+
+
+
+### Baseline patient characteristics 
+
+base_pat_char2 <- f.sas.get(library=lib,member="basedemo",
+                           format.library=lib,formats=T)
+
+f.tab(file="report",
+      x=base_pat_char2[,c("gender","rac","hispanic","affil","apache.id",
+                         "ards","mech.vent","age","bmi","surg","diag"),
+      drop=F],
+      group=base_pat_char2[,"treatment"],
+      caption="Patient Characteristics", 
+      append=T, zero=F, 
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+      
+ status <- f.sas.get(library=lib,member="status",
+                           format.library=lib,formats=T)
+
+f.tab(file="report",
+      x=status[,c("days.sicu","days.sicu.post.entry","days.hosp","days.hosp.post.entry",
+                         "ever.on.ventilation.study"),
+      drop=F],
+       group=status[,"treatment"],
+      caption="Clinical Outcomes During Hospitalization", 
+      append=T, zero=F, 
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)   
+      
+      
+     
+
+### ae
+
+ae <- f.sas.get(library=lib,member="ae",
+                           format.library=lib,formats=T)
+
+f.tab(file="report",
+      x=ae[,c("ae1","ae2","ae3","ae4","ae5","ae6","ae7","ae8","ae9"),
+      drop=F],
+     group=ae[,"treatment"],
+      caption="Non-Primary Endpoint Adverse Event", 
+      append=T, zero=F, 
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+ f.tab(file="report",
+      x=ae[,c("ae10","ae11","ae12","ae13","ae14","ae15","ae16","ae17"),
+      drop=F],
+     group=ae[,"treatment"],
+      caption="Non-Primary Endpoint Adverse Event", 
+      append=T, zero=F, 
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)   
+
+
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{8 in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{endpoints.ps}}}",sep=""),
+ "\\caption{Mortality and Infections}",
+ "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T)
+ 
+ 
+
+    
+### Finish
+
+f.bottom("report")
+unix("/home/gcotson/bin/laps report",output=F)
+unix("/home/gcotson/bin/laps report",output=F)
+unix("/home/gcotson/bin/lapdf report",output=F)
+unix("/home/gcotson/bin/lapdf report",output=F)

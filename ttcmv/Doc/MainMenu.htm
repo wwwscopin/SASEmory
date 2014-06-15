@@ -1,0 +1,1280 @@
+
+	
+
+
+
+
+
+
+
+
+
+
+ 
+
+	
+	
+
+
+
+
+<html>
+
+<head><script type="text/javascript" src="/CFIDE/scripts/cfform.js"></script>
+<script type="text/javascript" src="/CFIDE/scripts/masks.js"></script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<link rel="stylesheet" type="text/css" href="style.css" />
+
+
+<title>PPG Home Page</title>
+<script language="JavaScript">
+
+
+function swapsub(id)
+{
+	var	e=document.getElementById("tab" +id);
+	if (e.style.display== "block")
+	{ 
+		e.style.display = "none"; 
+		if (id < 100) document.getElementById("span"+ id).innerHTML = "&nbsp;+&nbsp;";
+	} 
+	else 
+	{ 
+		e.style.display = "block"; 
+		if (id < 100) document.getElementById("span"+ id).innerHTML = "&nbsp;&nbsp;-&nbsp;";
+	} 
+	
+	return false; 
+}
+function swapdiv(id, header)
+{
+	var	e=document.getElementById("div"+ id);
+	document.getElementById("ReplaceDiv").innerHTML = e.innerHTML;
+	document.getElementById("ReplaceHeader").innerHTML = header;
+/*	if (e.style.display== "block")
+	{ 
+		e.style.display = "none"; 
+	} 
+	else 
+	{ 
+		e.style.display = "block"; 
+	} 
+	return false; */
+/*	for ( var i =1; i< 100; i++)
+	{
+		if (document.getElementById("tab" + i).className == "selected")
+		{
+			document.getElementById("tab" + i).className = "";
+		}
+	}*/
+}
+
+function showdiv(tab, category)
+{
+	document.getElementById(category + tab +"tab").className = "hoverclass";
+	var mydiv = category + tab + "link";
+	document.getElementById(mydiv).style.display = "block";
+}
+function hidediv(tab, category)
+{
+	var mydiv = category + tab + "link";
+	document.getElementById(mydiv).style.display = "none";
+	document.getElementById(category + tab +"tab").className = "regclass";
+}
+function cc()
+{
+ /* check for a cookie */
+  if (document.cookie == "") 
+  {
+    /* if a cookie is not found - alert user -
+     change cookieexists field value to false */
+    alert("You must enable cookies to use this site. Please enable cookies to proceed.");
+
+    /* If the user has Cookies disabled an alert will let him know 
+        that cookies need to be enabled to log on.*/ 
+
+    document.login_form.cookieexists.value ="false"  ;
+  } else {
+   /* this sets the value to true and nothing else will happen,
+       the user will be able to log on*/
+    document.login_form.cookieexists.value ="true";
+  }
+
+	window.scrollTo(0,0);
+	document.login_form.username.focus();
+}
+
+/* Set a cookie to be sure that one exists.
+   Note that this is outside the function*/
+document.cookie = 'killme' + escape('nothing');
+document.login_form.username.focus();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+    _CF_checklogin_form = function(_CF_this)
+    {
+        //reset on submit
+        _CF_error_exists = false;
+        _CF_error_messages = new Array();
+        _CF_error_fields = new Object();
+        _CF_FirstErrorField = null;
+
+
+        //display error messages and return success
+        if( _CF_error_exists )
+        {
+            if( _CF_error_messages.length > 0 )
+            {
+                // show alert() message
+                _CF_onErrorAlert(_CF_error_messages);
+                // set focus to first form error, if the field supports js focus().
+                if( _CF_this[_CF_FirstErrorField].type == "text" )
+                { _CF_this[_CF_FirstErrorField].focus(); }
+
+            }
+            return false;
+        }else {
+            return true;
+        }
+    }
+//-->
+</script>
+</head>
+
+
+<BODY onLoad="cc();"> <center>
+
+<div id="container">
+	<form name="login_form" id="login_form" action="act_login.cfm" method="post" target="_top" onsubmit="return _CF_checklogin_form(this)">
+	<input type="hidden" name="cookieexists" value="false">
+		<div id="topbar">
+   	  <div id="logo1"></div>
+   	  <div id="logo2"></div>    
+    </div>	
+
+    <div id= "studyinfo">
+	 
+
+	  		 <b><span class="title1">Prevention of TT-CMV in low birth-weight infants </span></b><br/>
+			Dr. Cassandra D. Josephson <br/>
+
+	 
+    </div>    
+
+	
+   <div style="margin: 0px 10px; background:url(images/ttcmv-banner1.png) bottom; height:150px; width:900px;"></div>
+	    <div id="navbar">
+    
+<a href="https://cfusion.sph.emory.edu/BMI/PPG/doc/TT_CMV_Directory.doc">Directory Listing</a>
+
+
+<a href="https://cfusion.sph.emory.edu/BMI/PPG/web/cal.cfm?StudySite=2"  target="_new">Grady Calendar</a> &nbsp;
+<a href="https://cfusion.sph.emory.edu/BMI/PPG/web/cal.cfm?StudySite=1"  target="_new">Midtown Calendar</a>  &nbsp;
+<a href="https://cfusion.sph.emory.edu/BMI/PPG/web/cal.cfm?StudySite=3"  target="_new">Northside Calendar</a>  &nbsp;
+<a href="https://cfusion.sph.emory.edu/BMI/PPG/web/cal.cfm?StudySite=0"  target="_new">All Sites Calendar</a>  &nbsp;
+
+<a href="MainMenu.cfm">Home</a>
+<a href="logout.cfm" >Logout</a>
+   
+</div>
+ 
+
+ 
+
+<div id="maincol">
+
+
+ 
+ <div id="leftcontainer">
+	<div id="leftcol">
+        <h3>Study Documents</h3>
+        <ul>
+
+         <li>
+	<a href="https://cfusion.sph.emory.edu/BMI/PPG/pdf/MasterFormList.pdf" target="_blank" class="navigation_inner_link2">
+	<b>Master Form List</b></a><br/>
+         </li>
+
+         <li>
+        	<a href="https://cfusion.sph.emory.edu/BMI/PPG/doc/TT-CMV_Protocol_Version_4.1.doc" class="navigation_inner_link2">
+        	<br/><b>Protocol (Version 4.1, Sept. 29, 2010)</b></a><br/><br/>
+         </li>
+
+         <li><b>Manual of Procedures</b>
+	<ul>
+	  <li><a href="https://cfusion.sph.emory.edu/BMI/PPG/doc/MOP_CH1.doc" class="navigation_inner_link2">Chapter 1: Study activation</b></a></li>
+	  <li><a href="https://cfusion.sph.emory.edu/BMI/PPG/doc/MOP_CH2.doc" class="navigation_inner_link2">Chapter 2: WBC counting</b></a></li>
+	  <li><a href="https://cfusion.sph.emory.edu/BMI/PPG/doc/MOP_CH3.doc" class="navigation_inner_link2">Chapter 3: Study procedures/visit schedule</b></a></li>
+	  <li><a href="https://cfusion.sph.emory.edu/BMI/PPG/doc/MOP_CH4.doc" class="navigation_inner_link2">Chapter 4: Data management</b></a></li>
+	</ul>
+         <br/>
+
+         <li><b>Study Brochures</b>
+         	<ul>
+              <li><a href="https://cfusion.sph.emory.edu/BMI/PPG/pdf/EUHMTTCMVBrochure.pdf" class="navigation_inner_link2">Clinical Site 1 : EUMH Midtown Brochure </b></a></li>
+         	  <li><a href="https://cfusion.sph.emory.edu/BMI/PPG/pdf/GradyTTCMVBrochure.pdf" target="_blank" class="navigation_inner_link2">Clinical Site 2: Grady Hospital Brochure </b></a></li>
+         	  <li><a href="##" class="navigation_inner_link2">Clinical Site 3: Northside Hospital Brochure </b></a></li>
+            </ul>
+         <br/>
+
+          <li><b>Monthly Reports</b>
+         	<ul>
+	  	  <li><a href="https://cfusion.sph.emory.edu/BMI/PPG/pdf/monthly_report_2010.10.01.pdf" class="navigation_inner_link2">Sept, 2010</a></li>
+              <li><a href="https://cfusion.sph.emory.edu/BMI/PPG/pdf/monthly_report_2010.09.03.pdf" class="navigation_inner_link2">Aug, 2010</a></li>
+	  	  <li><a href="https://cfusion.sph.emory.edu/BMI/PPG/pdf/monthly_report_2010.08.02.pdf" class="navigation_inner_link2">July, 2010</a></li>
+              <li><a href="https://cfusion.sph.emory.edu/BMI/PPG/pdf/monthly_report_2010.07.01.pdf" class="navigation_inner_link2">June, 2010</a></li>
+              <li><a href="https://cfusion.sph.emory.edu/BMI/PPG/pdf/monthly_report_2010.06.01.pdf" class="navigation_inner_link2">May, 2010</a></li>
+              <li><a href="https://cfusion.sph.emory.edu/BMI/PPG/pdf/monthly_report_2010.04.pdf" class="navigation_inner_link2">April, 2010</a></li>
+	      </ul>
+	    <br/>
+
+          <li><b>Data Reports</b>
+         	<ul>
+              <li><a href="##" class="navigation_inner_link2">Coming soon...</a></li>
+            </ul>
+          </li>
+
+        </ul>
+    <br/>
+  </div> 
+
+ 
+  <div id="centercol">
+    	<h3>Case Report Forms:</h3>
+
+
+
+
+
+
+  
+  	<a onClick="swapsub('100')" class="level1">Hospital Forms</a>
+      <div id="tab100" class="level2" style="display:none;">
+    	
+        
+          <a class="inner">
+           	<div onClick="swapdiv('1', 'General')">General</div></a>
+			   
+               <div id="div1" style="display:none;">
+                 
+        			<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/Checklist_hospital_forms.pdf',
+                   '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Hospital Forms Checklist</a><br/>	
+         		
+        			<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/contact_info.pdf',
+                   '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Contact Info Form</a><br/>	
+         		
+        			<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/antibiotic_code_sheet.pdf',
+                   '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Antibiotic Code Sheet </a><br/>	
+         		
+              </div>
+          
+        
+          <a class="inner">
+           	<div onClick="swapdiv('2', 'Screening Forms')">Screening Forms</div></a>
+			   
+               <div id="div2" style="display:none;">
+                 
+        			<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/eligibility.pdf',
+                   '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Eligibility</a><br/>	
+         		
+        			<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/eligibility_1500.pdf',
+                   '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Eligibility, Version 2 (Weight <1500g)</a><br/>	
+         		
+              </div>
+          
+        
+          
+          <a class="hasSub" onClick="swapsub('3')"> <span id="span3">&nbsp;+&nbsp;</span>Scheduled Forms</a>
+              <div id="tab3" class="level3" style="display:none;">
+            	
+                <a class="inner">
+          		  <div onClick="swapdiv('4', 'DOB')"> DOB</div></a>
+                  	
+                    <div id="div4" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/LBWI_blood_collection_DOB.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: Blood Collection</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/LBWI_urine_collection_DOB.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: Urine Collection</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/MOC_blood_collection_enrollment.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">MOC: Blood Collection</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/LBWI_demo.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: Demographic and Birth Data</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/MOC_demo.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">MOC: Demographic and Medical Record Review</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/MOC_placental_pathology.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">MOC: Placental Infection and Pathology</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/SNAP.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">SNAP score</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/LBWI_med_review_DOB.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: Medical Record Review and Laboratory Results</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('5', 'DOL 4')"> DOL 4</div></a>
+                  	
+                    <div id="div5" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/LBWI_med_review_DOL4.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: Medical Record Review and Laboratory Results</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/SNAPII_DOL4.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">SNAP II Score</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('6', 'DOL 7')"> DOL 7</div></a>
+                  	
+                    <div id="div6" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/LBWI_med_review_DOL7.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: Medical Record Review and Laboratory Results</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/SNAPII_DOL7.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">SNAP II Score</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/milk_collection_DOL7.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Breast Milk Collection</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/summary_DOL7.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Summary Form</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('7', 'DOL 14')"> DOL 14</div></a>
+                  	
+                    <div id="div7" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/LBWI_med_review_DOL14.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: Medical Record Review and Laboratory Results</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/SNAPII_DOL14.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">SNAP II Score</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/summary_DOL14.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Summary Form</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('8', 'DOL 21')"> DOL 21</div></a>
+                  	
+                    <div id="div8" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/LBWI_med_review_DOL21.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: Medical Record Review and Laboratory Results</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/LBWI_blood_collection_DOL21.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: Blood Collection</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/SNAPII_DOL21.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">SNAP II Score</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/milk_collection_DOL21.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Breast Milk Collection</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/summary_DOL21.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Summary Form</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('9', 'DOL 28')"> DOL 28</div></a>
+                  	
+                    <div id="div9" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/LBWI_med_review_DOL28.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: Medical Record Review and Laboratory Results</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/SNAPII_DOL28.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">SNAP II Score</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/milk_collection_DOL28.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Breast Milk Collection</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/summary_DOL28.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Summary Form</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('10', 'DOL 40')"> DOL 40</div></a>
+                  	
+                    <div id="div10" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/LBWI_med_review_DOL40.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: Medical Record Review and Laboratory Results</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/LBWI_blood_collection_DOL40.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: Blood Collection</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/SNAPII_DOL40.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">SNAP II Score</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/milk_collection_DOL40.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Breast Milk Collection</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/summary_DOL40.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Summary Form</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('12', 'DOL 60')"> DOL 60</div></a>
+                  	
+                    <div id="div12" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/LBWI_med_review_DOL60.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: Medical Record Review and Laboratory Results</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/LBWI_blood_collection_DOL60.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: Blood Collection</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/SNAPII_DOL60.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">SNAP II Score</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/summary_DOL60.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Summary Form</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('13', 'End Of Study/ DOL 90')"> End Of Study/ DOL 90</div></a>
+                  	
+                    <div id="div13" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/end_of_study.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">End of Study</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/LBWI_blood_collection_DOL90.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: Blood Collection</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/LBWI_urine_collection_DOL90.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: Urine Collection</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/MOC_blood_collection_discharge.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">MOC: Blood Collection</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/summary_DOL90.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Summary Form</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('14', 'Post-Discharge')"> Post-Discharge</div></a>
+                  	
+                    <div id="div14" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/LBWI_blood_collection_postdc.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: Blood Collection</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('16', 'Logs')"> Logs</div></a>
+                  	
+                    <div id="div16" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/conmeds.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Concomitant Medications</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/drip_log.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Drip Log</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/breast_feed_log.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Breast Milk Feeding</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/mechanical_vent.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Mechanical Ventilation</a><br/>	
+         			  
+                    </div>
+                
+              </div>
+          
+        
+          
+          <a class="hasSub" onClick="swapsub('18')"> <span id="span18">&nbsp;+&nbsp;</span>Transfusion</a>
+              <div id="tab18" class="level3" style="display:none;">
+            	
+                <a class="inner">
+          		  <div onClick="swapdiv('20', 'RBC')"> RBC</div></a>
+                  	
+                    <div id="div20" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_1.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #1</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_2.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #2</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_3.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #3</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_4.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #4</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_5.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #5</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_6.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #6</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_7.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #7</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_8.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #8</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_9.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #9</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_10.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #10</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_11.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #11</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_12.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #12</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_13.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #13</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_14.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #14</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_15.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #15</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_16.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #16</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_17.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #17</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_18.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #18</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_19.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #19</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_rbc_20.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">RBC #20</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('22', 'Platelet')"> Platelet</div></a>
+                  	
+                    <div id="div22" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_1.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #1</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_2.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #2</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_3.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #3</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_4.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #4</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_5.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #5</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_6.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #6</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_7.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #7</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_8.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #8</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_9.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #9</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_10.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #10</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_11.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #11</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_12.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #12</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_13.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #13</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_14.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #14</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_15.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #15</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_16.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #16</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_17.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #17</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_18.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #18</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_19.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #19</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_platelet_20.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Platelet #20</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('24', 'FFP')"> FFP</div></a>
+                  	
+                    <div id="div24" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_1.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #1</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_2.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #2</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_3.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #3</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_4.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #4</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_5.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #5</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_6.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #6</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_7.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #7</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_8.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #8</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_9.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #9</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_10.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #10</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_11.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #11</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_12.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #12</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_13.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #13</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_14.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #14</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_15.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #15</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_16.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #16</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_17.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #17</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_18.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #18</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_19.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #19</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_ffp_20.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">FFP #20</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('26', 'Cyroprecipitate')"> Cyroprecipitate</div></a>
+                  	
+                    <div id="div26" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_cryo_1.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Cryo #1</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_cryo_2.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Cryo #2</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_cryo_3.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Cryo #3</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_cryo_4.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Cryo #4</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_cryo_5.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Cryo #5</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_cryo_6.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Cryo #6</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_cryo_7.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Cryo #7</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_cryo_8.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Cryo #8</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_cryo_9.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Cryo #9</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_cryo_10.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Cryo #10</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('28', 'Granulocyte')"> Granulocyte</div></a>
+                  	
+                    <div id="div28" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_gran_1.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Gran #1</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_gran_2.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Gran #2</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_gran_3.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Gran #3</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_gran_4.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Gran #4</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_gran_5.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Gran #5</a><br/>	
+         			  
+                    </div>
+                
+              </div>
+          
+        
+          
+          <a class="hasSub" onClick="swapsub('30')"> <span id="span30">&nbsp;+&nbsp;</span>Clinical Outcomes</a>
+              <div id="tab30" class="level3" style="display:none;">
+            	
+                <a class="inner">
+          		  <div onClick="swapdiv('32', 'CMV #1')"> CMV #1</div></a>
+                  	
+                    <div id="div32" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/Suspected_CMV1.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Investigation of Suspected CMV Disease #1</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/milk_collection_cmv1.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Breast Milk Collection Form</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('34', 'CMV #2')"> CMV #2</div></a>
+                  	
+                    <div id="div34" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/Suspected_CMV2.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Investigation of Suspected CMV Disease #2</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/milk_collection_cmv2.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Breast Milk Collection Form</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('36', 'NEC #1')"> NEC #1</div></a>
+                  	
+                    <div id="div36" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NEC1.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Necrotizing Enterocolitis (NEC) Form #1</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/SNAPII_nec1.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">SNAP II Form - Diagnosis of NEC (Case #1)</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NEC_PN_Log1.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">NEC Enteral Nutrition Log #1</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NEC_imaging_case1.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">NEC Imagining Forms #1-#26 (Case #1)</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('38', 'NEC #2')"> NEC #2</div></a>
+                  	
+                    <div id="div38" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NEC2.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Necrotizing Enterocolitis (NEC) Form #2</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/SNAPII_nec2.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">SNAP II Form - Diagnosis of NEC (Case #1)</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NEC_PN_Log2.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">NEC Enteral Nutrition Log #2</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NEC_imaging_case2.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">NEC Imagining Forms #1-#26 (Case #2)</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('39', 'NEC #3')"> NEC #3</div></a>
+                  	
+                    <div id="div39" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NEC3.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Necrotizing Enterocolitis (NEC) Form #3</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/SNAPII_nec3.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">SNAP II Form - Diagnosis of NEC (Case #3)</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NEC_PN_Log3.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">NEC Enteral Nutrition Log #3</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NEC_imaging_case3.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">NEC Imagining Forms #1-#26 (Case #3)</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('40', 'IVH')"> IVH</div></a>
+                  	
+                    <div id="div40" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/IVH.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">IVH</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/SNAPII_ivh.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">SNAP II Form - Diagnosis of IVH</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/IVH_imaging.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">IVH Imaging Forms #1-#10</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('42', 'BPD')"> BPD</div></a>
+                  	
+                    <div id="div42" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/BPD.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">BPD</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('44', 'ROP')"> ROP</div></a>
+                  	
+                    <div id="div44" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/ROP.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">ROP</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('46', 'PDA')"> PDA</div></a>
+                  	
+                    <div id="div46" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/PDA.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">PDA</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('48', 'Infection')"> Infection</div></a>
+                  	
+                    <div id="div48" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/infection1.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Infection/Sepsis #1</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/infection2.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Infection/Sepsis #2</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/infection3.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Infection/Sepsis #3</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/infection4.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Infection/Sepsis #4</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/infection5.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Infection/Sepsis #5</a><br/>	
+         			  
+                    </div>
+                
+              </div>
+          
+        
+          
+          <a class="hasSub" onClick="swapsub('50')"> <span id="span50">&nbsp;+&nbsp;</span>AE, Reaction Forms</a>
+              <div id="tab50" class="level3" style="display:none;">
+            	
+                <a class="inner">
+          		  <div onClick="swapdiv('52', 'TXN Reaction')"> TXN Reaction</div></a>
+                  	
+                    <div id="div52" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_reaction1.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Transfusion Reaction #1</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_reaction2.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Transfusion Reaction #2</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/txn_reaction3.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Transfusion Reaction #3</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('54', 'AE/Death')"> AE/Death</div></a>
+                  	
+                    <div id="div54" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/AE.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Adverse Event /Death</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('56', 'SAE')"> SAE</div></a>
+                  	
+                    <div id="div56" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/SAE1.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Unexpected Serious Adverse Event #1</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/SAE2.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Unexpected Serious Adverse Event #2</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/SAE3.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Unexpected Serious Adverse Event #3</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/SAE4.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Unexpected Serious Adverse Event #4</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/SAE5.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Unexpected Serious Adverse Event #5</a><br/>	
+         			  
+                    </div>
+                
+              </div>
+          
+        
+          
+          <a class="hasSub" onClick="swapsub('58')"> <span id="span58">&nbsp;+&nbsp;</span>Other Forms</a>
+              <div id="tab58" class="level3" style="display:none;">
+            	
+                <a class="inner">
+          		  <div onClick="swapdiv('60', 'Transfer')"> Transfer</div></a>
+                  	
+                    <div id="div60" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/transfer.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Transfer (within study)</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/summary_unscheduled1.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Summary Form - Unscheduled #1</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/summary_unscheduled2.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Summary Form - Unscheduled #2</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/summary_unscheduled3.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Summary Form - Unscheduled #3</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/summary_unscheduled4.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Summary Form - Unscheduled #4</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/summary_unscheduled5.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Summary Form - Unscheduled #5</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/summary_unscheduled6.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Summary Form - Unscheduled #6</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('62', 'Protocol Deviation')"> Protocol Deviation</div></a>
+                  	
+                    <div id="div62" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/deviation1.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Protocol Deviation #1</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/deviation2.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Protocol Deviation #2</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/deviation3.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Protocol Deviation #3</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/deviation4.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Protocol Deviation #4</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/deviation5.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Protocol Deviation #5</a><br/>	
+         			  
+                    </div>
+                
+              </div>
+          
+        
+      </div>
+  
+
+  
+  	<a onClick="swapsub('200')" class="level1">Lab Forms</a>
+      <div id="tab200" class="level2" style="display:none;">
+    	
+        
+          <a class="inner">
+           	<div onClick="swapdiv('202', 'General')">General</div></a>
+			   
+               <div id="div202" style="display:none;">
+                 
+        			<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/Checklist_lab_forms.pdf',
+                   '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Lab Forms Checklist</a><br/>	
+         		
+              </div>
+          
+        
+          
+          <a class="hasSub" onClick="swapsub('210')"> <span id="span210">&nbsp;+&nbsp;</span>CMV NAT Results</a>
+              <div id="tab210" class="level3" style="display:none;">
+            	
+                <a class="inner">
+          		  <div onClick="swapdiv('212', 'DOB')"> DOB</div></a>
+                  	
+                    <div id="div212" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_LBWI_blood_DOB.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: CMV NAT Blood Test Results – DOB</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_LBWI_urine_DOB.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: CMV NAT Urine Test Results – DOB</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_MOC_blood_enrollment.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">MOC: CMV NAT Test Results – Enrollment</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('214', 'DOL 21')"> DOL 21</div></a>
+                  	
+                    <div id="div214" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_LBWI_blood_DOL21.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: CMV NAT Blood Test Results – DOL 21</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('216', 'DOL 40')"> DOL 40</div></a>
+                  	
+                    <div id="div216" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_LBWI_blood_DOL40.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: CMV NAT Blood Test Results – DOL 40</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('218', 'DOL 60')"> DOL 60</div></a>
+                  	
+                    <div id="div218" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_LBWI_blood_DOL60.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: CMV NAT Blood Test Results – DOL 60</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('220', 'End of Study')"> End of Study</div></a>
+                  	
+                    <div id="div220" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_LBWI_blood_DOL90.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: CMV NAT Blood Test Results – End of Study</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_LBWI_urine_DOL90.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: CMV NAT Urine Test Results – End of Study</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_MOC_blood_DOL90.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">MOC: CMV NAT Test Results – End of Study</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('222', 'Post-discharge')"> Post-discharge</div></a>
+                  	
+                    <div id="div222" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_LBWI_blood_postDC.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: CMV NAT Blood Test Results – Post-Discharge</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('224', 'Unscheduled #1')"> Unscheduled #1</div></a>
+                  	
+                    <div id="div224" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_breastmilk.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Breast Milk NAT Results Form</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_LBWI_blood_unscheduled1.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: CMV NAT Blood Test Results - Unscheduled #1</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_LBWI_urine_unscheduled1.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: CMV NAT Urine Test Results - Unscheduled #1</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_MOC_blood_unscheduled1.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">MOC: CMV NAT Blood Test Results - Unscheduled #1</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('226', 'Unscheduled #2')"> Unscheduled #2</div></a>
+                  	
+                    <div id="div226" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_LBWI_blood_unscheduled2.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: CMV NAT Blood Test Results - Unscheduled #2</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_LBWI_urine_unscheduled2.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: CMV NAT Urine Test Results - Unscheduled #2</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_MOC_blood_unscheduled2.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">MOC: CMV NAT Blood Test Results - Unscheduled #2</a><br/>	
+         			  
+                    </div>
+                <a class="inner">
+          		  <div onClick="swapdiv('228', 'Unscheduled #3')"> Unscheduled #3</div></a>
+                  	
+                    <div id="div228" style="display:none;">
+                      
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_LBWI_blood_unscheduled3.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: CMV NAT Blood Test Results - Unscheduled #3</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_LBWI_urine_unscheduled3.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">LBWI: CMV NAT Urine Test Results - Unscheduled #3</a><br/>	
+         			  
+        				<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/NAT_MOC_blood_unscheduled3.pdf',
+                        '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">MOC: CMV NAT Blood Test Results - Unscheduled #3</a><br/>	
+         			  
+                    </div>
+                
+              </div>
+          
+        
+          <a class="inner">
+           	<div onClick="swapdiv('250', 'CMV Serology Results')">CMV Serology Results</div></a>
+			   
+               <div id="div250" style="display:none;">
+                 
+        			<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/serology_MOC_enrollment.pdf',
+                   '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">MOC: CMV Serology Test Results – Enrollment</a><br/>	
+         		
+              </div>
+          
+        
+          <a class="inner">
+           	<div onClick="swapdiv('260', 'Breast Milk Freezer Location')">Breast Milk Freezer Location</div></a>
+			   
+               <div id="div260" style="display:none;">
+                 
+        			<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/BM_location1.pdf',
+                   '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Breast Milk Freezer Location Form – Week 1 Samples</a><br/>	
+         		
+        			<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/BM_location2.pdf',
+                   '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Breast Milk Freezer Location Form – Week 3 Samples</a><br/>	
+         		
+        			<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/BM_location3.pdf',
+                   '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Breast Milk Freezer Location Form – Week 4 Samples</a><br/>	
+         		
+        			<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/BM_location4.pdf',
+                   '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Breast Milk Freezer Location Form – Day 34-40 Samples</a><br/>	
+         		
+              </div>
+          
+        
+      </div>
+  
+
+  
+  	<a onClick="swapsub('300')" class="level1">Blood Unit Forms</a>
+      <div id="tab300" class="level2" style="display:none;">
+    	
+        
+          <a class="inner">
+           	<div onClick="swapdiv('302', 'Blood Unit Forms')">Blood Unit Forms</div></a>
+			   
+               <div id="div302" style="display:none;">
+                 
+        			<a href= "javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/unit_log_NOFAX.pdf',
+                   '','scrollbars,resizable,menubar,height=480,width=671'); void('') ">Blood Bank Parent Unit Segment Log</a><br/>	
+         		
+              </div>
+          
+        
+      </div>
+  
+
+<br/>
+
+
+
+ 
+
+</div> 
+
+  
+    
+    <div id="rightcol">
+    	<h3 id="ReplaceHeader">Forms Download List:</h3>
+
+
+
+<div id="ReplaceDiv">
+Browse to find the tab name you need on the left, and the forms to download will show up here...
+</div>
+
+
+</div>
+    
+
+     
+    
+
+
+  
+
+    
+
+</div>
+
+  
+ </form>
+
+	 
+	  
+	
+  
+
+
+</center>
+</body>
+
+</html>
+ 
+   <!--
+  <div style="display:none">
+     <li  align="left" >#AsNeededSection.Tab[i]#</li>
+
+
+	 <a href="javascript:window.open('https://cfusion.sph.emory.edu/BMI/PPG/pdf/#AsNeededSection.FileName[i]#','','scrollbars,resizable,menubar,height=480,width=671'); void('') " class="navigation_inner_link">
+		 #AsNeededSection.LinkName[i]#</a>
+	 
+
+  </div>
+
+  -->
+  
+  
+
+
+
+

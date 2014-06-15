@@ -1,0 +1,69 @@
+#################################################################################################
+#
+# Program:	open.in
+#
+# Purpose:	Produce open results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.top("open",
+ prepare.date=date(),
+ asof.date="Aug 31, 2009",
+ report.type="Baseline and Follow-up CLOSED SESSION",
+ meet.date="October 6, 2009",
+ header="GLND DSMB Report CLOSED SESSION")
+
+
+# lib="/glnd/sas/reporting"
+lib="/glnd/sas/dsmc/20090831"
+libr="/glnd/sas/reporting"
+ libs="/glnd/sas"
+libdf="/glnd/sas/reporting/df_reporting" 
+lib8r="/glnd/sas/dsmc/20090831/reporting"
+
+ 
+ days2<- f.sas.get(library=libr,member="percent_enteral1", format.library=libs,  formats=T)
+                           
+f.list(file="open",
+      x=days2[,c("day","patients","had.en.s","col.0.25","col.25.50","col.50.75","col.75.100"),
+      drop=F],
+     
+      caption="Median proportion of total kcal given enterally", 
+      footnote=" Note: patients with daily nutritional information not yet submitted appear as not receiving TPN.", 
+                 append=T, pos=c("l","c","c","c","c","c","c")) 
+      
+   
+
+lipid<- f.sas.get(library=lib8r,member="percent_iv_lipid", format.library=libr,  formats=T)
+        xlipid=  lipid[,c("day","patients",
+            "had.pn.s","col.0","col.0.15","col.15.30","col.30.100")]                 
+ f.list(file="open",
+     x=xlipid,
+      caption="Median proportion of IV kcal composed of lipid, over time in patients receiving TPN", 
+      footnote=" Note: patients with daily nutritional information not yet submitted appear as not receiving TPN.",
+               append=T, pos=c("l","c","c","c","c","c","c"))   
+      
+      
+      
+dex<- f.sas.get(library=lib8r,
+member="percent_iv_dextrose", format.library=libr,  formats=T)
+    xdex=dex[,c("day","patients",
+"had.pn.s","col.0","col.0.30","col.30.60","col.60.100")]                              
+f.list(file="open",
+      x=xdex,
+     caption="Median proportion of IV kcal composed of dextrose, over time in patients receiving TPN", 
+      footnote=" Note: patients with daily nutritional information not yet submitted appear as not receiving TPN.", 
+     
+      append=T, pos=c("l","c","c","c","c","c","c"))   
+
+f.bottom("open")
+unix("/home/gcotson/bin/laps open",output=F)
+unix("/home/gcotson/bin/laps open",output=F)
+unix("/home/gcotson/bin/lapdf open",output=F)
+unix("/home/gcotson/bin/lapdf open",output=F)    

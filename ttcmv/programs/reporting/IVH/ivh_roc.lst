@@ -1,0 +1,419 @@
+                                                           The SAS System
+
+                                                       The LOGISTIC Procedure
+
+Output Added:
+-------------
+Name:       ModelInfo
+Label:      Model Information
+Template:   Stat.Logistic.ModelInfo
+Path:       Logistic.ModelInfo
+Label Path: 'The Logistic Procedure'.'Model Information'
+-------------
+                                                         Model Information
+
+                                           Data Set                      WORK.LBWI       
+                                           Response Variable             ivh             
+                                           Number of Response Levels     2               
+                                           Model                         binary logit    
+                                           Optimization Technique        Fisher's scoring
+
+Output Added:
+-------------
+Name:       NObs
+Label:      Observations Summary
+Template:   Stat.Logistic.NObs
+Path:       Logistic.NObs
+Label Path: 'The Logistic Procedure'.'Observations Summary'
+-------------
+
+
+                                              Number of Observations Read         471
+                                              Number of Observations Used         467
+
+Output Added:
+-------------
+Name:       ResponseProfile
+Label:      Response Profile
+Template:   Stat.Logistic.ResponseProfile
+Path:       Logistic.ResponseProfile
+Label Path: 'The Logistic Procedure'.'Response Profile'
+-------------
+
+
+                                                          Response Profile
+ 
+                                                 Ordered                      Total
+                                                   Value          ivh     Frequency
+
+                                                       1            1            60
+                                                       2            0           407
+
+                                                   Probability modeled is ivh=1.
+
+NOTE: 4 observations were deleted due to missing values for the response or explanatory variables.
+
+Output Added:
+-------------
+Name:       ConvergenceStatus
+Label:      Convergence Status
+Template:   Stat.Logistic.MConvergenceStatus
+                                                           The SAS System
+
+                                                       The LOGISTIC Procedure
+
+Path:       Logistic.ConvergenceStatus
+Label Path: 'The Logistic Procedure'.'Convergence Status'
+-------------
+
+
+                                                      Model Convergence Status
+
+                                           Convergence criterion (GCONV=1E-8) satisfied.          
+
+Output Added:
+-------------
+Name:       FitStatistics
+Label:      Fit Statistics
+Template:   Stat.Logistic.FitStatistics
+Path:       Logistic.FitStatistics
+Label Path: 'The Logistic Procedure'.'Fit Statistics'
+-------------
+
+
+                                                        Model Fit Statistics
+ 
+                                                                            Intercept
+                                                             Intercept            and
+                                               Criterion          Only     Covariates
+
+                                               AIC             360.176        334.582
+                                               SC              364.323        342.874
+                                               -2 Log L        358.176        330.582
+
+Output Added:
+-------------
+Name:       GlobalTests
+Label:      Global Tests
+Template:   Stat.Logistic.GlobalTests
+Path:       Logistic.GlobalTests
+Label Path: 'The Logistic Procedure'.'Global Tests'
+-------------
+
+
+                                              Testing Global Null Hypothesis: BETA=0
+ 
+                                      Test                 Chi-Square       DF     Pr > ChiSq
+
+                                      Likelihood Ratio        27.5946        1         <.0001
+                                      Score                   27.7247        1         <.0001
+                                      Wald                    25.6437        1         <.0001
+
+Output Added:
+-------------
+Name:       ParameterEstimates
+Label:      Parameter Estimates
+Template:   Stat.Logistic.ParameterEstimates
+Path:       Logistic.ParameterEstimates
+Label Path: 'The Logistic Procedure'.'Parameter Estimates'
+-------------
+                                                           The SAS System
+
+                                                       The LOGISTIC Procedure
+
+                                             Analysis of Maximum Likelihood Estimates
+ 
+                                                               Standard          Wald
+                                Parameter    DF    Estimate       Error    Chi-Square    Pr > ChiSq
+
+                                Intercept     1      1.9079      0.7348        6.7418        0.0094
+                                Hb            1     -0.2658      0.0525       25.6437        <.0001
+
+Output Added:
+-------------
+Name:       OddsRatios
+Label:      Odds Ratios
+Template:   Stat.Logistic.OddsRatios
+Path:       Logistic.OddsRatios
+Label Path: 'The Logistic Procedure'.'Odds Ratios'
+-------------
+
+
+                                                        Odds Ratio Estimates
+                                                                  
+                                                          Point          95% Wald
+                                             Effect    Estimate      Confidence Limits
+
+                                             Hb           0.767       0.692       0.850
+
+Output Added:
+-------------
+Name:       Association
+Label:      Association Statistics
+Template:   Stat.Logistic.Association
+Path:       Logistic.Association
+Label Path: 'The Logistic Procedure'.'Association Statistics'
+-------------
+
+
+                                   Association of Predicted Probabilities and Observed Responses
+
+                                         Percent Concordant     67.1    Somers' D    0.352
+                                         Percent Discordant     31.9    Gamma        0.355
+                                         Percent Tied            0.9    Tau-a        0.079
+                                         Pairs                 24420    c            0.676
+
+Output Added:
+-------------
+Name:       LackFitPartition
+Label:      Partition
+Template:   Stat.Logistic.LackFitPartition
+Path:       Logistic.LackFit.LackFitPartition
+Label Path: 'The Logistic Procedure'.'Hosmer-Lemeshow Test'.'Partition'
+-------------
+                                                           The SAS System
+
+                                                       The LOGISTIC Procedure
+
+                                             Partition for the Hosmer and Lemeshow Test
+ 
+                                                               ivh = 1                 ivh = 0
+                                   Group       Total    Observed    Expected    Observed    Expected
+
+                                       1          49           3        1.74          46       47.26
+                                       2          48           3        2.64          45       45.36
+                                       3          46           6        3.21          40       42.79
+                                       4          51           3        4.35          48       46.65
+                                       5          51           4        5.31          47       45.69
+                                       6          51           6        6.20          45       44.80
+                                       7          46           7        6.48          39       39.52
+                                       8          48           2        8.19          46       39.81
+                                       9          49          12       11.22          37       37.78
+                                      10          28          14       10.67          14       17.33
+
+Output Added:
+-------------
+Name:       LackFitChiSq
+Label:      Chi-Square Test
+Template:   Stat.Logistic.LackFitChiSq
+Path:       Logistic.LackFit.LackFitChiSq
+Label Path: 'The Logistic Procedure'.'Hosmer-Lemeshow Test'.'Chi-Square Test'
+-------------
+
+
+                                              Hosmer and Lemeshow Goodness-of-Fit Test
+ 
+                                                 Chi-Square       DF     Pr > ChiSq
+
+                                                    11.8731        8         0.1570
+
+Output Added:
+-------------
+Name:       Classification
+Label:      Classification Table
+Template:   Stat.Logistic.Classification
+Path:       Logistic.Classification
+Label Path: 'The Logistic Procedure'.'Classification Table'
+-------------
+
+
+                                                        Classification Table
+ 
+                                        Correct      Incorrect                Percentages
+                               Prob          Non-          Non-           Sensi-  Speci-  False  False
+                              Level  Event  Event  Event  Event  Correct  tivity  ficity   POS    NEG 
+
+                              0.050     57     59    348      3     24.8    95.0    14.5   85.9    4.8
+                              0.100     44    193    214     16     50.7    73.3    47.4   82.9    7.7
+                              0.150     28    303    104     32     70.9    46.7    74.4   78.8    9.6
+                              0.200     23    361     46     37     82.2    38.3    88.7   66.7    9.3
+                              0.250     16    382     25     44     85.2    26.7    93.9   61.0   10.3
+                              0.300     13    393     14     47     86.9    21.7    96.6   51.9   10.7
+                              0.350     12    401      6     48     88.4    20.0    98.5   33.3   10.7
+                              0.400      5    405      2     55     87.8     8.3    99.5   28.6   12.0
+                                                           The SAS System
+
+                                                       The LOGISTIC Procedure
+
+                                                        Classification Table
+ 
+                                        Correct      Incorrect                Percentages
+                               Prob          Non-          Non-           Sensi-  Speci-  False  False
+                              Level  Event  Event  Event  Event  Correct  tivity  ficity   POS    NEG 
+
+                              0.450      3    407      0     57     87.8     5.0   100.0    0.0   12.3
+                              0.500      1    407      0     59     87.4     1.7   100.0    0.0   12.7
+                              0.550      0    407      0     60     87.2     0.0   100.0     .    12.8
+                              0.600      0    407      0     60     87.2     0.0   100.0     .    12.8
+                                                           The SAS System
+
+                                                       The CONTENTS Procedure
+
+                                                    Variables in Creation Order
+
+ProbLevel CorrectEvents CorrectNonevents IncorrectEvents IncorrectNonevents Correct Sensitivity Specificity FalsePositive           
+FalseNegative                                                                                                                       
+                                                           The SAS System
+
+                                                       The LOGISTIC Procedure
+
+                                                         Model Information
+
+                                           Data Set                      WORK.LBWI       
+                                           Response Variable             ivh             
+                                           Number of Response Levels     2               
+                                           Model                         binary logit    
+                                           Optimization Technique        Fisher's scoring
+
+
+                                              Number of Observations Read         471
+                                              Number of Observations Used         468
+
+
+                                                          Response Profile
+ 
+                                                 Ordered                      Total
+                                                   Value          ivh     Frequency
+
+                                                       1            1            61
+                                                       2            0           407
+
+                                                   Probability modeled is ivh=1.
+
+NOTE: 3 observations were deleted due to missing values for the response or explanatory variables.
+
+
+                                                      Model Convergence Status
+
+                                           Convergence criterion (GCONV=1E-8) satisfied.          
+
+
+                                                        Model Fit Statistics
+ 
+                                                                            Intercept
+                                                             Intercept            and
+                                               Criterion          Only     Covariates
+
+                                               AIC             364.266        366.190
+                                               SC              368.414        374.487
+                                               -2 Log L        362.266        362.190
+
+
+                                              Testing Global Null Hypothesis: BETA=0
+ 
+                                      Test                 Chi-Square       DF     Pr > ChiSq
+
+                                      Likelihood Ratio         0.0755        1         0.7835
+                                      Score                    0.0751        1         0.7840
+                                      Wald                     0.0751        1         0.7840
+
+
+                                                           The SAS System
+
+                                                       The LOGISTIC Procedure
+
+                                             Analysis of Maximum Likelihood Estimates
+ 
+                                                               Standard          Wald
+                                Parameter    DF    Estimate       Error    Chi-Square    Pr > ChiSq
+
+                                Intercept     1     -1.7949      0.3984       20.3000        <.0001
+                                Platelet      1    -0.00050     0.00184        0.0751        0.7840
+
+
+                                                        Odds Ratio Estimates
+                                                                  
+                                                           Point          95% Wald
+                                            Effect      Estimate      Confidence Limits
+
+                                            Platelet       0.999       0.996       1.003
+
+
+                                   Association of Predicted Probabilities and Observed Responses
+
+                                         Percent Concordant     43.2    Somers' D    0.000
+                                         Percent Discordant     43.2    Gamma        0.000
+                                         Percent Tied           13.7    Tau-a        0.000
+                                         Pairs                 24827    c            0.500
+
+
+                                             Partition for the Hosmer and Lemeshow Test
+ 
+                                                               ivh = 1                 ivh = 0
+                                   Group       Total    Observed    Expected    Observed    Expected
+
+                                       1          47           4        5.74          43       41.26
+                                       2          49           6        6.18          43       42.82
+                                       3          48           9        6.14          39       41.86
+                                       4          48          10        6.20          38       41.80
+                                       5          48           4        6.25          44       41.75
+                                       6          49           4        6.43          45       42.57
+                                       7          46           6        6.08          40       39.92
+                                       8          46           5        6.13          41       39.87
+                                       9          48           9        6.47          39       41.53
+                                      10          39           4        5.38          35       33.62
+
+
+                                              Hosmer and Lemeshow Goodness-of-Fit Test
+ 
+                                                 Chi-Square       DF     Pr > ChiSq
+
+                                                     8.5851        8         0.3785
+
+
+                                                           The SAS System
+
+                                                       The LOGISTIC Procedure
+
+                                                        Classification Table
+ 
+                                        Correct      Incorrect                Percentages
+                               Prob          Non-          Non-           Sensi-  Speci-  False  False
+                              Level  Event  Event  Event  Event  Correct  tivity  ficity   POS    NEG 
+
+                              0.050     61      0    407      0     13.0   100.0     0.0   87.0     . 
+                              0.100     60      0    407      1     12.8    98.4     0.0   87.2  100.0
+                              0.150      0    407      0     61     87.0     0.0   100.0     .    13.0
+                              0.200      0    407      0     61     87.0     0.0   100.0     .    13.0
+                              0.250      0    407      0     61     87.0     0.0   100.0     .    13.0
+                              0.300      0    407      0     61     87.0     0.0   100.0     .    13.0
+                              0.350      0    407      0     61     87.0     0.0   100.0     .    13.0
+                              0.400      0    407      0     61     87.0     0.0   100.0     .    13.0
+                              0.450      0    407      0     61     87.0     0.0   100.0     .    13.0
+                              0.500      0    407      0     61     87.0     0.0   100.0     .    13.0
+                              0.550      0    407      0     61     87.0     0.0   100.0     .    13.0
+                              0.600      0    407      0     61     87.0     0.0   100.0     .    13.0
+                                                                 Hb
+
+         Prob     Correct     Correct     Incorrect    Incorrect                                              False       False
+  Obs    Level    Events     Nonevents     Events      Nonevents    Correct    Sensitivity    Specificity    Positive    Negative
+
+    1    0.050        57          59          348            3        24.8         95.0           14.5         85.9         4.8  
+    2    0.100        44         193          214           16        50.7         73.3           47.4         82.9         7.7  
+    3    0.150        28         303          104           32        70.9         46.7           74.4         78.8         9.6  
+    4    0.200        23         361           46           37        82.2         38.3           88.7         66.7         9.3  
+    5    0.250        16         382           25           44        85.2         26.7           93.9         61.0        10.3  
+    6    0.300        13         393           14           47        86.9         21.7           96.6         51.9        10.7  
+    7    0.350        12         401            6           48        88.4         20.0           98.5         33.3        10.7  
+    8    0.400         5         405            2           55        87.8          8.3           99.5         28.6        12.0  
+    9    0.450         3         407            0           57        87.8          5.0          100.0          0.0        12.3  
+   10    0.500         1         407            0           59        87.4          1.7          100.0          0.0        12.7  
+   11    0.550         0         407            0           60        87.2          0.0          100.0           .         12.8  
+   12    0.600         0         407            0           60        87.2          0.0          100.0           .         12.8  
+                                                          Platelet Number
+
+         Prob     Correct     Correct     Incorrect    Incorrect                                              False       False
+  Obs    Level    Events     Nonevents     Events      Nonevents    Correct    Sensitivity    Specificity    Positive    Negative
+
+    1    0.050        61           0          407            0        13.0        100.0            0.0         87.0          .   
+    2    0.100        60           0          407            1        12.8         98.4            0.0         87.2       100.0  
+    3    0.150         0         407            0           61        87.0          0.0          100.0           .         13.0  
+    4    0.200         0         407            0           61        87.0          0.0          100.0           .         13.0  
+    5    0.250         0         407            0           61        87.0          0.0          100.0           .         13.0  
+    6    0.300         0         407            0           61        87.0          0.0          100.0           .         13.0  
+    7    0.350         0         407            0           61        87.0          0.0          100.0           .         13.0  
+    8    0.400         0         407            0           61        87.0          0.0          100.0           .         13.0  
+    9    0.450         0         407            0           61        87.0          0.0          100.0           .         13.0  
+   10    0.500         0         407            0           61        87.0          0.0          100.0           .         13.0  
+   11    0.550         0         407            0           61        87.0          0.0          100.0           .         13.0  
+   12    0.600         0         407            0           61        87.0          0.0          100.0           .         13.0  

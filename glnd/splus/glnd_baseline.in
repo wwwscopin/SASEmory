@@ -1,0 +1,67 @@
+#################################################################################################
+#
+# Program:	glnd_baseline.in
+#
+# Purpose:	Produce recruitment and baseline  results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.top("report",
+ prepare.date=date(),
+ asof.date="Jan 22, 2007",
+ report.type="Recruitment and Baseline",
+ meet.date="Mar 6, 2007",
+ header="GLND DSMC Report - Recruitment and Baseline")
+
+lib="/glnd/sas"
+
+### Recruitment by Center
+
+recruitment <- f.sas.get(library=lib,member="recruitment",
+                            format.library=lib,formats=T)
+tmp.tab=recruitment[,c("center","nscreened","e","r")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Patient Screening and Enrollment" ,append=T,
+       pos=c("l","c","c","c"))
+
+### Reasons patients were ineligible at initial screening
+
+inelig_screen <- f.sas.get(library=lib,member="inelig_screen",
+                               format.library=lib,formats=T)
+
+tmp.tab=inelig_screen[,c("affil","glndid","reason")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Reasons Patients Were Ineligible at Initial Screening" ,append=T,
+       pos=c("l","c","l"))
+
+
+
+### Reasons patients eligible at initial screening were not enrolled
+
+not_enrolled <- f.sas.get(library=lib,member="not_enrolled",
+                                  format.library=lib,formats=T)
+
+tmp.tab=not_enrolled[,c("affil","glndid","reason")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Reasons Patients Eligible at Initial Screening Were Not Enrolled" ,append=T,
+       pos=c("l","c","l"))
+
+
+
+
+### Finish
+
+f.bottom("report")
+unix("laps report",output=F)
+unix("laps report",output=F)
+unix("lapdf report",output=F)
+unix("lapdf report",output=F)

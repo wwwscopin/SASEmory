@@ -1,0 +1,11 @@
+data x;
+  set glnd.status;
+proc sort; by dt_random;
+data x1;
+  set x;
+  i+1;
+data x2;
+ set x1;
+  if i> 45;
+proc freq;
+ tables treatment;

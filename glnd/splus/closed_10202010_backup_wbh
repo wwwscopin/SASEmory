@@ -1,0 +1,6 @@
+
+pdf2ps /glnd/sas/reporting/icu_free_days_closed.pdf icu_closed.ps
+pdf2ps /glnd/sas/reporting/mech_vent_closed.pdf mech_vent_closed.ps
+pdf2ps /glnd/sas/reporting/other_mortality_closed.pdf omclosed.ps
+pdf2ps /glnd/sas/reporting/gluc_mixed_tables_closed.pdf /glnd/sas/reporting/gmtc.ps
+Splus7 < closed.in

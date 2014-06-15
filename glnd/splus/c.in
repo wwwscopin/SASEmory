@@ -1,0 +1,49 @@
+#################################################################################################
+#
+# Program:	closed.in
+#
+# Purpose:	Produce closed results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.top("closed",
+ prepare.date=date(),
+ asof.date="March 03, 2009",
+ report.type="Baseline and Follow-up CLOSED SESSION",
+ meet.date="March 31, 2009",
+ header="GLND DSMB Report - Baseline and Follow-up CLOSED SESSION")
+
+
+# lib="/glnd/sas/reporting"
+lib="/glnd/sas/dsmc/20090306"
+libr="/glnd/sas/reporting"
+ libs="/glnd/sas"
+libdf="/glnd/sas/reporting/df_reporting" 
+lib8r="/glnd/sas/dsmc/20090306/reporting"
+
+
+### Baseline patient characteristics 
+
+
+
+closeds=f.sas.get(library=libr,member="organism_summary_closed",
+                            format.library=lib,formats=T)
+ tmp.tab=closeds[,c("type","organism","prevalent.a", "prevalent.b")]
+ f.list(file="closed",x=tmp.tab, caption="Prevalent Nosocomial Infection by Cult
+ured Organism",
+  append=T,  pos=c("l","l","c","c"))
+
+
+
+
+f.bottom("closed")
+unix("/home/gcotson/bin/laps closed",output=F)
+unix("/home/gcotson/bin/laps closed",output=F)
+unix("/home/gcotson/bin/lapdf closed",output=F)
+unix("/home/gcotson/bin/lapdf closed",output=F)

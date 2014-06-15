@@ -1,0 +1,552 @@
+1                                                          The SAS System                           16:10 Thursday, December 8, 2011
+
+NOTE: Unable to open SASUSER.REGSTRY. WORK.REGSTRY will be opened instead.
+NOTE: All registry changes will be lost at the end of the session.
+
+WARNING: Unable to copy SASUSER registry to WORK registry. Because of this, you will not see registry customizations during this 
+         session.
+NOTE: Unable to open SASUSER.PROFILE. WORK.PROFILE will be opened instead.
+NOTE: All profile changes will be lost at the end of the session.
+NOTE: Copyright (c) 2002-2010 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.3 (TS1M0) 
+      Licensed to EMORY UNIV-ROLLINS SCHOOL OF PUBLIC HEALTH T&R, Site 70044553.
+NOTE: This session is executing on the XP_PRO  platform.
+
+
+
+NOTE: SAS initialization used:
+      real time           0.14 seconds
+      cpu time            0.12 seconds
+      
+1          libname library "H:/SAS_Emory/Consulting/Brent2";
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: H:\SAS_Emory\Consulting\Brent2
+1        !                                                  		
+2          
+3          proc format library=library;
+4          value group
+5          		1="DEMOGRAPHICS/GENERAL INFORMATION"
+6          		2="SOCIOECONOMIC STATUS/ACCESSING HEALTHCARE"
+7          		3="MEDICATION ADHERENCE"
+8          		4="ALTERNATIVE TREATMENTS/SPIRITUAL FACTORS"
+9          		5="PSYCHOSOCIAL FACTORS"
+10         		6="Feeling in the last four weeks"
+11         		7="Share with ?"
+12         		;
+NOTE: Format GROUP is already on the library.
+NOTE: Format GROUP has been written to LIBRARY.FORMATS.
+13         
+14         value idx 0="Control" 1="CASE";
+NOTE: Format IDX is already on the library.
+NOTE: Format IDX has been written to LIBRARY.FORMATS.
+15         value tdf 0="No TDF" 1="TDF";
+NOTE: Format TDF is already on the library.
+NOTE: Format TDF has been written to LIBRARY.FORMATS.
+16         
+17         value demo
+18         		1="Age"
+19         		2="Gender"
+20         		3="Race/Ethnicity "
+21         		4="Ethnic group and/or Nationality for Black"
+22         		5="Last grade of school/education"
+23         		6="Can you read?"
+24         		7="Can you understand?"
+25         		8="Can you speak?"
+26         		9="Any problems with --"
+2                                           The SAS System            16:10 Thursday, December 8, 2011
+
+27         		;
+NOTE: Format DEMO is already on the library.
+NOTE: Format DEMO has been written to LIBRARY.FORMATS.
+28         
+29         value soci
+30         		1="Have an income?"
+31         		2="How many people (other than yourself) do you support?"
+32         		3="Employment Status"
+33         		4="What type of work?"
+34         		5="Receive money from other source?"
+35         		6="What sources?"
+36         		7="Where do you stay?"
+37         		8="Ever lived in an informal settlement since starting ARVs?"
+38         		9="Current living arrangement"
+39         		10="How many people live with you?"
+40         		11="What facility?"
+41         		12="What wall?"
+42         		13="What floor?"
+43         		14="Do you have --?"
+44         		15="Enough food in past 4weeks?"
+45         		16="Amount of food in past 4weeks?"
+46         		17="How many times go without food?"
+47         		18="What clinic(s) do you currently attend?"
+48         		19="Where did you first start ARVs?"
+49         		20="How long does it take to get to clinic?"
+50         		21="Transport to clinic--"
+51         		22="How do you pay for clinic and meds?"
+52         		23="How do you feel about coming to clinic?"
+53         		24="Heard-A healthcare worker not wanting to touch someone because they have HIV"
+54         		25="Heard-People being treated poorly by hospital/clinic/healthcare workers because of
+54       ! HIV"
+55         		26="Heard-People being rejected at hospital/clinic because of HIV"
+56         		27="Heard-A healthcare worker talking out loud about a patient with HIV"
+57         		28="Reasone stop you from getting to the clinic/pharmacy--Cost of visit"
+58         		29="Reasone stop you from getting to the clinic/pharmacy--Cost of transport"
+59         		30="Reasone stop you from getting to the clinic/pharmacy--Time off work"
+60         		31="Reasone stop you from getting to the clinic/pharmacy--Childcare"
+61         		32="Reasone stop you from getting to the clinic/pharmacy--Being ill"
+62         		33="Reasone stop you from getting to the clinic/pharmacy--Family Circumstances"
+63         		;
+NOTE: Format SOCI is already on the library.
+NOTE: Format SOCI has been written to LIBRARY.FORMATS.
+64         
+65         	
+65       !  value qmed
+66         
+67         		1="How many doses have you missed in the last week"
+68         		2="How many doses have you missed in the last month"
+69         		3="How many doses did you take more than one hour late in the last week?"
+70         		4="How many doses did you take more than one hour late in the last month?"
+71         		5="How do you remember to take your meds"
+72         		6="How do you remember to come for your drug collection appt"
+73         		7="You were away from home--"
+74         		8="You were busy with other things--"
+3                                           The SAS System            16:10 Thursday, December 8, 2011
+
+75         		9="You forgot to take pills--"
+76         		10="You had too many pills to takee--"
+77         		11="You had wanted to avoid side effects --"
+78         		12="You did not want others to see you taking ARVs--"
+79         		13="You had a change in what you do every day--"
+80         		/*14="You felt like the drug could hurt/harm you--"*/
+81         		14="You fell asleep through dose time--"
+82         		15="You felt sick or ill--"
+83         		/*17="You felt depressed or stressed--"*/
+84         		16="You had a problem taking pills at certain times--"
+85         		17="You forgot to obtain meds--"
+86         		18="You ran out of pills--"
+87         		19="You did not have money for ARVs--"
+88         		20="You were tired of ARVs--"
+89         		21="You don’t like taking pills--"
+90         		22="You have difficulty swallowing ARVs--"
+91         		/*25="You thought you did not need more ARVs because you felt good--"
+92         		26="Receiving treatment from Traditional Healer--"
+93         		27="You had too much alcohol--"
+94         		28="You were taking street drugs--"
+95         		29="Other--" */
+96         		;
+NOTE: Format QMED is already on the library.
+NOTE: Format QMED has been written to LIBRARY.FORMATS.
+97         
+98         	
+98       !  value faith
+99         		1="Do you have a religious faith?"
+100        		2="If yes, which?"
+101        		3="If Christian, which denomination?"
+102        		4="How active are you in practicing your religion"
+103        		5="Have you ever stopped your ARVs because of your religious beliefs or teachings?"
+104        		6="Did you EVER take any Traditional Medications or Herbs"
+105        		7="If yes, how long ago?"
+106        		8="Did you take these medicines with your ARVs or instead of your ARVs?"
+107        		/*9="Have you had any side effects/adverse events to any of these remedies"*/
+108        		9="Take meds or supplements In the last 6 months? "
+109        		10="If yes, what is/are the name(s)? "
+110        		11="How did you feel with this medication"
+111        		12="Use any other alternative treatment in the past 6 months?"
+112        		13="How did you feel with this treatment?"
+113        		14="Who first recommended you to go to an HIV clinic"
+114        		;
+NOTE: Format FAITH is already on the library.
+NOTE: Format FAITH has been written to LIBRARY.FORMATS.
+115        
+116        	
+116      !  value psy
+117        		1="Marital status"
+118        		2="Which forms of safe sex do you practice"
+119        		3="How often did you practice safe sex in past 6 months?"
+120        		4="How many current partners do you have?"
+121        		5="How many partners are currently living with you?"
+122        		6="How many partners do you know have been tested for HIV?"
+4                                           The SAS System            16:10 Thursday, December 8, 2011
+
+123        		7="How many partners do you know are HIV positive?"
+124        		8="How many partners do you know are taking ARVs?"
+125        		9="How many biological children do you have?"
+126        		10="How many children are you currently taking care of?"
+127        		11="How many children in your care do you know have been tested for HIV?"
+128        		12="How many children in your care do you know are HIV positive?"
+129        		13="How many additional family members do you know are HIV positive?"
+130        		14="How many have died?"
+131        		15="Who knows you are living with HIV?"
+132        		16="Who is the person most emotionally supportive to you?"
+133        		17="Do they live with you?"
+134        		18="Do you have someone who is a treatment supporter/partner"
+135        		19="If yes, what is your relationship?"
+136        		20="Have you ever been hurt by someone?"
+137        		21="How have you been hurt?"
+138        		22="Has anyone ever physically forced you to have sex even when you did not want?"
+139        		23="--Whom?"
+140        		24="Has anyone ever forced you to perform any sexual acts you did not want to do?"
+141        		25="--Whom?"
+142        		26="When was the last time you were hurt sexually?"
+143        		27="Did you use street drugs in the past 4 weeks?"
+144        		28="How often do you drink alcohol?"
+145        		29="What type of alcohol?"
+146        		/*30="Have you ever felt you should cut down on your drinking? "
+147        		31="Have people annoyed you by criticizing your drinking?"
+148        		32="Have you ever felt bad or guilty about your drinking?"
+149        		33="Have you ever had a drink first thing in the morning to steady your nerves or get rid
+149      !  of a hangover?" */
+150        		30="Do you smoke"
+151        		31="What do you smoke?"
+152        		32="How much education do you feel you have received about HIV"
+153        		33="How many pre-ARV training sessions did you receive?"
+154        		34="Were these sessions helpful"
+155        		35="In the last 12 months, how many 1-on-1 adherence counseling sessions have you
+155      ! received?"
+156        		36="Were these sessions beneficial?"
+157        		37="Would you like any additional support for your illness"
+158        		38="If ”Yes”, what other forms of support would you like to receive"
+159        		39="Do you feel you have access to all the services you need"
+160        		40="If “No”, which services would you like to access more "
+161        		;
+NOTE: Format PSY is already on the library.
+NOTE: Format PSY has been written to LIBRARY.FORMATS.
+162        
+163        	
+163      !  value scale
+164        		1="During the past month, about how often did you feel tired out for no good reason? "
+165        		2="During the past month, about how often did you feel nervous? "
+166        		3="So nervous that nothing could calm you down?"
+167        		4="During the past month, about how often did you feel hopeless? "
+168        		5="During the past month, about how often did you feel restless or fidgety? "
+169        		6="So restless you could not sit still? "
+170        		7="During the past month, about how often did you feel sad or depressed? "
+171        		8="So depressed that nothing could cheer you up? "
+5                                           The SAS System            16:10 Thursday, December 8, 2011
+
+172        		9="During the past month, about how often did you feel that everything was an effort? "
+173        		10="During the past month, about how often did you feel worthless? "
+174        		11="TOTAL SCORE"
+175        		12="Is TOTAL SCORE = 20 OR HIGHER"
+176        		13="Would you like me to share your responses with your adherence counselor?"
+177        		14="Would you like me to share your responses with your doctor?"
+178        		;
+NOTE: Format SCALE is already on the library.
+NOTE: Format SCALE has been written to LIBRARY.FORMATS.
+179        
+180        
+181        	
+181      !  value Gender
+182        		0="Male" 1="Female" .="Unknown";
+NOTE: Format GENDER is already on the library.
+NOTE: Format GENDER has been written to LIBRARY.FORMATS.
+183        
+184        	
+184      !  value clinical
+185        		1="Disease with AIDS on"
+186        		2="Disease without AIDS"
+187        		3="Current ARV"
+188        		4="ARV prior to enrollment(days)"
+189        		5="CD4"
+190        		6="VL"
+191        		7="Religion"
+192        		8="Triditional Herb Meds"
+193        		9="If 'Yes', then When?"
+194        		10="Marital Status"
+195        		11="Alcohol";
+NOTE: Format CLINICAL is already on the library.
+NOTE: Format CLINICAL has been written to LIBRARY.FORMATS.
+196        
+197        	
+197      !  value yn 0="No" 1="Yes" -77="NA(-77)";
+NOTE: Format YN is already on the library.
+NOTE: Format YN has been written to LIBRARY.FORMATS.
+198        	
+198      !  value race 1="Black" 2="Colored"  3="White" 4="Indian";
+NOTE: Format RACE is already on the library.
+NOTE: Format RACE has been written to LIBRARY.FORMATS.
+199        	
+199      !  value eth 1="Zulu" 2="Xhosa" 3="Malawian" 4="Other" -77="NA";
+NOTE: Format ETH is already on the library.
+NOTE: Format ETH has been written to LIBRARY.FORMATS.
+200        	
+200      !  value lang 1="Zulu"  2="English"  3="Other" 4="No" 12="Zulu/English"  13="Zulu/Other"
+200      ! 23="English/Other" 123="Zulu/English/Other";
+NOTE: Format LANG is already on the library.
+NOTE: Format LANG has been written to LIBRARY.FORMATS.
+201        	
+201      !  value Employ 1="Full time"  2="Employed part-time"   3="Self-employed"   4="Attending
+201      ! school"    5="Disabled"
+202        		6="Unemployed seeking work"  7="Unemployed not seeking work"    8="Retired"
+6                                           The SAS System            16:10 Thursday, December 8, 2011
+
+202      ! 58="Disabled/Retired";
+NOTE: Format EMPLOY is already on the library.
+NOTE: Format EMPLOY has been written to LIBRARY.FORMATS.
+203        
+204        	
+204      !  value sense 1="Hearing" 2="Seeing"  3="Voice"  4="None" 12="Hearing/Seeing";
+NOTE: Format SENSE is already on the library.
+NOTE: Format SENSE has been written to LIBRARY.FORMATS.
+205        	
+205      !  value reside 1="House"  2="Flat"  3="Shack" 4="Other";
+NOTE: Format RESIDE is already on the library.
+NOTE: Format RESIDE has been written to LIBRARY.FORMATS.
+206        	
+206      !  value live 1="Own home"  2="Rent"   3="Stay with family"   4="Stay with friends" 5="Stay
+206      ! with employer";
+NOTE: Format LIVE is already on the library.
+NOTE: Format LIVE has been written to LIBRARY.FORMATS.
+207        	
+207      !  value fac 1="Electricity" 2="Working radio" 3="Toilet indoors" 4="Television" 5="Tap water
+207      !  indoors" 6=" None of these";
+NOTE: Format FAC is already on the library.
+NOTE: Format FAC has been written to LIBRARY.FORMATS.
+208        	
+208      !  value tool 1="Car or bakkie" 3="Motorcycle" 2="Bicycle" 4="None of these";
+NOTE: Format TOOL is already on the library.
+NOTE: Format TOOL has been written to LIBRARY.FORMATS.
+209        	
+209      !  value food 1="Never"   2="Rarely (1-2 times/mo)"  3="Sometimes (3-10 times/mo)"  4="Often
+209      !  (>10 times/mo)";
+NOTE: Format FOOD is already on the library.
+NOTE: Format FOOD has been written to LIBRARY.FORMATS.
+210        	
+210      !  value amount 1="Enough to eat" 2="Sometimes not enough to eat" 3="Often not enough to eat"
+210      ! ;
+NOTE: Format AMOUNT is already on the library.
+NOTE: Format AMOUNT has been written to LIBRARY.FORMATS.
+211        	
+211      !  value nofood 1="Never" 2="Rarely (1-2 times/mo)"  3="Sometimes (3-10 times/mo)" 4="Often
+211      ! (>10 times/mo)";
+NOTE: Format NOFOOD is already on the library.
+NOTE: Format NOFOOD has been written to LIBRARY.FORMATS.
+212        	
+212      !  value clin 1="Sinikithemba"    2="Other" 12="Sinikithemba/Other";
+NOTE: Format CLIN is already on the library.
+NOTE: Format CLIN has been written to LIBRARY.FORMATS.
+213        	
+213      !  value arv 1="Sinikithemba (Ridge House)"   2="Siyaphila Inpatient Ward"  3="Private
+213      ! Provider" 4="DOH Clinic" 5="Other";
+NOTE: Format ARV is already on the library.
+NOTE: Format ARV has been written to LIBRARY.FORMATS.
+214        	
+214      !  value tclin 1="Less than 30 min"  2="30-60 min"   3="More than 60 min";
+NOTE: Format TCLIN is already on the library.
+NOTE: Format TCLIN has been written to LIBRARY.FORMATS.
+7                                           The SAS System            16:10 Thursday, December 8, 2011
+
+215        	
+215      !  value tranclin 1="Your car"  2="Friend/relative car" 3="Meter Taxi"   4="Mini Bus/Bus"
+215      ! 5="Walk"  6="Other"
+216        			24="Friend/relative car or Mini Bus/Bus";
+NOTE: Format TRANCLIN is already on the library.
+NOTE: Format TRANCLIN has been written to LIBRARY.FORMATS.
+217        
+218        	
+218      !  value payclin 1="Sponsor"	2="Grant"	3="Employer" 4="Self-pay"	5="Family Member" 6="Spouse"
+218      !  7="Other";
+NOTE: Format PAYCLIN is already on the library.
+NOTE: Format PAYCLIN has been written to LIBRARY.FORMATS.
+219        	
+219      !  value feelclin 1="Pleased"  2="Worried" 3="Ashamed"  4="Neutral"  5="Other";
+NOTE: Format FEELCLIN is already on the library.
+NOTE: Format FEELCLIN has been written to LIBRARY.FORMATS.
+220        	
+220      !  value freq  0="Never" 1="Rarely" 2="Sometimes" 3="frequently";
+NOTE: Format FREQ is already on the library.
+NOTE: Format FREQ has been written to LIBRARY.FORMATS.
+221        
+222        	
+222      !  value rem_med 1="Pill box"   2="Clock/Watch alarm"  3="Cell phone" 4="Partner"
+222      ! 5="Calendar"  6="Chart"
+223        			7="Media (TV/Radio)" 8="Daily Schedule"  9="Other";
+NOTE: Format REM_MED is already on the library.
+NOTE: Format REM_MED has been written to LIBRARY.FORMATS.
+224        
+225        	
+225      !  value rem_apt 1="Appointment card" 2="Partner/friend" 3="Cellphone"  4="Other"
+226        			12="Appointment card or Partner/friend" 13="Appointment card or Cellphone"
+226      ! 14="Appointment card or other";
+NOTE: Format REM_APT is already on the library.
+NOTE: Format REM_APT has been written to LIBRARY.FORMATS.
+227        
+228        	
+228      !  value pra_rel 1="Very active"  2="Somewhat active"  3="Not active"  4="N/A";
+NOTE: Format PRA_REL is already on the library.
+NOTE: Format PRA_REL has been written to LIBRARY.FORMATS.
+229         	
+229      !   value when 1="< 1 week"  2="1 wk to 1 month"  3=">1 month to 6 mos"  4="> 6 mos" 5="N/A";
+NOTE: Format WHEN is already on the library.
+NOTE: Format WHEN has been written to LIBRARY.FORMATS.
+230        	
+230      !  value how_med 1="with ARVs"  2="Instead of ARVs" -77="NA";
+NOTE: Format HOW_MED is already on the library.
+NOTE: Format HOW_MED has been written to LIBRARY.FORMATS.
+231        	
+231      !  value how_feel 1="The same"   2="Better"  3="Worse" 4="N/A";
+NOTE: Format HOW_FEEL is already on the library.
+NOTE: Format HOW_FEEL has been written to LIBRARY.FORMATS.
+232        	
+232      !  value recom 1="Provider (doctor or nurse)" 2="Traditional Healer (Isangoma)"  3="Herbalist
+232      !  (Inyanga)" 4="Friend"
+8                                           The SAS System            16:10 Thursday, December 8, 2011
+
+233        		5="Family"   6="Member of religious faith"  7="Other" 45="Friend/Family";
+NOTE: Format RECOM is already on the library.
+NOTE: Format RECOM has been written to LIBRARY.FORMATS.
+234        
+235        	
+235      !  value mar 1="married" 2="divorced" 3="single living with partner" 4="single not living
+235      ! with partner"
+236        			  5="single no partner"  6="widowed" 246="divorced/single not living with
+236      ! partner/widowed";
+NOTE: Format MAR is already on the library.
+NOTE: Format MAR has been written to LIBRARY.FORMATS.
+237        
+238        	
+238      !  value safe_sex 1="Abstinence"  2="Condoms"  21="Condoms-Male" 22="Condoms-Female"  3="Pull
+238      !  out"  4="None" 5="Other" -99="NA(-99)";
+NOTE: Format SAFE_SEX is already on the library.
+NOTE: Format SAFE_SEX has been written to LIBRARY.FORMATS.
+239        	
+239      !  value how_oft 1="Always(100%)" 2="Often(>50%)" 3="Sometimes(less than 50%)"
+239      ! 4="Rarely(less than 25%)"  5="Never(0%)" -99="NA(-99)";
+NOTE: Format HOW_OFT is already on the library.
+NOTE: Format HOW_OFT has been written to LIBRARY.FORMATS.
+240        	
+240      !  value who_hiv 1="Partner/spouse)"	2="Family member(s)" 3="Friends" 4="Employer" 5="Other"
+240      ! 45="Employer/Other";
+NOTE: Format WHO_HIV is already on the library.
+NOTE: Format WHO_HIV has been written to LIBRARY.FORMATS.
+241        	
+241      !  value have_hurt 1="Frequently(>3x/wk)" 2="Sometimes(>1x/mo)"  3="Rarely(>1x/yr)" 4="Never"
+241      ! ;
+NOTE: Format HAVE_HURT is already on the library.
+NOTE: Format HAVE_HURT has been written to LIBRARY.FORMATS.
+242        	
+242      !  value how_hurt  1="physical" 2="sexual"  3="verbal"   4="psychological"   5="other"
+242      ! 6="N/A"  12="physical/sexual"  13="physical/verbal";
+NOTE: Format HOW_HURT is already on the library.
+NOTE: Format HOW_HURT has been written to LIBRARY.FORMATS.
+243        	
+243      !  value force_sex 1="Often" 2="Sometimes" 3="Not at all" 4="N/A";
+NOTE: Format FORCE_SEX is already on the library.
+NOTE: Format FORCE_SEX has been written to LIBRARY.FORMATS.
+244        	
+244      !  value whom 1="Partner"	2="Other" -77="NA(-77)";
+NOTE: Format WHOM is already on the library.
+NOTE: Format WHOM has been written to LIBRARY.FORMATS.
+245        	
+245      !  value when_las 1="<1 mo"  2="1-6 mo" 3=">6-12 mo"   4="> 12 mo" 5="N/A";
+NOTE: Format WHEN_LAS is already on the library.
+NOTE: Format WHEN_LAS has been written to LIBRARY.FORMATS.
+246        	
+246      !  value alcohol 1="Daily" 2="4-5 times/week" 3="Weekends" 4="3-4 times/month" 5="Once/month"
+246      !  6="< Once/month"	7="Never";
+NOTE: Format ALCOHOL is already on the library.
+NOTE: Format ALCOHOL has been written to LIBRARY.FORMATS.
+9                                           The SAS System            16:10 Thursday, December 8, 2011
+
+247        	
+247      !  value typ_alc 1="Mqombothi"  2="Cider" 3="Wine" 4="Spirits" 5="Beer"	6="N/A"
+247      ! 245="Cider/Spirits/Beer";
+NOTE: Format TYP_ALC is already on the library.
+NOTE: Format TYP_ALC has been written to LIBRARY.FORMATS.
+248        	
+248      !  value what_smoke 1="Cigarettes" 2="Cigars"	3="Pipe" 	4="Dagga"	5="N/A";
+NOTE: Format WHAT_SMOKE is already on the library.
+NOTE: Format WHAT_SMOKE has been written to LIBRARY.FORMATS.
+249        	
+249      !  value hiv_edu 1="Much"  2="Some"  3="Little" 4="None";
+NOTE: Format HIV_EDU is already on the library.
+NOTE: Format HIV_EDU has been written to LIBRARY.FORMATS.
+250        	
+250      !  value pre_arv 1="0"  2="1-2"  3="3-5"  4=">5";
+NOTE: Format PRE_ARV is already on the library.
+NOTE: Format PRE_ARV has been written to LIBRARY.FORMATS.
+251        	
+251      !  value adh_coun 1="1" 2="3" 3="3" 4="4" 5="5" 6="5-10" 7="10+";
+NOTE: Format ADH_COUN is already on the library.
+NOTE: Format ADH_COUN has been written to LIBRARY.FORMATS.
+252        	
+252      !  value what_ser 1="Health Education" 2="Counseling" 3="Doctors" 4="Pharmacy"
+252      ! 5="Physiotherapy" 6="Social Work"
+253        			7="Psychiatry/Psychology" 8="Prayer/Minister" 9="Other" -77="NA(-77)"
+253      ! 78="Psychiatry/Psychology or Prayer/Minister";
+NOTE: Format WHAT_SER is already on the library.
+NOTE: Format WHAT_SER has been written to LIBRARY.FORMATS.
+254        
+255        	
+255      !  value tt 1="None of the time"	2="A little of the time" 3="Some of the time" 4="Most of the
+255      !  time"	5="All of the time";
+NOTE: Format TT is already on the library.
+NOTE: Format TT has been written to LIBRARY.FORMATS.
+256        	
+256      !  value aids 	1="Diag/Dis 1" 2="Num_Epis 1" 3="Cur_Diag 1" 4="Diag/Dis 2" 5="Num_Epis 2"
+256      ! 6="Cur_Diag 2"
+257        				7="Diag/Dis 3" 8="Num_Epis 3" 9="Cur_Diag 3";
+NOTE: Format AIDS is already on the library.
+NOTE: Format AIDS has been written to LIBRARY.FORMATS.
+258        
+259        	
+259      !  value med 	1="Med 1" 2="Med 2" 3="Med 3" 4="Med 4" 5="Med 5" 6="Med 6" 7="Med 7" 8="Med 8"
+259      !  9="Med 9"
+260        				10="Med 10" 11="Med 11" 12="Med 12" 13="Med 13" 14="Med 14" 15="Med 15" 16="Med 16"
+261        				17="Med 17" 18="Med 18" 19="Med 19" 20="Med 20" 21="Med 21" 22="Med 22";
+NOTE: Format MED is already on the library.
+NOTE: Format MED has been written to LIBRARY.FORMATS.
+262        
+263        	
+263      !  value curarvs 1="ARVS 1" 2="ARVS 2"	3="ARVS 3";
+NOTE: Format CURARVS is already on the library.
+NOTE: Format CURARVS has been written to LIBRARY.FORMATS.
+264        	
+10                                          The SAS System            16:10 Thursday, December 8, 2011
+
+264      !  value prearvs 1="ARVS 1" 2="ARVS 2"	3="ARVS 3" 4="ARVS 4" 5="ARVS 5";
+NOTE: Format PREARVS is already on the library.
+NOTE: Format PREARVS has been written to LIBRARY.FORMATS.
+265        	
+265      !  value lab     1="CD4 1" 2="VL 1" 3="CD4 3" 4="VL 3" 5="CD4 3" 6="VL 4" 7="CD4 4" 8="VL 4"
+265      ! 9="CD4 5" 10="VL 5";	
+NOTE: Format LAB is already on the library.
+NOTE: Format LAB has been written to LIBRARY.FORMATS.
+266        	
+266      !  value symptom  1="FATIGUE" 2="FEV_CHIL" 3="FEEL_DIZ" 4="PAIN_TIN" 5="TRO_REM" 6="NAUS_VOM"
+266      !  7="DIARRHEA" 8="SAD_DEPR"
+267        				10="NERV_ANX" 11="DIF_SLPN" 12="SKIN_PRB" 13="COUGH" 14="HEADACHE" 15="LOSS_APE"
+268        				16="BLOATING" 17="MUSC_ACH" 18="PROB_SEX" 19="CHA_BODY" 20="PROB_WEI" 21="CHA_HAIR"
+268      ! 22="OTHER";
+NOTE: Format SYMPTOM is already on the library.
+NOTE: Format SYMPTOM has been written to LIBRARY.FORMATS.
+269        
+270        	
+270      !  value last 1="CAU_ARVS" 2="HAR_ARVS" 3="ADD_COMM";
+NOTE: Format LAST is already on the library.
+NOTE: Format LAST has been written to LIBRARY.FORMATS.
+271        	
+271      !  value gp 1="AIDS_CON" 2="NON_AIDS" 3="CON_MEDS" 4="CUR_ARVS" 5="PRE_ARVS" 6="LAB_DATA"
+271      ! 7="SYMPTOMS" 8="Other" 9="Adherence";
+NOTE: Format GP is already on the library.
+NOTE: Format GP has been written to LIBRARY.FORMATS.
+272        	
+272      !  value tq 1="Dispens Per Day" 2="Tertile by 80%-95%";
+NOTE: Format TQ is already on the library.
+NOTE: Format TQ has been written to LIBRARY.FORMATS.
+273        	
+273      !  value adh 1="<80%" 2="80-95%" 3=">=95%";
+NOTE: Format ADH is already on the library.
+NOTE: Format ADH has been written to LIBRARY.FORMATS.
+274        run;
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.12 seconds
+      cpu time            0.01 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           0.29 seconds
+      cpu time            0.14 seconds
+      

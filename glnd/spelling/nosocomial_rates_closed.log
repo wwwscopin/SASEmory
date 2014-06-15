@@ -1,0 +1,1359 @@
+1                                                          The SAS System                             14:45 Tuesday, October 5, 2010
+
+NOTE: Copyright (c) 2002-2003 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) 9.1 (TS1M3)
+      Licensed to EMORY UNIVERSITY - T&R, Site 0014217002.
+NOTE: This session is executing on the SunOS 5.9 platform.
+
+
+
+NOTE: SAS 9.1.3 Service Pack 4
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.15 seconds
+      cpu time            0.06 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is /home/bwu2/spelling/autoexec.sas.
+
+NOTE: Libref RAND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/randomization
+NOTE: Libref GLND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /home/bwu2/spelling
+NOTE: Libref GLND_DF was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting/df_reporting
+NOTE: Libref GLND_EXT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/external_data
+NOTE: Libref GLND_REP was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting
+
+NOTE: AUTOEXEC processing completed.
+
+1          * nosocomial_rates_closed.sas ;
+2          
+3          
+2                                                          The SAS System                             14:45 Tuesday, October 5, 2010
+
+4          *** PLUG IN CODE *** : execute nosocomial_adjudicated_open to refresh nosocomial infection datasets ;
+5          
+6          
+7          
+8          %macro closed;
+9          
+10         %do x = 1 %to 2;
+11         
+12         
+13         	* ASSIGN THE TREATMENT TO THE VARIABLE 'GROUP', ACCORDING TO THE FORMAT;
+14         		data _null_;
+15         			num = input("&x", 1.);
+16         			call symput('group', put(num, trt.));
+17         		run;
+18         
+19         	* capture sample size of total people on study, that are no longer in the hospital because we need to know hospital ; 
+20         		proc means data= glnd.status noprint;
+21         			where (still_in_hosp = 0) & (treatment = &x); 
+22         			output out= study_n n(id) = id_n;
+23         		run;
+24         		data _null_;
+25         			set study_n;
+26         	
+27         			call symput('n_study_1', put(id_n, 3.0));
+28         		run;
+29         
+30         	proc sort data= glnd.status; by id; run;
+31         	proc sort data= glnd.george; by id; run;
+32         
+33         
+34         ** Sort pre and post-adjudication datasets, create a hybrid infection dataset that contains the adjudicated records for
+34       ! those adjudicated
+35         	and the non-adjudicated records for those IDs not yet adjudicated ;
+36         
+37         	proc sort data =  glnd_rep.suspected_noso_before_adj; by id site_code type_code dt_infect ; run;
+38         	proc sort data =  glnd_rep.suspected_noso_after_adj; by id site_code type_code dt_infect ; run;
+39         
+40         	data non_adj_folks;
+41         		merge 	glnd_rep.suspected_noso_before_adj
+42         				glnd_rep.suspected_noso_after_adj (in = adjudicated keep = id)
+43         		;
+44         
+45         		by id;	
+46         		
+47         		if adjudicated then delete;
+48         
+49         	run;
+50         
+51         	* this is the patient infections, with the adjudicated infection data for those people adjudicated ;
+52         	data all_infections_with_adj;
+53         		set
+54         			non_adj_folks
+55         			glnd_rep.suspected_noso_after_adj
+56         			;
+57         	run;
+58         	
+59         
+60         	proc sort data = all_infections_with_adj; by id; run;
+3                                                          The SAS System                             14:45 Tuesday, October 5, 2010
+
+61         
+62         	data all_infections_for_calc;
+63         		length new_site_code $ 4;
+64         		
+65         		merge 	
+66         			all_infections_with_adj (in = has_infect)
+67         			glnd.status (keep = id days_hosp_post_entry still_in_hosp)
+68         			glnd.george (keep = id treatment)
+69         			;
+70         		by id;
+71         
+72         		if (treatment ~= &x) then delete;
+73         		
+74         		if ~has_infect then delete;
+75         
+76         
+77         		* remove patients still thought to actively be in the hospital - they cannot contribute to "hospital days" denominator
+77       ! ;
+78         		if still_in_hosp then delete;
+79         	
+80         		* create a new classification variable for infections, to be used in our table;
+81         		new_site_code = site_code;
+82         
+83         		if site_code = "PNEU" then new_site_code = "LRI";
+84         		
+85         	run;
+86         
+87         
+88         
+89         ** calculate total number of infections ;
+90         
+91         	*** for certain individual infection types;
+92         		title "Incident infection totals - treatment &x";
+93         		proc means data = all_infections_for_calc 	n sum;
+94         			where 	(compress(new_site_code) in ("BSI", "LRI", "GI", "CVS", "SSI") ) |
+95         				 	((compress(new_site_code) = "UTI") & (compress(type_code) = "SUTI")   );
+96         	
+97         			class new_site_code;
+98         	
+99         			var incident;
+100        			output out = indiv_infect sum(incident) = incident_cases_sum;
+101        		run;
+102        
+103        
+104        		* now get the total number of individuals and merge back in;
+105        			proc sort data = all_infections_for_calc; by incident new_site_code id; run;
+106        
+107        			data indiv_infect_id;
+108        				set all_infections_for_calc;
+109        	
+110        				where 	(compress(new_site_code) in ("BSI", "LRI", "GI", "CVS", "SSI") ) |
+111        				 	((compress(new_site_code) = "UTI") & (compress(type_code) = "SUTI")   );
+112        
+113        				by incident new_site_code id;
+114        
+115        				if ~(incident = 1) then delete;
+116        				if ~first.id then delete;
+117        			run;
+4                                                          The SAS System                             14:45 Tuesday, October 5, 2010
+
+118        
+119        			proc means data = indiv_infect_id n sum;
+120        				class new_site_code;
+121        		
+122        				var incident; * this now counts incident PEOPLE, not infections ;
+123        				output out = indiv_infect_people sum(incident) = incident_people_sum;
+124        			run;				
+125        	
+126        			data indiv_infect;
+127        				merge
+128        					indiv_infect
+129        					indiv_infect_people;
+130        
+131        					by _TYPE_ new_site_code;
+132        			run;
+133        
+134        		* remove overall sum;
+135        		data indiv_infect;
+136        			set indiv_infect;
+137        			where _type_ = 1;
+138        		run;
+139        
+140        		proc print data = indiv_infect;
+141        		run;
+142        	
+143        
+144        	*** for non-BSIs that are not asymptomatic UTI;
+145        		proc means data = all_infections_for_calc 	n sum;
+146        			where 	(compress(new_site_code) ~= "BSI") & ~((compress(new_site_code) = "UTI") & (compress(type_code) = "ASB")  );
+147        	
+148        			var incident;
+149        			output out = non_bsi_infect sum(incident) = incident_cases_sum;
+150        		run;
+151        
+152        		* now get the total number of individuals and merge back in;
+153        			proc sort data = all_infections_for_calc; by incident id; run;
+154        
+155        			data non_bsi_infect_id;
+156        				set all_infections_for_calc;
+157        	
+158        				where (incident = 1) &	(compress(new_site_code) ~= "BSI") & ~((compress(new_site_code) = "UTI") &
+158      ! (compress(type_code) = "ASB")  );
+159        				by incident id;
+160        
+161        				if ~first.id then delete;
+162        			run;
+163        
+164        			proc means data = non_bsi_infect_id n sum;
+165        						
+166        				var incident; * this now counts incident PEOPLE, not infections ;
+167        				output out = non_bsi_infect_people sum(incident) = incident_people_sum;
+168        			run;				
+169        	
+170        			data non_bsi_infect;
+171        				merge
+172        					non_bsi_infect
+173        					non_bsi_infect_people;
+174        			run;
+5                                                          The SAS System                             14:45 Tuesday, October 5, 2010
+
+175        
+176        		proc print data = non_bsi_infect;
+177        		run;
+178        	
+179        
+180        
+181        	*** for all infections that are not asymptomatic UTI;
+182        		proc means data = all_infections_for_calc 	n sum;
+183        			where ~((compress(new_site_code) = "UTI") & (compress(type_code) = "ASB")  );
+184        	
+185        			var incident ;
+186        			output out = total_infect sum(incident) = incident_cases_sum;
+187        		run;
+188        
+189        		* now get the total number of individuals and merge back in;
+190        			proc sort data = all_infections_for_calc; by incident id; run;
+191        
+192        			data total_infect_id;
+193        				set all_infections_for_calc;
+194        	
+195        				where (incident = 1) & ~((compress(new_site_code) = "UTI") & (compress(type_code) = "ASB")  );
+196        				by incident id;
+197        
+198        				if ~first.id then delete;
+199        			run;
+200        
+201        			proc means data = total_infect_id n sum;
+202        						
+203        				var incident; * this now counts incident PEOPLE, not infections ;
+204        				output out = total_infect_people sum(incident) = incident_people_sum;
+205        			run;				
+206        	
+207        			data total_infect;
+208        				merge
+209        					total_infect
+210        					total_infect_people;
+211        			run;
+212        
+213        		proc print data = total_infect;
+214        		run;
+215        
+216        
+217        	* calculate total patient days in hospital for the study ;
+218        		proc means data = glnd.status 	n sum median;
+219        			where (still_in_hosp = 0) & (treatment = &x);
+220        	
+221        			var days_hosp_post_entry;
+222        			output out = total_hosp_days  sum(days_hosp_post_entry) = total_hosp_days ;
+223        		run;
+224        
+225        		data _null_;
+226        			set total_hosp_days;
+227        	
+228        			call symput('total_hosp_days', put(total_hosp_days, 12.));
+229        			
+230        
+231        		run;
+232        
+6                                                          The SAS System                             14:45 Tuesday, October 5, 2010
+
+233        	data header_1;
+234        		row = "== Specific Infections ==";
+235        	run;
+236        
+237        	data header_2;
+238        		row = "===================";
+239        	run;
+240        
+241        ** combine these totals and calculate Poisson 95% CI ;
+242        
+243        	** stack!;
+244        		data rate_table_&x;
+245        			length row $ 46 ;
+246        	
+247        			set
+248        				header_1			(in = from_header_1)
+249        				indiv_infect		(in = from_indiv_infect)
+250        				header_2			(in = from_header_2)
+251        				non_bsi_infect 	(in = from_non_bsi)
+252        				total_infect		(in = from_total)
+253        			;
+254        	
+255        			if from_indiv_infect then row = put(new_site_code, site_code.);
+256        			if from_non_bsi then row = "Any non-BSI infection";
+257        			if from_total then row = "Any infection";
+258        
+259        			if new_site_code = "LRI" then row = "Pneumonia or Lower Respiratory Tract Infection";
+260        
+261        			if (~from_header_1) & (~from_header_2) then do;	
+262        				** compute rates and CIs ;	
+263        				rate_1000d = (incident_cases_sum / &total_hosp_days) * 1000;
+264        				denominator = input(&total_hosp_days, 12.);
+265        	
+266        				conf_level = .95;
+267        				
+268        				upper_p = 1 - (1 - conf_level)/2;
+269        				lower_p = 1 - upper_p;
+270        	
+271        				* upper and lower CI bounds for the Poisson counts of incident infections ;
+272        				upper_mu = .5 * cinv(upper_p, 2 * (incident_cases_sum + 1));
+273        				lower_mu = .5 * cinv(lower_p, 2 * (incident_cases_sum));
+274        	
+275        
+276        				* transform these into CI for the RATES;
+277        				upper_rate = (upper_mu/denominator) * 1000;
+278        				lower_rate = (lower_mu/denominator) * 1000;
+279        	
+280        	
+281        				* make columns for display ;
+282        				display_count_people_&group = compress(put(incident_cases_sum, 4.0)) || " (" || compress(put(incident_people_sum,
+282      ! 4.0)) || "/" || compress(&n_study_1) || ")";
+283        				display_rate_&group = compress(put(rate_1000d, 5.1)) ;
+284        				display_ci_&group = "[" || compress(put(lower_rate, 5.1)) || ", " || compress(put(upper_rate, 5.1)) || "]";
+285        			end;
+286        				
+287        			order = _N_;			* for merging both treatment groups ;
+288        			
+289        			label
+7                                                          The SAS System                             14:45 Tuesday, October 5, 2010
+
+290        				row = "."
+291        				display_count_people_&group = "&group+# infec. (# pat.)+ "
+292        				display_rate_&group = "&group+infec. /+ 1000 hosp.+days"
+293        				display_ci_&group = "&group+95% CI *" 				
+294        			;
+295        		run;
+296        
+297        		* make a copy of this treatment groups data so that i can access it after the macro terminates;
+298        			data all_infections_for_calc_&x ;
+299        				set all_infections_for_calc;
+300        			run;
+301        
+302        %end;
+303        
+304        %mend closed;
+305        %closed run;
+
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 63 observations read from the data set GLND.STATUS.
+      WHERE (still_in_hosp=0) and (treatment=1);
+NOTE: The data set WORK.STUDY_N has 1 observations and 3 variables.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.STUDY_N.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+8                                                          The SAS System                             14:45 Tuesday, October 5, 2010
+
+
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: MERGE statement has more than one data set with repeats of BY values.
+NOTE: There were 236 observations read from the data set GLND_REP.SUSPECTED_NOSO_BEFORE_ADJ.
+NOTE: There were 140 observations read from the data set GLND_REP.SUSPECTED_NOSO_AFTER_ADJ.
+NOTE: The data set WORK.NON_ADJ_FOLKS has 98 observations and 23 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 98 observations read from the data set WORK.NON_ADJ_FOLKS.
+NOTE: There were 140 observations read from the data set GLND_REP.SUSPECTED_NOSO_AFTER_ADJ.
+NOTE: The data set WORK.ALL_INFECTIONS_WITH_ADJ has 238 observations and 60 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 238 observations read from the data set WORK.ALL_INFECTIONS_WITH_ADJ.
+NOTE: The data set WORK.ALL_INFECTIONS_WITH_ADJ has 238 observations and 60 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 238 observations read from the data set WORK.ALL_INFECTIONS_WITH_ADJ.
+NOTE: There were 130 observations read from the data set GLND.STATUS.
+NOTE: There were 130 observations read from the data set GLND.GEORGE.
+NOTE: The data set WORK.ALL_INFECTIONS_FOR_CALC has 129 observations and 64 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.03 seconds
+      
+
+
+NOTE: There were 66 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC.
+      WHERE COMPRESS(new_site_code) in ('BSI', 'CVS', 'GI', 'LRI', 'SSI') or ((COMPRESS(new_site_code)='UTI') and 
+      (COMPRESS(type_code)='SUTI'));
+NOTE: The data set WORK.INDIV_INFECT has 7 observations and 4 variables.
+NOTE: The PROCEDURE MEANS printed page 1.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.08 seconds
+      
+
+
+NOTE: There were 129 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC.
+9                                                          The SAS System                             14:45 Tuesday, October 5, 2010
+
+NOTE: The data set WORK.ALL_INFECTIONS_FOR_CALC has 129 observations and 64 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 66 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC.
+      WHERE COMPRESS(new_site_code) in ('BSI', 'CVS', 'GI', 'LRI', 'SSI') or ((COMPRESS(new_site_code)='UTI') and 
+      (COMPRESS(type_code)='SUTI'));
+NOTE: The data set WORK.INDIV_INFECT_ID has 43 observations and 64 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 43 observations read from the data set WORK.INDIV_INFECT_ID.
+NOTE: The data set WORK.INDIV_INFECT_PEOPLE has 7 observations and 4 variables.
+NOTE: The PROCEDURE MEANS printed page 2.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.05 seconds
+      
+
+
+NOTE: There were 7 observations read from the data set WORK.INDIV_INFECT.
+NOTE: There were 7 observations read from the data set WORK.INDIV_INFECT_PEOPLE.
+NOTE: The data set WORK.INDIV_INFECT has 7 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 6 observations read from the data set WORK.INDIV_INFECT.
+      WHERE _type_=1;
+NOTE: The data set WORK.INDIV_INFECT has 6 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 6 observations read from the data set WORK.INDIV_INFECT.
+NOTE: The PROCEDURE PRINT printed page 3.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 96 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC.
+      WHERE (COMPRESS(new_site_code) not = 'BSI') and ((COMPRESS(new_site_code) not = 'UTI') or (COMPRESS(type_code) not = 'ASB'));
+NOTE: The data set WORK.NON_BSI_INFECT has 1 observations and 3 variables.
+NOTE: The PROCEDURE MEANS printed page 4.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+10                                                         The SAS System                             14:45 Tuesday, October 5, 2010
+
+      cpu time            0.05 seconds
+      
+
+
+NOTE: There were 129 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC.
+NOTE: The data set WORK.ALL_INFECTIONS_FOR_CALC has 129 observations and 64 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 30 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC.
+      WHERE (incident=1) and (COMPRESS(new_site_code) not = 'BSI') and ((COMPRESS(new_site_code) not = 'UTI') or 
+      (COMPRESS(type_code) not = 'ASB'));
+NOTE: The data set WORK.NON_BSI_INFECT_ID has 20 observations and 64 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 20 observations read from the data set WORK.NON_BSI_INFECT_ID.
+NOTE: The data set WORK.NON_BSI_INFECT_PEOPLE has 1 observations and 3 variables.
+NOTE: The PROCEDURE MEANS printed page 5.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.NON_BSI_INFECT.
+NOTE: There were 1 observations read from the data set WORK.NON_BSI_INFECT_PEOPLE.
+NOTE: The data set WORK.NON_BSI_INFECT has 1 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.NON_BSI_INFECT.
+NOTE: The PROCEDURE PRINT printed page 6.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 117 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC.
+      WHERE (COMPRESS(new_site_code) not = 'UTI') or (COMPRESS(type_code) not = 'ASB');
+NOTE: The data set WORK.TOTAL_INFECT has 1 observations and 3 variables.
+NOTE: The PROCEDURE MEANS printed page 7.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+
+11                                                         The SAS System                             14:45 Tuesday, October 5, 2010
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 48 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC.
+      WHERE (incident=1) and ((COMPRESS(new_site_code) not = 'UTI') or (COMPRESS(type_code) not = 'ASB'));
+NOTE: The data set WORK.TOTAL_INFECT_ID has 28 observations and 64 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 28 observations read from the data set WORK.TOTAL_INFECT_ID.
+NOTE: The data set WORK.TOTAL_INFECT_PEOPLE has 1 observations and 3 variables.
+NOTE: The PROCEDURE MEANS printed page 8.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.TOTAL_INFECT.
+NOTE: There were 1 observations read from the data set WORK.TOTAL_INFECT_PEOPLE.
+NOTE: The data set WORK.TOTAL_INFECT has 1 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.TOTAL_INFECT.
+NOTE: The PROCEDURE PRINT printed page 9.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 63 observations read from the data set GLND.STATUS.
+      WHERE (still_in_hosp=0) and (treatment=1);
+NOTE: The data set WORK.TOTAL_HOSP_DAYS has 1 observations and 3 variables.
+NOTE: The PROCEDURE MEANS printed page 10.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.05 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.TOTAL_HOSP_DAYS.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+12                                                         The SAS System                             14:45 Tuesday, October 5, 2010
+
+
+NOTE: The data set WORK.HEADER_1 has 1 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: The data set WORK.HEADER_2 has 1 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      305:9   305:2   
+NOTE: There were 1 observations read from the data set WORK.HEADER_1.
+NOTE: There were 6 observations read from the data set WORK.INDIV_INFECT.
+NOTE: There were 1 observations read from the data set WORK.HEADER_2.
+NOTE: There were 1 observations read from the data set WORK.NON_BSI_INFECT.
+NOTE: There were 1 observations read from the data set WORK.TOTAL_INFECT.
+NOTE: The data set WORK.RATE_TABLE_1 has 10 observations and 19 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.03 seconds
+      
+
+
+NOTE: There were 129 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC.
+NOTE: The data set WORK.ALL_INFECTIONS_FOR_CALC_1 has 129 observations and 64 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.03 seconds
+      
+
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 65 observations read from the data set GLND.STATUS.
+      WHERE (still_in_hosp=0) and (treatment=2);
+NOTE: The data set WORK.STUDY_N has 1 observations and 3 variables.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.STUDY_N.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+13                                                         The SAS System                             14:45 Tuesday, October 5, 2010
+
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: MERGE statement has more than one data set with repeats of BY values.
+NOTE: There were 236 observations read from the data set GLND_REP.SUSPECTED_NOSO_BEFORE_ADJ.
+NOTE: There were 140 observations read from the data set GLND_REP.SUSPECTED_NOSO_AFTER_ADJ.
+NOTE: The data set WORK.NON_ADJ_FOLKS has 98 observations and 23 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 98 observations read from the data set WORK.NON_ADJ_FOLKS.
+NOTE: There were 140 observations read from the data set GLND_REP.SUSPECTED_NOSO_AFTER_ADJ.
+NOTE: The data set WORK.ALL_INFECTIONS_WITH_ADJ has 238 observations and 60 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 238 observations read from the data set WORK.ALL_INFECTIONS_WITH_ADJ.
+NOTE: The data set WORK.ALL_INFECTIONS_WITH_ADJ has 238 observations and 60 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.03 seconds
+      
+
+
+NOTE: There were 238 observations read from the data set WORK.ALL_INFECTIONS_WITH_ADJ.
+NOTE: There were 130 observations read from the data set GLND.STATUS.
+14                                                         The SAS System                             14:45 Tuesday, October 5, 2010
+
+NOTE: There were 130 observations read from the data set GLND.GEORGE.
+NOTE: The data set WORK.ALL_INFECTIONS_FOR_CALC has 106 observations and 64 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.03 seconds
+      
+
+
+NOTE: There were 54 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC.
+      WHERE COMPRESS(new_site_code) in ('BSI', 'CVS', 'GI', 'LRI', 'SSI') or ((COMPRESS(new_site_code)='UTI') and 
+      (COMPRESS(type_code)='SUTI'));
+NOTE: The data set WORK.INDIV_INFECT has 6 observations and 4 variables.
+NOTE: The PROCEDURE MEANS printed page 11.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.05 seconds
+      
+
+
+NOTE: There were 106 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC.
+NOTE: The data set WORK.ALL_INFECTIONS_FOR_CALC has 106 observations and 64 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 54 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC.
+      WHERE COMPRESS(new_site_code) in ('BSI', 'CVS', 'GI', 'LRI', 'SSI') or ((COMPRESS(new_site_code)='UTI') and 
+      (COMPRESS(type_code)='SUTI'));
+NOTE: The data set WORK.INDIV_INFECT_ID has 29 observations and 64 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 29 observations read from the data set WORK.INDIV_INFECT_ID.
+NOTE: The data set WORK.INDIV_INFECT_PEOPLE has 6 observations and 4 variables.
+NOTE: The PROCEDURE MEANS printed page 12.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.06 seconds
+      
+
+
+NOTE: There were 6 observations read from the data set WORK.INDIV_INFECT.
+NOTE: There were 6 observations read from the data set WORK.INDIV_INFECT_PEOPLE.
+NOTE: The data set WORK.INDIV_INFECT has 6 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 5 observations read from the data set WORK.INDIV_INFECT.
+      WHERE _type_=1;
+NOTE: The data set WORK.INDIV_INFECT has 5 observations and 5 variables.
+15                                                         The SAS System                             14:45 Tuesday, October 5, 2010
+
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 5 observations read from the data set WORK.INDIV_INFECT.
+NOTE: The PROCEDURE PRINT printed page 13.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 84 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC.
+      WHERE (COMPRESS(new_site_code) not = 'BSI') and ((COMPRESS(new_site_code) not = 'UTI') or (COMPRESS(type_code) not = 'ASB'));
+NOTE: The data set WORK.NON_BSI_INFECT has 1 observations and 3 variables.
+NOTE: The PROCEDURE MEANS printed page 14.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+
+NOTE: There were 106 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC.
+NOTE: The data set WORK.ALL_INFECTIONS_FOR_CALC has 106 observations and 64 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 23 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC.
+      WHERE (incident=1) and (COMPRESS(new_site_code) not = 'BSI') and ((COMPRESS(new_site_code) not = 'UTI') or 
+      (COMPRESS(type_code) not = 'ASB'));
+NOTE: The data set WORK.NON_BSI_INFECT_ID has 18 observations and 64 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 18 observations read from the data set WORK.NON_BSI_INFECT_ID.
+NOTE: The data set WORK.NON_BSI_INFECT_PEOPLE has 1 observations and 3 variables.
+NOTE: The PROCEDURE MEANS printed page 15.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.NON_BSI_INFECT.
+NOTE: There were 1 observations read from the data set WORK.NON_BSI_INFECT_PEOPLE.
+NOTE: The data set WORK.NON_BSI_INFECT has 1 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+16                                                         The SAS System                             14:45 Tuesday, October 5, 2010
+
+
+
+NOTE: There were 1 observations read from the data set WORK.NON_BSI_INFECT.
+NOTE: The PROCEDURE PRINT printed page 16.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 100 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC.
+      WHERE (COMPRESS(new_site_code) not = 'UTI') or (COMPRESS(type_code) not = 'ASB');
+NOTE: The data set WORK.TOTAL_INFECT has 1 observations and 3 variables.
+NOTE: The PROCEDURE MEANS printed page 17.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 34 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC.
+      WHERE (incident=1) and ((COMPRESS(new_site_code) not = 'UTI') or (COMPRESS(type_code) not = 'ASB'));
+NOTE: The data set WORK.TOTAL_INFECT_ID has 20 observations and 64 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 20 observations read from the data set WORK.TOTAL_INFECT_ID.
+NOTE: The data set WORK.TOTAL_INFECT_PEOPLE has 1 observations and 3 variables.
+NOTE: The PROCEDURE MEANS printed page 18.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.30 seconds
+      cpu time            0.05 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.TOTAL_INFECT.
+NOTE: There were 1 observations read from the data set WORK.TOTAL_INFECT_PEOPLE.
+NOTE: The data set WORK.TOTAL_INFECT has 1 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.TOTAL_INFECT.
+NOTE: The PROCEDURE PRINT printed page 19.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+17                                                         The SAS System                             14:45 Tuesday, October 5, 2010
+
+      cpu time            0.01 seconds
+      
+
+
+NOTE: There were 65 observations read from the data set GLND.STATUS.
+      WHERE (still_in_hosp=0) and (treatment=2);
+NOTE: The data set WORK.TOTAL_HOSP_DAYS has 1 observations and 3 variables.
+NOTE: The PROCEDURE MEANS printed page 20.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.TOTAL_HOSP_DAYS.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+
+NOTE: The data set WORK.HEADER_1 has 1 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: The data set WORK.HEADER_2 has 1 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      305:9   305:2   
+NOTE: There were 1 observations read from the data set WORK.HEADER_1.
+NOTE: There were 5 observations read from the data set WORK.INDIV_INFECT.
+NOTE: There were 1 observations read from the data set WORK.HEADER_2.
+NOTE: There were 1 observations read from the data set WORK.NON_BSI_INFECT.
+NOTE: There were 1 observations read from the data set WORK.TOTAL_INFECT.
+NOTE: The data set WORK.RATE_TABLE_2 has 9 observations and 19 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+
+NOTE: There were 106 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC.
+NOTE: The data set WORK.ALL_INFECTIONS_FOR_CALC_2 has 106 observations and 64 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.02 seconds
+      
+
+306        
+307        
+18                                                         The SAS System                             14:45 Tuesday, October 5, 2010
+
+308        	
+308      !  proc sort data= glnd.status; by id; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+309        	
+309      !  proc sort data= glnd.george; by id; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+310        
+311        ** GET N's for titles - needs to happen outside of macro since the variables' scopes are otherwise within the macros ** ;
+312        
+313        	* capture sample size of total people on study, that are no longer in the hospital because we need to know hospital ; 
+314        		
+314      !   data n;
+315        			merge	glnd.status (keep = id still_in_hosp)
+316        				glnd.george (keep = id treatment)
+317        			;
+318        			by id;
+319        		run;
+
+NOTE: There were 130 observations read from the data set GLND.STATUS.
+NOTE: There were 130 observations read from the data set GLND.GEORGE.
+NOTE: The data set WORK.N has 130 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+320        		
+321        		
+321      !   proc means data= n noprint;
+322        			where (still_in_hosp = 0) & (treatment = 1); 
+323        			output out= study_n n(id) = id_n;
+324        		run;
+
+NOTE: There were 63 observations read from the data set WORK.N.
+      WHERE (still_in_hosp=0) and (treatment=1);
+NOTE: The data set WORK.STUDY_N has 1 observations and 3 variables.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+      
+
+324      !       
+325        		
+325      !   data _null_;
+326        			set study_n;
+327        			call symput('n_study_A', put(id_n, 3.0));
+19                                                         The SAS System                             14:45 Tuesday, October 5, 2010
+
+328        		run;
+
+NOTE: There were 1 observations read from the data set WORK.STUDY_N.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+329        
+330        		
+330      !   proc means data= n noprint;
+331        			where (still_in_hosp = 0) & (treatment = 2); 
+332        			output out= study_n n(id) = id_n;
+333        		run;
+
+NOTE: There were 65 observations read from the data set WORK.N.
+      WHERE (still_in_hosp=0) and (treatment=2);
+NOTE: The data set WORK.STUDY_N has 1 observations and 3 variables.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.04 seconds
+      
+
+333      !       
+334        		
+334      !   data _null_;
+335        			set study_n;
+336        			call symput('n_study_B', put(id_n, 3.0));
+337        		run;
+
+NOTE: There were 1 observations read from the data set WORK.STUDY_N.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+338        
+339        
+340        	* calculate total patient days in hospital for the study ;
+341        		
+341      !   proc means data = glnd.status 	n sum median;
+342        			where (still_in_hosp = 0) & (treatment = 1);
+343        	
+344        			var days_hosp_post_entry;
+345        			output out = total_hosp_days  sum(days_hosp_post_entry) = total_hosp_days ;
+346        		run;
+
+NOTE: There were 63 observations read from the data set GLND.STATUS.
+      WHERE (still_in_hosp=0) and (treatment=1);
+NOTE: The data set WORK.TOTAL_HOSP_DAYS has 1 observations and 3 variables.
+NOTE: The PROCEDURE MEANS printed page 21.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.03 seconds
+      
+
+347        
+348        		
+20                                                         The SAS System                             14:45 Tuesday, October 5, 2010
+
+348      !   data _null_;
+349        			set total_hosp_days;
+350        			call symput('total_hosp_days_A', compress(put(total_hosp_days, 12.)));
+351        		run;
+
+NOTE: There were 1 observations read from the data set WORK.TOTAL_HOSP_DAYS.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+352        
+353        		
+353      !   proc means data = glnd.status 	n sum median;
+354        			where (still_in_hosp = 0) & (treatment = 2);
+355        	
+356        			var days_hosp_post_entry;
+357        			output out = total_hosp_days  sum(days_hosp_post_entry) = total_hosp_days ;
+358        		run;
+
+NOTE: There were 65 observations read from the data set GLND.STATUS.
+      WHERE (still_in_hosp=0) and (treatment=2);
+NOTE: The data set WORK.TOTAL_HOSP_DAYS has 1 observations and 3 variables.
+NOTE: The PROCEDURE MEANS printed page 22.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+359        
+360        		
+360      !   data _null_;
+361        			set total_hosp_days;
+362        			call symput('total_hosp_days_B', compress(put(total_hosp_days, 12.)));
+363        		run;
+
+NOTE: There were 1 observations read from the data set WORK.TOTAL_HOSP_DAYS.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+363      !       	
+364        
+365        		** capture asymptomatic or unknown UTI infection counts for note  **;
+366        			
+366      !    proc means data = all_infections_for_calc_1 	n sum noprint;
+367        				where (compress(new_site_code) = "UTI") & (compress(type_code) ~= "SUTI")   ;
+368        		
+369        				var incident;
+370        				output out = non_SUTI sum(incident) = incident_non_SUTI_sum;
+371        			run;
+
+NOTE: There were 13 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC_1.
+      WHERE (COMPRESS(new_site_code)='UTI') and (COMPRESS(type_code) not = 'SUTI');
+NOTE: The data set WORK.NON_SUTI has 1 observations and 3 variables.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+21                                                         The SAS System                             14:45 Tuesday, October 5, 2010
+
+      cpu time            0.04 seconds
+      
+
+372        
+373        			
+373      !    data _NULL_;
+374        				set non_SUTI;
+375        				 call symput('non_SUTI_A', compress(put(incident_non_SUTI_sum, 4.0)));
+376        			run;
+
+NOTE: There were 1 observations read from the data set WORK.NON_SUTI.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+377        
+378        			
+378      !    proc means data = all_infections_for_calc_2 	n sum noprint;
+379        				where (compress(new_site_code) = "UTI") & (compress(type_code) ~= "SUTI")   ;
+380        		
+381        				var incident;
+382        				output out = non_SUTI sum(incident) = incident_non_SUTI_sum;
+383        			run;
+
+NOTE: There were 6 observations read from the data set WORK.ALL_INFECTIONS_FOR_CALC_2.
+      WHERE (COMPRESS(new_site_code)='UTI') and (COMPRESS(type_code) not = 'SUTI');
+NOTE: The data set WORK.NON_SUTI has 1 observations and 3 variables.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.05 seconds
+      
+
+384        
+385        			
+385      !    data _NULL_;
+386        				set non_SUTI;
+387        				 call symput('non_SUTI_B', compress(put(incident_non_SUTI_sum, 4.0)));
+388        			run;
+
+NOTE: There were 1 observations read from the data set WORK.NON_SUTI.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+389        
+390        
+391        ** end ** ;
+392        
+393        
+394        
+395        
+396        
+397        
+398        
+399        
+400        
+22                                                         The SAS System                             14:45 Tuesday, October 5, 2010
+
+401        	
+401      !  proc sort data = rate_table_1; by row; run;
+
+NOTE: There were 10 observations read from the data set WORK.RATE_TABLE_1.
+NOTE: The data set WORK.RATE_TABLE_1 has 10 observations and 19 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+402        	
+402      !  proc sort data = rate_table_2; by row; run;
+
+NOTE: There were 9 observations read from the data set WORK.RATE_TABLE_2.
+NOTE: The data set WORK.RATE_TABLE_2 has 9 observations and 19 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+403        
+404        	* MERGE BOTH TERATMENTS ;
+405        	
+405      !  data rate_table_closed ;
+406        		merge 	rate_table_1
+407        			rate_table_2 (drop = order);
+408        		by row;
+409        	run;
+
+NOTE: There were 10 observations read from the data set WORK.RATE_TABLE_1.
+NOTE: There were 9 observations read from the data set WORK.RATE_TABLE_2.
+NOTE: The data set WORK.RATE_TABLE_CLOSED has 10 observations and 22 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+410        
+411        	
+411      !  proc sort data = rate_table_closed; by order; run;
+
+NOTE: There were 10 observations read from the data set WORK.RATE_TABLE_CLOSED.
+NOTE: The data set WORK.RATE_TABLE_CLOSED has 10 observations and 22 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+412        
+413        		* need to put titles in here so can access local macro variables ;
+414        		title1 "Incident infection rates: Trt. A = &n_study_A patients, Trt. B = &n_study_B patients";
+415        		title2 "(Patient hospital days observed: Trt. A = &total_hosp_days_A days, Trt. B = &total_hosp_days_B days)";
+416        			* using global macro variables doesn't work. just move the code out here ;
+417        
+418        	options nodate nonumber;
+419        	*ods pdf file = "/glnd/sas/reporting/nosocomial_rates_closed.pdf" style = journal;
+420        	ods pdf file = "nosocomial_rates_closed.pdf" style = journal;		
+NOTE: Writing ODS PDF output to DISK destination "/home/bwu2/spelling/nosocomial_rates_closed.pdf", printer "PDF".
+                                                           The SAS System
+
+421        	
+422        		
+422      !   proc print data = rate_table_closed noobs label split = '+' style(table)= [font_width = compressed];
+423        
+424        			var row;
+425        
+426        			var 	display_count_people_A display_rate_A display_ci_A
+427        				display_count_people_B display_rate_B display_ci_B /style(data) = [just=center];;
+428        
+429        		run;
+
+NOTE: There were 10 observations read from the data set WORK.RATE_TABLE_CLOSED.
+NOTE: The PROCEDURE PRINT printed page 23.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.05 seconds
+      
+
+430        
+431        
+432        		ods escapechar='^' ;
+433        		ods pdf text = " ";
+434        		ods pdf text = "^S={font_size=11pt font_style= slant just=left}Note: Asymptomatic UTI (group A n = &non_SUTI_A, group B
+434      !  n = &non_SUTI_B) are excluded from all results";
+435        		ods pdf text = " ";
+436        
+437        		ods pdf text = "^S={font_size=11pt font_style= slant just=left}* 95% confidence intervals are calculated using an exact
+437      !  method based on the Poisson distribution.";
+438        
+439        
+440        	ods pdf close;
+NOTE: ODS PDF printed 1 page to /home/bwu2/spelling/nosocomial_rates_closed.pdf.
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           3.04 seconds
+      cpu time            1.96 seconds
+      

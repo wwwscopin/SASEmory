@@ -1,0 +1,14 @@
+Terminating S Session: The desired vendor daemon is down.
+ Check the lmgrd log file, or try lmreread.
+Feature:       00
+Vendor:Host:   hornet
+License path:  @hornet:/usr/local/apps/Splus7/*.lic:/usr/local/apps -
+   /Splus7/adm/lic/keys/license_20060731151745.lic:/usr/local/apps/Splus7 -
+   /adm/lic/keys/license_20060731151849.lic:/usr/local/apps/Splus7/adm -
+   /lic/keys/license_20070621123206.lic:/usr/local/apps/Splus7/adm/lic -
+   /keys/splus-2.lic:/usr/local/apps/Splus7/adm/lic/keys/splus-spatial.lic:
+   /usr/local/apps/Splus7/adm/lic/keys/splus.lic
+FLEXnet Licensing error:-97,121
+For further information, refer to the FLEXnet Licensing End User Guide,
+available at "www.macrovision.com".
+

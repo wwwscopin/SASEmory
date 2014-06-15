@@ -1,0 +1,34 @@
+"f.fix.labels" <- function(text)
+{
+
+"f.fix.tmp" <- function(x, out = ",", put= " ")
+{
+#   DATE WRITTEN:  26 May 1995, Revised 28 Feb. 1996
+#   Author:  John R. Wallace (jw@u.washington.edu)
+#   Modified by Kosinski 11 Jan 2000
+        if(length(grep(out,x))==0) return(x)
+        nout <- nchar(out) #Kosinski
+        x <- paste(" ",x," ",sep="") # KOsinski
+        if(length(out) == 1) out <- substring(out, 1:nout, 1:nout)
+        nc <- nchar(x)
+        y <- (1:nc)[is.element(substring(x, 1:nc, 1:nc), out)]
+#       if(is.na(y[1] + 0)) return(x)
+        x  <- substring(x, c(1, y + 1), c(y - 1, nc))
+        x <- x[x!=""]
+        x <- paste(x,collapse=put)
+        x <- substring(x,2,nchar(x)-1)
+        return(x)
+}
+
+text <- f.fix.tmp(text,"&","\\&")
+text <- f.fix.tmp(text,"%","\\%")
+text <- f.fix.tmp(text,">=","$ \\ge $")
+text <- f.fix.tmp(text,"<=","$ \\le $")
+text <- f.fix.tmp(text,"<","$<$")
+text <- f.fix.tmp(text,">","$>$")
+
+return(text)
+}
+
+# source("f.fix.labels"); f.fix.labels("30% to 40%")
+

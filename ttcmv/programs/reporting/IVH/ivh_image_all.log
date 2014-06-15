@@ -1,0 +1,346 @@
+1                                                          The SAS System                              12:07 Wednesday, May 22, 2013
+
+NOTE: Copyright (c) 2002-2010 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.3 (TS1M0) 
+      Licensed to EMORY UNIVERSITY-T&R, Site 70088042.
+NOTE: This session is executing on the SunOS 5.10 (SUN X64) platform.
+
+
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is /dfax/ttcmv/sas/programs/reporting/baohua/IVH/autoexec.sas.
+
+NOTE: Libref CMV was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/data/monthly_freeze_2013.05.01
+NOTE: Library CMV_REP does not exist.
+NOTE: Library CMV_QC does not exist.
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/data
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: AUTOEXEC processing completed.
+
+1          
+2          
+3          options nodate nonumber;
+4          
+5          proc format;
+6            value grade
+7                  1 = "I" 2 = "II" 3 = "III" 4="IV" 99="Unilateral" 100="Total";
+NOTE: Format GRADE has been output.
+8          run;
+                                                           The SAS System
+
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+9          
+10         data ivh0;
+11         	set cmv.ivh_image(keep=id LeftIVHGrade RightIVHGrade ImageDate Imagetime); 	by id;
+12         	format LeftIVHGrade RightIVHGrade grade. ;
+13         	if LeftIVHGrade in(1,2,3,4) or RightIVHGrade in(1,2,3,4);
+14         run;
+
+NOTE: There were 603 observations read from the data set CMV.IVH_IMAGE.
+NOTE: The data set WORK.IVH0 has 415 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+15         
+16         proc sql;
+17         	create table ivh as
+18         	select a.*
+19         	from ivh0 as a , cmv.completedstudylist as b
+20         	where a.id=b.id;
+NOTE: Table WORK.IVH created, with 414 rows and 5 columns.
+
+21         
+22         
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+23         proc sort nodupkey; by id ImageDate Imagetime;run;
+
+NOTE: There were 414 observations read from the data set WORK.IVH.
+NOTE: 2 observations with duplicate key values were deleted.
+NOTE: The data set WORK.IVH has 412 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+24         
+25         data ivh_id;
+26         	set ivh; by id;
+27         	if first.id;
+28         run;
+
+NOTE: There were 412 observations read from the data set WORK.IVH.
+NOTE: The data set WORK.IVH_ID has 163 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+                                                           The SAS System
+
+29         
+30         data _null_;
+31         	set ivh_id;
+32         	call symput ("n", compress(_n_));
+33         run;
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      32:29   
+NOTE: There were 163 observations read from the data set WORK.IVH_ID.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+34         
+35         data _null_;
+36         	set cmv.completedstudylist;
+37         	call symput ("n_total", compress(_n_));
+38         run;
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      37:35   
+NOTE: There were 471 observations read from the data set CMV.COMPLETEDSTUDYLIST.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+39         
+40         
+41         data ivh2;
+42         	set ivh;
+43         	where LeftIVHGrade in(2,3,4) or rightIVHGrade in (2,3,4);
+44         run;
+
+NOTE: There were 228 observations read from the data set WORK.IVH.
+      WHERE LeftIVHGrade in (2, 3, 4) or rightIVHGrade in (2, 3, 4);
+NOTE: The data set WORK.IVH2 has 228 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.02 seconds
+      
+
+45         
+46         proc sort data=ivh; by LeftIVHGrade RightIVHGrade;run;
+
+NOTE: There were 412 observations read from the data set WORK.IVH.
+NOTE: The data set WORK.IVH has 412 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+47         
+48         data tab;
+49         	do i=1 to 4;
+50         		do j=1 to 4;
+51         			LeftIVHGrade=i;  RightIVHGrade=j; output;
+                                                           The SAS System
+
+52         		end;
+53         		RightIVHGrade=99; output;		RightIVHGrade=100; output;
+54         	end;
+55         	LeftIVHGrade=99; RightIVHGrade=99;output;
+56         	drop i j;
+57         	LeftIVHGrade=100;output;
+58         	format LeftIVHGrade RightIVHGrade grade.;
+59         run;
+
+NOTE: The data set WORK.TAB has 26 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+60         proc sort; by LeftIVHGrade RightIVHGrade;run;
+
+NOTE: There were 26 observations read from the data set WORK.TAB.
+NOTE: The data set WORK.TAB has 26 observations and 2 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+61         
+62         proc freq data=ivh;
+63         tables LeftIVHGrade*RightIVHGrade/nocol norow nopct /*out=count*/;
+64         ods output Freq.Table1.CrossTabFreqs=count1(drop=table  _TYPE_  _TABLE_ Missing);
+65         run;
+
+NOTE: The data set WORK.COUNT1 has 36 observations and 3 variables.
+NOTE: There were 412 observations read from the data set WORK.IVH.
+NOTE: The PROCEDURE FREQ printed page 1.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+66         
+67         data count;
+68         	set count1;
+69         	if leftIVHGrade=. and RightIVHGrade^=. then leftIVHGrade=100;
+70         	if leftIVHGrade^=. and RightIVHGrade=. then rightIVHGrade=100;
+71         	if leftIVHGrade=. and RightIVHGrade=. then do;
+72         		leftIVHGrade=100; rightIVHGrade=100;
+73         		call symput("m", compress(frequency));
+74         	end;
+75         	format leftIVHGrade grade.;
+76         run;
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      73:29   
+NOTE: There were 36 observations read from the data set WORK.COUNT1.
+NOTE: The data set WORK.COUNT has 36 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+                                                           The SAS System
+
+
+77         
+78         proc sort; by LeftIVHGrade RightIVHGrade;run;
+
+NOTE: There were 36 observations read from the data set WORK.COUNT.
+NOTE: The data set WORK.COUNT has 36 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+79         data ivh_tab;
+80         	merge tab count(rename=(frequency=nc)); by LeftIVHGrade RightIVHGrade;
+81         run;
+
+NOTE: There were 26 observations read from the data set WORK.TAB.
+NOTE: There were 36 observations read from the data set WORK.COUNT.
+NOTE: The data set WORK.IVH_TAB has 36 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+82         
+83         proc transpose out=ivh_tab; by LeftIVHGrade; var RightIVHGrade nc;run;
+
+NOTE: There were 36 observations read from the data set WORK.IVH_TAB.
+NOTE: The data set WORK.IVH_TAB has 12 observations and 9 variables.
+NOTE: PROCEDURE TRANSPOSE used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+84         
+85         data ivh_tab;
+86         	set ivh_tab(where=(_NAME_="nc") rename=(col1=nc1 col2=nc2 col3=nc3 col4=nc4 col5=nc99 col6=nc));
+87         	f1=nc1/nc*100; f2=nc2/nc*100; 	f3=nc3/nc*100; 	f4=nc4/nc*100; 	f99=nc99/nc*100; f=nc/&m*100; f_total=&n/&n_total*100;
+88         
+89         	call symput("f",compress(put(f_total,4.0)));
+90         
+91         	length nout1 nout2 nout3 nout4 nout99 nout $25;
+92         	nout1=nc1||"("||compress(put(f1,4.0))||"%)";
+93         	nout2=nc2||"("||compress(put(f2,4.0))||"%)";
+94         	nout3=nc3||"("||compress(put(f3,4.0))||"%)";
+95         	nout4=nc4||"("||compress(put(f4,4.0))||"%)";
+96         	nout99=nc99||"("||compress(put(f99,4.0))||"%)";
+97         	nout=nc||"/"||compress(&m)||"("||compress(put(f,4.0))||"%)";
+98         	if LeftIVHGrade=100 then do;
+99         		nout1=nc1||"/"||compress(&m)||"("||compress(put(f1,4.0))||"%)";
+100        		nout2=nc2||"/"||compress(&m)||"("||compress(put(f2,4.0))||"%)";
+101        		nout3=nc3||"/"||compress(&m)||"("||compress(put(f3,4.0))||"%)";
+102        		nout4=nc4||"/"||compress(&m)||"("||compress(put(f4,4.0))||"%)";
+103        		nout99=nc99||"/"||compress(&m)||"("||compress(put(f99,4.0))||"%)";
+104        		*nout=nc||"/"||compress(&n_total)||"("||compress(put(f_total,4.0))||"%)";
+105        		nout=nc;
+106        	end;
+107        	drop  _NAME_    _LABEL_;
+108        run;
+                                                           The SAS System
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      92:8     93:8     94:8     95:8     96:9     97:7     97:1     99:9     99:1     100:9    100:1    101:9    101:1    102:9
+      102:1    103:10   103:1    105:8    
+NOTE: There were 6 observations read from the data set WORK.IVH_TAB.
+      WHERE _NAME_='nc';
+NOTE: The data set WORK.IVH_TAB has 6 observations and 20 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+109        
+110        
+111        ods rtf file="ivh_all.rtf" style=journal bodytitle;
+NOTE: Writing RTF Body file: ivh_all.rtf
+112        proc report data=ivh_tab nowindows headline spacing=1 split='*' style(column)=[just=center] style(header)=[just=center];
+113        
+114        	title "Imaging: Left IVH Grade by Right IVH Grade(n=&n/&n_total,&f%)";
+115        
+116        	column LeftIVHGrade ("-------------------------------------- Right IVH Grade --------------------------------------"
+116      ! nout1-nout4 nout99) nout;
+117        	define LeftIVHGrade/ order order=data "Left IVH Grade" style(column)=[cellwidth=1.0in just=center];
+118        	define nout1/"I" style(column)=[cellwidth=1.0in just=center] ;
+119        	define nout2/"II" style(column)=[cellwidth=1.0in just=center];
+120        	define nout3/"III" style(column)=[cellwidth=1.0in just=center] ;
+121        	define nout4/"IV" style(column)=[cellwidth=1.0in just=center] ;
+122        	define nout99/"Unilateral" style(column)=[cellwidth=1.0in just=center] ;
+123        	define nout/"Total" style(column)=[cellwidth=1.0in just=center] ;
+124        run;
+
+NOTE: There were 6 observations read from the data set WORK.IVH_TAB.
+NOTE: The PROCEDURE REPORT printed pages 2-3.
+NOTE: PROCEDURE REPORT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.03 seconds
+      
+
+125        ods rtf close;
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           0.14 seconds
+      cpu time            0.14 seconds
+      

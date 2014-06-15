@@ -1,0 +1,11 @@
+f.summary <- function(x)
+{
+x.mean <- mean(x,na.rm=T)
+x.sd <- f.sd(x)
+x.median <- median(x,na.rm=T)
+x.mad <- mad(x,na.rm=T)
+x.min <- min(x,na.rm=T)
+x.max <- max(x,na.rm=T)
+return(c(n=sum(!is.na(x)),f.round(
+ c(mean=x.mean,sd=x.sd,median=x.median,mad=x.mad,min=x.min,max=x.max),1)))
+}

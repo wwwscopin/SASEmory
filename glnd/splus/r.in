@@ -1,0 +1,44 @@
+source("start.in")
+
+
+f.top("report",
+ prepare.date=date(),
+ asof.date="Nov 20, 2001",
+ report.type="Baseline Information",
+ meet.date="Nov 30, 2001",
+ header="GI DSMC Report - Baseline")
+
+
+
+gi3 <- f.sas.get(library="/glnd/splus",member="gi2", 
+       format.library="/glnd/splus",formats=T)
+
+
+
+f.tab(file="report",
+ x=gi3[,c("age","bp1","bp2","race","diagnew"),
+  drop=F],
+ group=gi3[,"sex"],
+ caption="Demographics  ", 
+ append=T, zero=T, 
+ vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+
+
+tmp.tab=gi3[,c("age","race","sex")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Patient Listing" ,append=T,
+       pos=c("c","c","c"))
+
+
+f.bottom("report")
+
+unix("/glnd/splus/laps report",output=F)
+unix("/glnd/splus/laps report",output=F)
+
+unix("/glnd/splus/lapdf report",output=F)
+unix("/glnd/splus/lapdf report",output=F)
+
+
+

@@ -1,0 +1,121 @@
+#################################################################################################
+#
+# Program:	ae.in
+#
+# Purpose:	Produce ae reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start_fda.in")
+
+
+f.top("report",
+ report.type="GLND",
+ prepare.date=date(),
+ asof.date="May 2, 2007",
+ header="GLND FDA Report")
+
+
+lib="/glnd/sas"
+
+
+### SAE
+
+dsmcsaeall <- f.sas.get(library=lib,member="dsmcsaeall",
+                            format.library=lib,formats=T)
+          
+          
+tmp.tab=dsmcsaeall[,c("sae","tsae")]
+
+tmp.subset <- dsmcsaeall[,"center"]=="Emory"
+f.list(file="report", x=tmp.tab, footnote="*\\# SAEs (\\# Pat) \\% Pat",
+       caption="SAE - Emory" ,append=T,
+       pos=c("l","c"),subset=tmp.subset, subset.name=NULL)
+       cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+       
+     tmp.subset <- dsmcsaeall[,"center"]=="Miriam"       
+
+f.list(file="report", x=tmp.tab, footnote="*\\# SAEs (\\# Pat) \\% Pat",
+       caption="SAE - Miriam" ,append=T,
+       pos=c("l","c"),subset=tmp.subset, subset.name=NULL)
+       cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+
+        
+   tmp.subset <- dsmcsaeall[,"center"]=="Vanderbilt"
+f.list(file="report", x=tmp.tab, footnote="*\\# SAEs (\\# Pat) \\% Pat",
+       caption="SAE - Vanderbilt" ,append=T,
+       pos=c("l","c"),subset=tmp.subset, subset.name=NULL)
+       cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+       
+    tmp.subset <- dsmcsaeall[,"center"]=="Colorado"     
+
+f.list(file="report", x=tmp.tab, footnote="*\\# SAEs (\\# Pat) \\% Pat",
+       caption="SAE - Colorado" ,append=T,
+       pos=c("l","c"),subset=tmp.subset, subset.name=NULL)
+       cat("\\clearpage",sep="\n",file="report.tex",append=T)
+       
+     tmp.subset <- dsmcsaeall[,"center"]=="Total"       
+
+f.list(file="report", x=tmp.tab, footnote="*\\# SAEs (\\# Pat) \\% Pat",
+       caption="SAE - Total" ,append=T,
+       pos=c("l","c"),subset=tmp.subset, subset.name=NULL)
+       
+
+     cat("\\clearpage",sep="\n",file="report.tex",append=T)      
+
+### AE
+
+dsmcaeall <- f.sas.get(library=lib,member="dsmcaeall",
+                            format.library=lib,formats=T)
+          
+          
+tmp.tab=dsmcaeall[,c("ae","tae")]
+
+tmp.subset <- dsmcaeall[,"center"]=="Emory"
+f.list(file="report", x=tmp.tab, footnote="*\\# SAEs (\\# Pat) \\% Pat",
+       caption="AE - Emory" ,append=T,
+       pos=c("l","c"),subset=tmp.subset, subset.name=NULL)
+       cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+       
+     tmp.subset <- dsmcaeall[,"center"]=="Miriam"       
+
+f.list(file="report", x=tmp.tab, footnote="*\\# SAEs (\\# Pat) \\% Pat",
+       caption="AE - Miriam" ,append=T,
+       pos=c("l","c"),subset=tmp.subset, subset.name=NULL)
+       cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+
+        
+   tmp.subset <- dsmcaeall[,"center"]=="Vanderbilt"
+f.list(file="report", x=tmp.tab, footnote="*\\# SAEs (\\# Pat) \\% Pat",
+       caption="AE - Vanderbilt" ,append=T,
+       pos=c("l","c"),subset=tmp.subset, subset.name=NULL)
+       cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+       
+    tmp.subset <- dsmcaeall[,"center"]=="Colorado"     
+
+f.list(file="report", x=tmp.tab, footnote="*\\# SAEs (\\# Pat) \\% Pat",
+       caption="AE - Colorado" ,append=T,
+       pos=c("l","c"),subset=tmp.subset, subset.name=NULL)
+       cat("\\clearpage",sep="\n",file="report.tex",append=T)
+       
+     tmp.subset <- dsmcaeall[,"center"]=="Total"       
+
+f.list(file="report", x=tmp.tab, footnote="*\\# SAEs (\\# Pat) \\% Pat",
+       caption="AE - Total" ,append=T,
+       pos=c("l","c"),subset=tmp.subset, subset.name=NULL)
+       
+
+f.bottom("report")
+unix("/home/gcotson/bin/laps report",output=F)
+unix("/home/gcotson/bin/laps report",output=F)
+unix("/home/gcotson/bin/lapdf report",output=F)
+unix("/home/gcotson/bin/lapdf report",output=F)

@@ -1,0 +1,48 @@
+#################################################################################################
+#
+# Program:	glnd_baseline.in
+#
+# Purpose:	Produce recruitment and baseline  results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+
+f.top("xxx",
+ prepare.date=date(),
+ asof.date="Feb 12, 2007",
+ report.type="Recruitment and Baseline",
+ meet.date="Mar 6, 2007",
+ header="GLND DSMC Report - Recruitment and Baseline")
+
+libr="/glnd/sas/reporting"
+
+lipid<- f.sas.get(library=libr,member="percent_iv_lipid",
+        format.library=libs,  formats=T)
+        xlipid=  lipid[,c("day","patients","had.pn.s","col.0.30","col.30.100")                 
+
+f.list(file="xxx",
+     x=xlipid,
+      caption="Median proportion of IV kcal composed of lipid, over time in patients receiving TPN", 
+      footnote=" Note: patients with daily nutritional information not yet submitted appear as not receiving TPN.",
+               append=T, pos=c("l","c","c","c","c"))   
+      
+      
+      
+dex<- f.sas.get(library=libr,member="percent_iv_dextrose", format.library=libs,  formats=T)
+    xdex=dex[,c("day","patients","had.pn.s","col.0.60","col.60.100")]                              
+f.list(file="xxx",
+      x=xdex,
+
+     caption="Median proportion of IV kcal composed of dextrose, over time in patients receiving TPN", 
+      footnote=" Note: patients with daily nutritional information not yet submitted appear as not receiving TPN.", 
+        
+      append=T, pos=c("l","c","c","c","c"))   
+      
+     
+     

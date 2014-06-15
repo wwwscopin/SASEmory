@@ -1,0 +1,85 @@
+f.top.inr <- function(file,run.date,site.name,
+ header=c("WASID","INR","REPORT"), dir.table=NULL, landscape=F)
+{
+
+file.tex <- 
+ if(is.null(dir.table)) paste(file,".tex",sep="") else
+ paste(unix("echo $HOME"),"/",dir.table,"/",file,".tex",sep="")
+
+report.top <- c(paste(header,collapse=" "),
+ " \\hspace{2em}",run.date,"\\hfill",
+ site.name," \\hspace{3em}")
+
+report.top <- c(
+"\\documentclass[dvips,10pt]{article}",
+"\\usepackage{graphicx}",
+if(landscape) 
+c(
+"\\setlength{\\oddsidemargin}{-0.3in}",
+"\\setlength{\\textwidth}{9.5in}",
+"\\setlength{\\topmargin}{-0.70in}",
+"\\setlength{\\textheight}{7.0in}") else 
+c(
+"\\setlength{\\oddsidemargin}{-0.3in}",
+"\\setlength{\\textwidth}{7.0in}",
+"\\setlength{\\topmargin}{-0.60in}",
+"\\setlength{\\textheight}{9.5in}"),
+"\\pagestyle{myheadings}",
+"\\markright{ {\\rm {", report.top, "}}}",
+"\\headsep=0.4in",
+"\\begin{document}")
+
+cat(report.top,file=file.tex,sep="\n")
+
+cat("\\vspace*{1.7in}",file=file.tex,sep="\n",append=T)
+cat("\\begin{center}",file=file.tex,sep="\n",append=T)
+cat("\\begin{Huge}",file=file.tex,sep="\n",append=T)
+cat("WASID INR REPORT",file=file.tex,sep="\n",append=T)
+cat("FOR \\underline{UNBLINDED} INVESTIGATOR ONLY",
+ file=file.tex, sep="\n",append=T)
+cat("",file=file.tex,sep="\n",append=T)
+
+cat("\\vspace{1in}",file=file.tex,sep="\n",append=T)
+cat(run.date,file=file.tex,sep="\n",append=T)
+cat("",file=file.tex,sep="\n",append=T)
+
+cat("\\vspace{1in}",file=file.tex,sep="\n",append=T)
+cat(site.name, file=file.tex,sep="\n",append=T)
+
+cat("\\end{Huge}",file=file.tex,sep="\n",append=T)
+cat("\\end{center}",file=file.tex,sep="\n",append=T)
+
+inr.note <- c("\\vspace{1.2in} \\hspace{2em}","\\fbox{",
+"\\begin{minipage}[b]{6.2in}",
+"{\\bf{This report includes the following information regarding INR status}}",
+"{\\bf{for warfarin patients}}:",
+"\\begin{enumerate}",
+"\\item A listing of the time from enrollment to an INR $\\ge$ 2 for each",
+"patient at the clinical center.",
+"Time from enrollment to interruption is given for patients who stopped",
+"study medications before INR reached 2.",
+"\\item Tables of summary statistics for the amount of time during the",
+"maintenance phase that patients spend in 4 different INR categories",
+"($<$2, 2-3, 3.1-4.4, $\\ge$4.5). The maintenance phase is defined as",
+"beginning when the INR first has a value $\\ge$ 2. The tables show three",
+"different ways of summarizing the data:",
+"\\begin{itemize}",
+"\\item  The percent of a patient's time during maintenance spent in",
+"each INR category (mean, standard deviation and range of",
+"the patients' percent time for each INR category)",
+"\\item The percent of person-days spent in each INR category",
+"\\item The percent of INR draws in each INR category",
+"\\end{itemize}",
+"\\end{enumerate}",
+"\\end{minipage}",
+"}",
+)
+
+cat(inr.note,file=file.tex,sep="\n",append=T)
+
+
+cat("\\clearpage",file=file.tex,sep="\n",append=T)
+
+return(NULL)
+}
+

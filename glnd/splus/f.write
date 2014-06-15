@@ -1,0 +1,25 @@
+f.write <- function(x,file=deparse(substitute(x)),id=T,sas=F,sepf="|",
+ ext=".dat",list=F,space=F,vnames=T,append=F)
+{ 
+ x <- as.matrix(x)
+ if(id) x <- cbind(id=format(dimnames(x)[[1]]),x)
+ if(list) x <- rbind(dimnames(x)[[2]],x)
+ x <- apply(x,2,format)
+ if(sas) {
+ for(i in 1:dim(x)[2]) {
+  na.numeric.sym <- paste(c(rep(" ",nchar(x[1,i])-2),"NA"),collapse="")
+  na.character.sym <- paste(rep(" ",nchar(x[1,i])),collapse="")
+   x[x[,i]==na.numeric.sym,i] <- 
+    paste(c(rep(" ",nchar(x[1,i])-1),"."),collapse="")
+   x[x[,i]==na.character.sym,i] <- 
+    paste(c(rep(" ",nchar(x[1,i])-1),"."),collapse="")
+ }}
+ ncolumns <- ncol(x)
+ if(!list & vnames) cat(paste(paste(dimnames(x)[[2]],collapse=sepf),"",sep=""),
+  file=paste(file,ext,sep=""), sep="\n", append=append)
+ x <- paste(t(x))
+ cat(x, sep = c(rep(sepf, ncolumns - 1), "\n"), file = paste(file,ext,sep=""), 
+ append = (!list & vnames) |append)
+if(!space) unix(paste("sp0",file))
+}
+# if(sas) unix(paste("sp0sas",file)) else unix(paste("sp0",file))

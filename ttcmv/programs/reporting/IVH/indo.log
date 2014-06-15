@@ -1,0 +1,698 @@
+1                                                          The SAS System                                15:05 Tuesday, May 21, 2013
+
+NOTE: Copyright (c) 2002-2010 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.3 (TS1M0) 
+      Licensed to EMORY UNIVERSITY-T&R, Site 70088042.
+NOTE: This session is executing on the SunOS 5.10 (SUN X64) platform.
+
+
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is /dfax/ttcmv/sas/programs/reporting/baohua/IVH/autoexec.sas.
+
+NOTE: Libref CMV was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/data/monthly_freeze_2013.05.01
+NOTE: Library CMV_REP does not exist.
+NOTE: Library CMV_QC does not exist.
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/data
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: AUTOEXEC processing completed.
+
+1          options nodate nonumber;
+2          %include "macro.sas";
+223        
+224        
+225        data ivh;
+226        	merge cmv.plate_068(keep=id IVHDiagDate)
+227        			cmv.ivh_image(keep=id ImageDate LeftIVHGrade RightIVHGrade)
+228        			cmv.completedstudylist(in=comp);
+229        	by id;
+                                                           The SAS System
+
+230        	if comp;
+231            retain x_date;
+232        	if first.id then x_date=imagedate;
+233        	if ivhdiagdate=. then ivhdiagdate=x_date;
+234        	
+235        	if LeftIVHGrade in(1,2,3,4) or RightIVHGrade in(1,2,3,4);
+236        	if LeftIVHGrade in(2,3,4) or RightIVHGrade in (2,3,4) then ivh=1; else ivh=0;
+237        run;
+
+NOTE: There were 189 observations read from the data set CMV.PLATE_068.
+NOTE: There were 603 observations read from the data set CMV.IVH_IMAGE.
+NOTE: There were 471 observations read from the data set CMV.COMPLETEDSTUDYLIST.
+NOTE: The data set WORK.IVH has 414 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+238        
+239        proc sort; by id imagedate;run;
+
+NOTE: There were 414 observations read from the data set WORK.IVH.
+NOTE: The data set WORK.IVH has 414 observations and 11 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+240        
+241        data ivh2;
+242            set ivh(where=(ivh=1)); by id imagedate;
+243            if first.id;
+244            keep id;
+245        run;
+
+NOTE: There were 228 observations read from the data set WORK.IVH.
+      WHERE ivh=1;
+NOTE: The data set WORK.IVH2 has 64 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+246        
+247        /*
+248        data cmv.ivh2;
+249            set ivh2;
+250        run;
+251        
+252        proc print;run;
+253        */
+254        
+255        data civh;
+256            merge ivh2(in=tmp)
+257                  cmv.bpd(where=(IsOxygenDOL28=1) keep=id IsOxygenDOL28 in=A)
+258                  cmv.nec_p1(keep=id in=B)
+259                  cmv.plate_100(keep=id in=C)
+260                  cmv.completedstudylist(in=comp)
+                                                           The SAS System
+
+261                  cmv.plate_101(where=(deathdate^=.) keep=id deathdate in=D);
+262                  by id;
+263                  if A then bpd=1; else bpd=0;
+264                  if B then nec=1; else nec=0;
+265                  if C or D then death=1; else death=0;
+266                  if tmp then ivh=1; else ivh=0;
+267                  if comp;
+268        run;
+
+NOTE: There were 64 observations read from the data set WORK.IVH2.
+NOTE: There were 29 observations read from the data set CMV.BPD.
+      WHERE IsOxygenDOL28=1;
+NOTE: There were 43 observations read from the data set CMV.NEC_P1.
+NOTE: There were 21 observations read from the data set CMV.PLATE_100.
+NOTE: There were 471 observations read from the data set CMV.COMPLETEDSTUDYLIST.
+NOTE: There were 6 observations read from the data set CMV.PLATE_101.
+      WHERE deathdate not = .;
+NOTE: The data set WORK.CIVH has 475 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+269        
+270        proc sort nodupkey; by id; run;
+
+NOTE: There were 475 observations read from the data set WORK.CIVH.
+NOTE: 4 observations with duplicate key values were deleted.
+NOTE: The data set WORK.CIVH has 471 observations and 11 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+271        
+272        proc freq data=civh(where=(ivh=1));
+273        tables death nec bpd;
+274        run;
+
+NOTE: There were 64 observations read from the data set WORK.CIVH.
+      WHERE ivh=1;
+NOTE: The PROCEDURE FREQ printed page 1.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+275        
+276        proc freq data=civh(where=(ivh=0));
+277        tables death nec bpd;
+278        run;
+
+NOTE: There were 407 observations read from the data set WORK.CIVH.
+      WHERE ivh=0;
+NOTE: The PROCEDURE FREQ printed page 2.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+                                                           The SAS System
+
+      
+
+279        
+280        proc freq data=civh;
+281            tables death*ivh/chisq fisher;
+282        run;
+
+NOTE: There were 471 observations read from the data set WORK.CIVH.
+NOTE: The PROCEDURE FREQ printed page 3.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+283        
+284        
+285        /*
+286        data indo;
+287            merge cmv.med(in=A) cmv.comp_pat(in=B); by id;
+288            if A and B and medcode=14;
+289                *if A and B and indication=3;
+290            keep id medcode indication;
+291        run;
+292        
+293        proc sort nodupkey; by id;run;
+294        */
+295        
+296        data indo;
+297            merge cmv.med cmv.plate_005(keep=id LBWIDOB); by id;
+298            if medcode=14 and StartDate-LBWIDOB<=1;
+299            keep id;
+300        run;
+
+NOTE: There were 8757 observations read from the data set CMV.MED.
+NOTE: There were 501 observations read from the data set CMV.PLATE_005.
+NOTE: The data set WORK.INDO has 61 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+301        
+302        
+303        data indo;
+304        	merge indo(in=A) cmv.plate_068(keep=id IVHDiagDate Indomethacin  AntiConvulsant in=B)
+305        	      cmv.comp_pat(in=comp keep=id center);
+306        	by id;
+307        	if (A or Indomethacin) then indo=1; else indo=0;
+308        	if comp;
+309        	if A and B then idx=2;
+310        	if A and not B then idx=0;
+311        	if (not A) and B then idx=1;
+312        run;
+
+NOTE: There were 61 observations read from the data set WORK.INDO.
+NOTE: There were 189 observations read from the data set CMV.PLATE_068.
+NOTE: There were 471 observations read from the data set CMV.COMP_PAT.
+NOTE: The data set WORK.INDO has 472 observations and 7 variables.
+                                                           The SAS System
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+313        
+314        proc sort nodupkey; by id; run;
+
+NOTE: There were 472 observations read from the data set WORK.INDO.
+NOTE: 1 observations with duplicate key values were deleted.
+NOTE: The data set WORK.INDO has 471 observations and 7 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+315        
+316        proc freq data=indo(where=(indo=1));
+317        tables idx;
+318        run;
+
+NOTE: There were 71 observations read from the data set WORK.INDO.
+      WHERE indo=1;
+NOTE: The PROCEDURE FREQ printed page 4.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+319        
+320        data ivh_indo;
+321            merge indo ivh2(in=A); by id;
+322            if A;
+323        run;
+
+NOTE: There were 471 observations read from the data set WORK.INDO.
+NOTE: There were 64 observations read from the data set WORK.IVH2.
+NOTE: The data set WORK.IVH_INDO has 64 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+324        
+325        %let n1=0;
+326        %let n2=0;
+327        %let n3=0;
+328        %let n=0;
+329        
+330        %table(indo, tab, indo, center); quit;
+NOTE: The data set WORK.ONE has 12 observations and 10 variables.
+NOTE: There were 471 observations read from the data set WORK.INDO.
+NOTE: The PROCEDURE FREQ printed page 5.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+                                                           The SAS System
+
+
+NOTE: There were 12 observations read from the data set WORK.ONE.
+NOTE: The data set WORK.ONE has 12 observations and 10 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 471 observations read from the data set WORK.INDO.
+NOTE: 468 observations with duplicate key values were deleted.
+NOTE: The data set WORK.TEMP has 3 observations and 1 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      330:16   
+NOTE: There were 3 observations read from the data set WORK.TEMP.
+      WHERE center not = .;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 12 observations read from the data set WORK.ONE.
+NOTE: The data set WORK.TMP has 12 observations and 7 variables.
+NOTE: PROCEDURE TRANSPOSE used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      330:1   330:1   330:1   
+NOTE: There were 12 observations read from the data set WORK.TMP.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 3 observations read from the data set WORK.TMP.
+      WHERE _name_='ColPercent';
+NOTE: The data set WORK.TMP1 has 3 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 3 observations read from the data set WORK.TMP.
+      WHERE _name_='RowPercent';
+NOTE: The data set WORK.TMP2 has 3 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+                                                           The SAS System
+
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      330:1    330:1    330:1    330:19   
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      330:78   
+NOTE: There were 3 observations read from the data set WORK.TMP.
+      WHERE _name_='Frequency';
+NOTE: There were 3 observations read from the data set WORK.TMP1.
+NOTE: There were 3 observations read from the data set WORK.TMP2.
+NOTE: The data set WORK.TAB has 2 observations and 17 variables.
+NOTE: At least one W.D format was too small for the number to be printed. The decimal may be shifted by the "BEST" format.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+331        
+332        proc format;
+333        	
+333      !  value ivh 0="IVH=No" 1="IVH=Yes";
+NOTE: Format IVH has been output.
+334        	
+334      !  value ny 0="No" 1="Yes";
+NOTE: Format NY has been output.
+335        run;
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+336        
+337        
+338        ods rtf file="Indomethacin_center.rtf" style=journal bodytitle;
+NOTE: Writing RTF Body file: Indomethacin_center.rtf
+339        proc print data=tab noobs label split="*" style(header) = [just=center];
+340        title "Table1: Indomethacin by Cetner";
+341        Var indo /style(data)=[cellwidth=1.5in just=left];
+342        var c1-c3 c /style(data) = [cellwidth=0.8in just=center] ;
+343        format indo ny.;
+344        label  indo="Indomethacin"
+345               c1="Midtown*(n=&n1)"
+346               c2="Grady*(n=&n2)"
+347               c3="Northside*(n=&n3)"
+348               c="Total*(n=&n)";
+349        run;
+
+NOTE: There were 2 observations read from the data set WORK.TAB.
+NOTE: The PROCEDURE PRINT printed page 6.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+                                                           The SAS System
+
+350        
+351        ods rtf close;
+352        
+353        %let n1=0;
+354        %let n2=0;
+355        %let n3=0;
+356        %let n=0;
+357        
+358        %table(ivh_indo, tab1, indo, center); quit;
+NOTE: The data set WORK.ONE has 12 observations and 10 variables.
+NOTE: There were 64 observations read from the data set WORK.IVH_INDO.
+NOTE: The PROCEDURE FREQ printed page 7.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 12 observations read from the data set WORK.ONE.
+NOTE: The data set WORK.ONE has 12 observations and 10 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 64 observations read from the data set WORK.IVH_INDO.
+NOTE: 61 observations with duplicate key values were deleted.
+NOTE: The data set WORK.TEMP has 3 observations and 1 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      358:16   
+NOTE: There were 3 observations read from the data set WORK.TEMP.
+      WHERE center not = .;
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 12 observations read from the data set WORK.ONE.
+NOTE: The data set WORK.TMP has 12 observations and 7 variables.
+NOTE: PROCEDURE TRANSPOSE used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      358:1   358:1   358:1   
+NOTE: There were 12 observations read from the data set WORK.TMP.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+                                                           The SAS System
+
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 3 observations read from the data set WORK.TMP.
+      WHERE _name_='ColPercent';
+NOTE: The data set WORK.TMP1 has 3 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 3 observations read from the data set WORK.TMP.
+      WHERE _name_='RowPercent';
+NOTE: The data set WORK.TMP2 has 3 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      358:1    358:1    358:1    358:19   
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      358:78   
+NOTE: There were 3 observations read from the data set WORK.TMP.
+      WHERE _name_='Frequency';
+NOTE: There were 3 observations read from the data set WORK.TMP1.
+NOTE: There were 3 observations read from the data set WORK.TMP2.
+NOTE: The data set WORK.TAB1 has 2 observations and 17 variables.
+NOTE: At least one W.D format was too small for the number to be printed. The decimal may be shifted by the "BEST" format.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+359        
+360        ods rtf file="Indomethacin_ivh2_center.rtf" style=journal bodytitle;
+NOTE: Writing RTF Body file: Indomethacin_ivh2_center.rtf
+361        proc print data=tab1 noobs label split="*" style(header) = [just=center];
+362        title "Table2: Indomethacin by Center for IVH (grade II, III, IV)";
+363        Var indo /style(data)=[cellwidth=1.5in just=left];
+364        var c1-c3 c /style(data) = [cellwidth=0.8in just=center] ;
+365        format indo ny.;
+366        label  indo="Indomethacin"
+367               c1="Midtown*(n=&n1)"
+368               c2="Grady*(n=&n2)"
+369               c3="Northside*(n=&n3)"
+370               c="Total*(n=&n)";
+371        run;
+
+NOTE: There were 2 observations read from the data set WORK.TAB1.
+NOTE: The PROCEDURE PRINT printed page 8.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+                                                           The SAS System
+
+
+372        
+373        ods rtf close;
+374        
+375        proc sql;
+376        
+377        create table enrolled as
+378        select a.* ,moc_dob
+379        from
+380        cmv.Eligibility as a
+381        left join
+382        cmv.plate_007 as b
+383        on a.id=b.id
+384        where (Enrollmentdate is not null ) ;
+NOTE: Table WORK.ENROLLED created, with 506 rows and 35 columns.
+
+385        
+386        
+387        
+388        quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.17 seconds
+      cpu time            0.02 seconds
+      
+
+389        
+390        data enrolled;
+391        length twin_status $ 15;
+392        set enrolled;
+393        id2 = left(trim(id));
+394        mocId=input(substr(id2, 1, 5),5.);
+395        twin=input(substr(id2, 6, 1),5.);
+396        center = input(substr(id2, 1, 1),1.);
+397        
+398        moc_age_enrol =  (EnrollmentDate - moc_dob)/365 ;
+399        
+400        
+401        run;
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      393:17   
+NOTE: Variable twin_status is uninitialized.
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      91 at 398:34   
+NOTE: There were 506 observations read from the data set WORK.ENROLLED.
+NOTE: The data set WORK.ENROLLED has 506 observations and 40 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+402        
+403        proc sql;
+404        
+405        create table twin_status as
+406        select max(twin)as ismultiple, mocid from enrolled group by mocid;
+NOTE: Table WORK.TWIN_STATUS created, with 431 rows and 2 columns.
+                                                           The SAS System
+
+
+407        
+408        create table enrolled as
+409        select a.*, b.ismultiple
+410        from enrolled as a left join
+411        twin_status as b
+412        on a.mocid=b.mocid
+413        order by center,  EnrollmentDate asc,id;
+WARNING: This CREATE TABLE statement recursively references the target table. A consequence of this is a possible data integrity 
+         problem.
+NOTE: Table WORK.ENROLLED created, with 506 rows and 41 columns.
+
+414        
+415        /*
+416        create table enrolled as
+417        select * from enrolled
+418        order by center,  EnrollmentDate asc,id;
+419        
+420        */
+421        quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+422        
+423        proc sort; by id; run;
+
+NOTE: There were 506 observations read from the data set WORK.ENROLLED.
+NOTE: The data set WORK.ENROLLED has 506 observations and 41 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+424        
+425        data enrolled;
+426        
+427        merge enrolled cmv.completedstudylist(in=comp); by id;
+428        if comp;
+429        
+430        if ismultiple eq 1 then twin_status="singleton";
+431        else if ismultiple eq 2 then twin_status="twin";
+432        else if ismultiple eq 3 then twin_status="triplet";
+433        run;
+
+NOTE: There were 506 observations read from the data set WORK.ENROLLED.
+NOTE: There were 471 observations read from the data set CMV.COMPLETEDSTUDYLIST.
+NOTE: The data set WORK.ENROLLED has 471 observations and 44 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+434        
+435        data cmv.enrolled;
+436            set enrolled;
+437            keep id ismultiple;
+                                                           The SAS System
+
+438        run;
+
+NOTE: There were 471 observations read from the data set WORK.ENROLLED.
+NOTE: The data set CMV.ENROLLED has 471 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+439        
+440        proc print;run;
+
+NOTE: There were 471 observations read from the data set CMV.ENROLLED.
+NOTE: The PROCEDURE PRINT printed pages 9-17.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+441        
+442        proc freq;
+443        tables ismultiple;
+444        run;
+
+NOTE: There were 471 observations read from the data set CMV.ENROLLED.
+NOTE: The PROCEDURE FREQ printed page 18.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           0.42 seconds
+      cpu time            0.23 seconds
+      

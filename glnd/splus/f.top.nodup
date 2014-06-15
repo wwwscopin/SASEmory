@@ -1,0 +1,32 @@
+f.top.nodup <- function(file,meeting.date,enroll.date,
+ header=c("SONIA","SCREENING","LOG","REPORT"),
+ landscape=F,empty=F,top.margin="-0.70in")
+{
+file.tex <- paste(file,"tex",sep=".")
+report.top <- c(paste(header,collapse=" "),
+ " \\hspace{2em}",c(meeting.date,"\\hfill","\\hspace{3em}"))
+
+report.top <- c(
+"\\documentclass[dvips,10pt]{article}",
+"\\usepackage{graphicx}",
+if(landscape) 
+c(
+"\\setlength{\\oddsidemargin}{-0.3in}",
+"\\setlength{\\textwidth}{9.5in}",
+"\\setlength{\\topmargin}{-0.70in}",
+"\\setlength{\\textheight}{7.0in}") else 
+c(
+"\\setlength{\\oddsidemargin}{-0.3in}",
+"\\setlength{\\textwidth}{7.0in}",
+paste("\\setlength{\\topmargin}{",top.margin,"}",sep=""),
+"\\setlength{\\textheight}{9.5in}"),
+if(empty) "\\pagestyle{empty}" else c("\\pagestyle{myheadings}",
+  "\\markright{ {\\rm {", report.top, "}}}",
+  "\\headsep=0.2in"),
+"\\begin{document}")
+
+cat(report.top,file=file.tex,sep="\n")
+
+return(NULL)
+}
+

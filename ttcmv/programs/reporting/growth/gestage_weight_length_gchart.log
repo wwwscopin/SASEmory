@@ -1,0 +1,287 @@
+1                                                          The SAS System                                 09:44 Friday, May 24, 2013
+
+NOTE: Copyright (c) 2002-2010 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.3 (TS1M0) 
+      Licensed to EMORY UNIVERSITY-T&R, Site 70088042.
+NOTE: This session is executing on the SunOS 5.10 (SUN X64) platform.
+
+
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is /dfax/ttcmv/sas/programs/reporting/baohua/growth/autoexec.sas.
+
+NOTE: Libref CMV was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/data
+NOTE: Library CMV_REP does not exist.
+NOTE: Library CMV_QC does not exist.
+NOTE: Libname LIBRARY refers to the same physical library as CMV.
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/data
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: AUTOEXEC processing completed.
+
+1          options orientation=landscape nobyline;
+2          libname wbh "/ttcmv/sas/programs/reporting";
+NOTE: Libref WBH was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/programs/reporting
+3          
+4          data demo_pat;
+5          	set cmv.pat;
+2                                                          The SAS System                                 09:44 Friday, May 24, 2013
+
+6          	if id=1002821 then do; gestage=29; BirthWeight=0945; length=35.6; HeadCircum=24.5; end;
+7          run;
+
+NOTE: There were 388 observations read from the data set CMV.PAT.
+NOTE: The data set WORK.DEMO_PAT has 388 observations and 12 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+8          proc print;run;
+
+NOTE: There were 388 observations read from the data set WORK.DEMO_PAT.
+NOTE: The PROCEDURE PRINT printed pages 1-8.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+9          
+10         proc means data=demo_pat;
+11         	var gestage BirthWeight length HeadCircum;
+12         	output out=num n(gestage)=n_age n(BirthWeight)=n_wt n(length)=n_len n(HeadCircum)=n_head;
+13         run;
+
+NOTE: There were 388 observations read from the data set WORK.DEMO_PAT.
+NOTE: The data set WORK.NUM has 1 observations and 6 variables.
+NOTE: The PROCEDURE MEANS printed page 9.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+14         
+15         %let n_age=0;
+16         %let n_wt=0;
+17         %let n_length=0;
+18         %let n_head=0;
+19         
+20         data _null_;
+21         	set num;
+22         	call symput ("n_age", compress(n_age));
+23         	call symput ("n_wt", compress(n_wt));
+24         	call symput ("n_len", compress(n_len));
+25         	call symput ("n_head", compress(n_head));
+26         run;
+
+NOTE: Numeric values have been converted to character values at the places given by: (Line):(Column).
+      22:33   23:32   24:33   25:34   
+NOTE: There were 1 observations read from the data set WORK.NUM.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+27         
+28         
+29         proc greplay igout= wbh.graphs nofs; delete _ALL_; run;
+3                                                          The SAS System                                 09:44 Friday, May 24, 2013
+
+WARNING: Unable to load font '-dt-interface user-medium-r-normal-l*utf*-*-*-*-*-*-*-*-*'.
+WARNING: Defaulting to 'fixed'.
+WARNING: Unable to load font '-dt-interface user-medium-r-normal-l*utf*-*-*-*-*-*-*-*-*'.
+WARNING: Defaulting to 'fixed'.
+ERROR: Memname GRAPHS is unknown.
+NOTE: Enter greplay commands or statements.
+NOTE: Need igout catalog; use igout statement.
+
+29       !                                                         	*clear out the graphs catalog;
+30         
+31         goptions reset=global gunit=pct border /*colors=(orange green red)*/
+32         	ctext=black ftitle=swissb ftext=swiss htitle=3.5 htext=3;
+33         
+34         %macro plot(data);
+35         
+36         %let x=1;
+37         %do %while (&x <5);
+38         
+39         	%if &x = 1 %then %do; 	
+40         		%let var =gestage; %let description = f=zapf "Bar Chart for Gestational Age (n=&n_age)";
+41         		%let mp=(23 to 38 by 1);
+42          		axis1 label=(a=90 h=4 c=black "Percentage (%)") order=(0 to 20 by 2) minor=none;
+43         		axis2 label=(a=0 h=4 c=black "Gestational Age (Weeks)") order=(23 to 38 by 1) minor=none;
+44         	%end;
+45         
+46         	%if &x = 2 %then %do; 	
+47         		%let var =BirthWeight; %let description = f=zapf "Bar Chart for  Birth Weight (n=&n_wt)";
+48         		%let mp=(400 to 1500 by 100);
+49          		axis1 label=(a=90 h=4 c=black "Percentage (%)") order=(0 to 20 by 2) minor=none;
+50         		axis2 label=(a=0 h=4 c=black "Birth Weight (g)") order=(400 to 1500 by 100) minor=none;
+51         	%end;
+52         
+53         	%if &x = 3 %then %do; 	
+54         		%let var =length; %let description = f=zapf "Bar Chart for  Birth Length (n=&n_len)";
+55         		%let mp=(23 to 43 by 1);
+56          		axis1 label=(a=90 h=4 c=black "Percentage (%)") order=(0 to 20 by 2) minor=none;
+57         		axis2 label=(a=0 h=4 c=black "Birth Length (cm)") order=(23 to 43 by 1) minor=none;
+58         	%end;
+59         
+60         	%if &x = 4 %then %do; 	
+61         		%let var =headcircum; %let description = f=zapf "Bar Chart for  Head Circumference (n=&n_head)";
+62         		%let mp=(20 to 30 by 1);
+63          		axis1 label=(a=90 h=4 c=black "Percentage (%)") order=(0 to 20 by 2) minor=none;
+64         		axis2 label=(a=0 h=4 c=black "Head Circumference (cm)") order=(20 to 30 by 1) minor=none;
+65         	%end;
+66         	
+67         	title &description;
+68         	Proc gchart data=&data gout=wbh.graphs;
+69         		vbar &var/ midpoints=&mp raxis=axis1 maxis=axis2 space=0.5 coutline=black TYPE=pct  ;
+70         	run;
+71         
+72         
+73         %let x=%eval(&x+1);
+74            %end;
+75         %mend plot;
+76         
+77         %plot(cmv.pat);quit;
+
+4                                                          The SAS System                                 09:44 Friday, May 24, 2013
+
+NOTE: The SAS System stopped processing this step because of errors.
+NOTE: PROCEDURE GREPLAY used (Total process time):
+      real time           0.45 seconds
+      cpu time            0.09 seconds
+      
+
+
+
+WARNING: The specified value of 24.2400 inches for HSIZE= is larger than 11.1164 inches which is the maximum for the device Xcolor. 
+         HSIZE is ignored.
+WARNING: The specified value of 12.6533 inches for VSIZE= is larger than 5.7135 inches which is the maximum for the device Xcolor. 
+         VSIZE is ignored.
+
+NOTE: There were 388 observations read from the data set CMV.PAT.
+NOTE: PROCEDURE GCHART used (Total process time):
+      real time           1.25 seconds
+      cpu time            0.02 seconds
+      
+
+
+WARNING: The specified value of 24.2400 inches for HSIZE= is larger than 11.1164 inches which is the maximum for the device Xcolor. 
+         HSIZE is ignored.
+WARNING: The specified value of 12.6533 inches for VSIZE= is larger than 5.7135 inches which is the maximum for the device Xcolor. 
+         VSIZE is ignored.
+
+NOTE: There were 388 observations read from the data set CMV.PAT.
+NOTE: PROCEDURE GCHART used (Total process time):
+      real time           4.11 seconds
+      cpu time            0.04 seconds
+      
+
+
+WARNING: The specified value of 24.2400 inches for HSIZE= is larger than 11.1164 inches which is the maximum for the device Xcolor. 
+         HSIZE is ignored.
+WARNING: The specified value of 12.6533 inches for VSIZE= is larger than 5.7135 inches which is the maximum for the device Xcolor. 
+         VSIZE is ignored.
+
+NOTE: There were 388 observations read from the data set CMV.PAT.
+NOTE: PROCEDURE GCHART used (Total process time):
+      real time           1.34 seconds
+      cpu time            0.03 seconds
+      
+
+
+WARNING: The specified value of 24.2400 inches for HSIZE= is larger than 11.1164 inches which is the maximum for the device Xcolor. 
+         HSIZE is ignored.
+WARNING: The specified value of 12.6533 inches for VSIZE= is larger than 5.7135 inches which is the maximum for the device Xcolor. 
+         VSIZE is ignored.
+
+NOTE: There were 388 observations read from the data set CMV.PAT.
+NOTE: PROCEDURE GCHART used (Total process time):
+      real time           0.70 seconds
+      cpu time            0.02 seconds
+      
+
+78         
+79         /*
+80         ods pdf file = "birth_histo.pdf";
+5                                                          The SAS System                                 09:44 Friday, May 24, 2013
+
+81         proc greplay nofs;
+82         	igout wbh.graphs;
+83         	list igout;
+84         	tc template;
+85         	tdef t1  1/llx=0  ulx=0  lrx=50  urx=50  lly=50 uly=100 lry=50 ury=100
+86         				 2/llx=50 ulx=50 lrx=100 urx=100 lly=50 uly=100 lry=50 ury=100
+87         				 3/llx=0  ulx=0  lrx=50  urx=50  lly=0  uly=50  lry=0  ury=50
+88         				 4/llx=50 ulx=50 lrx=100 urx=100 lly=0  uly=50  lry=0  ury=50
+89         			;
+90         	template t1;
+91         	tplay 1:1 2:2 3:3 4:4;
+92         run; quit;
+93         ods pdf close;
+94         */
+95         
+96         
+97         
+98         ods pdf file = "birth_histo.pdf";
+NOTE: Writing ODS PDF output to DISK destination "/dfax/ttcmv/sas/programs/reporting/baohua/growth/birth_histo.pdf", printer "PDF".
+99         proc greplay igout = wbh.graphs  tc=sashelp.templt template= l2r2s nofs; * L2R2s;
+NOTE: Building list of graphs from the catalog.
+
+NOTE: Enter greplay commands or statements.
+100             treplay 1:1 2:3 3:2 4:4;
+WARNING: The specified value of 24.2400 inches for HSIZE= is larger than 11.1164 inches which is the maximum for the device Xcolor. 
+         HSIZE is ignored.
+WARNING: The specified value of 12.6533 inches for VSIZE= is larger than 5.7135 inches which is the maximum for the device Xcolor. 
+         VSIZE is ignored.
+101             *treplay 1:3 2:4;
+102        run;
+
+103        ods pdf close;
+NOTE: ODS PDF printed 1 page to /dfax/ttcmv/sas/programs/reporting/baohua/growth/birth_histo.pdf.
+NOTE: PROCEDURE GREPLAY used (Total process time):
+      real time           9.98 seconds
+      cpu time            0.10 seconds
+      
+
+ERROR: Errors printed on page 3.
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           17.96 seconds
+      cpu time            0.42 seconds
+      

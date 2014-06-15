@@ -1,0 +1,71 @@
+/* death_details.sas
+ *
+ * provides essential details on patients that have died
+ *
+ */
+
+ * create library for reporting files and graphs;
+ libname glnd_rep "/glnd/sas/reporting";
+
+proc sort data= glnd.demo_his; by id; run;
+proc sort data= glnd.plate205; by id; run;
+
+* take data from the death form and demographics form;
+data glnd_rep.death_details;
+	merge 	glnd.demo_his
+			glnd.plate205 (in = died)
+		;
+
+	by id;
+
+	if ~died then delete;
+
+	* concatenate reasons for death into one string ;
+	
+	*length reasons $100;
+	reasons= " ";
+	old_reasons = "fds ";
+	reasons = old_reasons || "dasdsa";
+	if ards = 1 then do old_reasons= reasons; reasons= old_reasons || "ARDS, "; end;
+	if sepsis = 1 then do old_reasons= reasons; reasons= old_reasons || "Sepsis, "; end;
+	if stroke = 1 then do old_reasons= reasons; reasons= old_reasons || "Ischemic/hem stroke, "; end;
+	if mi = 1 then do old_reasons= reasons; reasons= old_reasons || "MI, "; end;
+	if pe = 1 then do old_reasons= reasons; reasons= old_reasons || "Pulmonary embolus, "; end;
+	if acute_isch = 1 then do old_reasons= reasons; reasons= old_reasons|| ", "; end;
+	if rupt_bld_ves = 1 then do old_reasons= reasons; reasons= old_reasons || ", "; end;
+	if wnd_dehis = 1 then do old_reasons= reasons; reasons= old_reasons || ", "; end;
+	if sys_hemorrhage = 1 then do old_reasons= reasons; reasons= old_reasons|| ", "; end;
+	if heart_fail = 1 then do old_reasons= reasons; reasons= old_reasons || ", "; end;
+	if mult_organ_fail = 1 then do old_reasons= reasons; reasons= old_reasons || ", "; end;
+	if uncont_seiz = 1 then do old_reasons= reasons; reasons= old_reasons || ", "; end;
+	if other = 1 then do old_reasons= reasons; reasons= old_reasons || other_spec ; end;
+run;
+
+proc print data = glnd_rep.death_details;
+
+/* for reference, from plate 205
+
+	    ards="1.3.1 ARDS"
+        sepsis="1.3.2 Sepsis"
+        stroke="1.3.3 Ischemic/hem stroke"
+        mi="1.3.4 MI"
+        pe="1.3.5 Pulmonary embolus"
+        acute_isch="1.3.6 Acute ischemia org."
+        rupt_bld_ves="1.3.7 Ruptured bld vessel"
+        wnd_dehis="1.3.8 Wound dehiscence"
+        sys_hemorrhage="1.3.9 Systemic hemorrhage"
+        heart_fail="1.3.10 Heart failure"
+        mult_organ_fail="1.3.11 Mult organ failure"
+        uncont_seiz="1.3.12 Uncontrolled seiz."
+        other="1.3.13 Other"
+        other_spec="1.3.13 Other (specify)"
+*/
+
+
+	
+
+run;
+
+
+
+

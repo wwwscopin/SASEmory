@@ -1,0 +1,221 @@
+f.sas.get <- 
+function(library, member, variables = character(0), ifs = character(0), 
+	format.library = library, id, dates = "sas", keep.log = T, log.file = 
+	"_temp_.log", macro = sas.get.macro, 
+        ext.sas=".sas7bdat",
+        data.frame.out = existsFunction("data.frame"),
+        clean.up = T, quiet = F, temp = tempfile("SaS"), 
+        formats = F, recode = formats, special.miss = F)
+{
+	if(recode)
+		formats <- T
+	sasin <- paste(temp, ".3", sep = "")
+	sasout1 <- paste(temp, ".1", sep = "")
+	sasout2 <- paste(temp, ".2", sep = "")
+	sasout3 <- paste(temp, ".4", sep = "")
+	sasout4 <- paste(temp, ".5", sep = "")
+	nvariables <- length(variables)
+	if(nvariables > 0) {
+		if(any(jdup <- duplicated(variables)))
+			stop(paste("duplicate variables requested: ", variables[
+				jdup]))
+	}
+	varstring <- paste(variables, collapse = "\n ")
+	ifs <- paste(ifs, collapse = ";\n ")
+	file.exists <- function(name)
+	{
+		unix(out = F, paste("test -f", name, "-o -d", name)) == 0
+	}
+	file.is.dir <- function(name)
+	{
+		unix(out = F, paste("test -d", name)) == 0
+	}
+	file.is.readable <- function(name)
+	{
+		unix(out = F, paste("test -r", name)) == 0
+	}
+	if(length(sasin) != 1)
+		stop("Illegal temporary file name")
+	ok.dates <- c("sas", "yymmdd", "yearfrac", "yearfrac2")
+	if(is.na(match(dates, ok.dates)))
+		stop(paste("dates must be one of:", paste(ok.dates, collapse = 
+			" ")))
+	temp.files <- c(sasin, sasout1, sasout2, sasout3, sasout4)
+	if(!keep.log)
+		temp.files <- c(temp.files, log.file)
+	if(clean.up)
+		on.exit(unix(paste("rm -f", paste(temp.files, collapse = " ")))
+			)
+	if(missing(member))
+		stop("SAS member name is required")
+	if(missing(library))
+		stop("SAS library name is required")
+	cat(macro, sep = "\n", file = sasin)
+	if(library == "") {
+		cat("%sas_get(", member, " ,", sasout1, " ,", sasout2, " ,", 
+			sasout3, " ,", sasout4, ", dates=", dates, ", vars=", 
+			varstring, ", ifs=", ifs, ", formats=", as.integer(
+			formats), ", specmiss=", as.integer(special.miss), 
+			");\n", file = sasin, append = T, sep = "")
+	}
+	else {
+		if(!file.is.dir(library))
+			stop(paste(sep = "", "library, \"", library, 
+				"\", is not a Unix directory"))
+		unix.file <- paste(sep = "", library, "/", member, ext.sas)
+		if(!file.exists(unix.file)) {
+			stop(paste(sep = "", "Unix file, \"", unix.file, 
+				"\", does not exist"))
+		}
+		else if(!file.is.readable(unix.file)) {
+			stop(paste(sep = "", 
+				"You do not have read permission for Unix file, \"",
+				file.name, "\""))
+		}
+		cat("libname temp '", library, "';\n", file = sasin, append = T,
+			sep = "")	#
+# format.library should contain formats.sct containing user defined
+# formats used by this dataset.  It must be present.
+# ASKosinski included v6 to allow use of previous version formats 2/24/2004
+# changed by GAC  cat("libname library v6'", format.library, "';\n", file = sasin,
+		cat("libname library '", format.library, "';\n", file = sasin, 
+			append = T, sep = "")
+		cat("%sas_get(temp.", member, " ,", sasout1, " ,", sasout2, 
+			" ,", sasout3, ", ", sasout4, ", dates=", dates, 
+			", vars=", varstring, ", ifs=", ifs, ", formats=", 
+			as.integer(formats), ", specmiss=", as.integer(
+			special.miss), ");\n", file = sasin, append = T, sep = 
+			"")
+	}
+	status <- unix(paste("sas", sasin, "-log", log.file), output = F)
+	if(status != 0) {
+		if(!quiet)
+			unix(paste("less", log.file), out = F)
+		stop(paste("SAS job failed with status", status))
+	}
+#
+# Read in the variable information
+#
+	if(!(file.exists(sasout1) && file.exists(sasout2))) {
+		if(!quiet)
+			unix(paste("less", log.file), out = F)
+		stop("SAS output files not found")
+	}
+	vars <- scan(sasout1, list(name = "", type = 0, length = 0, format = "",
+		label = "", n = 0), multi.line = T, sep = "\022")
+	nvar <- length(vars$name)
+	if(nvar == 0) {
+		if(!quiet)
+			unix(paste("less", log.file), out = F)
+		stop("First SAS output is empty")
+	}
+	nrow <- vars$n[1]	#n is the same for each variable
+#
+# Read the data in
+#  We try to be clever about the variable type.  If SAS is character
+#  use char of course.  If is numeric and length >4, use double.  If
+#  numeric and length <4, use single.  We could also use the format to
+#  choose further, if it consists of a number followed by a "."
+#  can we safely assume integer.
+#
+	type <- ifelse(vars$type == 2, "character(nrow)", ifelse(vars$length < 
+		5, "single(nrow)", "double(nrow)"))	#
+#BILL: I corrected the macro so the following isn't needed:
+# get rid of trailing blank on names
+#	vars$name <- unix("sed 's/ $//'", vars$name)
+	inlist <- paste("\"", vars$name, "\"=", type, sep = "", collapse = ", "
+		)
+	inlist <- parse(text = paste("list(", inlist, ")"))	#
+# Inlist would now be the size of the final data structure, if I had
+# evaluated it.
+#
+# Read the data
+	ds <- scan(sasout2, eval(inlist), sep = "\022", multi.line = T)
+	if(length(ds) < nvariables) {
+		m <- variables[is.na(match(variables, names(ds)))]
+		if(length(m) > 0) {
+			warning(paste(length(m), 
+				"requested variables did not exist:", paste(
+				"\"", m, "\"", sep = "", collapse = " "), 
+				"\n\t(use sas.contents())"))
+		}
+	}
+	format <- vars$format
+	label <- vars$label
+	name <- vars$name
+	esasout3 <- file.exists(sasout3)
+	if(recode && !esasout3)
+		recode <- F
+	FORMATS <- NULL
+	if(formats && esasout3) {
+		FORMATS <- dget(sasout3)
+		if(length(FORMATS) == 0) {
+			FORMATS <- NULL
+			recode <- F
+		}
+	}
+	smiss <- NULL
+	if(special.miss && file.exists(sasout4))
+		smiss <- scan(sasout4, list(name = "", code = "", obs = integer(
+			1)), multi.line = T, sep = "\022")
+	for(i in 1:nvar) {
+		atr <- list()
+		dsi <- ds[[i]]
+		fname <- format[i]
+		rec <- F
+		if(fname != " ") {
+			atr$format <- fname
+			if(dates == "sas" & match(fname, c("date", "mmddyy", 
+				"yymmdd", "ddmmyy", "yyq", "monyy", "julian"), 
+				0) > 0)
+				atr$class <- "date"
+			if(recode) {
+				g <- FORMATS[[fname]]
+				labs <- g$labels
+				if(!is.logical(recode)) {
+				  labs <- if(recode == 1) paste(g$values, ":", 
+				      labs, sep = "") else paste(labs, "(", g$
+				      values, ")", sep = "")
+				}
+				if(!is.null(g)) {
+				  dsi <- factor(dsi, g$values, labs)
+				  rec <- T
+				}
+			}
+		}
+		if(data.frame.out && !rec && vars$type[i] == 2) dsi <- factor(
+				dsi)	
+	# For data frames, char. var need to be factors
+		if(label[i] != " ")
+			atr$label <- label[i]
+		if(length(smiss$name)) {
+			j <- smiss$name == name[i]
+			if(any(j))
+				atr$special.miss <- list(codes = smiss$code[j], 
+				  obs = smiss$obs[j])
+		}
+		if(!is.null(atr))
+			attributes(dsi) <- c(attributes(dsi), atr)
+		ds[[i]] <- dsi
+	}
+	atr <- list()
+	if(missing(id)) {
+		if(data.frame.out)
+			atr$row.names <- as.character(1:nrow)
+	}
+	else {
+		idname <- id
+		id <- ds[[idname]]	#Need since not use data.frame
+		if(is.null(id))
+			stop(paste("id variable", idname, "not in dataset"))
+		if(data.frame.out)
+			atr$row.names <- as.character(id)
+		else atr$id <- id
+	}
+	if(!is.null(FORMATS))
+		atr$formats <- FORMATS
+	if(data.frame.out)
+		atr$class <- "data.frame"
+	attributes(ds) <- c(attributes(ds), atr)
+	ds
+}

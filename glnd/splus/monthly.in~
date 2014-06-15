@@ -1,0 +1,174 @@
+#################################################################################################
+#
+# Program:	monthly.in
+#
+# Purpose:	Produce monthly reports# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.quart("monthly",
+ prepare.date=date(),
+ asof.date=date(),
+ report.type="January 2011 Monthly GLND Report",
+ meet.date=" ",
+ header="Monthly GLND Report")
+
+lib="/glnd/sas/reporting"
+libf="/glnd/sas"
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{90}{",
+ "\\includegraphics{recruitment.ps}}}",sep=""),
+ "\\caption{Recruitment Projections }",
+ "\\end{figure}"),
+ file=paste("monthly","tex",sep="."),sep="\n",append=T)
+ 
+
+
+recruit6=f.sas.get(library=lib,member="recruit_6",  formats=F )
+
+tmp.tab=recruit6[,c("str.month","n.patients","sum.patients")]
+
+f.list(file="monthly", x=tmp.tab,
+      caption="Recruitment During Last 6 Months", append=T,
+      pos=c("l","c","c"))
+
+ 
+cat("\\clearpage",sep="\n",file="monthly.tex",append=T)
+
+lib="/glnd/splus"
+
+
+recruit=f.sas.get(library=lib,member="recruit",  format.library=lib,formats=T )
+
+
+tmp.tab=recruit[,c("center","irb","nscreened","e","r")]
+
+f.list(file="monthly", x=tmp.tab,
+       caption="Cumulative Patient Screening and Enrollment" ,append=T,
+       pos=c("l","c","c","c","c"))
+
+
+libff="/glnd/sas"
+
+
+
+screen=f.sas.get(library=libff,member="screen6mo",format.library=libff,formats=T)
+
+
+tmp.tab=screen[,c("d8","center","nscreened","e","r")]
+
+f.list(file="monthly", x=tmp.tab,
+       caption="Patient Screening and Enrollment Within Last 6 months" ,append=T,
+       pos=c("l","c","c","c","c"))
+
+cat("\\clearpage",sep="\n",file="monthly.tex",append=T)
+
+in30=f.sas.get(library=lib,member="ineliglastmonth",
+ format.library=lib,formats=T)
+
+
+tmp.tab=in30[,c("affil1","xid","reason")]
+
+f.list(file="monthly", x=tmp.tab,
+       caption="Reasons Not Eligible in Last Month" ,append=T,
+       pos=c("l","c","l"))
+
+
+cat("\\clearpage",sep="\n",file="monthly.tex",append=T)
+
+#el30=f.sas.get(library=lib,member="elignrlastmonth",
+# format.library=lib,formats=T)
+
+
+#tmp.tab=el30[,c("affil1","xid","reason")]
+
+#f.list(file="monthly", x=tmp.tab,
+#       caption="Reasons Eligible Not Enrolled in Last Month" ,append=T,
+#       pos=c("l","c","l"))
+
+
+cat("\\clearpage",sep="\n",file="monthly.tex",append=T)
+
+
+emory=f.sas.get(library=lib,member="emory")
+
+tmp.tab=emory[,c("form","expected","received","pct.received","attended.visit.disp")]
+
+f.list(file="monthly", x=tmp.tab,
+       caption="GLND Scheduled Forms Received and Expected - Emory" ,append=T,
+       pos=c("l","c","c","c","c"))
+
+cat("\\clearpage",sep="\n",file="monthly.tex",append=T)
+
+
+#mir=f.sas.get(library=lib,member="mir")
+
+#tmp.tab=mir[,c("form","expected","received","pct.received","attended.visit.disp")]
+
+#f.list(file="monthly", x=tmp.tab,
+#       caption="GLND Scheduled Forms Received and Expected - Miriam" ,append=T,
+#       pos=c("l","c","c","c","c"))
+
+#cat("\\clearpage",sep="\n",file="monthly.tex",append=T)
+
+
+
+van=f.sas.get(library=lib,member="van")
+
+tmp.tab=van[,c("form","expected","received","pct.received","attended.visit.disp")]
+
+f.list(file="monthly", x=tmp.tab,
+       caption="GLND Scheduled Forms Received and Expected - Vanderbilt" ,append=T,
+       pos=c("l","c","c","c","c"))
+
+cat("\\clearpage",sep="\n",file="monthly.tex",append=T)
+
+col=f.sas.get(library=lib,member="col")
+
+tmp.tab=col[,c("form","expected","received","pct.received","attended.visit.disp")]
+
+f.list(file="monthly", x=tmp.tab,
+       caption="GLND Scheduled Forms Received and Expected - Colorado" ,append=T,
+       pos=c("l","c","c","c","c"))
+
+
+cat("\\clearpage",sep="\n",file="monthly.tex",append=T)
+
+wis=f.sas.get(library=lib,member="wis")
+
+tmp.tab=wis[,c("form","expected","received","pct.received","attended.visit.disp")]
+
+f.list(file="monthly", x=tmp.tab,
+       caption="GLND Scheduled Forms Received and Expected - Wisconsin" ,append=T,
+       pos=c("l","c","c","c","c"))
+
+
+
+
+cat("\\clearpage",sep="\n",file="monthly.tex",append=T)
+
+cat("",c("\\begin{table}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//df_reporting//qc_report.ps}}}",sep=""),
+ "\\caption{Center QC Reports }",
+ "\\end{table}"),
+ file=paste("monthly","tex",sep="."),sep="\n",append=T)
+ 
+
+cat("",c("\\begin{sidewaystable}",
+ paste("\\resizebox{9.0in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//bg.ps}}}",sep=""),
+ "\\caption{Blood Glucose Measurements}",
+ "\\end{sidewaystable}"),
+ file=paste("monthly","tex",sep="."),sep="\n",append=T)
+ 
+f.bottom("monthly")
+unix("/home/gcotson/bin/laps monthly",output=F)
+unix("/home/gcotson/bin/laps monthly",output=F)
+unix("/home/gcotson/bin/lapdf monthly",output=F)
+unix("/home/gcotson/bin/lapdf monthly",output=F)

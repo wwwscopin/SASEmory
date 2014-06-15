@@ -1,0 +1,530 @@
+################################################################################################
+#
+# Program:	iats_followup.in
+#
+# Purpose:	Prooduce follow-up and adverse event results tables for DSMC report
+#
+# uses sas datasets found in /iats/sas/splus_to_sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+#
+################################################################################################
+
+source("start.in")
+
+
+f.top("report",
+ prepare.date=date(),
+ asof.date="Nov 20, 2006",
+ report.type="Follow-up Results, Adverse Events and Visual Acuity at One Year of Age",
+ meet.date="Nov 30, 2006",
+ header="IATS DSMC Report - Follow-up Results, AEs, and VA")
+
+
+### Intraoperative complications
+
+intraop_comp <- f.sas.get(library="/iats/sas/sas_to_splus",member="intraop_comp",
+                          format.library="/iats/sas",formats=T)
+                          
+f.tab(file="report",
+      x=intraop_comp[,c("cloud.corn","iris.prolapse","hyphema","iris.sphin",
+      "retain.cortex","iris.damage","vit.hem","chor.hem","vit.wound","comp.other"),
+      drop=F],
+      group=intraop_comp[,"trt"],
+      caption="Intraoperative Complications",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+
+### Intraoperative complications by clinical center
+
+intraop_comp_center <- f.sas.get(library="/iats/sas/sas_to_splus",member="intraop_comp_center",
+                                 format.library="/iats/sas",formats=T)
+
+tmp.tab=intraop_comp_center[,c("center","n","scloud.corn","siris.prolapse","shyphema",
+"siris.sphin")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Intraoperative Complications by Clinical Center" ,append=T,
+       pos=c("l","c","c","c","c","c"))
+       
+tmp.tab=intraop_comp_center[,c("center","n","sretain.cortex","siris.damage","svit.hem",
+       "schor.hem")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Intraoperative Complications by Clinical Center (continued)" ,append=T,
+       pos=c("l","c","c","c","c","c"))
+       
+    
+tmp.tab=intraop_comp_center[,c("center","n","svit.wound","scomp.other")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Intraoperative Complications by Clinical Center (continued)" ,append=T,
+       pos=c("l","c","c","c"))
+
+
+### Specify other intraoperative complications
+
+other_intraop_comp <- f.sas.get(library="/iats/sas/sas_to_splus",member="other_intraop_comp",
+                                format.library="/iats/sas",formats=T)
+
+tmp.tab=other_intraop_comp[,c("center","id","trt","comp.other.spec")]
+
+f.list(file="report", x=tmp.tab,csep="0em",
+       caption="Specification of Other Intraoperative Complications" ,append=T,
+       pos=c("l","c","c","l"))
+
+# cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+
+### Number of patients with CRFs received for each follow-up visit
+
+num_pat_followup <- f.sas.get(library="/iats/sas/sas_to_splus",member="num_pat_followup",
+                              format.library="/iats/sas",formats=T)
+
+tmp.tab=num_pat_followup[,c("foll","pat")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Number of Patients With Scheduled Follow-up Forms Received" ,append=T,
+       pos=c("l","c"))
+
+
+### Medications at Followup
+
+meds <- f.sas.get(library="/iats/sas/sas_to_splus",member="meds",
+format.library="/iats/sas",formats=T)
+
+f.tab(file="report",
+ x=meds[,c("prednisolone1d","atropine1d","antibiotic1d","med.other1d",
+           "prednisolone1w","atropine1w","antibiotic1w","med.other1w"), 
+          
+  drop=F],
+ group=meds[,"trt"],  
+ caption="Medications Administered",
+ append=T, zero=F,
+ vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+ 
+ 
+ f.tab(file="report",
+ x=meds[,c("prednisolone1m", "atropine1m","antibiotic1m","med.other1m",
+           "prednisolone3m","atropine3m","antibiotic3m","med.other3m"),
+  drop=F],
+ group=meds[,"trt"],  
+ caption="Medications Administered",
+ append=T, zero=F,
+ vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+medso1 <- f.sas.get(library="/iats/sas/sas_to_splus",member="medso1",
+format.library="/iats/sas",formats=T)
+
+tmp.tab=medso1[,c("center","id","trt","time","med.other.spec")]
+f.list(file="report", x=tmp.tab,
+ caption="Other Medications Administered" ,append=T,
+pos=c("l","c","c","c","l"),csep="0em")
+
+medso2 <- f.sas.get(library="/iats/sas/sas_to_splus",member="medso2",
+format.library="/iats/sas",formats=T)
+
+tmp.tab=medso2[,c("center","id","trt","time","med.other.spec")]
+f.list(file="report", x=tmp.tab,
+ caption="Other Medications Administered (Continued)" ,append=T,
+pos=c("l","c","c","c","l"),csep="0em")
+
+
+###  Visual Acuity at Day 1
+
+va_day1 <- f.sas.get(library="/iats/sas/sas_to_splus",member="va_day1",
+                          format.library="/iats/sas",formats=T)
+
+f.tab(file="report",
+      x=va_day1[,c("va.cat","va.ncat"),
+          drop=F],
+      group=va_day1[,"trt"],
+      caption="Visual Acuity at the 1 Day Exam",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+###  Visual Acuity at Week 1
+
+va_wk1 <- f.sas.get(library="/iats/sas/sas_to_splus",member="va_wk1",
+                          format.library="/iats/sas",formats=T)
+
+f.tab(file="report",
+      x=va_wk1[,c("va.cat","va.ncat"),
+          drop=F],
+      group=va_wk1[,"trt"],
+      caption="Visual Acuity at the 1 Week Exam",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+
+### Exam Results at 1 Month Exam 
+
+m1 <- f.sas.get(library="/iats/sas/sas_to_splus",member="m1",
+                   format.library="/iats/sas",formats=T)
+                   
+f.tab(file="report", 
+      x=m1[,c("clrx.cat","clrx.ncat","specs.cat","specs.ncat",
+      "ac", "acn",
+      "ref.cat", "ref", "refovercl.cat"),
+      drop=F],
+      group=m1[,"trt"],
+      caption="Examination Information at the 1 Month Exam",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report", 
+      x=m1[,c("difref.mt","cdifref.mt"),
+      drop=F],
+      group=m1[,"trt"],
+      caption="Examination Information at the 1 Month Exam (Continued)",
+      append=T, zero=F,
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report", 
+      x=m1[,c("pupils.cat","pupils.ncat","nystag.cat","nystag.ncat",
+              "orthotropic"),
+      drop=F],
+      group=m1[,"trt"],
+      caption="Examination Information at the 1 Month Exam (Continued)",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+            
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+
+
+### Exam Results at 3 Month Exam 
+
+m3 <- f.sas.get(library="/iats/sas/sas_to_splus",member="m3",
+                   format.library="/iats/sas",formats=T)
+                   
+f.tab(file="report", 
+      x=m3[,c("clrx.cat","clrx.ncat","specs.cat","specs.ncat",
+      "ac", "acn",
+      "ref.cat", "ref", "refovercl.cat"),
+      drop=F],
+      group=m3[,"trt"],
+      caption="Examination Information at the 3 Month Exam",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report", 
+      x=m3[,c("pupils.cat","pupils.ncat","nystag.cat","nystag.ncat",
+              "orthotropic"),
+      drop=F],
+      group=m3[,"trt"],
+      caption="Examination Information at the 3 Month Exam (Continued)",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+
+### Exam Results at 6 Month Exam 
+
+m6 <- f.sas.get(library="/iats/sas/sas_to_splus",member="m6",
+                   format.library="/iats/sas",formats=T)
+                   
+f.tab(file="report", 
+      x=m6[,c("clrx.cat","clrx.ncat","specs.cat","specs.ncat",
+      "ac", "acn",
+      "ref.cat", "ref", "refovercl.cat"),
+      drop=F],
+      group=m6[,"trt"],
+      caption="Examination Information at the 6 Month Exam",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report", 
+      x=m6[,c("pupils.cat","pupils.ncat","nystag.cat","nystag.ncat",
+              "orthotropic"),
+      drop=F],
+      group=m6[,"trt"],
+      caption="Examination Information at the 6 Month Exam (Continued)",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+### Exam Results at 9 Month Exam 
+
+m9 <- f.sas.get(library="/iats/sas/sas_to_splus",member="m9",
+                   format.library="/iats/sas",formats=T)
+                   
+f.tab(file="report", 
+      x=m9[,c("clrx.cat","clrx.ncat","specs.cat","specs.ncat",
+      "ac", "acn",
+      "ref.cat", "ref", "refovercl.cat"),
+      drop=F],
+      group=m9[,"trt"],
+      caption="Examination Information at the 9 Month Exam",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report", 
+      x=m9[,c("pupils.cat","pupils.ncat","nystag.cat","nystag.ncat",
+              "orthotropic"),
+      drop=F],
+      group=m9[,"trt"],
+      caption="Examination Information at the 9 Month Exam (Continued)",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+
+### Exam Results at 12 Month Exam 
+
+m12 <- f.sas.get(library="/iats/sas/sas_to_splus",member="m12",
+                   format.library="/iats/sas",formats=T)
+                   
+f.tab(file="report", 
+      x=m12[,c("clrx.cat","clrx.ncat","specs.cat","specs.ncat",
+      "ac", "acn",
+      "ref.cat", "ref", "refovercl.cat"),
+      drop=F],
+      group=m12[,"trt"],
+      caption="Examination Information at the 12 Month Exam",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+f.tab(file="report", 
+      x=m12[,c("pupils.cat","pupils.ncat","nystag.cat","nystag.ncat",
+              "orthotropic"),
+      drop=F],
+      group=m12[,"trt"],
+      caption="Examination Information at the 12 Month Exam (Continued)",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+      
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+
+### Exam Results at 15 Month Exam 
+
+m15 <- f.sas.get(library="/iats/sas/sas_to_splus",member="m15",
+                   format.library="/iats/sas",formats=T)
+                   
+f.tab(file="report", 
+      x=m15[,c("clrx.cat","clrx.ncat","specs.cat","specs.ncat",
+      "ac", "acn",
+      "ref.cat", "ref", "refovercl.cat"),
+      drop=F],
+      group=m15[,"trt"],
+      caption="Examination Information at the 15 Month Exam",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+      
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+
+### Adverse Events
+
+ae1 <- f.sas.get(library="/iats/sas/sas_to_splus",member="ae1",
+                          format.library="/iats/sas",formats=T)
+                          
+f.tab(file="report",
+      x=ae1[,c("ae1","ae2","ae3","ae4","ae5","ae6","ae7","ae8","ae9","ae10"),
+          drop=F],
+      group=ae1[,"trt"],
+      caption="Adverse Events",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T,
+      footnote=paste("The numbers in the table are the number of patients experiencing
+                      each type of adverse event. Multiple events of the same type are
+                      counted only once for each patient.")
+      )
+
+ f.tab(file="report",
+      x=ae1[,c("ae11","ae12","ae13","ae14","ae15","ae16","ae17","ae18","aetotal"),
+      drop=F],
+      group=ae1[,"trt"],
+      caption="Adverse Events (continued)",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T,
+      footnote=paste("The numbers in the table are the number of patients experiencing
+                      each type of adverse event. Multiple events of the same type are
+                      counted only once for each patient.")
+      )
+
+ae2 <- f.sas.get(library="/iats/sas/sas_to_splus",member="ae2",
+format.library="/iats/sas",formats=T)
+
+
+tmp.tab=ae2[,c("event","cln","clr","clvt","clrel")]
+f.list(file="report", x=tmp.tab,
+ caption="CL Group: Number of Adverse Events of Each Type - Resolved, Vision Threatening, Treatment Related" ,append=T,
+pos=c("l","c","c","c","c"),csep="0em")
+
+
+tmp.tab=ae2[,c("event","ioln","iolr","iolvt","iolrel")]
+f.list(file="report", x=tmp.tab,
+ caption="IOL Group: Number of Adverse Events of Each Type - Resolved, Vision Threatening, Treatment Related" ,append=T,
+pos=c("l","c","c","c","c"),csep="0em")
+
+
+ae3 <- f.sas.get(library="/iats/sas/sas_to_splus",member="ae3",
+format.library="/iats/sas",formats=T)
+
+tmp.tab=ae3[,c("center","trtcl","patcl","aecl","trtiol","patiol","aeiol")]
+f.list(file="report", x=tmp.tab,
+ caption="Number of Adverse Events by Treatment and Center" ,append=T,
+pos=c("l","c","c","c","c","c","c"),csep='0em')
+
+ae4cl <- f.sas.get(library="/iats/sas/sas_to_splus",member="ae4cl",
+format.library="/iats/sas",formats=T)
+
+tmp.tab=ae4cl[,c("center","xae1","xae2","xae3","xae4","xae5","xae6")]
+f.list(file="report", x=tmp.tab,
+ caption="Number of Adverse Events of Each Type by Clinical Center - CL Group" ,append=T,
+pos=c("l","c","c","c","c","c","c"),csep="0em")
+
+ae4iol <- f.sas.get(library="/iats/sas/sas_to_splus",member="ae4iol",
+format.library="/iats/sas",formats=T)
+
+tmp.tab=ae4iol[,c("center","xae1","xae2","xae3","xae4","xae5","xae6")]
+f.list(file="report", x=tmp.tab,
+ caption="Number of Adverse Events of Each Type by Clinical Center - IOL Group" ,append=T,
+pos=c("l","c","c","c","c","c","c"),csep="0em")
+
+
+
+tmp.tab=ae4cl[,c("center","xae7","xae8","xae9","xae10","xae11","xae12")]
+f.list(file="report", x=tmp.tab,
+ caption="Number of Adverse Events of Each Type by Clinical Center - CL Group (Continued)" ,append=T,
+pos=c("l","c","c","c","c","c","c"),csep="0em")
+
+tmp.tab=ae4iol[,c("center","xae7","xae8","xae9","xae10","xae11","xae12")]
+f.list(file="report", x=tmp.tab,
+ caption="Number of Adverse Events of Each Type by Clinical Center - IOL Group (Continued)" ,append=T,
+pos=c("l","c","c","c","c","c","c"),csep="0em")
+
+
+tmp.tab=ae4cl[,c("center","xae13","xae14","xae15","xae16","xae17","xae18")]
+f.list(file="report", x=tmp.tab,
+ caption="Number of Adverse Events of Each Type by Clinical Center - CL Group (Continued)" ,append=T,
+pos=c("l","c","c","c","c","c","c"),csep="0em")
+
+tmp.tab=ae4iol[,c("center","xae13","xae14","xae15","xae16","xae17","xae18")]
+f.list(file="report", x=tmp.tab,
+ caption="Number of Adverse Events of Each Type by Clinical Center - IOL Group (Continued)" ,append=T,
+pos=c("l","c","c","c","c","c","c"),csep="0em")
+
+
+ae5 <- f.sas.get(library="/iats/sas/sas_to_splus",member="ae5",
+format.library="/iats/sas",formats=T)
+
+tmp.tab=ae5[,c("center","id","trt","ae.other.spec")]
+f.list(file="report", x=tmp.tab,
+ caption="Specification of Other Adverse Events" ,append=T,
+pos=c("l","c","c","l"),csep="0em")
+
+
+addsurgcl <- f.sas.get(library="/iats/sas/sas_to_splus",member="addsurgcl",
+format.library="/iats/sas",formats=T)
+
+tmp.tab=addsurgcl[,c("affil","iatsid","sd","surg")]
+f.list(file="report", x=tmp.tab,
+ caption="Additional Surgery CL Group" ,append=T,
+pos=c("l","c","l","l"),csep="0em")
+
+
+addsurgiol1 <- f.sas.get(library="/iats/sas/sas_to_splus",member="addsurgiol1",
+format.library="/iats/sas",formats=T)
+
+tmp.tab=addsurgiol1[,c("affil","iatsid","sd","surg")]
+f.list(file="report", x=tmp.tab,
+ caption="Additional Surgery IOL Group" ,append=T,
+pos=c("l","c","l","l"),csep="0em")
+
+addsurgiol2 <- f.sas.get(library="/iats/sas/sas_to_splus",member="addsurgiol2",
+format.library="/iats/sas",formats=T)
+
+tmp.tab=addsurgiol2[,c("affil","iatsid","sd","surg")]
+f.list(file="report", x=tmp.tab,
+ caption="Additional Surgery IOL Group (Continued)" ,append=T,
+pos=c("l","c","l","l"),csep="0em")
+
+### extra followup questions
+
+derm <- f.sas.get(library="/iats/sas/sas_to_splus",member="derm",
+                          format.library="/iats/sas",formats=T)
+                          
+f.tab(file="report",
+      x=derm[,c("prob.fel.eye","prob.med.attn","comp.issue","dermatitis"),
+      drop=F],
+      group=derm[,"trt"],
+      caption="Status of Fellow Eye, Medical Problems, Compliance, and Dermititis",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+
+### Teller Acuity Results
+
+teller <- f.sas.get(library="/iats/sas/sas_to_splus",member="teller",
+                   format.library="/iats/sas",formats=T)
+                   
+f.tab(file="report", 
+      x=teller[,c("affected.logmar","fellow.logmar","iod.logmar"),
+      drop=F],
+      group=teller[,"trt"],
+      caption="Visual Acuity at One Year of Age Measured with Teller Acuity Cards",
+      append=T, zero=F,
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=2,total=T)
+
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{5.5in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{ivp_treated.ps}}}",sep=""),
+ "\\caption{Dotplot of Visual Acuity in the Treated Eye by Treatment (logMAR)}",
+ "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T)      
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{5.5in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{bp_treated.ps}}}",sep=""),
+ "\\caption{Boxplot of Visual Acuity in the Treated Eye by Treatment (logMAR)}",
+ "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T)      
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{5.5in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{ivp_fellow.ps}}}",sep=""),
+ "\\caption{Dotplot of Visual Acuity in the Fellow Eye by Treatment (logMAR)}",
+ "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T) 
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{5.5in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{bp_fellow.ps}}}",sep=""),
+ "\\caption{Boxplot of Visual Acuity in the Fellow Eye by Treatment (logMAR)}",
+ "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T) 
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{5.5in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{ivp_iod.ps}}}",sep=""),
+ "\\caption{Dotplot of Interocular Difference in Visual Acuity by Treatment (Treated-Fellow, logMAR)}",
+ "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T) 
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{5.5in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{bp_iod.ps}}}",sep=""),
+ "\\caption{Boxplot of Interocular Difference in Visual Acuity by Treatment (Treated-Fellow, logMAR)}",
+ "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T) 
+
+
+### Finish
+ 
+f.bottom("report")
+
+unix("laps report",output=F)
+unix("laps report",output=F)
+unix("lapdf report",output=F)
+unix("lapdf report",output=F)
+

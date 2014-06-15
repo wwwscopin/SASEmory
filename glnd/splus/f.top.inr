@@ -1,0 +1,119 @@
+f.top.inr <- function(file,run.date,site.name,center.number=NULL,
+ header=c("WASID","INR","REPORT"), dir.table=NULL, landscape=F)
+{
+
+center.number <- paste("Center",center.number)
+
+file.tex <- 
+ if(is.null(dir.table)) paste(file,".tex",sep="") else
+ paste(unix("echo $HOME"),"/",dir.table,"/",file,".tex",sep="")
+
+report.top <- c(paste(header,collapse=" "),
+ " \\hspace{2em}",run.date,"\\hfill",
+ center.number, "---", site.name," \\hspace{2.0em}")
+
+report.top <- c(
+"\\documentclass[dvips,10pt]{article}",
+"\\usepackage{graphicx}",
+if(landscape) 
+c(
+"\\setlength{\\oddsidemargin}{-0.3in}",
+"\\setlength{\\textwidth}{9.5in}",
+"\\setlength{\\topmargin}{-0.70in}",
+"\\setlength{\\textheight}{7.0in}") else 
+c(
+"\\setlength{\\oddsidemargin}{-0.3in}",
+"\\setlength{\\textwidth}{7.0in}",
+"\\setlength{\\topmargin}{-0.60in}",
+"\\setlength{\\textheight}{9.5in}"),
+"\\pagestyle{myheadings}",
+"\\markright{ {\\rm {", report.top, "}}}",
+"\\headsep=0.4in",
+"\\begin{document}")
+
+cat(report.top,file=file.tex,sep="\n")
+
+cat("\\vspace*{-0.4in}",file=file.tex,sep="\n",append=T)
+cat("\\begin{center}",file=file.tex,sep="\n",append=T)
+cat("\\begin{Huge}",file=file.tex,sep="\n",append=T)
+cat("WASID INR REPORT",file=file.tex,sep="\n",append=T)
+cat("FOR \\underline{UNBLINDED} INVESTIGATOR ONLY",
+ file=file.tex, sep="\n",append=T)
+cat("",file=file.tex,sep="\n",append=T)
+
+cat("\\vspace{0.3in}",file=file.tex,sep="\n",append=T)
+cat(run.date,file=file.tex,sep="\n",append=T)
+cat("",file=file.tex,sep="\n",append=T)
+
+cat("\\vspace{0.3in}",file=file.tex,sep="\n",append=T)
+cat(center.number, file=file.tex,sep="\n",append=T)
+cat("",file=file.tex,sep="\n",append=T)
+cat("\\vspace{0.2in}",file=file.tex,sep="\n",append=T)
+cat(site.name, file=file.tex,sep="\n",append=T)
+
+cat("\\end{Huge}",file=file.tex,sep="\n",append=T)
+cat("\\end{center}",file=file.tex,sep="\n",append=T)
+
+inr.note <- c("\\vspace{0.3in} \\hspace{2em}","\\fbox{",
+"\\begin{minipage}[b]{6.3in}",
+"{\\bf{This report includes the following information regarding INR status}}",
+"{\\bf{for warfarin patients}}:",
+"", "\\vspace{1.0em}",
+"\\begin{itemize}",
+"\\item {\\bf {Induction Phase}} (Time before INR first reaches 2).",
+"", "\\vspace{1.0em}",
+"Table 1 is a list showing one of the following times for each",
+"warfarin patient:",
+"\\begin{itemize}",
+"\\item If the INR has reached 2: The number of days from enrollment until",
+"the INR was 2 or higher.",                                            
+"\\item If the INR has not yet reached 2: The number of days from",         
+"enrollment to last INR draw.",                                        
+"\\item If before the INR reached 2, the study medications were",           
+"interrupted or the patient died: \\\\ The number of days from enrollment", 
+"until the last INR draw.",                                            
+"\\end{itemize}",
+"Patients who have not had an INR draw do not have any time printed.", 
+"\\\\",
+"\\item {\\bf {Maintenance Phase}} (Time after INR first reaches 2).", 
+"", "\\vspace{1.0em}",
+"Tables 2-4 summarize in different ways the time during the",          
+"maintenance phase that patients spent in the different INR",          
+"categories. The number of days spent in each category is determined", 
+"by a linear interpolation between the time of each INR test. In each",
+"table, summaries are presented for your center, for all centers",     
+"except yours, and for all centers.",                                  
+"\\begin{description}",
+"\\item Table 2 --- For each patient, the percent of their maintenance time",   
+"that is spent in each INR category is determined. The table contains",
+"the mean, standard deviation and range of the percent of time among", 
+"the patients for each of the INR categories.",                        
+"\\item Table 3 --- For each patient, the number of days spent in each INR",    
+"category is determined. The number of days in each category is",      
+"totaled for the patients and the percent of the days that fell into", 
+"each of the INR categories is calculated. ",                          
+"\\item Table 4 --- The number of INR draws falling into each of the",          
+"categories is determined and the percent is calculated.",             
+"\\end{description}",
+"\\end{itemize}",
+"", "\\vspace{1.0em}",
+"If there are questions about the INR data for individual patients,",  
+"please call Nana Freret at 404-712-8278.",                  
+"", "\\vspace{1.0em}",
+"If there are questions about the statistical calculations, please",
+"call Mike Lynn at 404-727-7695.",
+"", "\\vspace{1.0em}",
+"If there are questions about the warfarin dosing protocol, please",
+"call Cristen Chester at 404-712-4718.",
+"\\end{minipage}",
+"}",
+)
+
+cat(inr.note,file=file.tex,sep="\n",append=T)
+
+
+cat("\\clearpage",file=file.tex,sep="\n",append=T)
+
+return(NULL)
+}
+

@@ -1,0 +1,558 @@
+f.tab <- function(x,group=NULL,
+ file=as.character(substitute(x)),
+ caption=" ",total=T,level.display="xYes",
+ vn=T,vmean=T,vmedian=T,vcut=T,vrange=T,vmode=F,vpvalue=T,vdigits=1,
+ dir.table=NULL,worknote=NULL,footnote=NULL,
+ fix.levels=T,nperc=T,
+ center.collab=T,
+ tab.caption=T,clearpage=F,
+ width.label="70mm",csep="1.5em",width.note="5in",zero=F,append=F,
+ subset=rep(T,dim(x)[1]),subset.name="Subset",wilcox=T,fisher=F)
+{
+# nperc will not display heading n (%) even if vn=T
+# center.collab  drops centering of column labels - no extra blank line
+# wilcox=F will force t-test
+# wilcox=T will give wilcox test if shapiro pvalue < 0.001
+group.null <- is.null(group)
+if(is.null(group)) { vpvalue <- F
+group <- rep(1,dim(x)[1]) }
+#---------------
+# drop out a variable with all missing data for valid grouping variable data
+# * put bars for entries in the table for n=0 for a group category, then
+# compute p-value for the remaining table, if it has more than 1 column and
+# more than 1 row. (if only one column or row then put bar for pvalue)
+# 
+#---------------
+# nice code for seriaes of tabulations.
+# lapply(
+# lapply(d[,c("orfice","grad","lvedp.prepre","lvedp.prepost","lvedp.postpre",
+# "lvedp.postpost")],is.na),table,d[,"surg.group"])
+#---------------
+# add styles: NEJM, JASA, Circulation etc.
+# add case changing from name of variable 2nd and subsequent wors to capital
+# case for title (Tabulation by...) with exception of words for, and by etc.
+# rename vpvalue and vdigits to pvalue and digits as a global switcH
+# if one has a footnote to the whole table, the footnote should be
+# automatically connected with its source by a symbol.
+
+table.tex <- T # prints table with a number. F gives caption only.
+group <- as.data.frame(group)
+n.groups <- dim(group)[2]
+if(n.groups>2) stop("Too many groups")
+
+caption <- if(!group.null & tab.caption) paste(caption,". ",
+ "Tabulation by ", paste(rev(unlist(lapply(group,attr,"label"))), 
+  collapse=" and "),".",
+ sep="") else
+  paste(caption,".",sep="")
+
+caption <- if(any(subset==F) & !is.null(subset.name)) {
+ paste(subset.name,caption,sep=". ")} else caption
+subset[is.na(subset)] <- F
+
+#if(is.null(dir.table)) paste(unix("pwd"),"/",file,".tex",sep="") else
+file.tex <- 
+ if(is.null(dir.table)) paste(file,".tex",sep="") else
+ paste(unix("echo $HOME"),"/",dir.table,"/",file,".tex",sep="")
+
+vcut.in <- vcut
+vn.in <- vn
+vmean.in <- vmean
+vmedian.in <- vmedian
+vrange.in <- vrange
+vmode.in <- vmode
+
+done.first <- F
+for(k in names(x)) {
+#-----------------------
+# setting options for display of variables
+if(vcut.in[1]!=F) vcut <- if(vcut.in[1]==T) T else any(vcut.in==k)
+if(vn.in[1]!=F) vn <- if(vn.in[1]==T) T else any(vn.in==k)
+if(vmean.in[1]!=F) vmean <- if(vmean.in[1]==T) T else any(vmean.in==k)
+if(vmedian.in[1]!=F) vmedian <- if(vmedian.in[1]==T) T else any(vmedian.in==k)
+if(vrange.in[1]!=F) vrange <- if(vrange.in[1]==T) T else any(vrange.in==k)
+if(vmode.in[1]!=F) vmode <- if(vmode.in[1]==T) T else any(vmode.in==k)
+#-----------------------
+out <- outer.label <- inner.label <- NULL
+if(dim(group)[2]>1) {
+valid.group.variables <- !is.na(group[subset,1]) & !is.na(group[subset,2])
+n.force <- if(sum(!is.na(x[valid.group.variables,k])) <   
+ sum(valid.group.variables)) T else F 
+for(i in levels(group[,2])) {
+tmp <- f.variable2(x[,k],group[,1],vn = vn, vmean = vmean, 
+ vmedian = vmedian, vcut = vcut, total = total, vrange = vrange, 
+ vmode = vmode,zero=zero,
+ fix.levels=fix.levels,
+ vpvalue = vpvalue, vdigits = vdigits, wilcox = wilcox, fisher = fisher, 
+ disp=T, label.width=width.label, subset=subset & (group[,2]%==%i),
+ level.display=level.display,n.force=n.force,
+ subset.name=i)[c("disp","group.title","subset.label","test")]
+out <- cbind(out,tmp$disp)
+outer.label <- c(outer.label,tmp$subset.label)
+inner.label <- c(inner.label,tmp$group.title)
+}
+out <- out[,-(2+length(table(group[,1]))+total+vpvalue),drop=F]
+} else {
+ tmp <- f.variable2(x[,k],group[,1],vn = vn, vmean = vmean,
+ vmedian = vmedian, vcut = vcut, total = total, vrange = vrange,
+ vmode = vmode,zero=zero,
+ fix.levels=fix.levels,
+ vpvalue = vpvalue, vdigits = vdigits, wilcox = wilcox, fisher = fisher,
+ level.display=level.display,
+ disp=T, label.width=width.label, subset=subset)[c("disp","group.title","test")]
+
+if(is.null(tmp)) { print(paste(k,attr(x[,k],"label"),
+ "all missing data",sep=" : ")); next }
+ out <- tmp$disp
+ inner.label <- tmp$group.title
+}
+if(group.null) {
+ out <- out[,-2]
+ inner.label <- inner.label[-1]
+}
+print(paste(k,tmp$test,sep=" : "))
+out[,1] <- paste(out[,1],"&\n")
+if(!group.null) {for(i in 2:(dim(out)[2]-1)) out[,i] <- paste(out[,i],"&&\n")}
+out[,dim(out)[2]] <- paste(out[,dim(out)[2]],"\\\\\n")
+
+# if the first variable
+if(!done.first) {
+done.first <- T
+table.top <- c(
+# if want table numbers table.tex is true
+ if(!table.tex) paste("\\center{",caption,"}") else
+  c("\\begin{table}[tbp]", paste("\\caption\n{", caption, "}")),
+ "\\begin{center}",
+# columns specification
+  "\\begin{tabular}{ @{}l@{}",
+  paste(rep("@{}c@{}",length(inner.label)),collapse=
+  paste("@{}p{",csep,"}@{}",sep="")),"}",
+  "\\hline\n")
+cat(table.top,file=file.tex,sep="\n",append=append)
+
+if(!is.null(outer.label)) {
+ cat(paste("&\n",paste(paste("\\multicolumn{",
+  2*length(inner.label)/length(outer.label)-1,"}{c}{",outer.label,"}",sep=""),
+  collapse=" &&\n "),"\\\\\n"),file=file.tex,append=T)
+ cat(paste("\\cline{",
+  2+(0:(length(outer.label)-1))*2*length(inner.label)/length(outer.label),
+  "-", ((1:(length(outer.label)))*2*length(inner.label)/length(outer.label)),
+  "}",sep=""),sep="\n",file=file.tex,append=T)
+}
+# ??? inner titles
+# names(inner.label)[names(inner.label)!=""],"\\end{center}}",sep=""),
+names(inner.label)[names(inner.label)==""] <- " \\ "
+cat(c(
+ paste("&",paste(
+  if(center.collab) { paste("\\parbox{6em}{\\begin{center}",
+  names(inner.label),"\\end{center}}",sep="") } else names(inner.label),
+  collapse=" && "),"\\\\\n"),
+ if(vn) paste("&",
+  paste(inner.label,collapse=" && "),"\\\\\n") else NULL,
+
+ if(vn & nperc) paste(
+  "\\cline{",2*(1:length(inner.label))[!names(inner.label)==""],"-",
+  2*(1:length(inner.label))[!names(inner.label)==""],"}",sep="") else NULL,"\n",
+ paste("Characteristic","&\n", paste(ifelse(inner.label=="","P value",
+  if(vn & nperc) "\\makebox[1.5em]{n}\\makebox[3.5em][r]{(\\%)}" else ""),
+  collapse=" &&\n"),
+  "\\\\\n"),"\\hline\n\\\\\n"),file=file.tex,append=T)
+} #end of first variable display 
+cat(t(out),"\\\\\n",file=file.tex,append=T)
+}
+cat("\\hline \\\\", "\n\\end{tabular}\n", file=file.tex,append=T)
+# cat("\\hline \\\\", "\n\\end{tabular}\n",if(!table.tex) "\n" else
+# paste("\\label{",file,"}\n\n",sep=""),file=file.tex,append=T)
+#---------------------------
+if(!is.null(footnote)) for(i in footnote)
+ cat(paste("\n\\parbox{",width.note,"}{",i,"} \\\\\n"),"\\vspace{1em}",
+ file=file.tex, append=T)
+#---------------------------
+if(!is.null(worknote)) cat(
+ paste("\n\\parbox{",width.note,"}{",c(worknote,file.tex,date()),
+ "} \\\\\n"), file=file.tex,append=T)
+#---------------------------
+cat("\\end{center}\n","\\end{table}\n",file=file.tex,append=T)
+if(clearpage) cat("\\clearpage\n",file=file.tex,append=T)
+}
+
+f.round <- function(x, digits = 0)
+{
+# function which rounds but keeps trailing blanks if necessary
+tmp.attrib <- attributes(x)
+x <- as.vector(x)
+fx <- x
+for(i in 1:length(x))
+ fx[i] <- format(round(c(pi, x[i]), digits = digits))[-1]
+attributes(fx) <- tmp.attrib
+return(fx)
+}
+
+f.round.pvalue <- function(pvalue,tex=T,digits=3,disp="P")
+{
+digits <- 3
+if(digits==3) {
+rpvalue <- if(pvalue<0.001) { if(tex) "$<$0.001" else "<0.001" } else {
+    if(round(pvalue,3)<0.1) { format(round(pvalue,3))} else {
+     format(round(pvalue,2))
+}}
+if (rpvalue=="1") rpvalue <- "1.00"
+if (rpvalue=="0.1") rpvalue <- "0.10"
+if (rpvalue=="0.2") rpvalue <- "0.20"
+if (rpvalue=="0.3") rpvalue <- "0.30"
+if (rpvalue=="0.4") rpvalue <- "0.40"
+if (rpvalue=="0.5") rpvalue <- "0.50"
+if (rpvalue=="0.6") rpvalue <- "0.60"
+if (rpvalue=="0.7") rpvalue <- "0.70"
+if (rpvalue=="0.8") rpvalue <- "0.80"
+if (rpvalue=="0.9") rpvalue <- "0.90"
+
+if (rpvalue=="0.01") rpvalue <- "0.010"
+if (rpvalue=="0.02") rpvalue <- "0.020"
+if (rpvalue=="0.03") rpvalue <- "0.030"
+if (rpvalue=="0.04") rpvalue <- "0.040"
+if (rpvalue=="0.05") rpvalue <- "0.050"
+if (rpvalue=="0.06") rpvalue <- "0.060"
+if (rpvalue=="0.07") rpvalue <- "0.070"
+if (rpvalue=="0.08") rpvalue <- "0.080"
+if (rpvalue=="0.09") rpvalue <- "0.090"
+
+rpvalue <- if(pvalue<0.001) paste(disp,rpvalue) else
+ if(disp=="P") paste("P=",rpvalue,sep="") else paste(disp,rpvalue,sep="")
+}
+return(list(pvalue=pvalue,rpvalue=rpvalue))
+}
+
+f.cut <- function(x,breaks,digits=1) 
+{
+# >= min(breaks) and < breaks[1] 
+# ... 
+# >= breaks[length(breaks)] and <= max(breaks)
+if(is.null(breaks)) {breaks <- quantile(x,na.rm=T); breaks <-
+  breaks[-c(1,length(breaks))] }
+
+n.digits <- digits
+# n.digits <- 0
+# if((sum(breaks)-trunc(sum(breaks)))!=0) 
+#  n.digits <- nchar(format(sum(breaks)-trunc(sum(breaks))))-2
+out.levels <- paste(1:(length(breaks)+1))
+
+out.levels[1] <- paste("$\\ge$",f.round(min(x,na.rm=T),n.digits),"and","$<$",
+ f.round(breaks[1],n.digits))
+out.levels[length(breaks)+1] <- paste("$\\ge$",
+ f.round(breaks[length(breaks)],n.digits),
+ "and","$\\le$",f.round(max(x,na.rm=T),n.digits))
+
+out <- rep(-9999,length(x))
+out[x >= min(x,na.rm=T) & x < breaks[1]] <- 1
+out[x >= breaks[length(breaks)] & x <= max(x,na.rm=T)] <- length(breaks)+1
+
+if(length(breaks)>1) {
+for (i in 2:length(breaks)) {
+ out[x >= breaks[i-1] & x < breaks[i]] <- i
+out.levels[i] <- paste("$\\ge$",f.round(breaks[i-1],n.digits),"and","$<$",
+ f.round(breaks[i],n.digits))
+}
+}
+return(factor(out,levels=1:(length(breaks)+1),labels=out.levels))
+}
+
+f.sas.fisher <- function(x,keep=F)
+{
+sas.code <- c( paste("libname infsas '",unix("pwd"),"';",sep=""),
+"options ls=80 ps=65;", "data a;",
+paste("do i=1 to ",dim(x)[1],";",sep=""),
+paste("do j=1 to ",dim(x)[2],";",sep=""),
+"input count @@;", "output;", "end;", "end;", "cards;",
+apply(x,1,paste,collapse=" "), ";",
+"proc freq;", "weight count;", "tables i*j/noprint exact;", "run;")
+file <- paste("fisher",substring(tempfile(),10),sep="")
+cat(sas.code,file=paste(file,".sas",sep=""),sep="\n")
+unix(paste("sas ",file,".sas",sep=""))
+a <- scan(paste(file,".lst",sep=""),"")
+out <- as.numeric(a[(1:length(a))[a=="(2-Tail)"]+1])
+if(keep==F) unix(paste("rm ",file,".*",sep=""))
+return(out)
+}
+
+f.sd <- function(x) if(any(!is.na(x))) sqrt(var(x[!is.na(x)])) else NA
+
+f.variable2 <- function(variable,group,vn=T,vmean=T,vmedian=T,vcut=T,total=T,
+ vrange=T,vmode=T,
+ vpvalue=T,vdigits=1,subset=rep(T,length(variable)),subset.name=NULL,
+ fix.levels=fix.levels,
+ label.width="50mm",level.display=" ",n.force=F,
+ file="",append=F,wilcox=T,fisher=F,disp=F,zero=F)
+{
+# variable is categorical if it has levels attribute
+ cat("\n",file=file,append=append)
+ ngroup <- sum(!is.na(group))
+ nvariable <- sum(!is.na(variable))
+
+ out <- list()
+ out$group.n <- table(group[subset])
+ if(!all(subset)) out$subset.label <- 
+  paste(subset.name," \\hspace{1em} n=",sum(out$group.n),sep="")
+ if(total) out$group.n <- c(out$group.n,Total=sum(out$group.n))
+
+ out$group.title <- c(paste("n=",out$group.n,sep=""),if(vpvalue) "" else NULL)
+ names(out$group.title) <- c(names(out$group.n),if(vpvalue) "" else NULL)
+
+ use <- !is.na(variable) & !is.na(group) & subset
+
+ variable.attributes <- attributes(variable)
+ variable <- variable[use]
+ attributes(variable) <- variable.attributes
+
+ group.attributes <- attributes(group)
+ group <- group[use]
+ attributes(group) <- group.attributes
+
+ out$variable.label <- if(is.null(attr(variable,"label")))
+  deparse(substitute(variable)) else { 
+   if(fix.levels) f.fix.labels(attr(variable,"label")) else 
+   attr(variable,"label") }
+ out$group.label <- attr(group,"label")
+
+if(all(is.na(variable))) return(NULL)
+
+if(is.null(attr(variable,"levels"))) {
+
+ variable.group <- split(variable,group)
+ out$n <- sapply(variable.group,length)
+ if(total) out$n <- c(out$n,Total=sum(out$n))
+
+ if(vmean) {
+
+ out$mean <- sapply(variable.group,mean)
+ out$sd <- sapply(variable.group,f.sd)
+
+ if(total) {
+ out$mean <- c(out$mean,Total=mean(unlist(variable.group)))
+ out$sd <- c(out$sd,Total=sqrt(var(unlist(variable.group))))
+ }}
+
+ if(vmedian) {
+ out$median <- sapply(variable.group,median)
+ out$mad <- sapply(variable.group,mad)
+ if(total) {
+ out$median <- c(out$median,Total=median(unlist(variable.group)))
+ out$mad <- c(out$mad,Total=mad(unlist(variable.group)))
+ }}
+ 
+ if(vrange) {
+ out$min <- sapply(variable.group,min,na.rm=T)
+ out$max <- sapply(variable.group,max,na.rm=T)
+ if(total) {
+ out$min <- c(out$min,Total=min(unlist(variable.group),na.rm=T))
+ out$max <- c(out$max,Total=max(unlist(variable.group),na.rm=T))
+ }}
+
+f.mode <- function(x,digit=1){
+if(all(is.na(x))) return(NA)
+x <- round(x,digit)
+x <- table(x)
+x <- x[x==max(x)]
+return(paste(format(names(x)),collapse=";"))
+}
+
+ if(vmode) {
+ out$mode <- sapply(variable.group,f.mode,vdigits)
+ if(total) {
+ out$mode <- c(out$mode,Total=f.mode(unlist(variable.group),vdigits))
+ }}
+
+ if(vpvalue) {
+ variable.resids <- 
+  as.vector(unlist(lapply(variable.group,scale,center=T,scale=T)))
+#print(paste("P-shapiro",f.shapiro.wilk.test(variable.resids)$p))
+ out$test <- if(f.shapiro.wilk.test(variable.resids)$p < 0.001 & wilcox) 
+  "Wilcoxon Two-Sample Test for Continuous Data" else 
+  "Two-Sample t-test for Continuous Data"
+print(out$test)
+ out$pvalue <- if(f.shapiro.wilk.test(variable.resids)$p < 0.001 & wilcox) 
+   kruskal.test(variable,group)$p.value else 
+   summary(aov(variable ~ group))$"Pr(F)"[1]
+print(out$pvalue)
+ out$rpvalue <- f.round.pvalue(out$pvalue,disp="")$rpvalue
+ names(out$pvalue) <- out$test
+ names(out$rpvalue) <- out$test
+print(out$rpvalue)
+ }
+
+ if(vcut) {
+ variable <- f.cut(variable,attr(variable,"vcut"),vdigits)
+ out$table <- table(variable,group)
+ if(total) out$table <-  cbind(out$table,Total=apply(out$table,1,sum))
+ out$table.percent <- 100*sweep(out$table,2,apply(out$table,2,sum),"/")
+ }
+
+if(disp) {
+xx <- matrix("",1+vmean+vmedian+vrange+vmode+ 
+ if(vcut) 1+dim(out$table)[1] else 0,
+ length(out$group.n)+1+vpvalue)
+xx[,1] <- c(paste("\\parbox[b]{",label.width,"}{\\raggedright{{\\bf",
+ out$variable.label,"}}}"),
+ if(vmean) "\\hspace{1em} Mean $\\pm$ sd" else NULL,
+ if(vmedian) "\\hspace{1em} Median $\\pm$ mad" else NULL,
+ if(vrange) "\\hspace{1em} Range" else NULL,
+ if(vmode) "\\hspace{1em} Mode" else NULL,
+ if(vcut) c("", paste("\\hspace{1em}",dimnames(out$table)[[1]])) else NULL)
+
+if(vmean) xx[1+vmean,1+1:length(out$group.n)] <- 
+ paste("$",f.round(out$mean,vdigits),"\\pm",f.round(out$sd,vdigits),"$")
+if(vmedian) xx[1+vmean+vmedian,1+1:length(out$group.n)] <- 
+ paste("$",f.round(out$median,vdigits),"\\pm",f.round(out$mad,vdigits),"$")
+if(vrange) xx[1+vmean+vmedian+vrange,1+1:length(out$group.n)] <- 
+ paste("$",f.round(out$min,vdigits),"$ --- $",f.round(out$max,vdigits),"$")
+if(vmode) xx[1+vmean+vmedian+vrange+vmode,1+1:length(out$group.n)] <- 
+ paste("$",out$mode,"$")
+
+if(vcut) 
+ xx[(1+vmean+vmedian+vrange+vmode+1+vcut):dim(xx)[1],1+1:length(out$group.n)] <-
+  paste("\\makebox[1.5em][r]{",out$table,"}\\makebox[3.5em][r]{(",
+  f.round(out$table.percent,1),")}",sep="")
+
+if(vpvalue) xx[1,dim(xx)[2]] <- out$rpvalue
+if((sum(out$n)<sum(out$group.n)) & vn)  {
+ xx[1,1+1:length(out$group.n)][out$n!=out$group.n] <- 
+  paste("n=",out$n,sep="")[out$n!=out$group.n]
+}
+out$disp <- xx
+}
+
+} else {
+ if(fix.levels) { # will replace & and % with \\& and \\% in the labels
+ for(akk in 1:length(levels(variable)))
+  levels(variable)[akk] <- f.fix.labels(levels(variable)[akk])
+ }
+ out$table <- table(variable,group)
+if(!zero) out$table <- out$table[apply(out$table,1,sum)>0,,drop=F]
+ expected.table <- outer(apply(out$table,1,sum),
+    apply(out$table,2,sum))/sum(out$table)
+ out$min.expected <- sort(expected.table)[1:2]
+
+ if(vpvalue & dim(out$table)[1]>1) {
+ out$test <- if(any(expected.table < 5) | fisher) 
+  "Fisher's Exact Test" else "Chi-square Test Without Correction"
+ out$pvalue <- 
+  if(any(expected.table < 5) | fisher) f.sas.fisher(out$table) else
+  chisq.test(out$table,correct=F)$p.value
+ out$rpvalue <- f.round.pvalue(out$pvalue,disp="")$rpvalue
+ names(out$pvalue) <- out$test
+ names(out$rpvalue) <- out$test
+ }
+
+ if(total) out$table <-  cbind(out$table,Total=apply(out$table,1,sum))
+ out$n <- apply(out$table,2,sum)
+ out$table.percent <- 100*sweep(out$table,2,apply(out$table,2,sum),"/")
+
+if(disp) {
+xx <- matrix("",dim(out$table)[1]+1,dim(out$table)[2]+1+vpvalue)
+xx[,1] <- c(paste("\\parbox[b]{",label.width,"}{\\raggedright{{\\bf",
+ out$variable.label,"}}}"),
+ paste("\\hspace{1em}",dimnames(out$table)[[1]]))
+xx[2:dim(xx)[1],1+1:dim(out$table)[2]] <-
+ paste("\\makebox[1.5em][r]{",out$table,"}\\makebox[3.5em][r]{(",
+ f.round(out$table.percent,vdigits),")}",sep="")
+if(vpvalue) xx[1,dim(xx)[2]] <- out$rpvalue
+
+if((sum(out$n)<sum(out$group.n)) & vn) { 
+ xx[1,1+1:dim(out$table)[2]][out$n!=out$group.n] <- 
+  paste("n=",out$n,sep="")[out$n!=out$group.n]
+}
+
+if(any(levels(variable)==level.display)) {
+ if(sum(out$n)==sum(out$group.n) & !n.force) {xx[1,1+(1:dim(out$table)[2])] <- 
+  xx[xx[,1]==paste("\\hspace{1em}",level.display),1+(1:dim(out$table)[2])]
+  xx <- xx[1,,drop=F]
+  } else {
+  xx <- rbind(xx[1,,drop=F],xx[xx[,1]==paste("\\hspace{1em}",level.display),])
+  if(any(level.display=="Yes")) 
+    xx[xx==paste("\\hspace{1em}",level.display)] <- ""
+ }
+}
+out$disp <- xx
+}
+}
+return(out)
+}
+
+
+
+"f.shapiro.wilk.test"<-
+function(x)
+{
+#
+#this function is an S version of the procedure described by
+# J. P. Royston (1982) in "An Extension of Shapiro and Wilk's W Test
+# for Normality to Large Samples" from Applied Statistics,31 no.2
+#  pp115-124.
+#
+        n <- length(x)
+        index <- 1:n
+        m <- qnorm((index - 0.375)/(n + 0.25))
+        y <- sort(x)
+        mu <- mean(y)
+        SSq <- sum((y - mu)^2)
+        astar <- 2 * m
+        ends <- c(1, n)
+        astar.p <- astar[ - ends]
+        if(n <= 20)
+                m <- n - 1
+        else m <- n
+        if(m < 20)
+                aa <- gamma(0.5 * (m + 1))/(sqrt(2) * gamma(0.5 * m + 1))
+        else {
+                f1 <- (6 * m + 7)/(6 * m + 13)
+                f2 <- exp(1)/(m + 2)
+                f3 <- (m + 1)/(m + 2)
+                f3 <- f3^(m - 2)
+                aa <- f1 * sqrt(f2 * f3)
+        }
+        astar.1 <- (aa * sum(astar.p^2))/(1 - 2 * aa)
+        astar.1 <- sqrt(astar.1)
+        astar[1] <-  - astar.1
+        astar[n] <- astar.1
+        A <- astar/sqrt(sum(astar^2))
+        W <- (sum(A * y)^2)/SSq
+        if(n <= 20) {
+                u <- log(n) - 3
+                lambda <- 0.118898 + 0.133414 * u + 0.327907 * u^2
+                logmu <- -0.37541999999999998 - 0.492145 * u -
+                        1.1243320000000001 * u^2 - 0.19942199999999999 * u^3
+                logsigma <- -3.1580499999999998 + 0.72939900000000002 * u +
+                        3.0185499999999998 * u^2 + 1.5587759999999999 * u^3
+        }
+        if(n > 20) {
+                u <- log(n) - 5
+                lambda <- 0.48038500000000001 + 0.318828 * u - 
+ 0.0241665 * u^3 +
+0.0087970099999999992 * u^4 + 0.0029896459999999999 * u^5
+                logmu <- -1.9148700000000001 - 1.3788800000000001 * u -
+                        0.041832090000000002 * u^2 + 0.1066339 * u^3 -
+                        0.03513666 * u^4 - 0.01504614 * u^5
+                logsigma <- -3.7353800000000001 - 1.0158069999999999 * u -
+                        0.33188499999999999 * u^2 + 0.17735380000000001 * u^3 -
+                       0.016387820000000001 * u^4 - 0.03215018 * u^5 +
+                        0.0038526459999999999 * u^6
+        }
+        mu <- exp(logmu)
+        sigma <- exp(logsigma)
+        y <- (1 - W)^lambda
+        z <- (y - mu)/sigma
+        p <- 1 - pnorm(z)
+        if(n < 7) {
+warning("n is too small for this program to correctly estimate p"
+                        )
+                p <- NA
+        }
+        if(n > 2000) {
+warning("n is too large for this program to correctly estimate p"
+                        )
+                p <- NA
+        }
+        out <- list(W = W, n = n, p = p)
+        out
+}
+

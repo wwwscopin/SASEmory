@@ -1,0 +1,816 @@
+1                                                          The SAS System                                15:18 Tuesday, May 21, 2013
+
+NOTE: Copyright (c) 2002-2010 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.3 (TS1M0) 
+      Licensed to EMORY UNIVERSITY-T&R, Site 70088042.
+NOTE: This session is executing on the SunOS 5.10 (SUN X64) platform.
+
+
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is /dfax/ttcmv/sas/programs/reporting/baohua/IVH/autoexec.sas.
+
+NOTE: Libref CMV was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/data/monthly_freeze_2013.05.01
+NOTE: Library CMV_REP does not exist.
+NOTE: Library CMV_QC does not exist.
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/data
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: AUTOEXEC processing completed.
+
+1          options nodate nonumber;
+2          libname wbh "/ttcmv/sas/programs";
+NOTE: Libref WBH was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /ttcmv/sas/programs
+3          
+4          proc format;
+5             value grade 1="I" 2="II" 3="III" 4="IV" 0="NA";
+NOTE: Format GRADE has been output.
+                                                           The SAS System
+
+6          run;
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+7          
+8          data ivh;
+9          	merge cmv.plate_068(keep=id IVHDiagDate)
+10         			cmv.ivh_image(keep=id ImageDate LeftIVHGrade RightIVHGrade)
+11         			cmv.comp_pat(in=comp keep=id);
+12         	by id;
+13         	if comp;
+14         	
+15         	retain x_date;
+16         	if first.id then x_date=imagedate;
+17         	if ivhdiagdate=. then ivhdiagdate=x_date;
+18         	
+19         	if LeftIVHGrade in(1,2,3,4) or RightIVHGrade in(1,2,3,4);
+20         	if LeftIVHGrade in(2,3,4) or RightIVHGrade in (2,3,4) then ivh=1; else ivh=0;
+21         run;
+
+NOTE: There were 189 observations read from the data set CMV.PLATE_068.
+NOTE: There were 603 observations read from the data set CMV.IVH_IMAGE.
+NOTE: There were 471 observations read from the data set CMV.COMP_PAT.
+NOTE: The data set WORK.IVH has 414 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+22         
+23         proc sort; by id imagedate;run;
+
+NOTE: There were 414 observations read from the data set WORK.IVH.
+NOTE: The data set WORK.IVH has 414 observations and 7 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+24         
+25         data ivh2;
+26             set ivh(where=(ivh=1)); by id imagedate;
+27             if first.id;
+28         run;
+
+NOTE: There were 228 observations read from the data set WORK.IVH.
+      WHERE ivh=1;
+NOTE: The data set WORK.IVH2 has 64 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+29         
+30         /*
+                                                           The SAS System
+
+31         proc print;
+32         var id ivhdiagdate imagedate;
+33         run;
+34         */
+35         
+36         proc sort data=cmv.plate_031(keep=id  DateTransfusion rbc_TxStartTime) out=tx_rbc;by id DateTransfusion rbc_TxStartTime;
+36       ! run;
+
+NOTE: There were 1405 observations read from the data set CMV.PLATE_031.
+NOTE: The data set WORK.TX_RBC has 1405 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+37         data tx_rbc;
+38         	set tx_rbc; by id DateTransfusion rbc_TxStartTime;
+39         	retain dt_rbc;
+40         	if first.id then do; nrbc=0; dt_rbc=DateTransfusion; end;
+41         	nrbc+1;
+42         	if last.id;
+43         	format dt_rbc date9.;
+44         run;
+
+NOTE: There were 1405 observations read from the data set WORK.TX_RBC.
+NOTE: The data set WORK.TX_RBC has 278 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+45         
+46         proc sort data=cmv.plate_033(keep=id  DateTransfusion plt_TxStartTime) out=tx_plt;by id DateTransfusion plt_TxStartTime;
+46       ! run;
+
+NOTE: There were 342 observations read from the data set CMV.PLATE_033.
+NOTE: The data set WORK.TX_PLT has 342 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+47         
+48         data tx_plt;
+49         	set tx_plt; by id DateTransfusion plt_TxStartTime;
+50         	retain dt_plt;
+51         	if first.id then do; nplt=0; dt_plt=DateTransfusion; end;
+52         	nplt+1;
+53         	if last.id;
+54         	format dt_plt date9.;
+55         run;
+
+NOTE: There were 342 observations read from the data set WORK.TX_PLT.
+NOTE: The data set WORK.TX_PLT has 87 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+                                                           The SAS System
+
+
+56         
+57         
+58         %macro data(dataset);
+59         data tmp;
+60         	set &dataset;
+61         	%do i=1 %to 6;
+62         		center=floor(id/1000000);
+63         		CultureDate=Culture&i.Date;
+64         		CultureOrg=Culture&i.Org;
+65         		CultureOrgOther=Culture&i.OrgOther;
+66         		CultureSite=Culture&i.Site;
+67         		CultureSiteOther=Culture&i.SiteOther;
+68         		i=&i;
+69         		output;
+70         	%end;
+71         
+72         
+73         		keep id center CultureDate CultureOrg CultureOrgOther CultureSite CultureSiteOther CulturePositive CultureYes i
+74         		InfecConfirm SiteBlood SiteCNS SiteCardio SiteGI SiteLowerResp SiteSurgical SiteUT SiteOther InfectionSiteOther
+75         		XrayDate Comments  /*DFSEQ DFSTATUS DFVALID MOCInit*/;
+76         		format CultureDate XrayDate mmddyy. center center. InfecConfirm InfecConfirm. CultureYes CultureYes. CulturePositive
+76       ! CulturePositive. CultureSite CultureSite. CultureOrg CultureOrg. i CulturePos.;
+77         run;
+78         %mend;
+79         
+80         %data(cmv.infection_all);quit;
+
+NOTE: There were 229 observations read from the data set CMV.INFECTION_ALL.
+NOTE: The data set WORK.TMP has 1374 observations and 22 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+81         
+82         data sepsis;
+83             merge tmp 	cmv.plate_005(keep=id LBWIDOB); by id;
+84             if CultureDate^=. and CultureDate-LBWIDOB<=3;
+85         run;
+
+NOTE: There were 1374 observations read from the data set WORK.TMP.
+NOTE: There were 501 observations read from the data set CMV.PLATE_005.
+NOTE: The data set WORK.SEPSIS has 10 observations and 23 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+86         
+87         proc sort nodupkey; by id;run;
+
+NOTE: There were 10 observations read from the data set WORK.SEPSIS.
+NOTE: 4 observations with duplicate key values were deleted.
+NOTE: The data set WORK.SEPSIS has 6 observations and 23 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+                                                           The SAS System
+
+      
+
+88         
+89         data indo;
+90             merge cmv.med cmv.plate_005(keep=id LBWIDOB) cmv.plate_068(keep=id in=A); by id;
+91             if A and medcode=14;
+92             if StartDate-LBWIDOB<=3;
+93             keep id;
+94         run;
+
+NOTE: There were 8757 observations read from the data set CMV.MED.
+NOTE: There were 501 observations read from the data set CMV.PLATE_005.
+NOTE: There were 189 observations read from the data set CMV.PLATE_068.
+NOTE: The data set WORK.INDO has 20 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+95         
+96         proc sort nodupkey; by id;run;
+
+NOTE: There were 20 observations read from the data set WORK.INDO.
+NOTE: 0 observations with duplicate key values were deleted.
+NOTE: The data set WORK.INDO has 20 observations and 1 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+97         
+98         data indo3;
+99             merge indo(in=A) cmv.plate_068(keep=id); by id;
+100            if not A;
+101            keep id;
+102        run;
+
+NOTE: There were 20 observations read from the data set WORK.INDO.
+NOTE: There were 189 observations read from the data set CMV.PLATE_068.
+NOTE: The data set WORK.INDO3 has 169 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+103        proc sort nodupkey; by id;run;
+
+NOTE: There were 169 observations read from the data set WORK.INDO3.
+NOTE: 0 observations with duplicate key values were deleted.
+NOTE: The data set WORK.INDO3 has 169 observations and 1 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+104        
+105        data indo;
+106            merge indo(in=A) indo3(in=B); by id;
+                                                           The SAS System
+
+107            if A then indo=1; else indo=0;
+108        run;
+
+NOTE: There were 20 observations read from the data set WORK.INDO.
+NOTE: There were 169 observations read from the data set WORK.INDO3.
+NOTE: The data set WORK.INDO has 189 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+109        
+110        
+111        **********************************************************************************;
+112        
+113        data rbc;
+114        	set cmv.plate_031;
+115            keep id DateTransfusion Hb DateHbHct;
+116        	rename DateHbHct=hbdate DateTransfusion=dt;
+117        run;
+
+NOTE: There were 1405 observations read from the data set CMV.PLATE_031.
+NOTE: The data set WORK.RBC has 1405 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+118        
+119        proc sort nodupkey; by id dt; run;
+
+NOTE: There were 1405 observations read from the data set WORK.RBC.
+NOTE: 84 observations with duplicate key values were deleted.
+NOTE: The data set WORK.RBC has 1321 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+120        
+121        data hb;
+122        	set cmv.plate_015(keep=id hb hbdate BloodCollectDate) rbc(keep=id hbdate Hb); by id;
+123        		if hbdate=. then hbdate=BloodCollectDate;
+124        		if hb=. then delete;
+125        run;
+
+NOTE: There were 3660 observations read from the data set CMV.PLATE_015.
+NOTE: There were 1321 observations read from the data set WORK.RBC.
+NOTE: The data set WORK.HB has 4258 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+126        
+127        proc sort; by id hbdate;run;
+
+NOTE: There were 4258 observations read from the data set WORK.HB.
+                                                           The SAS System
+
+NOTE: The data set WORK.HB has 4258 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+128        
+129        data first_hb;
+130            set hb; by id hbdate;
+131            if first.id;
+132            keep id hb hbdate;
+133        run;
+
+NOTE: There were 4258 observations read from the data set WORK.HB.
+NOTE: The data set WORK.FIRST_HB has 503 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+134        
+135        data anemia8;
+136            merge hb ivh2 ; by id;
+137            if hbdate<=imagedate and hb<=8;
+138        run;
+
+NOTE: There were 4258 observations read from the data set WORK.HB.
+NOTE: There were 64 observations read from the data set WORK.IVH2.
+NOTE: The data set WORK.ANEMIA8 has 10 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+139        proc sort nodupkey; by id; run;
+
+NOTE: There were 10 observations read from the data set WORK.ANEMIA8.
+NOTE: 4 observations with duplicate key values were deleted.
+NOTE: The data set WORK.ANEMIA8 has 6 observations and 10 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+140        
+141        data anemia9;
+142            merge hb ivh2 ; by id;
+143            if hbdate<=imagedate and hb<=9;
+144        run;
+
+NOTE: There were 4258 observations read from the data set WORK.HB.
+NOTE: There were 64 observations read from the data set WORK.IVH2.
+NOTE: The data set WORK.ANEMIA9 has 24 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+                                                           The SAS System
+
+145        proc sort nodupkey; by id; run;
+
+NOTE: There were 24 observations read from the data set WORK.ANEMIA9.
+NOTE: 7 observations with duplicate key values were deleted.
+NOTE: The data set WORK.ANEMIA9 has 17 observations and 10 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+146        
+147        data rbc_hb;
+148            set rbc; by id dt;
+149            if first.id;
+150            keep id dt;
+151        run;
+
+NOTE: There were 1321 observations read from the data set WORK.RBC.
+NOTE: The data set WORK.RBC_HB has 278 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+152        
+153        data tx_hb;
+154            merge hb rbc_hb; by id;
+155            if hbdate<=dt and hb^=.;
+156        run;
+
+NOTE: There were 4258 observations read from the data set WORK.HB.
+NOTE: There were 278 observations read from the data set WORK.RBC_HB.
+NOTE: The data set WORK.TX_HB has 879 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+157        
+158        data tx_hb;
+159            set tx_hb; by id hbdate;
+160            if last.id;
+161            keep id hb;
+162        run;
+
+NOTE: There were 879 observations read from the data set WORK.TX_HB.
+NOTE: The data set WORK.TX_HB has 279 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+163        
+164        
+165        data platelet;
+166        	set cmv.plate_033;
+167            keep id DateTransfusion plateletnum DatePlateletCount;
+168        	rename DatePlateletCount=pltdate DateTransfusion=dt plateletnum=platelet;
+                                                           The SAS System
+
+169        run;
+
+NOTE: There were 342 observations read from the data set CMV.PLATE_033.
+NOTE: The data set WORK.PLATELET has 342 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+170        
+171        proc sort nodupkey; by id dt; run;
+
+NOTE: There were 342 observations read from the data set WORK.PLATELET.
+NOTE: 33 observations with duplicate key values were deleted.
+NOTE: The data set WORK.PLATELET has 309 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+172        
+173        data plt;
+174        	set cmv.plate_015(keep=id platelet pltdate BloodCollectDate) platelet(keep=id pltdate platelet); by id;
+175        		if pltdate=. then pltdate=BloodCollectDate;
+176        		if platelet^=.;
+177        run;
+
+NOTE: There were 3660 observations read from the data set CMV.PLATE_015.
+NOTE: There were 309 observations read from the data set WORK.PLATELET.
+NOTE: The data set WORK.PLT has 2803 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+178        
+179        proc sort; by id pltdate;run;
+
+NOTE: There were 2803 observations read from the data set WORK.PLT.
+NOTE: The data set WORK.PLT has 2803 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+180        
+181        data first_plt;
+182            set plt; by id pltdate;
+183            if first.id;
+184            keep id platelet pltdate;
+185        run;
+
+NOTE: There were 2803 observations read from the data set WORK.PLT.
+NOTE: The data set WORK.FIRST_PLT has 500 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+                                                           The SAS System
+
+
+186        
+187        data lbwi;
+188        	merge
+189        
+190        	cmv.plate_005(keep=id LBWIDOB Gender IsHispanic race RaceOther)
+191        	cmv.plate_006
+192        	cmv.plate_008(keep=id ROM Steroids)	
+193        	cmv.plate_009(keep=id IsChorloConfirm HistoChloro)	
+194        	cmv.plate_010(keep=id PO2Value  PCO2  FiO2  OxyIndex)
+195        	cmv.plate_012(keep=id SNAPTotalScore)
+196            /*cmv.plate_015(where=(DFSEQ=1)keep=id DFSEQ AnthroMeasureDate BloodCollectDate Platelet PltDate Hct HctDate Hb
+196      ! HbDate)*/
+197            first_hb first_plt
+198        	cmv.plate_068(keep=id IVHDiagDate Indomethacin  AntiConvulsant)
+199        	sepsis(in=S)
+200        	indo(keep=id in=pda_indo)
+201        	ivh2 tx_hb(rename=(hb=dt_hb))
+202        	tx_rbc(in=tx_rbc) tx_plt(in=tx_plt)
+203        	anemia8(in=tmpa)
+204        	anemia9(in=tmpb)
+205        	cmv.endofstudy(keep=id StudyLeftDate)
+206        	cmv.completedstudylist(in=comp);
+207        	
+208        	by id;
+209        	
+210        	if comp;
+211        
+212        	if WeightDate=. then WeightDate=AnthroMeasureDate;
+213        	if PltDate=. then PltDate=BloodCollectDate;
+214        	if HctDate=. then HctDate=BloodCollectDate;
+215        	if HbDate=. then HbDate=BloodCollectDate;
+216        
+217        	if ivh=. then ivh=0;
+218        	if S then sepsis=1; else sepsis=0;
+219        	
+220        	if 50<=po2value<65 then pov=1; if 30<=po2value<50 then pov=3; if po2value<30 then pov=5; if po2value>65 then pov=0;
+221        	Ratio=pO2Value/FiO2*100;
+222        	if ratio>250 then gr=0; if 100<=ratio<250 then gr=5; if ratio<100 then gr=16;
+223        	rt=ratio/100;
+224        	day=StudyLeftDate-lbwidob;
+225        	if ivh then day=Imagedate-LBWIDOB;
+226        	
+227        	if tx_rbc or tx_plt then tx=1; else tx=0;
+228        	
+229        	if tx_rbc and imagedate>dt_rbc then rbc=1; else if tx_rbc and imagedate<=dt_rbc then rbc=0; else rbc=.;
+230        	if tx_plt and imagedate>dt_plt then plt=1; else if tx_plt and imagedate<=dt_plt then plt=0; else plt=.;
+231        
+232        	
+233        	center=floor(id/1000000);
+234        
+235        	if 1000<=BirthWeight<=1500 then wc=1;	else if BirthWeight<1000 then wc=2; else wc=0;
+236        	PCO=PCO2;
+237        
+238        	if Indomethacin=. then Indomethacin=0;
+239        	if AntiConvulsant=. then AntiConvulsant=0;
+240        
+241        	if tmpa then anemic8=1; else anemic8=0;
+                                                           The SAS System
+
+242        	if tmpb then anemic9=1; else anemic9=0;
+243        	
+244        	if 0<Apgar5Min<3 then apg=1; else if Apgar5Min>=3 then apg=0;
+245        
+246        	if tx_rbc then do; if nrbc in(1,2) then idx_rbc=1; else if nrbc>2 then idx_rbc=2; end; else idx_rbc=0;
+247        	if tx_rbc then with_rbc=1; else  with_rbc=0;
+248        	
+249        	if ivh then do;
+250        	if imageDate<=hbdate then hb=.;
+251        	if imageDate<=pltdate then platelet=.;
+252        	end;
+253        	
+254        		
+255        	keep
+256        			id center Gender IsHispanic race LBWIDOB GestAge BirthWeight wc BirthResus  BirthResusOxygen BirthResusCPAP PO2Value
+257        			PCO2 PCO FiO2 ratio OxyIndex StudyLeftDate day SNAPTotalScore  Platelet Hct Hb dt_hb ivh IVHDiagDate ImageDate
+257      ! LeftIVHGrade
+258        			sepsis indo	RightIVHGrade 	ROM Steroids Indomethacin  AntiConvulsant gr rt pov snap
+259        			tx rbc plt	IsChorloConfirm HistoChloro Apgar5Min apg anemic8 anemic9 idx_rbc dt_rbc dt_plt nrbc with_rbc;		
+260        run;
+
+NOTE: Variable AnthroMeasureDate is uninitialized.
+WARNING: The variable Hct in the DROP, KEEP, or RENAME list has never been referenced.
+WARNING: The variable indo in the DROP, KEEP, or RENAME list has never been referenced.
+WARNING: The variable snap in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      83 at 221:16   83 at 223:10   
+NOTE: There were 501 observations read from the data set CMV.PLATE_005.
+NOTE: There were 501 observations read from the data set CMV.PLATE_006.
+NOTE: There were 429 observations read from the data set CMV.PLATE_008.
+NOTE: There were 415 observations read from the data set CMV.PLATE_009.
+NOTE: There were 501 observations read from the data set CMV.PLATE_010.
+NOTE: There were 501 observations read from the data set CMV.PLATE_012.
+NOTE: There were 503 observations read from the data set WORK.FIRST_HB.
+NOTE: There were 500 observations read from the data set WORK.FIRST_PLT.
+NOTE: There were 189 observations read from the data set CMV.PLATE_068.
+NOTE: There were 6 observations read from the data set WORK.SEPSIS.
+NOTE: There were 189 observations read from the data set WORK.INDO.
+NOTE: There were 64 observations read from the data set WORK.IVH2.
+NOTE: There were 279 observations read from the data set WORK.TX_HB.
+NOTE: There were 278 observations read from the data set WORK.TX_RBC.
+NOTE: There were 87 observations read from the data set WORK.TX_PLT.
+NOTE: There were 6 observations read from the data set WORK.ANEMIA8.
+NOTE: There were 17 observations read from the data set WORK.ANEMIA9.
+NOTE: There were 477 observations read from the data set CMV.ENDOFSTUDY.
+NOTE: There were 471 observations read from the data set CMV.COMPLETEDSTUDYLIST.
+NOTE: The data set WORK.LBWI has 471 observations and 51 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+261        
+262        ods trace on /label listing;
+263        proc logistic data= lbwi descending;
+264         model ivh = hb/outroc=roc1 details lackfit ctable pprob = (.05 to .6 by .05);
+265         ods output Logistic.Classification=ctab_hb;
+                                                           The SAS System
+
+266        run;
+
+NOTE: Option DETAILS ignored.
+NOTE: PROC LOGISTIC is modeling the probability that ivh=1.
+NOTE: Convergence criterion (GCONV=1E-8) satisfied.
+NOTE: The data set WORK.CTAB_HB has 12 observations and 10 variables.
+NOTE: There were 471 observations read from the data set WORK.LBWI.
+NOTE: The data set WORK.ROC1 has 124 observations and 7 variables.
+NOTE: The PROCEDURE LOGISTIC printed pages 1-5.
+NOTE: PROCEDURE LOGISTIC used (Total process time):
+      real time           0.15 seconds
+      cpu time            0.03 seconds
+      
+
+267        ods trace off;
+268        
+269        proc contents data=ctab_hb short varnum; run;
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+NOTE: The PROCEDURE CONTENTS printed page 6.
+
+270        
+271        proc logistic data= lbwi descending;
+272         model ivh = platelet/outroc=roc2 details lackfit ctable pprob = (.05 to .6 by .05);
+273          ods output Logistic.Classification=ctab_plt;
+274        run;
+
+NOTE: Option DETAILS ignored.
+NOTE: PROC LOGISTIC is modeling the probability that ivh=1.
+NOTE: Convergence criterion (GCONV=1E-8) satisfied.
+NOTE: The data set WORK.CTAB_PLT has 12 observations and 10 variables.
+NOTE: There were 471 observations read from the data set WORK.LBWI.
+NOTE: The data set WORK.ROC2 has 224 observations and 7 variables.
+NOTE: The PROCEDURE LOGISTIC printed pages 7-9.
+NOTE: PROCEDURE LOGISTIC used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+275        
+276        proc greplay igout= wbh.graphs  nofs; delete _ALL_; run;
+WARNING: Unable to load font '-dt-interface user-medium-r-normal-l*utf*-*-*-*-*-*-*-*-*'.
+WARNING: Defaulting to 'fixed'.
+WARNING: Unable to load font '-dt-interface user-medium-r-normal-l*utf*-*-*-*-*-*-*-*-*'.
+WARNING: Defaulting to 'fixed'.
+NOTE: Building list of graphs from the catalog.
+
+NOTE: Enter greplay commands or statements.
+NOTE: Cannot delete; igout is read only.
+
+277        
+278        symbol1 i=join v=none ;
+
+NOTE: PROCEDURE GREPLAY used (Total process time):
+      real time           0.47 seconds
+                                                           The SAS System
+
+      cpu time            0.08 seconds
+      
+
+279        proc gplot data=roc1 gout=wbh.graphs;
+280          title 'ROC Curve by Hb';
+281          plot _sensit_*_1mspec_ / vaxis=0 to 1 by .1 ;
+282        run;
+
+ERROR: User does not have appropriate authorization level for file WBH.GRAPHS.CATALOG.
+NOTE: The SAS System stopped processing this step because of errors.
+NOTE: PROCEDURE GPLOT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.02 seconds
+      
+
+
+283        proc gplot data=roc2 gout=wbh.graphs;
+284          title 'ROC Curve by Platelet Number';
+285          plot _sensit_*_1mspec_ / vaxis=0 to 1 by .1 ;
+286        run;
+
+ERROR: User does not have appropriate authorization level for file WBH.GRAPHS.CATALOG.
+NOTE: The SAS System stopped processing this step because of errors.
+NOTE: PROCEDURE GPLOT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+287        quit;
+288        title;
+289        
+290        goptions reset=all  gunit=pct colors=(orange green red) ftitle=Times ftext=Times hby = 3;
+291        
+292        ods pdf file="roc.pdf" style=journal;
+NOTE: Writing ODS PDF output to DISK destination "/dfax/ttcmv/sas/programs/reporting/baohua/IVH/roc.pdf", printer "PDF".
+
+
+293        proc greplay igout = wbh.graphs tc=sashelp.templt template=v2s nofs; * L2R2s;
+NOTE: Building list of graphs from the catalog.
+
+NOTE: Enter greplay commands or statements.
+294             treplay 1:1 2:2;
+WARNING: The specified value of 24.2400 inches for HSIZE= is larger than 11.1164 inches which is the maximum for the device Xcolor. 
+         HSIZE is ignored.
+WARNING: The specified value of 12.6533 inches for VSIZE= is larger than 5.7135 inches which is the maximum for the device Xcolor. 
+         VSIZE is ignored.
+295        run;
+
+296        
+
+NOTE: PROCEDURE GREPLAY used (Total process time):
+      real time           0.91 seconds
+      cpu time            0.05 seconds
+      
+
+297        proc print data=ctab_hb;
+298        title "Hb";
+299        var ProbLevel CorrectEvents CorrectNonevents IncorrectEvents IncorrectNonevents Correct Sensitivity Specificity
+299      ! FalsePositive
+                                                           The SAS System
+
+300        FalseNegative/style(data)=[width=0.75in];
+301        run;
+
+NOTE: There were 12 observations read from the data set WORK.CTAB_HB.
+NOTE: The PROCEDURE PRINT printed page 10.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.03 seconds
+      
+
+302        
+303        proc print data=ctab_plt;
+304        title "Platelet Number";
+305        var ProbLevel CorrectEvents CorrectNonevents IncorrectEvents IncorrectNonevents Correct Sensitivity Specificity
+305      ! FalsePositive
+306        FalseNegative/style(data)=[width=0.75in];
+307        run;
+
+NOTE: There were 12 observations read from the data set WORK.CTAB_PLT.
+NOTE: The PROCEDURE PRINT printed page 11.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+308        ods pdf close;
+NOTE: ODS PDF printed 3 pages to /dfax/ttcmv/sas/programs/reporting/baohua/IVH/roc.pdf.
+ERROR: Errors printed on page 13.
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           1.87 seconds
+      cpu time            0.42 seconds
+      

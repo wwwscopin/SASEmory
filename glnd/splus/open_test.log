@@ -1,0 +1,126 @@
+This is TeX, Version 3.14159 (Web2C 7.4.5) (format=latex 2004.7.7)  13 APR 2011 14:03
+**open_test.tex
+(./open_test.tex
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, n
+ohyphenation, loaded.
+(/usr/local/share/texmf/tex/latex/base/article.cls
+Document Class: article 2001/04/21 v1.4e Standard LaTeX document class
+(/usr/local/share/texmf/tex/latex/base/size10.clo
+File: size10.clo 2001/04/21 v1.4e Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/local/share/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/share/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/local/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/local/share/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2001/08/31 v1.1 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: dvips.def on input line 80.
+
+(/usr/local/share/texmf/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+(/usr/local/share/texmf/tex/latex/misc/rotating.sty
+Package: rotating 1997/09/26, v2.13 Rotation package
+
+(/usr/local/share/texmf/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\c@r@tfl@t=\count87
+\rot@float@box=\box26
+) (./open_test.aux)
+\openout1 = `open_test.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+
+Overfull \hbox (31.56267pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 14:03:18 EDT 2011     1
+ []
+
+[1
+
+] (./open_test.lot)
+\tf@lot=\write3
+\openout3 = `open_test.lot'.
+
+ (./open_test.lof
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 1.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 1.
+)
+\tf@lof=\write4
+\openout4 = `open_test.lof'.
+
+
+Overfull \hbox (31.56267pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 14:03:18 EDT 2011     1
+ []
+
+[1
+
+]
+File: //glnd//sas//reporting//mort.ps Graphic file (type eps)
+ <//glnd//sas//reporting//mort.ps>
+File: //glnd//sas//reporting//mort.ps Graphic file (type eps)
+ <//glnd//sas//reporting//mort.ps>
+Overfull \hbox (31.56267pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 14:03:18 EDT 2011     2
+ []
+
+[2]
+Overfull \hbox (31.56267pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SE
+SSION   Wed Apr 13 14:03:18 EDT 2011     3
+ []
+
+[3] (./open_test.aux) ) 
+Here is how much of TeX's memory you used:
+ 622 strings out of 95847
+ 7308 string characters out of 1195583
+ 52866 words of memory out of 1000001
+ 3600 multiletter control sequences out of 10000+50000
+ 4897 words of font info for 18 fonts, out of 500000 for 1000
+ 14 hyphenation exceptions out of 1000
+ 25i,4n,21p,207b,329s stack positions out of 1500i,500n,5000p,200000b,5000s
+
+Output written on open_test.dvi (4 pages, 3688 bytes).

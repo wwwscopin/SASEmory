@@ -1,0 +1,73 @@
+#################################################################################################
+#
+# Program:	steering.in
+#
+# Purpose:	Produce  reports# for steering call 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.quart("report",
+ prepare.date=date(),
+ asof.date=date(),
+ report.type="Monthly Steering Committee Report",
+ meet.date=" ",
+ header="Monthly GLND Report")
+
+lib="/glnd/splus"
+
+recruit=f.sas.get(library=lib,member="recruit",  format.library=lib,formats=T )
+
+
+tmp.tab=recruit[,c("center","irb","nscreened","e","r")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Cumulative Patient Screening and Enrollment" ,append=T,
+       pos=c("l","c","c","c","c"))
+
+
+rec30=f.sas.get(library=lib,member="recruit30",
+ format.library=lib,formats=T)
+
+
+tmp.tab=rec30[,c("center","nscreened","e","r")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Patient Screening and Enrollment Within Last 30 Days" ,append=T,
+       pos=c("l","c","c","c"))
+
+
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+in30=f.sas.get(library=lib,member="inelig30",
+ format.library=lib,formats=T)
+
+
+tmp.tab=in30[,c("affil1","xid","reason")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Reasons Not Eligible in Last 30 Days" ,append=T,
+       pos=c("l","c","c"))
+
+
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{90}{",
+ "\\includegraphics{recruitment.ps}}}",sep=""),
+ "\\caption{Recruitment Projections}",
+ "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T)
+ 
+ 
+
+
+f.bottom("report")
+unix("/home/gcotson/bin/laps report",output=F)
+unix("/home/gcotson/bin/laps report",output=F)
+unix("/home/gcotson/bin/lapdf report",output=F)
+unix("/home/gcotson/bin/lapdf report",output=F)

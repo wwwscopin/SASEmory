@@ -1,0 +1,49 @@
+#################################################################################################
+#
+# Program:	glnd_baseline.in
+#
+# Purpose:	Produce recruitment and baseline  results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+#||||||||||||||||||||||||||||||||
+# ERROR in percent_iv_lipid, percent_iv_dex
+#basedsmc from lib not from frozen!!!!!!!
+################################################################################################
+
+source("start.in")
+
+
+f.top("open",
+ prepare.date=date(),
+ asof.date="March 4, 2012",
+ report.type="Recruitment, Baseline, and Follow-up  OPEN SESSION",
+ meet.date="April 17, 2012",
+ header="GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SESSION")
+
+lib="/dfax/glnd/sas"
+#lib="/dfax/glnd/sas/dsmc/20110404"
+libr="/dfax/glnd/sas/reporting"
+#libr="/dfax/glnd/sas/dsmc/20110404/reporting"
+libdf="/dfax/glnd/sas/reporting/df_reporting" 
+#libdf="/dfax/glnd/sas/dsmc/20110404/reporting/df_reporting"
+libs="/dfax/glnd/splus"
+
+### Recruitment by Center
+
+lipid<- f.sas.get(library=libr,member="percent_iv_lipid", format.library=libs,  formats=T)
+xlipid=  lipid[,c("day","patients", "had.pn.s","col.0","col.0.15","col.15.30","col.30.100")]                 
+f.list(file="open", x=xlipid,
+   caption="Median Proportion of IV kcal Composed of Lipid, Over Time in Patients Receiving TPN", 
+   footnote=" Note: patients with daily nutritional information not yet submitted appear as not receiving TPN.",
+   append=T, pos=c("l","c","c","c","c","c","c"))  
+
+        
+### Finish
+
+f.bottom("open")
+unix("/home/gcotson/bin/laps open",output=F)
+unix("/home/gcotson/bin/laps open",output=F)
+unix("/home/gcotson/bin/lapdf open",output=F)
+unix("/home/gcotson/bin/lapdf open",output=F)

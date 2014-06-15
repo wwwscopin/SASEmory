@@ -1,0 +1,99 @@
+#################################################################################################
+#
+# Program:	quarterlyaesae.in
+#
+# Purpose:	Produce OPEN ae quarterly report
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.quart("quarterlyopen",
+ prepare.date=date(),
+ asof.date=date(),
+ report.type="Quarterly OPEN AE/SAE Report",
+ meet.date=" ",
+ header="Quarterly OPEN AE/SAE Report")
+
+lib="/glnd/sas"
+
+
+### ae 2 parts
+
+dsmcaeunrel <- f.sas.get(library=lib,member="dsmcaeunrel",
+                            format.library=lib,formats=T)
+             
+f.list(file="quarterlyopen", x=dsmcaeunrel[,c("ae","tae"),              
+      drop=F],
+footnote="\\# AEs (\\# Pat) \\% Pat",
+       caption="AE Unrelated to Glutamine" ,append=T,
+       pos=c("l","c"))
+
+dsmcaerel <- f.sas.get(library=lib,member="dsmcaerel",
+                            format.library=lib,formats=T)
+
+foot_relae <-paste("\\# AEs (\\# Pat) \\% Pat","\\newline",
+ "Hypoglycemia information collected since April 1,2008 only"  )
+
+f.list(file="quarterlyopen", x=dsmcaerel[,c("ae","tae"),              
+      drop=F],
+ footnote=foot_relae,
+       caption="AE Potentially Related to Glutamine" ,append=T,
+       pos=c("l","c"))
+
+  
+cat("\\clearpage",sep="\n",file="quarterlyopen.tex",append=T)
+
+
+
+### SAE
+
+dsmcsaeall <- f.sas.get(library=lib,member="dsmcsaeall",
+                            format.library=lib,formats=T)
+foot_sae <-paste("\\# AEs (\\# Pat) \\% Pat","\\newline",
+ "Per protocol, an SAE form is completed only for events that occur within 30
+  days of study drug discontinuation." )      
+      
+                
+f.list(file="quarterlyopen", x=dsmcsaeall[,c("sae","tsae"),              
+      drop=F],
+ footnote=foot_sae,
+       caption="SAE" ,append=T,
+       pos=c("l","c"))
+
+
+libr="/glnd/sas/reporting"
+ morto=f.sas.get(library=libr,member="other_mortality")
+
+
+otmp.tab=morto[,c("row","overall.disp","emory.disp","miriam.disp","vandy.disp","colorado.disp")]
+f.list(file="quarterlyopen", x=otmp.tab,
+       caption="Mortality Rates by Center" ,append=T,
+       pos=c("l","c","c","c","c","c"))
+       
+       cat("\\clearpage",sep="\n",file="quarterlyopen.tex",append=T)
+
+       
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.8in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{deathdetails.ps}}}",sep=""),
+  "\\end{figure}"),
+ file=paste("quarterlyopen","tex",sep="."),sep="\n",append=T)
+cat("\\clearpage",sep="\n",file="quarterlyopen.tex",append=T)
+
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.8in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{deathdetails1.ps}}}",sep=""),
+  "\\end{figure}"),
+ file=paste("quarterlyopen","tex",sep="."),sep="\n",append=T)
+cat("\\clearpage",sep="\n",file="quarterlyopen.tex",append=T)
+f.bottom("quarterlyopen")
+unix("/home/gcotson/bin/laps quarterlyopen",output=F)
+unix("/home/gcotson/bin/laps quarterlyopen",output=F)
+unix("/home/gcotson/bin/lapdf quarterlyopen",output=F)
+unix("/home/gcotson/bin/lapdf quarterlyopen",output=F)

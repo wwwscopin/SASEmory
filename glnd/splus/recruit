@@ -1,0 +1,6 @@
+
+cp /glnd/sas/reporting/recruitment.pdf .
+pdf2ps recruitment.pdf recruitment.ps
+Splus7 < recruit.in
+cp report.ps recruit.ps
+cp report.pdf recruit.pdf

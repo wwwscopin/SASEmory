@@ -1,0 +1,377 @@
+#################################################################################################
+#
+# Program:	closed.in
+#
+# Purpose:	Produce closed results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.top("closed",
+ prepare.date=date(),
+ asof.date="Aug 31, 2009",
+ report.type="Baseline and Follow-up CLOSED SESSION",
+ meet.date="October 6, 2009",
+ header="GLND DSMB Report CLOSED SESSION")
+
+
+# lib="/glnd/sas/reporting"
+lib="/glnd/sas/dsmc/20090831"
+libr="/glnd/sas/reporting"
+ libs="/glnd/sas"
+libdf="/glnd/sas/reporting/df_reporting" 
+lib8r="/glnd/sas/dsmc/20090831/reporting"
+
+
+### Baseline patient characteristics 
+
+base_pat_char2 <- f.sas.get(library=lib,member="basedemo",
+                           format.library=lib,formats=T)
+f.tab(file="closed",
+      x=base_pat_char2[,c("gender","rac","hispanic","affil","apache.id", "apachese",
+                         "ards","mech.vent","age"),
+      drop=F],  group=base_pat_char2[,"treatment"],
+     footnote="mad - median of the absolute values of the deviation from the median",
+      caption="Patient Characteristics", 
+      append=T, zero=F, 
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+      
+      cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+      
+      
+      
+f.tab(file="closed",
+      x=base_pat_char2[,c("bmi","surg","diag","daysop"),
+      drop=F], group=base_pat_char2[,"treatment"],
+     
+      caption="Patient Characteristics (Continued)", 
+      append=T, zero=F, 
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+      
+      cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+f.tab(file="closed",
+      
+      x=base_pat_char2[,c("int.aortic.pump","nosc.infect","nutr.status","wbc.count"),
+      drop=F],
+     group=base_pat_char2[,"treatment"],
+      caption="Patient Characteristics (Continued)", 
+      append=T, zero=F, 
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+      
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+ f.tab(file="closed", 
+      x=base_pat_char2[,c("indication.pn.1","indication.pn.2","indication.pn.3",
+      "indication.pn.4","indication.pn.5","indication.pn.6","ent.nutr","parent.nutr","apachesicu"),
+      drop=F],
+      group=base_pat_char2[,"treatment"],
+      caption="Patient Characteristics (Continued)", 
+      append=T, zero=F, 
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+      
+      
+ status <- f.sas.get(library=lib,member="status",
+                           format.library=lib,formats=T)
+
+f.tab(file="closed",
+      x=status[,c("days.hosp","days.hosp.post.entry",
+                         "ever.on.ventilation.study"),
+      drop=F],
+       group=status[,"treatment"],
+      caption="Duration of Hospitalization", 
+      append=T, zero=F, 
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)   
+
+     
+
+
+cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{7.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{icu_closed.ps}}}",sep=""),
+ "\\caption{ICU days}",
+ "\\end{figure}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{7.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{mech_vent_closed.ps}}}",sep=""),
+ "\\caption{Mechanical Ventilation Summary}",
+ "\\end{figure}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+
+# mechventc <- f.sas.get(library=libr,member="mechventclosed",
+#                           format.library=lib,formats=T)
+#f.list(file="closed",
+#      x=mechventc[,c("treatment","row.label","xn","xmin","xmedian","xmax"),
+#     drop=F],
+#    
+#      caption="Mechanical Ventilation Summary by Treatment", 
+#      append=T, pos=c("c","l","c","c","c","c"))   
+      
+
+
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//blood1closed.ps}}}",sep=""),
+ "\\caption{Blood Glucose - Evening}",
+ "\\end{figure}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+ 
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//blood2closed.ps}}}",sep=""),
+ "\\caption{Blood Glucose - Morning}",
+ "\\end{figure}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+  
+  
+  
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//blood3closed.ps}}}",sep=""),
+ "\\caption{Blood Glucose - Afternoon}",
+ "\\end{figure}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+ 
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//blood4closed.ps}}}",sep=""),
+ "\\caption{Blood Glucose Boxplots - Evening}",
+ "\\end{figure}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+
+   
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//blood5closed.ps}}}",sep=""),
+ "\\caption{Blood Glucose Boxplots - Morning}",
+ "\\end{figure}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//blood6closed.ps}}}",sep=""),
+ "\\caption{Blood Glucose Boxplots - Afternoon}",
+ "\\end{figure}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+   
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//blood7closed.ps}}}",sep=""),
+ "\\caption{Blood Glucose - Evening Longitudinal Model}",
+ "\\end{figure}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)          
+           
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//blood8closed.ps}}}",sep=""),
+ "\\caption{Blood Glucose - Morning Longitudinal Model}",
+ "\\end{figure}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+ 
+ cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//blood9closed.ps}}}",sep=""),
+ "\\caption{Blood Glucose - Afternoon Longitudinal Model}",
+ "\\end{figure}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+
+
+ 
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//sofaclosed.ps}}}",sep=""),
+ "\\caption{Total SOFA Score}",
+ "\\end{figure}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+ 
+ 
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//glutamine_closed_1.ps}}}",sep=""),
+ "\\caption{Glutamic Acid}",
+ "\\end{figure}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+ 
+ 
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//glutamine_closed_2.ps}}}",sep=""),
+ "\\caption{Glutamine}",
+ "\\end{figure}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+ 
+ 
+ 
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{//glnd//sas//reporting//glutamine_closed_3.ps}}}",sep=""),
+ "\\caption{Total Glutamine}",
+ "\\end{figure}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+ # or use this ae version
+ 
+### ae 2 parts
+
+dsmcaeunrel <- f.sas.get(library=lib,member="dsmcaeunrel",
+                            format.library=lib,formats=T)
+                        
+tmp.tab=dsmcaeunrel[,c("ae","aae","maedaysa","bae","maedaysb")]
+f.list(file="closed", x=tmp.tab, footnote="\\# AEs (\\# Pat) \\% Pat",
+       caption="AE Unrelated to Glutamine by Treatment" ,append=T,
+       pos=c("l","c","c","c","c"))
+       
+
+
+foot_sae <-paste("\\# AEs (\\# Pat) \\% Pat","\\newline",
+ "Per protocol, an SAE form is completed only for events that occur within 30
+  days of study drug discontinuation.  An additional 6 patients have died within
+  the 6 month follow-up period (see next page)."  )
+
+foot_relae <-paste("\\# AEs (\\# Pat) \\% Pat","\\newline",
+ "Hypoglycemia information collected for the last 36 patients only." ,
+ "Two A treated patients had single episodes of Hypoglycemia less than 40." )
+dsmcaerel <- f.sas.get(library=lib,member="dsmcaerel",
+                            format.library=lib,formats=T)
+
+tmp.tab=dsmcaerel[,c("ae","aae","maedaysa","bae","maedaysb")]
+f.list(file="closed", x=tmp.tab, footnote=foot_relae,
+       caption="AE Potentially Related to Glutamine by Treatment" ,append=T,
+       pos=c("l","c","c","c","c"))
+
+   cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+
+### SAE
+
+dsmcsaeall <- f.sas.get(library=lib,member="dsmcsaeall",
+                            format.library=lib,formats=T)
+                        
+tmp.tab=dsmcsaeall[,c("sae","asae","msaedaysa","bsae","msaedaysb")]
+f.list(file="closed", x=tmp.tab, footnote=foot_sae,
+       caption="SAE by Treatment" ,append=T,
+       pos=c("l","c","c","c","c"))
+
+cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//deathdetailsclosed.ps}}}",sep=""),
+ "\\caption{Patient Death Summary - by Treatment}", 
+ "\\end{figure}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//deathdetailsclosed1.ps}}}",sep=""),
+ "\\caption{Patient Death Summary - by Treatment}", 
+ "\\end{figure}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+
+
+om <- f.sas.get(library=lib8r,member="other_mortality_closed",
+                           format.library=lib,formats=T)
+     # row overall_disp_A overall_disp_B low_apache_disp_A low_apache_disp_B hi_apache_disp_A hi_apache_disp_B;
+
+f.list(file="closed",
+      x=om,
+          
+      caption="Death Summary by Treatment and APACHE II", 
+      append=T, pos=c("l","c","c","c","c","c","c"))  
+
+
+
+
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{-90}{",
+ "\\includegraphics{//glnd//sas//reporting//mortclosed.ps}}}",sep=""),
+ "\\caption{Mortality Curve - by Treatment}", 
+ "\\end{figure}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{0}{",
+ "\\includegraphics{ratesclosed.ps}}}",sep=""),
+ "\\caption{Nosocomial Rates}", 
+ "\\end{figure}"),
+ file=paste("closed","tex",sep="."),sep="\n",append=T)
+ cat("\\clearpage",sep="\n",file="closed.tex",append=T)
+
+ #### try f.list
+ 
+
+closeds1=f.sas.get(library=lib8r,member="organism_summary_closed1",
+                            format.library=lib,formats=T)
+ tmp.tab=closeds1[,c("type","organism","prevalent.a", "prevalent.b")]
+ f.list(file="closed",x=tmp.tab, caption="Prevalent Nosocomial Infection by Cultured Organism",
+  append=T,  pos=c("l","l","c","c"))
+  
+  
+  
+closeds2=f.sas.get(library=lib8r,member="organism_summary_closed2",
+                            format.library=lib,formats=T)
+ tmp.tab=closeds2[,c("type","organism","prevalent.a", "prevalent.b")]
+ f.list(file="closed",x=tmp.tab, caption="Prevalent Nosocomial Infection by Cultured Organism (continued)",
+  append=T,  pos=c("l","l","c","c"))
+  
+  
+  
+  
+  
+  tmp.tab=closeds1[,c("type","organism","incident.a","incident.b")]
+ f.list(file="closed",x=tmp.tab, caption="Incident Nosocomial Infection  by Cultured Organism",
+  append=T,  pos=c("l","l","c","c"))
+  
+  
+  
+  tmp.tab=closeds2[,c("type","organism","incident.a","incident.b")]
+ f.list(file="closed",x=tmp.tab, caption="Incident Nosocomial Infection  by Cultured Organism (continued)",
+  append=T,  pos=c("l","l","c","c"))
+  
+  
+closede=f.sas.get(library=lib8r,member="episodesummaryclosed",
+                            format.library=lib,formats=T)
+ tmp.tab=closede[,c("sc","tc","prevalent.a", "prevalent.b")]
+ f.list(file="closed",x=tmp.tab, caption="Prevalent Nosocomial Infection by Clinical Site and Type",
+  append=T,  pos=c("l","l","c","c"))
+  
+  tmp.tab=closede[,c("sc","tc","incident.a","incident.b")]
+ f.list(file="closed",x=tmp.tab, caption="Incident Nosocomial Infection by Clinical Site and Type",
+  append=T,  pos=c("l","l","c","c"))
+    
+### Finish
+
+f.bottom("closed")
+unix("/home/gcotson/bin/laps closed",output=F)
+unix("/home/gcotson/bin/laps closed",output=F)
+unix("/home/gcotson/bin/lapdf closed",output=F)
+unix("/home/gcotson/bin/lapdf closed",output=F)

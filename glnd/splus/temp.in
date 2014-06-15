@@ -1,0 +1,49 @@
+#################################################################################################
+#
+# Program:	glnd_baseline.in
+#
+# Purpose:	Produce recruitment and baseline  results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+#||||||||||||||||||||||||||||||||
+# ERROR in percent_iv_lipid, percent_iv_dex
+#basedsmc from libs not from frozen!!!!!!!
+################################################################################################
+
+source("start.in")
+
+f.top("temp",
+ prepare.date=date(),
+ asof.date="October 11, 2010",
+ report.type="Recruitment, Baseline, and Follow-up  OPEN SESSION",
+ meet.date=" Nov 2010",
+ header="GLND DSMB Report-Recruitment, Baseline, and Follow-up OPEN SESSION")
+
+#lib="/glnd/sas/reporting"
+lib="/glnd/sas/dsmc/20101011"
+libr="/glnd/sas/reporting"
+#libr="/glnd/sas/dsmc/20101011/reporting"
+ libs="/glnd/sas"
+#libdf="/glnd/sas/reporting/df_reporting" 
+libdf="/glnd/sas/dsmc/20101011/reporting/df_reporting"
+
+
+studypn<- f.sas.get(library=libr,member="studypn",
+                            format.library=lib,formats=T)                     
+tmp.tab=studypn[,c("gr","mean","median","q1","q3", "min", "max")]
+f.list(file="temp", x=tmp.tab, 
+       caption="Days on Study PN" ,append=T,
+       pos=c("l","c","c","c","c","c","c"), 
+       footnote="* the minimum time on PN of 0 days was observed in a patient that died before PN was started")
+cat("\\clearpage",sep="\n",file="temp.tex",append=T)
+  
+ 
+### Finish
+
+f.bottom("temp")
+unix("/home/gcotson/bin/laps temp",output=F)
+unix("/home/gcotson/bin/laps temp",output=F)
+unix("/home/gcotson/bin/lapdf temp",output=F)
+unix("/home/gcotson/bin/lapdf temp",output=F)

@@ -1,0 +1,46 @@
+#################################################################################################
+#
+# Program:	monthly.in
+#
+# Purpose:	Produce monthly reports# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.quart("report",
+ prepare.date=date(),
+ asof.date=date(),
+ report.type="Monthly GLND Report",
+ meet.date=" ",
+ header="Monthly GLND Report")
+
+lib="/glnd/sas/reporting"
+libf="/glnd/sas"
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{90}{",
+ "\\includegraphics{recruitment.ps}}}",sep=""),
+ "\\caption{Recruitment Projections}",
+ "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T)
+ 
+
+
+recruit6=f.sas.get(library=lib,member="recruit_6",  format.library=libf,formats=T )
+
+tmp.tab=recruit6[,("str.month","n.patients","sum.patients")]
+
+f.list(file="report", x=tmp.tab,
+      caption="Recruitment During Last 6 Months", append=T,
+      pos=c("l","c","c"))
+
+ 
+
+f.bottom("report")
+unix("/home/gcotson/bin/laps report",output=F)
+unix("/home/gcotson/bin/laps report",output=F)
+unix("/home/gcotson/bin/lapdf report",output=F)
+unix("/home/gcotson/bin/lapdf report",output=F)

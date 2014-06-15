@@ -1,0 +1,283 @@
+#################################################################################################
+#
+# Program:	iats_baseline.in
+#
+# Purpose:	Produce recruitment, baseline and EUA results tables for reports
+# 
+# uses sas datasets found in /iats/sas/splus_to_sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start_dsmc.in")
+
+
+f.top("report",
+ prepare.date=date(),
+ asof.date="Nov 20, 2006",
+ report.type="Recruitment, Baseline, and EUA Results",
+ meet.date="Nov 30, 2006",
+ header="IATS DSMC Report - Recruitment/Baseline/EUA")
+
+
+### Recruitment by Center
+
+recruitment <- f.sas.get(library="/iats/sas/sas_to_splus",member="recruitment",
+                            format.library="/iats/sas",formats=T)
+tmp.tab=recruitment[,c("center","mo","s","early","e","r")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Patient Screening and Enrollment" ,append=T,
+       pos=c("l","c","c","c","c","c"))
+
+
+### Recruitment projection
+
+projection_ds <- f.sas.get(library="/iats/sas/sas_to_splus",member="projection_ds",
+                           format.library="/iats/sas",formats=T)
+
+tmp.tab=projection_ds[,c("x","value")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Recruitment Projection" ,append=T,
+       pos=c("l","l"))
+
+
+### Reasons patients were ineligible at initial screening
+
+ineligible_screen <- f.sas.get(library="/iats/sas/sas_to_splus",member="ineligible_screen",
+                               format.library="/iats/sas",formats=T)
+
+tmp.tab=ineligible_screen[,c("center","id","reas")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Reasons Patients Were Ineligible at Initial Screening" ,append=T,
+       pos=c("l","c","l"))
+
+
+### Reasons patients were ineligible at EUA
+
+ineligible_eua <- f.sas.get(library="/iats/sas/sas_to_splus",member="ineligible_eua",
+                            format.library="/iats/sas",formats=T)
+
+tmp.tab=ineligible_eua[,c("center","id","reas")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Reasons Patients Were Ineligible at EUA" ,append=T,
+       pos=c("l","c","l"))
+
+
+### Reasons patients eligible at initial screening were not enrolled
+
+eligible_not_enrolled <- f.sas.get(library="/iats/sas/sas_to_splus",member="eligible_not_enrolled",
+                                  format.library="/iats/sas",formats=T)
+
+tmp.tab=eligible_not_enrolled[,c("center","id","reas")]
+
+f.list(file="report", x=tmp.tab,center=F,
+       caption="Reasons Patients Eligible at Initial Screening Were Not Enrolled" ,append=T,
+       pos=c("l","c","l"))
+
+
+### Number of patients by treatment and the combination of stratification variables
+
+num_pat_trt_strat <- f.sas.get(library="/iats/sas/sas_to_splus",member="num_pat_trt_strat",  
+                                        format.library="/iats/sas",formats=T)
+
+tmp.tab=num_pat_trt_strat[,c("trt","xy1","xo1","xy2","xo2","xy3","xo3","tot")]
+
+foot_strata <-paste( "The stratification variables and groups are:", "\\newline",
+        "     - Clinical Centers: Steering Committee Centers (Duke U, Emory U, Indiana U, MUSC) ","\\newline",
+        " \\hspace*{28mm}","Other Pilot Study Centers (U of Minn, Vanderbilt U, U of Texas SW, OHSU) ", "\\newline",
+        " \\hspace*{28mm}","New Centers (Harvard U, Miami Children's Hosp, Cleveland Clinic, Baylor U)", "\\newline",
+        "     - Patient Age at Surgery:  28-48 days", "\\newline",
+        " \\hspace*{40mm}","49-210 days")
+
+f.list(file="report", x=tmp.tab, csep="0em",
+       caption="Number of Patients by Treatment and the Combination of the Two Stratification Variables",
+       append=T, footnote=foot_strata, width.note="6in")
+
+
+### Number of patients by treatment for each stratification variable
+
+num_pat_trt_each_strat <- f.sas.get(library="/iats/sas/sas_to_splus",member="num_pat_trt_each_strat",
+                                    format.library="/iats/sas",formats=T)
+
+tmp.tab=num_pat_trt_each_strat[,c("strat1","strat2","cl","iol","to")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Number of Patients by Treatment Assignment for Each Stratification Variable" ,append=T)
+
+
+### Number of patients by clinical center and treatment
+
+num_pat_cen_trt <- f.sas.get(library="/iats/sas/sas_to_splus",member="num_pat_cen_trt",
+                             format.library="/iats/sas",formats=T)
+
+tmp.tab=num_pat_cen_trt[,c("center","cl","iol","total")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Number of Patients by Treatment Assignment and Center" ,append=T,
+       pos=c("l","c","c","c"))
+
+
+### Number of patients with CRFs received for each follow-up visit
+
+status3moa <- f.sas.get(library="/iats/sas/sas_to_splus",member="status3moa",
+                              format.library="/iats/sas",formats=T)
+
+tmp.tab=status3moa[,c("center","id","d1","w1","m1","m3","m6","m9","m12","m15","m18")]
+
+foot_status3mo <-paste("X indicates visit form received","\\newline",
+                       "M indicates visit was missed", "\\newline",
+                       "D indicates form due and not yet received")
+        
+f.listcompressed(file="report", x=tmp.tab,
+       caption="Status of Receipt of CRFs for Protocol Scheduled Visits" ,append=T,
+       pos=c("l","c","c","c","c","c","c","c","c","c","c"),csep="0em", footnote=foot_status3mo)
+       
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+status3mob <- f.sas.get(library="/iats/sas/sas_to_splus",member="status3mob",
+                              format.library="/iats/sas",formats=T)
+
+tmp.tab=status3mob[,c("center","id","d1","w1","m1","m3","m6","m9","m12","m15","m18")]
+
+foot_status3mo <-paste("X indicates visit form received","\\newline",
+                       "M indicates visit was missed", "\\newline",
+                       "D indicates form due and not yet received")
+        
+f.listcompressed(file="report", x=tmp.tab,
+       caption="Status of Receipt of CRFs for Protocol Scheduled Visits (Continued)" ,append=T,
+       pos=c("l","c","c","c","c","c","c","c","c","c","c"),csep="0em", footnote=foot_status3mo)
+       
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+
+### Baseline patient characteristics by treatment
+
+base_pat_char <- f.sas.get(library="/iats/sas/sas_to_splus",member="base_pat_char",
+                           format.library="/iats/sas",formats=T)
+
+f.tab(file="report",
+      x=base_pat_char[,c("age","age.cat","sex","hispanic","newrace","cataract.eye","other.cong",
+                         "ref.source","private.insur","medicaid"),
+      drop=F],
+      group=base_pat_char[,"trt"],
+      caption="Patient Characteristics", 
+      append=T, zero=F, 
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+
+### Results from the office exam by treatment
+
+office_exam <- f.sas.get(library="/iats/sas/sas_to_splus",member="office_exam",
+                         format.library="/iats/sas",formats=T)
+
+f.tab(file="report",
+      x=office_exam[,c("acuity.cat","acuity.ncat","orthotropic",
+                        "nystagmus","pupils.cat","pupils.ncat","apd.cat","apd.ncat"),
+     drop=F],
+     group=office_exam[,"trt"],
+     caption="Examination Information at the Office Exam",
+     append=T, zero=F,
+     vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+
+### Results from the EUA by treatment. The results are split across 3 tables.
+
+eua <- f.sas.get(library="/iats/sas/sas_to_splus",member="eua",
+                 format.library="/iats/sas",formats=T)
+
+f.tab(file="report",
+      x=eua[,c("bio.lens.cat","bio.lens.ncat",
+               "type.cataract","type.pfv.norm",
+               "bio.cornea.cat","bio.cornea.ncat",
+               "bio.iris.cat","bio.iris.ncat",
+               "op.nerve.cat","op.nerve.ncat",
+               "retina.cat","retina.ncat"), 
+      drop=F],
+      group=eua[,"trt"],
+      caption="Examination Information at the EUA",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T) 
+ 
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+f.tab(file="report",
+      x=eua[,c("corneal.diam.cat","corneal.diam.ncat","iop.cat","iop.ncat",
+               "kread.cat","kread.ncat","axial.length.cat","axial.length.ncat",
+               "refract.ncat"),
+      drop=F],
+      group=eua[,"trt"],
+      caption="Examination Information at the EUA (continued)",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+ 
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+f.tab(file="report",
+      x=eua[,c("protocol.dev","steer.comm.call.atmpt","sreached"),
+      drop=F],
+      group=eua[,"trt"],
+      caption="Examination Information at the EUA (continued)",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+ 
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+      
+### Operative information by treatment
+
+operative_inf <- f.sas.get(library="/iats/sas/sas_to_splus",member="operative_inf",
+                           format.library="/iats/sas",formats=T)
+
+f.tab(file="report",
+      x=operative_inf[,c("sz.ant.cap","sz.post.cap","width.inc"),
+      drop=F],
+      group=operative_inf[,"trt"],
+      caption="Operative Information",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+  
+
+### Operative information specific to IOL implantation
+
+op_inf_iol <- f.sas.get(library="/iats/sas/sas_to_splus",member="op_inf_iol",
+                        format.library="/iats/sas",formats=T)
+
+f.tab(file="report",
+      x=op_inf_iol[,c("implant.comp","implant.bag","iol.model","iol.power"),
+      drop=F],
+      caption="Operative Information Specific to IOL Implantation",
+      append=T, zero=F,  
+      vpvalue=F,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T,
+      footnote=paste("Patient 1101 at Duke University was assigned to IOL, but an IOL was not ",
+                      "implanted because of severe PFV that was not detected until after the ",
+                      "patient was randomized. The patient was treated with a contact lens.")
+      )
+
+
+### Medications administered at surgery
+
+meds_surgery <- f.sas.get(library="/iats/sas/sas_to_splus",member="meds_surgery",
+                          format.library="/iats/sas",formats=T)
+                          
+f.tab(file="report",
+      x=meds_surgery[,c("smed1.dexamethasone","smed1.dexamethasone.mg",
+                        "smed2.cephazolin","smed2.cephazolin.mg","tmed1.atropine",
+                        "tmed2.ointment","tmed.other.spec"),
+      drop=F], 
+      group=meds_surgery[,"trt"],  
+      caption="Medications Administered at Surgery",
+      append=T, zero=F,
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+
+
+### Finish
+
+f.bottom("report")
+unix("laps report",output=F)
+unix("laps report",output=F)
+unix("lapdf report",output=F)
+unix("lapdf report",output=F)

@@ -1,0 +1,54 @@
+source("start.in")
+
+
+f.top("open",
+ prepare.date=date(),
+ asof.date="March 03, 2009",
+ report.type="Recruitment, Baseline, and Follow-up  OPEN SESSION",
+ meet.date="2009",
+ header="GLND DSMB Report - Recruitment, Baseline, and Follow-up  OPEN SESSION")
+
+# lib="/glnd/sas/reporting"
+lib="/glnd/sas/dsmc/20090306"
+#libr="/glnd/sas/reporting"
+libr="/glnd/sas/dsmc/20090306/reporting"
+ libs="/glnd/sas"
+#libdf="/glnd/sas/reporting/df_reporting" 
+libdf="/glnd/sas/dsmc/20090306/reporting/df_reporting"
+
+### Recruitment by Center
+
+recruitment <- f.sas.get(library=lib,member="dsmc_recruitment",
+                            format.library=lib,formats=T)
+tmp.tab1=recruitment[,c("center","nscreened","e","r","irb")]
+
+f.list(file="open", x=tmp.tab1,
+       caption="Patient Screening and Enrollment" ,append=T,
+       pos=c("l","c","c","c","c"))
+
+
+        
+             recr<- f.sas.get(library=libr,member="recruit_6",
+                            format.library=lib,formats=T)
+            tmp.tab1=recr[,c("str.month","n.patients","sum.patients")]
+f.list(file="open", x=tmp.tab1,
+       caption="Recruitment in the last 6 months",
+      append=T,
+       pos=c("c","c","c"))
+
+
+cat("",c("\\begin{figure}",
+
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{90}{",
+ "\\includegraphics{recruitment.ps}}}",sep=""),
+ "\\caption{Recruitment Projections}",
+ "\\end{figure}"),
+ file=paste("open","tex",sep="."),sep="\n",append=T)
+ 
+ 
+
+f.bottom("open")
+unix("/home/gcotson/bin/laps open",output=F)
+unix("/home/gcotson/bin/laps open",output=F)
+unix("/home/gcotson/bin/lapdf open",output=F)
+unix("/home/gcotson/bin/lapdf open",output=F)

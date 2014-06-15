@@ -1,0 +1,119 @@
+libname t '/glnd/sas/';
+libname x '';
+libname library '';
+data x.recruit;
+ set t.dsmc_recruitment_mon;
+ label irb ='Date IRB Approved';
+proc print;
+  run;
+ * proc contents;
+data x.recruit30;
+ set t.dsmc_recruitment30;
+  run;
+*proc contents;  
+ data x.inelig30;
+  set t.inelig30;
+  run;
+  *proc contents;
+  
+  data x.ineliglastmonth;
+   set t.ineliglastmonth;
+   run;
+   proc contents;
+   
+   data x.elignrlastmonth;
+    set t.elignrlastmonth;
+    run;
+  proc contents;
+  libname tt '/glnd/sas/reporting/df_reporting';
+
+/*data x.qcstatus;
+ set tt.qc_status;
+run;;
+proc print;
+run;
+*/;
+
+data x.emory;
+ set tt.submission_summary;
+  if center=1;
+  run;
+  data x.mir;
+ set tt.submission_summary;
+  if center=2;
+  run;
+  data x.van;
+ set tt.submission_summary;
+  if center=3;
+  run;
+  data x.col;
+ set tt.submission_summary;
+  if center=4;
+  run;
+
+options ls=112 ps=43;
+ods pdf file='nut.pdf';
+libname ttt '/glnd/sas/reporting';
+data x.enpn;
+ set ttt.days_en_pn;
+ length x $ 70;
+ x="Days to Enteral Feeding";
+ xn=first_en_day_n;
+ xmedian=first_en_day_med;
+ xmin=first_en_day_min;
+ xmax=first_en_day_max
+ ;
+ label x='Days'
+  xn='n'
+  xmedian='Median'
+  xmin='Min'
+  xmax='Max';
+  output;
+  x="Days of PN Administration Prior to Enrollment";
+ xn=parent_nutr_days_n;
+ xmedian=parent_nutr_days_med;
+ xmin=parent_nutr_days_min;
+ xmax=parent_nutr_days_max;
+never_en_hospital_n=.; not_yet_en_n=.; 
+ output;
+  x="Days of Enteral Nutrition  Administration Prior to Enrollment";
+ xn=ent_nutr_days_n;
+ xmedian=ent_nutr_days_med;
+ xmin=ent_nutr_days_min;
+ xmax=ent_nutr_days_max;
+never_en_hospital_n=.; not_yet_en_n=.;
+
+   output;
+  keep x--xmax never_en_hospital_n not_yet_en_n;
+ run;
+* proc contents;
+ run;
+title;
+proc print noobs label;
+ var x xn xmedian xmin xmax never_en_hospital_n not_yet_en_n; 
+run;
+proc format library=library;
+ value dayc
+ 7='By Day 7'
+ 14='By Day 14'
+ 21='Through Day 21'
+ 28='Through Day 28'
+ 99='Overall';
+data x.pe;
+ set ttt.percent_enteral;
+ format day dayc.;
+ label day='Day';
+ den=denominator;
+ 
+ p1=put(recv_25_50_percent, 5.1)||'%';
+ p2=put(recv_50_75_percent, 5.1)||'%';
+ p3=put(recv_75_100_percent, 5.1)||'%';
+ 
+ label p1='24-49% kcals'
+       p2='50-74% kcals'
+       p3='75-100% kcals'
+       den='Total Patients';
+       keep day den p1 p2 p3;
+ run;
+* proc contents;
+ proc print noobs label;

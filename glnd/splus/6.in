@@ -1,0 +1,42 @@
+#################################################################################################
+#
+# Program:	monthly.in
+#
+# Purpose:	Produce monthly reports# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.quart("monthly",
+ prepare.date=date(),
+ asof.date=date(),
+ report.type="March 2008 Monthly GLND Report",
+ meet.date=" ",
+ header="Monthly GLND Report")
+
+lib="/glnd/sas/reporting"
+libf="/glnd/sas"
+
+
+
+screen=f.sas.get(library=libf,member="screen6mo",format.library=libf,formats=T)
+
+
+tmp.tab=screen[,c("d8","center","nscreened","e","r")]
+
+f.list(file="monthly", x=tmp.tab,
+       caption="Patient Screening and Enrollment Within Last 6 months" ,append=T,
+       pos=c("l","c","c","c","c"))
+
+
+
+
+f.bottom("monthly")
+unix("/home/gcotson/bin/laps monthly",output=F)
+unix("/home/gcotson/bin/laps monthly",output=F)
+unix("/home/gcotson/bin/lapdf monthly",output=F)
+unix("/home/gcotson/bin/lapdf monthly",output=F)

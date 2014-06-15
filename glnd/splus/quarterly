@@ -1,0 +1,11 @@
+cp /glnd/sas/reporting/death_details.pdf deathdetails.pdf
+pdf2ps deathdetails.pdf deathdetails.ps
+cp /glnd/sas/reporting/death_details1.pdf deathdetails1.pdf
+pdf2ps deathdetails1.pdf deathdetails1.ps
+cp /glnd/sas/reporting/death_details_closed.pdf deathdetailsclosed.pdf
+pdf2ps deathdetailsclosed.pdf deathdetailsclosed.ps
+cp /glnd/sas/reporting/death_details_closed1.pdf deathdetailsclosed1.pdf
+pdf2ps deathdetailsclosed1.pdf deathdetailsclosed1.ps
+Splus7 < quarterlyaesae.in
+Splus7 < quarterlyopen.in
+

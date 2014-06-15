@@ -1,0 +1,10 @@
+options nocenter;
+libname exam 'p:\bio113\hw';
+filename physical 'g:\shared\bio113\hw1_1.dat';
+data exam.visit;
+infile physical missover;
+informat name $9. dob mmddyy10. vdate mmddyy10.;
+input name dob sex $ vdate  height weitht sys_bp dia_bp;
+run;
+proc print;
+run;

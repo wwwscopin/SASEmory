@@ -1,0 +1,8 @@
+f.cap <- function(x)
+{ #x need to be a character expression
+ala <- substring(x,1:nchar(x),1:nchar(x))
+ALA <- LETTERS; names(ALA) <- letters
+return(paste(ALA[ala],collapse=""))
+}
+
+

@@ -1,0 +1,8 @@
+f.bottom <- function(file)
+{
+file.tex <- paste(file,"tex",sep=".")
+report.bottom <- "\\end{document}"
+cat(report.bottom,file=file.tex,sep="\n",append=T)
+return(NULL)
+}
+

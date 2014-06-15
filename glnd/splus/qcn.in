@@ -1,0 +1,36 @@
+source("start.in")
+
+
+f.top("report",
+ prepare.date=date(),
+ asof.date="June 7, 2007",
+ report.type="Baseline Information",
+ meet.date=" ",
+ header="GLND DSMC Report - QC Information")
+
+
+
+qc <- f.sas.get(library="/glnd/sas/reporting/df_reporting",member="qc_status", 
+       format.library="/glnd/splus",formats=T)
+
+
+
+
+
+tmp.tab=qc[,c("center","tot.records","tot.qcs","num.resolved","pct.resolved","days")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Center QC Reports" ,append=T,
+       pos=c("c","c","c","c","c","c"))
+
+
+f.bottom("report")
+
+unix("/glnd/splus/laps report",output=F)
+unix("/glnd/splus/laps report",output=F)
+
+unix("/glnd/splus/lapdf report",output=F)
+unix("/glnd/splus/lapdf report",output=F)
+
+
+

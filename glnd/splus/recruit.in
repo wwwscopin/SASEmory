@@ -1,0 +1,97 @@
+#################################################################################################
+#
+# Program:	glnd_baseline.in
+#
+# Purpose:	Produce recruitment and baseline  results tables for reports
+# 
+# uses sas datasets found in /glnd/sas folder
+# and new sas datasets names ( matches S+ object names!!!)
+#
+################################################################################################
+
+source("start.in")
+
+
+f.top("report",
+ prepare.date=date(),
+ asof.date="Feb 12, 2007",
+ report.type="Recruitment and Baseline",
+ meet.date="Mar 6, 2007",
+ header="GLND DSMC Report - Recruitment and Baseline")
+
+lib="/glnd/sas"
+rm(recruitment)
+
+### Recruitment by Center
+
+recruitment <- f.sas.get(library=lib,member="dsmc_recruitment",
+                            format.library=lib,formats=T)
+tmp.tab1=recruitment[,c("center","nscreened","e","r")]
+
+f.list(file="report", x=tmp.tab1,
+       caption="Patient Screening and Enrollment" ,append=T,
+       pos=c("l","c","c","c"))
+
+
+cat("",c("\\begin{figure}",
+ paste("\\resizebox{6.5in}{!}{\\rotatebox{90}{",
+ "\\includegraphics{recruitment.ps}}}",sep=""),
+ "\\caption{Recruitment Projections}",
+ "\\end{figure}"),
+ file=paste("report","tex",sep="."),sep="\n",append=T)
+ 
+ 
+ 
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+### Reasons patients were ineligible at initial screening
+
+inelig_screen <- f.sas.get(library=lib,member="inelig_screen",
+                               format.library=lib,formats=T)
+
+tmp.tab2=inelig_screen[,c("affil","glndid","reason")]
+
+f.list(file="report", x=tmp.tab2,
+       caption="Reasons Patients Were Ineligible at Initial Screening" ,append=T,
+       pos=c("l","c","l"))
+
+
+
+### Reasons patients eligible at initial screening were not enrolled
+
+not_enrolled1<- f.sas.get(library=lib,member="not_enrolled",
+                                  format.library=lib,formats=T)
+
+tmp.tab=not_enrolled1[,c("affil","glndid","reason")]
+
+f.list(file="report", x=tmp.tab,
+       caption="Reasons Patients Eligible at Initial Screening Were Not Enrolled" ,append=T,
+       pos=c("l","c","l"))
+
+
+
+cat("\\clearpage",sep="\n",file="report.tex",append=T)
+
+
+### Baseline patient characteristics 
+
+base_pat_char2 <- f.sas.get(library=lib,member="basedemo",
+                           format.library=lib,formats=T)
+
+f.tab(file="report",
+      x=base_pat_char2[,c("gender","rac","hispanic","affil","apache.id",
+                         "ards","mech.vent","age","bmi","surg","diag"),
+      drop=F],
+     
+      caption="Patient Characteristics", 
+      append=T, zero=F, 
+      vpvalue=T,vn=T,vmean=T,vmedian=T,vcut=F,vrange=T,vdigits=1,total=T)
+      
+    
+### Finish
+
+f.bottom("report")
+unix("laps report",output=F)
+unix("laps report",output=F)
+unix("lapdf report",output=F)
+unix("lapdf report",output=F)

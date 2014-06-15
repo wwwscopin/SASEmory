@@ -1,0 +1,27 @@
+cd /glnd/sas/reporting
+sas recruitment
+sas blood_gluc_since_last_dsmb
+chmod -f g+rw *
+chgrp -f studies *
+
+cd /glnd/sas/reporting/df_reporting
+sas form_submission
+sas QC_status
+chmod -f g+rw *
+chgrp -f studies *
+
+cd /glnd/DataFax/work
+chmod -f g+rw *
+chgrp -f studies *
+
+cd /glnd/splus
+sas monthly
+cp /glnd/sas/reporting/recruitment.pdf recruitment.pdf
+pdf2ps recruitment.pdf recruitment.ps
+pdf2ps /glnd/sas/reporting/blood_gluc_since_last_dsmb_table.pdf bg.ps
+pdf2ps /glnd/sas/reporting/df_reporting/QC_report.pdf qc.ps
+
+Splus7 < monthly.in
+
+chmod -f g+rw *
+chgrp -f studies *

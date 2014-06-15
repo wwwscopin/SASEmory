@@ -1,0 +1,3 @@
+pdf2ps /glnd/sas/reporting/mortclosed.pdf /glnd/sas/reporting/mortclosed.ps
+
+Splus7 < closed.in

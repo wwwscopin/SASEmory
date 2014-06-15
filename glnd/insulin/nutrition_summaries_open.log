@@ -1,0 +1,3119 @@
+1                                                          The SAS System                        11:12 Wednesday, September 29, 2010
+
+NOTE: Copyright (c) 2002-2003 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) 9.1 (TS1M3)
+      Licensed to EMORY UNIVERSITY - T&R, Site 0014217002.
+NOTE: This session is executing on the SunOS 5.9 platform.
+
+
+
+NOTE: SAS 9.1.3 Service Pack 4
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.32 seconds
+      cpu time            0.07 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is /home/bwu2/insulin/autoexec.sas.
+
+NOTE: Libref RAND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/randomization
+NOTE: Libref GLND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+NOTE: Libref GLND_REP was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting
+NOTE: Libref GLND_EXT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/external_data
+NOTE: Libname LIBRARY refers to the same physical library as GLND.
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+NOTE: Libname REPORT refers to the same physical library as GLND_REP.
+NOTE: Libref REPORT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting
+
+NOTE: AUTOEXEC processing completed.
+
+1          /* nutrition_summaries_open.sas
+2                                                          The SAS System                        11:12 Wednesday, September 29, 2010
+
+2           *
+3           * "Nutritional Benchmarks and Summaries" Table
+4           * provides summary information on PN kcal composition, as well as enteral feeding
+5           * this is the old "Template Table 24"
+6           *
+7           * for DSMB OPEN SESSION
+8           *
+9           */
+10         
+11          * create library for reporting files and graphs;
+12          libname glnd_rep "/glnd/sas/reporting";
+NOTE: Libname GLND_REP refers to the same physical library as REPORT.
+NOTE: Libref GLND_REP was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting
+13         
+14         
+15         
+16         /* Part 1a - days of PN prior to enrollment, EN prior to enrollment */
+17         	* add in day of EN, PN prior. start assembling into the data to be used in the top half of the table ;
+18         	
+18       !  proc sort data= glnd.demo_his; by id; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+19         
+20         	
+20       !  data en_pn_prior;
+21         		set	glnd.demo_his (keep = id ent_nutr ent_nutr_days parent_nutr parent_nutr_days)	;
+22         		
+23         		* make sure that when they answer no, then days is set to missing, so that the two portions of our table line up  ;
+24         		if (ent_nutr = 0) then ent_nutr_days = .;
+25         		if (parent_nutr = 0) then parent_nutr_days = .;
+26         
+27         	run;
+
+NOTE: There were 130 observations read from the data set GLND.DEMO_HIS.
+NOTE: The data set WORK.EN_PN_PRIOR has 130 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+28         	
+29         	
+29       !  proc means data= en_pn_prior	noprint;
+30         		output 	out= en_pn_prior_means
+31         				n(id ent_nutr_days parent_nutr_days  ) = id_n ent_nutr_days_n parent_nutr_days_n
+32         				median(ent_nutr_days parent_nutr_days) = ent_nutr_days_med parent_nutr_days_med
+33         				min(ent_nutr_days parent_nutr_days) = ent_nutr_days_min parent_nutr_days_min
+34         				max(ent_nutr_days parent_nutr_days) = ent_nutr_days_max parent_nutr_days_max
+35         				sum(ent_nutr parent_nutr) = ent_nutr_s parent_nutr_s
+36         			;
+37         	run;
+3                                                          The SAS System                        11:12 Wednesday, September 29, 2010
+
+
+NOTE: There were 130 observations read from the data set WORK.EN_PN_PRIOR.
+NOTE: The data set WORK.EN_PN_PRIOR_MEANS has 1 observations and 13 variables.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+38         	
+39         	* create table;
+40         	
+40       !  data glnd_rep.en_pn_prior;
+41         		set en_pn_prior_means;
+42         
+43         		* design each column;
+44         		* row 1;
+45         			row = "PN administration prior to enrollment               ";
+46         			yes = put(parent_nutr_s, 3.) || "/" || left(put(id_n, 3.));
+47         			pct = (parent_nutr_s / id_n)*100;
+48         			median = parent_nutr_days_med;
+49         			min = parent_nutr_days_min;
+50         			max = parent_nutr_days_max;
+51         			output;
+52         		* row 2;
+53         			row = "Enteral nutrition administration prior to enrollment";
+54         			yes = put(ent_nutr_s, 3.) || "/" || left(put(id_n, 3.));
+55         			pct = (ent_nutr_s / id_n)*100;
+56         			median = ent_nutr_days_med;
+57         			min = ent_nutr_days_min;
+58         			max = ent_nutr_days_max;
+59         			output;
+60         		format pct 4.1;
+61         		
+62         		drop _type_ _freq_ id_n ent_nutr_days_n parent_nutr_days_n ent_nutr_days_med parent_nutr_days_med
+63         			ent_nutr_days_min parent_nutr_days_min ent_nutr_days_max parent_nutr_days_max ent_nutr_s parent_nutr_s
+64         			;
+65         		
+66         		label 	row = '00'x /* blank */
+67         			  	yes = "Yes"
+68         				pct = "Percent"
+69         				median = "Median"	
+70         				min = "Min"
+71         				max = "Max"
+72         			;
+73         	run;
+
+NOTE: There were 1 observations read from the data set WORK.EN_PN_PRIOR_MEANS.
+NOTE: The data set GLND_REP.EN_PN_PRIOR has 2 observations and 6 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.16 seconds
+      cpu time            0.02 seconds
+      
+
+74         
+75         
+76         
+77         
+78         
+4                                                          The SAS System                        11:12 Wednesday, September 29, 2010
+
+79         
+80         /* Part 1b - days to enteral feeding */
+81         	
+81       !  proc sort data= glnd.followup_all_long;
+82         		by id day;
+83         	run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+84         
+85         	* loop through days within a person;
+86         	
+86       !  data days_to_en;
+87         		set glnd.followup_all_long;
+88         		by id;
+89         
+90         		retain first_en_day; * remember if the first enteral day has been found ;
+91         		
+92         		if first.id then first_en_day = .; * initialize the variable for each person;
+93         		
+94         		* compute total enteral kcal;
+95         			* first recode missing to zero not for accuracy but in order to avoid having a '.' for the total if one value is
+95       ! missing;
+96         			if tube_kcal = . then tube_kcal = 0;
+97         			if oral_kcal = . then oral_kcal = 0;
+98         
+99         			tot_ent_kcal = tube_kcal + oral_kcal;
+100        		
+101        		* find first day of enteral feeding;
+102        		if (tot_ent_kcal = 0) then DELETE; * this is not the first day of enteral nutrition;
+103        		else if (first_en_day = .) then first_en_day = day; * this is the first day of EN;
+104        		else delete; * delete the days thereafter;
+105        		
+106        		keep id first_en_day;
+107        	run;
+
+NOTE: There were 2655 observations read from the data set GLND.FOLLOWUP_ALL_LONG.
+NOTE: The data set WORK.DAYS_TO_EN has 115 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+108        
+109        	* merge with status to make load all IDs into this dataset (people who never received EN are currently excluded) ;
+110        	
+110      !  proc sort data= days_to_en; by id; run;
+
+NOTE: There were 115 observations read from the data set WORK.DAYS_TO_EN.
+NOTE: The data set WORK.DAYS_TO_EN has 115 observations and 2 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+5                                                          The SAS System                        11:12 Wednesday, September 29, 2010
+
+
+111        	
+111      !  proc sort data= glnd.status; by id; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+112        	
+112      !  data days_to_en;
+113        		merge 	days_to_en
+114        				glnd.status (keep = id still_in_hosp)
+115        			;
+116        		by id;
+117        
+118        		if (first_en_day = .) & (still_in_hosp = 0) then never_en_hospital = 1;  * was the person ever on EN in hospital?
+118      ! otherwise, discharged or died w/o EN;
+119        		if (first_en_day = .) & (still_in_hosp = 1) then not_yet_en = 1;  * still in hopsital but not yet on EN;
+120        	run;
+
+NOTE: There were 115 observations read from the data set WORK.DAYS_TO_EN.
+NOTE: There were 130 observations read from the data set GLND.STATUS.
+NOTE: The data set WORK.DAYS_TO_EN has 130 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+121        
+122        	
+122      !  proc means data= days_to_en noprint;
+123        		output 	out= days_to_en_means
+124        				n(first_en_day not_yet_en never_en_hospital ) = first_en_day_n not_yet_en_n never_en_hospital_n
+125        				median(first_en_day) = first_en_day_med
+126        				min(first_en_day) = first_en_day_min
+127        				max(first_en_day) = first_en_day_max
+128        			;
+129        	run;
+
+NOTE: There were 130 observations read from the data set WORK.DAYS_TO_EN.
+NOTE: The data set WORK.DAYS_TO_EN_MEANS has 1 observations and 8 variables.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+      
+
+130        
+131        	* create table;
+132        	
+132      !  data glnd_rep.days_to_en;
+133        		set days_to_en_means;
+134        
+135        		n_ent= first_en_day_n + never_en_hospital_n ; * denominator;
+136        		call symput('n_enteral', put(n_ent, 3.0)); * store this value in a macro variable for use in printing the table;
+137        	
+138        		row = "Days to first enteral nutrition administration";		
+6                                                          The SAS System                        11:12 Wednesday, September 29, 2010
+
+139        		
+140        		n =  put(first_en_day_n, 3.) || "/" || left(put(n_ent, 3.));
+141        
+142        		label 	row = '00'x /* blank */
+143        				n = "n"
+144        				first_en_day_med = "Median"	
+145        				first_en_day_min = "Min"
+146        				first_en_day_max = "Max"	
+147        				not_yet_en_n = "# not yet*on EN"
+148        				never_en_hospital_n = "# never received*EN during*hospitalization"
+149        			;
+150        
+151        		drop _type_ _freq_ ;
+152        	run;
+
+NOTE: There were 1 observations read from the data set WORK.DAYS_TO_EN_MEANS.
+NOTE: The data set GLND_REP.DAYS_TO_EN has 1 observations and 9 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.02 seconds
+      
+
+153        
+154        	
+155        /** Part 2 - trackings for percent PN kcal given as dextrose, lipid, enterally ---- formerly part 3 **/
+156        
+157        		
+157      !   data long_status;
+158        			merge	glnd.followup_all_long (in = has_followup)
+159        					glnd.status (keep = id still_in_hosp dt_random dt_discharge);
+160        			by id;
+161        
+162        			if ~has_followup then delete ; * remove patients that are in status but for whom we have no follow-up data;
+163        
+164        			days_study = dt_discharge - dt_random;
+165        		run;
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      64 at 164:30   
+NOTE: There were 2655 observations read from the data set GLND.FOLLOWUP_ALL_LONG.
+NOTE: There were 130 observations read from the data set GLND.STATUS.
+NOTE: The data set WORK.LONG_STATUS has 2655 observations and 39 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.03 seconds
+      
+
+165      !       	
+166        
+167        	
+167      !  proc sort data= glnd.plate11; by id; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+7                                                          The SAS System                        11:12 Wednesday, September 29, 2010
+
+
+168        	
+168      !  data percent_pn;
+169        		merge 	long_status
+170        				glnd.plate11 (keep = id tot_kcal_goal tot_prot_1 rename = (tot_kcal_goal = daily_kcal_goal tot_prot_1 =
+170      ! daily_prot_goal ))
+171        			;
+172        		by id;
+173        		
+174        		* percent of intravenous parenteral nutrition (not just the PN bag) administered as various forms ;
+175        		percent_iv_aa= (pn_aa_kcal / (pn_cho + pn_aa_kcal + pn_lipid + iv_kcal + prop_kcal)) * 100; * not necessarily needed;
+176        		percent_iv_dextrose= (pn_cho / (pn_cho + pn_aa_kcal + pn_lipid + iv_kcal + prop_kcal)) * 100;
+177        		percent_iv_lipid= ((pn_lipid+prop_kcal) / (pn_cho + pn_aa_kcal + pn_lipid + iv_kcal + prop_kcal)) * 100; * propofol is
+177      ! mostly lipid;
+178        
+179        		* total given parenterally ;
+180        		tot_parent_kcal = pn_cho + pn_aa_kcal + pn_lipid + iv_kcal + prop_kcal;
+181        		percent_parenteral = (tot_parent_kcal/ daily_kcal_goal) * 100 ; * Emory pharmacists have instructed that this be given
+181      ! with goal, not actual kcal, as the denominator (July 2007) ;
+182        		
+183        		* total given enterally;
+184        		tot_ent_kcal = tube_kcal + oral_kcal;
+185        		percent_enteral = (tot_ent_kcal / daily_kcal_goal) * 100; * Emory pharmacists have instructed that this be given with
+185      ! goal, not actual kcal, as the denominator (July 2007) ;
+186        
+187        		* total given;
+188        		percent_overall = (tot_kcal / daily_kcal_goal) * 100;
+189        		
+190        		
+191        		* total protein ;
+192        		tot_ent_prot = tube_prot + oral_prot;
+193        		percent_parenteral_prot = (pn_aa_g/daily_prot_goal) * 100;
+194        		percent_enteral_prot = (tot_ent_prot/daily_prot_goal) * 100;
+195        		percent_overall_prot = (tot_aa / daily_prot_goal) * 100;
+196        
+197        		*for vars for printing;
+198        		format percent_iv_aa 5.1;
+199        		format percent_iv_dextrose 5.1;
+200        		format percent_iv_lipid 5.1;
+201        		format percent_enteral 5.1;
+202        		format percent_parenteral 5.1;
+203        		format percent_overall 5.1;
+204        		format percent_enteral_prot 5.1;
+205        		format percent_parenteral_prot 5.1;
+206        		format percent_overall_prot 5.1;
+207        
+208        		format center center.;
+209        	run;
+
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+id=11004 tot_pn=0 oral_prot=38 pn_aa_g=0 oral_kcal=1055 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=38 tube_prot=0
+tot_kcal=1055 tube_kcal=0 tot_insulin=0 gluc_eve=112 eve_gluc_src=accucheck time_gluc_eve=22:00 gluc_mrn=108 mrn_gluc_src=lab
+time_gluc_mrn=05:35 gluc_aft=100 aft_gluc_src=accucheck time_gluc_aft=16:50 sofa_resp=0 sofa_coag=0 sofa_liver=0 sofa_cardio=0
+sofa_cns=0 sofa_renal=0 sofa_tot=0 nar_prov=No day=10 dt_random=11/22/06 this_date=12/01/06 center=Emory dt_discharge=12/05/06
+still_in_hosp=0 days_study=13 daily_kcal_goal=1803 daily_prot_goal=108 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=.
+percent_iv_lipid=. tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=1055 percent_enteral=58.5 percent_overall=58.5
+8                                                          The SAS System                        11:12 Wednesday, September 29, 2010
+
+tot_ent_prot=38 percent_parenteral_prot=0.0 percent_enteral_prot=35.2 percent_overall_prot=35.2 _ERROR_=1 _N_=17
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+id=11004 tot_pn=0 oral_prot=63 pn_aa_g=0 oral_kcal=1516 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=63 tube_prot=0
+tot_kcal=1516 tube_kcal=0 tot_insulin=0 gluc_eve=110 eve_gluc_src=accucheck time_gluc_eve=20:39 gluc_mrn=111 mrn_gluc_src=lab
+time_gluc_mrn=05:00 gluc_aft=117 aft_gluc_src=accucheck time_gluc_aft=16:36 sofa_resp=0 sofa_coag=0 sofa_liver=0 sofa_cardio=0
+sofa_cns=0 sofa_renal=0 sofa_tot=0 nar_prov=No day=11 dt_random=11/22/06 this_date=12/02/06 center=Emory dt_discharge=12/05/06
+still_in_hosp=0 days_study=13 daily_kcal_goal=1803 daily_prot_goal=108 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=.
+percent_iv_lipid=. tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=1516 percent_enteral=84.1 percent_overall=84.1
+tot_ent_prot=63 percent_parenteral_prot=0.0 percent_enteral_prot=58.3 percent_overall_prot=58.3 _ERROR_=1 _N_=18
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+id=11004 tot_pn=0 oral_prot=37 pn_aa_g=0 oral_kcal=690 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=37 tube_prot=0
+tot_kcal=690 tube_kcal=0 tot_insulin=0 gluc_eve=120 eve_gluc_src=accucheck time_gluc_eve=21:23 gluc_mrn=106 mrn_gluc_src=lab
+time_gluc_mrn=04:45 gluc_aft=113 aft_gluc_src=accucheck time_gluc_aft=17:00 sofa_resp=0 sofa_coag=0 sofa_liver=0 sofa_cardio=0
+sofa_cns=0 sofa_renal=0 sofa_tot=0 nar_prov=Yes day=12 dt_random=11/22/06 this_date=12/03/06 center=Emory dt_discharge=12/05/06
+still_in_hosp=0 days_study=13 daily_kcal_goal=1803 daily_prot_goal=108 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=.
+percent_iv_lipid=. tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=690 percent_enteral=38.3 percent_overall=38.3
+tot_ent_prot=37 percent_parenteral_prot=0.0 percent_enteral_prot=34.3 percent_overall_prot=34.3 _ERROR_=1 _N_=19
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+id=11004 tot_pn=0 oral_prot=. pn_aa_g=0 oral_kcal=. pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=. tube_kcal=0 tot_insulin=0 gluc_eve=111 eve_gluc_src=accucheck time_gluc_eve=22:00 gluc_mrn=120 mrn_gluc_src=lab
+time_gluc_mrn=03:30 gluc_aft=. aft_gluc_src=. time_gluc_aft=99:99 sofa_resp=0 sofa_coag=0 sofa_liver=0 sofa_cardio=0 sofa_cns=0
+sofa_renal=0 sofa_tot=0 nar_prov=Yes day=13 dt_random=11/22/06 this_date=12/04/06 center=Emory dt_discharge=12/05/06 still_in_hosp=0
+days_study=13 daily_kcal_goal=1803 daily_prot_goal=108 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=. percent_enteral=. percent_overall=. tot_ent_prot=.
+percent_parenteral_prot=0.0 percent_enteral_prot=. percent_overall_prot=0.0 _ERROR_=1 _N_=20
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+id=11009 tot_pn=0 oral_prot=. pn_aa_g=0 oral_kcal=. pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=. tube_prot=0
+tot_kcal=. tube_kcal=0 tot_insulin=0 gluc_eve=119 eve_gluc_src=accucheck time_gluc_eve=24:00 gluc_mrn=89 mrn_gluc_src=lab
+time_gluc_mrn=04:30 gluc_aft=96 aft_gluc_src=accucheck time_gluc_aft=18:00 sofa_resp=. sofa_coag=. sofa_liver=. sofa_cardio=.
+sofa_cns=. sofa_renal=. sofa_tot=. nar_prov=Yes day=11 dt_random=12/15/06 this_date=12/25/06 center=Emory dt_discharge=12/27/06
+still_in_hosp=0 days_study=12 daily_kcal_goal=1873 daily_prot_goal=93 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=.
+percent_iv_lipid=. tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=. percent_enteral=. percent_overall=. tot_ent_prot=.
+percent_parenteral_prot=0.0 percent_enteral_prot=. percent_overall_prot=. _ERROR_=1 _N_=32
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+id=11009 tot_pn=0 oral_prot=. pn_aa_g=0 oral_kcal=. pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=. tube_prot=0
+tot_kcal=. tube_kcal=0 tot_insulin=0 gluc_eve=117 eve_gluc_src=accucheck time_gluc_eve=24:00 gluc_mrn=96 mrn_gluc_src=accucheck
+time_gluc_mrn=06:00 gluc_aft=. aft_gluc_src=. time_gluc_aft=99:99 sofa_resp=. sofa_coag=. sofa_liver=. sofa_cardio=. sofa_cns=.
+sofa_renal=. sofa_tot=. nar_prov=Yes day=12 dt_random=12/15/06 this_date=12/26/06 center=Emory dt_discharge=12/27/06 still_in_hosp=0
+days_study=12 daily_kcal_goal=1873 daily_prot_goal=93 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=. percent_enteral=. percent_overall=. tot_ent_prot=.
+percent_parenteral_prot=0.0 percent_enteral_prot=. percent_overall_prot=. _ERROR_=1 _N_=33
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+id=11012 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=67 tube_prot=67
+tot_kcal=1440 tube_kcal=1440 tot_insulin=0 gluc_eve=119 eve_gluc_src=accucheck time_gluc_eve=22:00 gluc_mrn=116 mrn_gluc_src=lab
+time_gluc_mrn=02:00 gluc_aft=109 aft_gluc_src=accucheck time_gluc_aft=15:00 sofa_resp=1 sofa_coag=0 sofa_liver=2 sofa_cardio=1
+sofa_cns=0 sofa_renal=0 sofa_tot=4 nar_prov=No day=8 dt_random=02/02/07 this_date=02/09/07 center=Emory dt_discharge=02/21/07
+9                                                          The SAS System                        11:12 Wednesday, September 29, 2010
+
+still_in_hosp=0 days_study=19 daily_kcal_goal=1749 daily_prot_goal=102 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=.
+percent_iv_lipid=. tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=1440 percent_enteral=82.3 percent_overall=82.3
+tot_ent_prot=67 percent_parenteral_prot=0.0 percent_enteral_prot=65.7 percent_overall_prot=65.7 _ERROR_=1 _N_=43
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+id=11012 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=87 tube_prot=87
+tot_kcal=1872 tube_kcal=1872 tot_insulin=0 gluc_eve=106 eve_gluc_src=accucheck time_gluc_eve=22:00 gluc_mrn=114 mrn_gluc_src=lab
+time_gluc_mrn=02:30 gluc_aft=. aft_gluc_src=. time_gluc_aft=99:99 sofa_resp=1 sofa_coag=0 sofa_liver=2 sofa_cardio=1 sofa_cns=0
+sofa_renal=0 sofa_tot=4 nar_prov=No day=9 dt_random=02/02/07 this_date=02/10/07 center=Emory dt_discharge=02/21/07 still_in_hosp=0
+days_study=19 daily_kcal_goal=1749 daily_prot_goal=102 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=1872 percent_enteral=107.0 percent_overall=107.0 tot_ent_prot=87
+percent_parenteral_prot=0.0 percent_enteral_prot=85.3 percent_overall_prot=85.3 _ERROR_=1 _N_=44
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+id=11012 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=83 tube_prot=83
+tot_kcal=1794 tube_kcal=1794 tot_insulin=0 gluc_eve=109 eve_gluc_src=accucheck time_gluc_eve=22:00 gluc_mrn=120 mrn_gluc_src=lab
+time_gluc_mrn=02:00 gluc_aft=. aft_gluc_src=. time_gluc_aft=99:99 sofa_resp=1 sofa_coag=0 sofa_liver=2 sofa_cardio=1 sofa_cns=0
+sofa_renal=0 sofa_tot=4 nar_prov=No day=10 dt_random=02/02/07 this_date=02/11/07 center=Emory dt_discharge=02/21/07 still_in_hosp=0
+days_study=19 daily_kcal_goal=1749 daily_prot_goal=102 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=1794 percent_enteral=102.6 percent_overall=102.6 tot_ent_prot=83
+percent_parenteral_prot=0.0 percent_enteral_prot=81.4 percent_overall_prot=81.4 _ERROR_=1 _N_=45
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+id=11012 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=87 tube_prot=87
+tot_kcal=1872 tube_kcal=1872 tot_insulin=0 gluc_eve=103 eve_gluc_src=accucheck time_gluc_eve=22:00 gluc_mrn=108 mrn_gluc_src=lab
+time_gluc_mrn=02:00 gluc_aft=114 aft_gluc_src=accucheck time_gluc_aft=14:14 sofa_resp=1 sofa_coag=0 sofa_liver=2 sofa_cardio=1
+sofa_cns=0 sofa_renal=0 sofa_tot=4 nar_prov=No day=11 dt_random=02/02/07 this_date=02/12/07 center=Emory dt_discharge=02/21/07
+still_in_hosp=0 days_study=19 daily_kcal_goal=1749 daily_prot_goal=102 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=.
+percent_iv_lipid=. tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=1872 percent_enteral=107.0 percent_overall=107.0
+tot_ent_prot=87 percent_parenteral_prot=0.0 percent_enteral_prot=85.3 percent_overall_prot=85.3 _ERROR_=1 _N_=46
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+id=11012 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=83 tube_prot=83
+tot_kcal=1794 tube_kcal=1794 tot_insulin=0 gluc_eve=117 eve_gluc_src=accucheck time_gluc_eve=24:00 gluc_mrn=105 mrn_gluc_src=lab
+time_gluc_mrn=02:00 gluc_aft=130 aft_gluc_src=accucheck time_gluc_aft=14:00 sofa_resp=1 sofa_coag=0 sofa_liver=2 sofa_cardio=1
+sofa_cns=0 sofa_renal=0 sofa_tot=4 nar_prov=No day=12 dt_random=02/02/07 this_date=02/13/07 center=Emory dt_discharge=02/21/07
+still_in_hosp=0 days_study=19 daily_kcal_goal=1749 daily_prot_goal=102 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=.
+percent_iv_lipid=. tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=1794 percent_enteral=102.6 percent_overall=102.6
+tot_ent_prot=83 percent_parenteral_prot=0.0 percent_enteral_prot=81.4 percent_overall_prot=81.4 _ERROR_=1 _N_=47
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+id=11012 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=87 tube_prot=87
+tot_kcal=1872 tube_kcal=1872 tot_insulin=0 gluc_eve=118 eve_gluc_src=lab time_gluc_eve=02:00 gluc_mrn=132 mrn_gluc_src=accucheck
+time_gluc_mrn=06:00 gluc_aft=130 aft_gluc_src=accucheck time_gluc_aft=14:00 sofa_resp=1 sofa_coag=0 sofa_liver=2 sofa_cardio=1
+sofa_cns=0 sofa_renal=0 sofa_tot=4 nar_prov=No day=13 dt_random=02/02/07 this_date=02/14/07 center=Emory dt_discharge=02/21/07
+still_in_hosp=0 days_study=19 daily_kcal_goal=1749 daily_prot_goal=102 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=.
+percent_iv_lipid=. tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=1872 percent_enteral=107.0 percent_overall=107.0
+tot_ent_prot=87 percent_parenteral_prot=0.0 percent_enteral_prot=85.3 percent_overall_prot=85.3 _ERROR_=1 _N_=48
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+id=11012 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=72 tube_prot=72
+tot_kcal=1554 tube_kcal=1554 tot_insulin=0 gluc_eve=122 eve_gluc_src=lab time_gluc_eve=01:42 gluc_mrn=86 mrn_gluc_src=accucheck
+10                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+time_gluc_mrn=04:00 gluc_aft=. aft_gluc_src=. time_gluc_aft=99:99 sofa_resp=1 sofa_coag=0 sofa_liver=2 sofa_cardio=1 sofa_cns=0
+sofa_renal=0 sofa_tot=4 nar_prov=No day=14 dt_random=02/02/07 this_date=02/15/07 center=Emory dt_discharge=02/21/07 still_in_hosp=0
+days_study=19 daily_kcal_goal=1749 daily_prot_goal=102 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=1554 percent_enteral=88.9 percent_overall=88.9 tot_ent_prot=72
+percent_parenteral_prot=0.0 percent_enteral_prot=70.6 percent_overall_prot=70.6 _ERROR_=1 _N_=49
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+id=11012 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=98 tube_prot=98
+tot_kcal=2112 tube_kcal=2112 tot_insulin=0 gluc_eve=107 eve_gluc_src=lab time_gluc_eve=01:50 gluc_mrn=. mrn_gluc_src=.
+time_gluc_mrn=99:99 gluc_aft=. aft_gluc_src=. time_gluc_aft=99:99 sofa_resp=1 sofa_coag=0 sofa_liver=2 sofa_cardio=1 sofa_cns=0
+sofa_renal=0 sofa_tot=4 nar_prov=No day=15 dt_random=02/02/07 this_date=02/16/07 center=Emory dt_discharge=02/21/07 still_in_hosp=0
+days_study=19 daily_kcal_goal=1749 daily_prot_goal=102 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=2112 percent_enteral=120.8 percent_overall=120.8 tot_ent_prot=98
+percent_parenteral_prot=0.0 percent_enteral_prot=96.1 percent_overall_prot=96.1 _ERROR_=1 _N_=50
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+id=11012 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=107 tube_prot=107
+tot_kcal=2304 tube_kcal=2304 tot_insulin=0 gluc_eve=126 eve_gluc_src=lab time_gluc_eve=01:30 gluc_mrn=. mrn_gluc_src=.
+time_gluc_mrn=99:99 gluc_aft=. aft_gluc_src=. time_gluc_aft=99:99 sofa_resp=1 sofa_coag=0 sofa_liver=2 sofa_cardio=1 sofa_cns=0
+sofa_renal=0 sofa_tot=4 nar_prov=No day=16 dt_random=02/02/07 this_date=02/17/07 center=Emory dt_discharge=02/21/07 still_in_hosp=0
+days_study=19 daily_kcal_goal=1749 daily_prot_goal=102 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=2304 percent_enteral=131.7 percent_overall=131.7 tot_ent_prot=107
+percent_parenteral_prot=0.0 percent_enteral_prot=104.9 percent_overall_prot=104.9 _ERROR_=1 _N_=51
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+id=11012 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=84 tube_prot=84
+tot_kcal=1824 tube_kcal=1824 tot_insulin=0 gluc_eve=113 eve_gluc_src=lab time_gluc_eve=02:00 gluc_mrn=. mrn_gluc_src=.
+time_gluc_mrn=99:99 gluc_aft=. aft_gluc_src=. time_gluc_aft=99:99 sofa_resp=1 sofa_coag=0 sofa_liver=2 sofa_cardio=1 sofa_cns=0
+sofa_renal=0 sofa_tot=4 nar_prov=No day=17 dt_random=02/02/07 this_date=02/18/07 center=Emory dt_discharge=02/21/07 still_in_hosp=0
+days_study=19 daily_kcal_goal=1749 daily_prot_goal=102 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=1824 percent_enteral=104.3 percent_overall=104.3 tot_ent_prot=84
+percent_parenteral_prot=0.0 percent_enteral_prot=82.4 percent_overall_prot=82.4 _ERROR_=1 _N_=52
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+id=11012 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=200 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=67 tube_prot=67
+tot_kcal=1640 tube_kcal=1440 tot_insulin=0 gluc_eve=108 eve_gluc_src=lab time_gluc_eve=01:35 gluc_mrn=. mrn_gluc_src=.
+time_gluc_mrn=99:99 gluc_aft=. aft_gluc_src=. time_gluc_aft=99:99 sofa_resp=1 sofa_coag=0 sofa_liver=1 sofa_cardio=1 sofa_cns=0
+sofa_renal=0 sofa_tot=3 nar_prov=Yes day=18 dt_random=02/02/07 this_date=02/19/07 center=Emory dt_discharge=02/21/07 still_in_hosp=0
+days_study=19 daily_kcal_goal=1749 daily_prot_goal=102 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=1640 percent_enteral=93.8 percent_overall=93.8 tot_ent_prot=67
+percent_parenteral_prot=0.0 percent_enteral_prot=65.7 percent_overall_prot=65.7 _ERROR_=1 _N_=53
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+id=11012 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=71 tube_prot=71
+tot_kcal=1536 tube_kcal=1536 tot_insulin=0 gluc_eve=109 eve_gluc_src=lab time_gluc_eve=02:15 gluc_mrn=. mrn_gluc_src=.
+time_gluc_mrn=99:99 gluc_aft=. aft_gluc_src=. time_gluc_aft=99:99 sofa_resp=1 sofa_coag=0 sofa_liver=1 sofa_cardio=0 sofa_cns=0
+sofa_renal=0 sofa_tot=2 nar_prov=Yes day=19 dt_random=02/02/07 this_date=02/20/07 center=Emory dt_discharge=02/21/07 still_in_hosp=0
+days_study=19 daily_kcal_goal=1749 daily_prot_goal=102 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=1536 percent_enteral=87.8 percent_overall=87.8 tot_ent_prot=71
+percent_parenteral_prot=0.0 percent_enteral_prot=69.6 percent_overall_prot=69.6 _ERROR_=1 _N_=54
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+11                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+id=11014 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=55 tube_prot=55
+tot_kcal=1188 tube_kcal=1188 tot_insulin=0 gluc_eve=115 eve_gluc_src=accucheck time_gluc_eve=21:00 gluc_mrn=139 mrn_gluc_src=lab
+time_gluc_mrn=02:00 gluc_aft=126 aft_gluc_src=accucheck time_gluc_aft=18:00 sofa_resp=0 sofa_coag=0 sofa_liver=2 sofa_cardio=0
+sofa_cns=0 sofa_renal=0 sofa_tot=2 nar_prov=Yes day=10 dt_random=02/19/07 this_date=02/28/07 center=Emory dt_discharge=03/09/07
+still_in_hosp=0 days_study=18 daily_kcal_goal=1548 daily_prot_goal=92 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=.
+percent_iv_lipid=. tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=1188 percent_enteral=76.7 percent_overall=76.7
+tot_ent_prot=55 percent_parenteral_prot=0.0 percent_enteral_prot=59.8 percent_overall_prot=59.8 _ERROR_=1 _N_=66
+NOTE: Division by zero detected at line 175 column 30.
+NOTE: Division by zero detected at line 176 column 32.
+NOTE: Division by zero detected at line 177 column 43.
+ERROR: Limit set by ERRORS= option reached.  Further errors of this type will not be printed.
+id=11014 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=70 tube_prot=70
+tot_kcal=1518 tube_kcal=1518 tot_insulin=0 gluc_eve=144 eve_gluc_src=lab time_gluc_eve=02:00 gluc_mrn=150 mrn_gluc_src=accucheck
+time_gluc_mrn=06:38 gluc_aft=124 aft_gluc_src=accucheck time_gluc_aft=12:00 sofa_resp=1 sofa_coag=0 sofa_liver=2 sofa_cardio=1
+sofa_cns=0 sofa_renal=0 sofa_tot=4 nar_prov=No day=11 dt_random=02/19/07 this_date=03/01/07 center=Emory dt_discharge=03/09/07
+still_in_hosp=0 days_study=18 daily_kcal_goal=1548 daily_prot_goal=92 FIRST.id=0 LAST.id=0 percent_iv_aa=. percent_iv_dextrose=.
+percent_iv_lipid=. tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=1518 percent_enteral=98.1 percent_overall=98.1
+tot_ent_prot=70 percent_parenteral_prot=0.0 percent_enteral_prot=76.1 percent_overall_prot=76.1 _ERROR_=1 _N_=67
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      414 at 175:40   14 at 175:64    414 at 176:42   14 at 176:66    421 at 177:31   7 at 177:77     414 at 180:28
+      14 at 180:52    428 at 181:40   512 at 184:28   512 at 185:35   479 at 188:31   513 at 192:28   414 at 193:37
+      513 at 194:39   478 at 195:34   
+NOTE: Mathematical operations could not be performed at the following places. The results of the operations have been set to 
+      missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      468 at 175:30   468 at 176:32   468 at 177:43   
+NOTE: There were 2655 observations read from the data set WORK.LONG_STATUS.
+NOTE: There were 129 observations read from the data set GLND.PLATE11.
+NOTE: The data set WORK.PERCENT_PN has 2655 observations and 53 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.08 seconds
+      cpu time            0.07 seconds
+      
+
+210        
+211        	
+211      !  proc sort data= percent_pn; by id day; run;
+
+NOTE: There were 2655 observations read from the data set WORK.PERCENT_PN.
+NOTE: The data set WORK.PERCENT_PN has 2655 observations and 53 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.08 seconds
+      cpu time            0.03 seconds
+      
+
+212        	
+212      !  proc sort data= glnd.status; by id; run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+213        
+214        	/* process the data, removing blank observations and putting in an extra row that indicates the status of the patient
+214      ! and their data */
+12                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+215        	
+215      !  data percent_pn;
+216        		merge percent_pn
+217        			glnd.status (keep = id days_hosp_post_entry days_until_death deceased);
+218        		by id;
+219        
+220        			row = put(day, 11.); * row label;
+221        		center = floor(id / 10000);
+222        
+223        	
+224        		* if we know the patient was released from the hospital or died but we do not have all of the f/u info;
+225        		if (last.id) & (day < days_hosp_post_entry) then do;
+226        			
+227        			output;
+228        			daily_kcal_goal =.;
+229        			iv_kcal =.;
+230        			prop_kcal =.;
+231        			pn_aa_kcal =.;
+232        			pn_cho  =.;
+233        			pn_lipid  =.;
+234        			percent_iv_aa  =.;
+235        			percent_iv_dextrose =.;
+236        			percent_iv_lipid  =.;
+237        			tot_parent_kcal  =.;
+238        			tot_ent_kcal  =.;
+239        			tot_kcal  =.;
+240        			percent_parenteral  =.;
+241        			percent_enteral  =.;
+242        			percent_overall =.;
+243        
+244        			tot_ent_prot =.;
+245        			percent_parenteral_prot = .;
+246        			percent_enteral_prot = .;
+247        			percent_overall_prot = .;
+248        			pn_aa_g = .;
+249        			daily_prot_goal = .;	
+250        			tot_aa = .;
+251        			tot_insulin=.;
+252        
+253        			if day = 28 then row = "End of Data"; * they were still hopsitalized past day 28 but the daily nutrition data ends
+253      ! here ;
+254        			else row = "Data Incom.";
+255        
+256        			output;
+257        		end;
+258        		
+259        		* still hospitalized;
+260        		else if (last.id) & (days_hosp_post_entry = .) then do ;
+261        			output;
+262        			daily_kcal_goal =.;
+263        			iv_kcal =.;
+264        			prop_kcal =.;
+265        			pn_aa_kcal =.;
+266        			pn_cho  =.;
+267        			pn_lipid  =.;
+268        			percent_iv_aa  =.;
+269        			percent_iv_dextrose =.;
+270        			percent_iv_lipid  =.;
+13                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+271        			tot_parent_kcal  =.;
+272        			tot_ent_kcal  =.;
+273        			tot_kcal  =.;
+274        			percent_parenteral  =.;
+275        			percent_enteral  =.;
+276        			percent_overall =.;
+277        
+278        			tot_ent_prot =.;
+279        			percent_parenteral_prot = .;
+280        			percent_enteral_prot = .;
+281        			percent_overall_prot = .;
+282        			pn_aa_g = .;
+283        			daily_prot_goal = .;
+284        			tot_aa = .;
+285        			tot_insulin=.;
+286        
+287        			row = "Still hosp.";
+288        			output;
+289        		end;
+290        
+291        		* produces most normal rows;
+292        		else if (day < days_hosp_post_entry) | (days_hosp_post_entry = .) then do ;
+293        			* output last day in hopsital;	
+294        			output;
+295        		end;
+296        
+297        		else if (day > days_hosp_post_entry) then DELETE; * this is a blank record post-hospital discharge;
+298        		
+299        		else if (day = days_hosp_post_entry) then do; * if last record for a person and they have left the hospital for death
+299      ! or discharge;
+300        			* output last day in hopsital;
+301        			output;
+302        			
+303        			* create lastrow;
+304        			if (deceased) & (days_until_death <= days_hosp_post_entry) then row = "Died";
+305        			else row = "Discharged";
+306        			
+307        			daily_kcal_goal =.;
+308        			iv_kcal =.;
+309        			prop_kcal =.;
+310        			pn_aa_kcal =.;
+311        			pn_cho  =.;
+312        			pn_lipid  =.;
+313        			percent_iv_aa  =.;
+314        			percent_iv_dextrose =.;
+315        			percent_iv_lipid  =.;
+316        			tot_parent_kcal  =.;
+317        			tot_ent_kcal  =.;
+318        			tot_kcal  =.;
+319        			percent_parenteral  =.;
+320        			percent_enteral  =.;
+321        			percent_overall =.;
+322        
+323        			tot_ent_prot =.;
+324        			percent_parenteral_prot = .;
+325        			percent_enteral_prot = .;
+326        			percent_overall_prot = .;
+327        			pn_aa_g = .;
+14                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+328        			daily_prot_goal = .;
+329        			tot_aa = .;
+330        			tot_insulin=.;
+331        
+332        			output;
+333        
+334        
+335        
+336        		label
+337        			row= "Day"
+338        			pn_aa_kcal="IV AA kcal"
+339                		tot_kcal="Tot kcal"
+340                		pn_lipid = "IV lipid kcal"
+341        			pn_cho = "IV CHO kcal"
+342        			
+343        			percent_iv_aa= "% IV kcal AA"
+344        			percent_iv_dextrose= "% IV kcal Dext"
+345        			percent_iv_lipid = "% IV kcal Lipid"
+346        		
+347        			daily_kcal_goal = "Daily kcal goal"
+348        			tot_parent_kcal = "Tot IV kcal "
+349        			tot_ent_kcal = "Tot EN kcal "
+350        
+351        			iv_kcal="IV fl. kcal"
+352               		prop_kcal="Prop. kcal"
+353        			
+354        			percent_parenteral = "% kcal goal admin. IV"
+355        			percent_enteral = "% kcal goal admin. EN"
+356        			percent_overall = "% kcal goal admin."
+357        
+358        			percent_parenteral_prot = "% prot. goal admin. IV"
+359        			percent_enteral_prot = "% prot. goal admin. EN"
+360        		 	percent_overall_prot = "% prot. goal admin."
+361        
+362        			daily_prot_goal = "Daily AA /prot goal (g)"
+363        			pn_aa_g = "IV AA (g)"
+364        			tot_ent_prot = "EN AA /prot (g)"
+365        			tot_aa = "Tot AA /Prot (g)"
+366        			tot_insulin ="Tot Insulin admin. (units)"
+367        		;
+368        		end;
+369        run;
+
+NOTE: There were 2655 observations read from the data set WORK.PERCENT_PN.
+NOTE: There were 130 observations read from the data set GLND.STATUS.
+NOTE: The data set WORK.PERCENT_PN has 2398 observations and 57 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.04 seconds
+      
+
+370        
+371        * make a permanent copy of the above dataset ;
+372        	
+372      !  data glnd_rep.indiv_pn_tables;
+373        		set percent_pn;
+374        	run;
+
+15                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+NOTE: There were 2398 observations read from the data set WORK.PERCENT_PN.
+NOTE: The data set GLND_REP.INDIV_PN_TABLES has 2398 observations and 57 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.19 seconds
+      cpu time            0.04 seconds
+      
+
+375        
+376        /* Part 3 - total patients receiving median kcals enterally through each day ---- formerly part 2 */
+377        
+378        	* this is being done for days 0-7,7-14,14-21,21-28, overall separately. i tried using a macro, but this is easier!;
+379        			
+380        		
+380      !   data temp_nut;
+381        			set percent_pn;
+382        			by id;
+383        
+384        			if last.id then delete; 	* remove the last row which is a descriptor that indicates the patient's study status  ;
+385        
+386        				* first determine if they have any recorded EN;
+387        				if (tube_kcal ~= .) and (oral_kcal ~= .) then has_en = 1; else has_en = 0;
+388        
+389        				* now recode missing to zero not for accuracy but in order to avoid having a '.' for the total if one value is
+389      ! missing;
+390        				if tube_kcal = . then tube_kcal = 0;
+391        				if oral_kcal = . then oral_kcal = 0;
+392        	
+393        				* compute total enteral kcal;
+394        				tot_ent_kcal = tube_kcal + oral_kcal;
+395        	
+396        				percent_enteral = (tot_ent_kcal / tot_kcal) * 100;
+397        	
+398        	
+399        			
+400        		run;
+
+NOTE: Division by zero detected at line 396 column 37.
+id=11041 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=0 gluc_eve=. eve_gluc_src=. time_gluc_eve=99:99 gluc_mrn=75 mrn_gluc_src=lab time_gluc_mrn=01:53
+gluc_aft=. aft_gluc_src=. time_gluc_aft=99:99 sofa_resp=3 sofa_coag=0 sofa_liver=1 sofa_cardio=0 sofa_cns=0 sofa_renal=2 sofa_tot=6
+nar_prov=No day=12 dt_random=07/31/07 this_date=08/11/07 center=Emory dt_discharge=08/29/07 still_in_hosp=0 days_study=29
+daily_kcal_goal=1612 daily_prot_goal=97 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=. tot_parent_kcal=0
+percent_parenteral=0.0 tot_ent_kcal=0 percent_enteral=. percent_overall=0.0 tot_ent_prot=0 percent_parenteral_prot=0.0
+percent_enteral_prot=0.0 percent_overall_prot=0.0 deceased=1 days_until_death=45 days_hosp_post_entry=29 row=12 FIRST.id=0 LAST.id=0
+has_en=1 _ERROR_=1 _N_=118
+NOTE: Division by zero detected at line 396 column 37.
+id=12029 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=23 gluc_eve=101 eve_gluc_src=lab time_gluc_eve=02:13 gluc_mrn=118 mrn_gluc_src=accucheck
+time_gluc_mrn=07:00 gluc_aft=160 aft_gluc_src=accucheck time_gluc_aft=16:00 sofa_resp=1 sofa_coag=2 sofa_liver=2 sofa_cardio=1
+sofa_cns=2 sofa_renal=1 sofa_tot=9 nar_prov=Yes day=18 dt_random=05/04/07 this_date=05/21/07 center=Emory dt_discharge=05/26/07
+still_in_hosp=0 days_study=22 daily_kcal_goal=2227 daily_prot_goal=138 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=0 percent_enteral=. percent_overall=0.0 tot_ent_prot=0
+percent_parenteral_prot=0.0 percent_enteral_prot=0.0 percent_overall_prot=0.0 deceased=1 days_until_death=22 days_hosp_post_entry=22
+row=18 FIRST.id=0 LAST.id=0 has_en=1 _ERROR_=1 _N_=552
+NOTE: Division by zero detected at line 396 column 37.
+id=12029 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=17 gluc_eve=5 eve_gluc_src=lab time_gluc_eve=00:01 gluc_mrn=116 mrn_gluc_src=accucheck
+time_gluc_mrn=06:00 gluc_aft=162 aft_gluc_src=accucheck time_gluc_aft=14:00 sofa_resp=2 sofa_coag=3 sofa_liver=2 sofa_cardio=4
+16                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+sofa_cns=4 sofa_renal=2 sofa_tot=17 nar_prov=Yes day=21 dt_random=05/04/07 this_date=05/24/07 center=Emory dt_discharge=05/26/07
+still_in_hosp=0 days_study=22 daily_kcal_goal=2227 daily_prot_goal=138 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=0 percent_enteral=. percent_overall=0.0 tot_ent_prot=0
+percent_parenteral_prot=0.0 percent_enteral_prot=0.0 percent_overall_prot=0.0 deceased=1 days_until_death=22 days_hosp_post_entry=22
+row=21 FIRST.id=0 LAST.id=0 has_en=1 _ERROR_=1 _N_=555
+NOTE: Division by zero detected at line 396 column 37.
+id=12038 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=0 gluc_eve=140 eve_gluc_src=accucheck time_gluc_eve=21:02 gluc_mrn=152 mrn_gluc_src=lab
+time_gluc_mrn=05:00 gluc_aft=169 aft_gluc_src=accucheck time_gluc_aft=14:23 sofa_resp=. sofa_coag=. sofa_liver=. sofa_cardio=.
+sofa_cns=. sofa_renal=. sofa_tot=. nar_prov=No day=20 dt_random=07/12/07 this_date=07/31/07 center=Emory dt_discharge=08/15/07
+still_in_hosp=0 days_study=34 daily_kcal_goal=1621 daily_prot_goal=103 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=0 percent_enteral=. percent_overall=0.0 tot_ent_prot=0
+percent_parenteral_prot=0.0 percent_enteral_prot=0.0 percent_overall_prot=0.0 deceased=1 days_until_death=86 days_hosp_post_entry=34
+row=20 FIRST.id=0 LAST.id=0 has_en=1 _ERROR_=1 _N_=577
+NOTE: Division by zero detected at line 396 column 37.
+id=12038 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=0 gluc_eve=210 eve_gluc_src=accucheck time_gluc_eve=21:11 gluc_mrn=210 mrn_gluc_src=accucheck
+time_gluc_mrn=06:25 gluc_aft=211 aft_gluc_src=accucheck time_gluc_aft=11:34 sofa_resp=. sofa_coag=. sofa_liver=. sofa_cardio=.
+sofa_cns=. sofa_renal=. sofa_tot=. nar_prov=No day=21 dt_random=07/12/07 this_date=08/01/07 center=Emory dt_discharge=08/15/07
+still_in_hosp=0 days_study=34 daily_kcal_goal=1621 daily_prot_goal=103 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=0 percent_enteral=. percent_overall=0.0 tot_ent_prot=0
+percent_parenteral_prot=0.0 percent_enteral_prot=0.0 percent_overall_prot=0.0 deceased=1 days_until_death=86 days_hosp_post_entry=34
+row=21 FIRST.id=0 LAST.id=0 has_en=1 _ERROR_=1 _N_=578
+NOTE: Division by zero detected at line 396 column 37.
+id=12038 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=0 gluc_eve=211 eve_gluc_src=accucheck time_gluc_eve=22:37 gluc_mrn=212 mrn_gluc_src=accucheck
+time_gluc_mrn=05:18 gluc_aft=220 aft_gluc_src=accucheck time_gluc_aft=16:32 sofa_resp=. sofa_coag=. sofa_liver=. sofa_cardio=.
+sofa_cns=. sofa_renal=. sofa_tot=. nar_prov=No day=22 dt_random=07/12/07 this_date=08/02/07 center=Emory dt_discharge=08/15/07
+still_in_hosp=0 days_study=34 daily_kcal_goal=1621 daily_prot_goal=103 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=0 percent_enteral=. percent_overall=0.0 tot_ent_prot=0
+percent_parenteral_prot=0.0 percent_enteral_prot=0.0 percent_overall_prot=0.0 deceased=1 days_until_death=86 days_hosp_post_entry=34
+row=22 FIRST.id=0 LAST.id=0 has_en=1 _ERROR_=1 _N_=579
+NOTE: Division by zero detected at line 396 column 37.
+id=12038 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=0 gluc_eve=146 eve_gluc_src=accucheck time_gluc_eve=21:23 gluc_mrn=269 mrn_gluc_src=lab
+time_gluc_mrn=06:00 gluc_aft=148 aft_gluc_src=accucheck time_gluc_aft=16:03 sofa_resp=. sofa_coag=. sofa_liver=. sofa_cardio=.
+sofa_cns=. sofa_renal=. sofa_tot=. nar_prov=No day=24 dt_random=07/12/07 this_date=08/04/07 center=Emory dt_discharge=08/15/07
+still_in_hosp=0 days_study=34 daily_kcal_goal=1621 daily_prot_goal=103 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=0 percent_enteral=. percent_overall=0.0 tot_ent_prot=0
+percent_parenteral_prot=0.0 percent_enteral_prot=0.0 percent_overall_prot=0.0 deceased=1 days_until_death=86 days_hosp_post_entry=34
+row=24 FIRST.id=0 LAST.id=0 has_en=1 _ERROR_=1 _N_=581
+NOTE: Division by zero detected at line 396 column 37.
+id=12038 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=0 gluc_eve=88 eve_gluc_src=lab time_gluc_eve=02:55 gluc_mrn=96 mrn_gluc_src=accucheck
+time_gluc_mrn=07:11 gluc_aft=109 aft_gluc_src=lab time_gluc_aft=11:30 sofa_resp=3 sofa_coag=0 sofa_liver=1 sofa_cardio=3 sofa_cns=2
+sofa_renal=0 sofa_tot=9 nar_prov=Yes day=25 dt_random=07/12/07 this_date=08/05/07 center=Emory dt_discharge=08/15/07 still_in_hosp=0
+days_study=34 daily_kcal_goal=1621 daily_prot_goal=103 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=. tot_parent_kcal=0
+percent_parenteral=0.0 tot_ent_kcal=0 percent_enteral=. percent_overall=0.0 tot_ent_prot=0 percent_parenteral_prot=0.0
+percent_enteral_prot=0.0 percent_overall_prot=0.0 deceased=1 days_until_death=86 days_hosp_post_entry=34 row=25 FIRST.id=0 LAST.id=0
+has_en=1 _ERROR_=1 _N_=582
+NOTE: Division by zero detected at line 396 column 37.
+id=12046 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=39 gluc_eve=119 eve_gluc_src=accucheck time_gluc_eve=23:01 gluc_mrn=108 mrn_gluc_src=accucheck
+time_gluc_mrn=06:10 gluc_aft=84 aft_gluc_src=lab time_gluc_aft=15:06 sofa_resp=1 sofa_coag=0 sofa_liver=2 sofa_cardio=3 sofa_cns=3
+sofa_renal=2 sofa_tot=11 nar_prov=No day=8 dt_random=08/20/07 this_date=08/27/07 center=Emory dt_discharge=09/19/07 still_in_hosp=0
+days_study=30 daily_kcal_goal=1796 daily_prot_goal=110 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=. tot_parent_kcal=0
+percent_parenteral=0.0 tot_ent_kcal=0 percent_enteral=. percent_overall=0.0 tot_ent_prot=0 percent_parenteral_prot=0.0
+percent_enteral_prot=0.0 percent_overall_prot=0.0 deceased=1 days_until_death=41 days_hosp_post_entry=30 row=8 FIRST.id=0 LAST.id=0
+17                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+has_en=1 _ERROR_=1 _N_=594
+NOTE: Division by zero detected at line 396 column 37.
+id=12046 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=55 gluc_eve=107 eve_gluc_src=lab time_gluc_eve=02:00 gluc_mrn=112 mrn_gluc_src=accucheck
+time_gluc_mrn=06:13 gluc_aft=81 aft_gluc_src=accucheck time_gluc_aft=14:54 sofa_resp=1 sofa_coag=0 sofa_liver=1 sofa_cardio=1
+sofa_cns=0 sofa_renal=2 sofa_tot=5 nar_prov=No day=13 dt_random=08/20/07 this_date=09/01/07 center=Emory dt_discharge=09/19/07
+still_in_hosp=0 days_study=30 daily_kcal_goal=1796 daily_prot_goal=110 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=0 percent_enteral=. percent_overall=0.0 tot_ent_prot=0
+percent_parenteral_prot=0.0 percent_enteral_prot=0.0 percent_overall_prot=0.0 deceased=1 days_until_death=41 days_hosp_post_entry=30
+row=13 FIRST.id=0 LAST.id=0 has_en=1 _ERROR_=1 _N_=599
+NOTE: Division by zero detected at line 396 column 37.
+id=22028 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=0 gluc_eve=. eve_gluc_src=. time_gluc_eve=  gluc_mrn=. mrn_gluc_src=. time_gluc_mrn=  gluc_aft=.
+aft_gluc_src=. time_gluc_aft=  sofa_resp=0 sofa_coag=0 sofa_liver=0 sofa_cardio=1 sofa_cns=4 sofa_renal=0 sofa_tot=5 nar_prov=Yes
+day=22 dt_random=05/14/08 this_date=06/04/08 center=Miriam dt_discharge=06/05/08 still_in_hosp=0 days_study=22 daily_kcal_goal=1464
+daily_prot_goal=88 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=. tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=0
+percent_enteral=. percent_overall=0.0 tot_ent_prot=0 percent_parenteral_prot=0.0 percent_enteral_prot=0.0 percent_overall_prot=0.0
+deceased=1 days_until_death=22 days_hosp_post_entry=22 row=22 FIRST.id=0 LAST.id=0 has_en=1 _ERROR_=1 _N_=1146
+NOTE: Division by zero detected at line 396 column 37.
+id=31032 tot_pn=0 oral_prot=. pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=0 gluc_eve=106 eve_gluc_src=accucheck time_gluc_eve=21:33 gluc_mrn=96 mrn_gluc_src=lab
+time_gluc_mrn=06:00 gluc_aft=. aft_gluc_src=. time_gluc_aft=  sofa_resp=. sofa_coag=. sofa_liver=. sofa_cardio=. sofa_cns=.
+sofa_renal=. sofa_tot=. nar_prov=Yes day=8 dt_random=06/15/07 this_date=06/22/07 center=Vanderbilt dt_discharge=06/23/07
+still_in_hosp=0 days_study=8 daily_kcal_goal=2821 daily_prot_goal=147 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=0 percent_enteral=. percent_overall=0.0 tot_ent_prot=.
+percent_parenteral_prot=0.0 percent_enteral_prot=. percent_overall_prot=0.0 deceased=0 days_until_death=. days_hosp_post_entry=8
+row=8 FIRST.id=0 LAST.id=0 has_en=0 _ERROR_=1 _N_=1207
+NOTE: Division by zero detected at line 396 column 37.
+id=31045 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=0 gluc_eve=120 eve_gluc_src=. time_gluc_eve=01:57 gluc_mrn=168 mrn_gluc_src=. time_gluc_mrn=05:43
+gluc_aft=. aft_gluc_src=. time_gluc_aft=99:99 sofa_resp=3 sofa_coag=2 sofa_liver=0 sofa_cardio=0 sofa_cns=4 sofa_renal=1 sofa_tot=10
+nar_prov=Yes day=3 dt_random=08/25/07 this_date=08/27/07 center=Vanderbilt dt_discharge=08/29/07 still_in_hosp=0 days_study=4
+daily_kcal_goal=1586 daily_prot_goal=87 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=. tot_parent_kcal=0
+percent_parenteral=0.0 tot_ent_kcal=0 percent_enteral=. percent_overall=0.0 tot_ent_prot=0 percent_parenteral_prot=0.0
+percent_enteral_prot=0.0 percent_overall_prot=0.0 deceased=1 days_until_death=4 days_hosp_post_entry=4 row=3 FIRST.id=0 LAST.id=0
+has_en=1 _ERROR_=1 _N_=1211
+NOTE: Division by zero detected at line 396 column 37.
+id=31045 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=0 gluc_eve=. eve_gluc_src=. time_gluc_eve=99:99 gluc_mrn=. mrn_gluc_src=. time_gluc_mrn=99:99
+gluc_aft=. aft_gluc_src=. time_gluc_aft=99:99 sofa_resp=. sofa_coag=. sofa_liver=. sofa_cardio=0 sofa_cns=4 sofa_renal=. sofa_tot=4
+nar_prov=Yes day=4 dt_random=08/25/07 this_date=08/28/07 center=Vanderbilt dt_discharge=08/29/07 still_in_hosp=0 days_study=4
+daily_kcal_goal=1586 daily_prot_goal=87 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=. tot_parent_kcal=0
+percent_parenteral=0.0 tot_ent_kcal=0 percent_enteral=. percent_overall=0.0 tot_ent_prot=0 percent_parenteral_prot=0.0
+percent_enteral_prot=0.0 percent_overall_prot=0.0 deceased=1 days_until_death=4 days_hosp_post_entry=4 row=4 FIRST.id=0 LAST.id=0
+has_en=1 _ERROR_=1 _N_=1212
+NOTE: Division by zero detected at line 396 column 37.
+id=41036 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=0 gluc_eve=123 eve_gluc_src=accucheck time_gluc_eve=22:00 gluc_mrn=151 mrn_gluc_src=lab
+time_gluc_mrn=03:45 gluc_aft=218 aft_gluc_src=lab time_gluc_aft=19:05 sofa_resp=3 sofa_coag=0 sofa_liver=0 sofa_cardio=3 sofa_cns=3
+sofa_renal=0 sofa_tot=9 nar_prov=Yes day=9 dt_random=11/06/07 this_date=11/14/07 center=Colorado dt_discharge=11/20/07
+still_in_hosp=0 days_study=14 daily_kcal_goal=1834 daily_prot_goal=101 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=0 percent_enteral=. percent_overall=0.0 tot_ent_prot=0
+percent_parenteral_prot=0.0 percent_enteral_prot=0.0 percent_overall_prot=0.0 deceased=0 days_until_death=. days_hosp_post_entry=14
+row=9 FIRST.id=0 LAST.id=0 has_en=1 _ERROR_=1 _N_=1723
+NOTE: Division by zero detected at line 396 column 37.
+id=41102 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=0 gluc_eve=156 eve_gluc_src=accucheck time_gluc_eve=00:00 gluc_mrn=124 mrn_gluc_src=lab
+time_gluc_mrn=06:00 gluc_aft=174 aft_gluc_src=accucheck time_gluc_aft=18:10 sofa_resp=. sofa_coag=. sofa_liver=. sofa_cardio=.
+18                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+sofa_cns=. sofa_renal=. sofa_tot=. nar_prov=No day=25 dt_random=12/01/08 this_date=12/25/08 center=Colorado dt_discharge=12/29/08
+still_in_hosp=0 days_study=28 daily_kcal_goal=1590 daily_prot_goal=89 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=0 percent_enteral=. percent_overall=0.0 tot_ent_prot=0
+percent_parenteral_prot=0.0 percent_enteral_prot=0.0 percent_overall_prot=0.0 deceased=0 days_until_death=. days_hosp_post_entry=28
+row=25 FIRST.id=0 LAST.id=0 has_en=1 _ERROR_=1 _N_=1895
+NOTE: Division by zero detected at line 396 column 37.
+id=41102 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=0 gluc_eve=131 eve_gluc_src=accucheck time_gluc_eve=22:19 gluc_mrn=124 mrn_gluc_src=lab
+time_gluc_mrn=06:00 gluc_aft=187 aft_gluc_src=accucheck time_gluc_aft=11:30 sofa_resp=. sofa_coag=. sofa_liver=. sofa_cardio=.
+sofa_cns=. sofa_renal=. sofa_tot=. nar_prov=No day=26 dt_random=12/01/08 this_date=12/26/08 center=Colorado dt_discharge=12/29/08
+still_in_hosp=0 days_study=28 daily_kcal_goal=1590 daily_prot_goal=89 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=0 percent_enteral=. percent_overall=0.0 tot_ent_prot=0
+percent_parenteral_prot=0.0 percent_enteral_prot=0.0 percent_overall_prot=0.0 deceased=0 days_until_death=. days_hosp_post_entry=28
+row=26 FIRST.id=0 LAST.id=0 has_en=1 _ERROR_=1 _N_=1896
+NOTE: Division by zero detected at line 396 column 37.
+id=41102 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=0 gluc_eve=103 eve_gluc_src=accucheck time_gluc_eve=22:00 gluc_mrn=205 mrn_gluc_src=accucheck
+time_gluc_mrn=08:00 gluc_aft=115 aft_gluc_src=accucheck time_gluc_aft=17:00 sofa_resp=. sofa_coag=. sofa_liver=. sofa_cardio=.
+sofa_cns=. sofa_renal=. sofa_tot=. nar_prov=No day=27 dt_random=12/01/08 this_date=12/27/08 center=Colorado dt_discharge=12/29/08
+still_in_hosp=0 days_study=28 daily_kcal_goal=1590 daily_prot_goal=89 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=0 percent_enteral=. percent_overall=0.0 tot_ent_prot=0
+percent_parenteral_prot=0.0 percent_enteral_prot=0.0 percent_overall_prot=0.0 deceased=0 days_until_death=. days_hosp_post_entry=28
+row=27 FIRST.id=0 LAST.id=0 has_en=1 _ERROR_=1 _N_=1897
+NOTE: Division by zero detected at line 396 column 37.
+id=41102 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=0 gluc_eve=124 eve_gluc_src=accucheck time_gluc_eve=22:00 gluc_mrn=149 mrn_gluc_src=lab
+time_gluc_mrn=06:00 gluc_aft=217 aft_gluc_src=accucheck time_gluc_aft=12:00 sofa_resp=. sofa_coag=. sofa_liver=. sofa_cardio=.
+sofa_cns=. sofa_renal=. sofa_tot=. nar_prov=No day=28 dt_random=12/01/08 this_date=12/28/08 center=Colorado dt_discharge=12/29/08
+still_in_hosp=0 days_study=28 daily_kcal_goal=1590 daily_prot_goal=89 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=0 percent_enteral=. percent_overall=0.0 tot_ent_prot=0
+percent_parenteral_prot=0.0 percent_enteral_prot=0.0 percent_overall_prot=0.0 deceased=0 days_until_death=. days_hosp_post_entry=28
+row=28 FIRST.id=0 LAST.id=0 has_en=1 _ERROR_=1 _N_=1898
+NOTE: Division by zero detected at line 396 column 37.
+ERROR: Limit set by ERRORS= option reached.  Further errors of this type will not be printed.
+id=42007 tot_pn=0 oral_prot=0 pn_aa_g=0 oral_kcal=0 pn_aa_kcal=0 iv_kcal=0 pn_lipid=0 prop_kcal=0 pn_cho=0 tot_aa=0 tube_prot=0
+tot_kcal=0 tube_kcal=0 tot_insulin=0 gluc_eve=115 eve_gluc_src=accucheck time_gluc_eve=24:00 gluc_mrn=131 mrn_gluc_src=accucheck
+time_gluc_mrn=06:00 gluc_aft=131 aft_gluc_src=accucheck time_gluc_aft=12:00 sofa_resp=0 sofa_coag=0 sofa_liver=1 sofa_cardio=0
+sofa_cns=0 sofa_renal=0 sofa_tot=1 nar_prov=Yes day=6 dt_random=04/13/07 this_date=04/18/07 center=Colorado dt_discharge=04/23/07
+still_in_hosp=0 days_study=10 daily_kcal_goal=2146 daily_prot_goal=116 percent_iv_aa=. percent_iv_dextrose=. percent_iv_lipid=.
+tot_parent_kcal=0 percent_parenteral=0.0 tot_ent_kcal=0 percent_enteral=. percent_overall=0.0 tot_ent_prot=0
+percent_parenteral_prot=0.0 percent_enteral_prot=0.0 percent_overall_prot=0.0 deceased=0 days_until_death=. days_hosp_post_entry=10
+row=6 FIRST.id=0 LAST.id=0 has_en=1 _ERROR_=1 _N_=2114
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      106 at 396:37   
+NOTE: Mathematical operations could not be performed at the following places. The results of the operations have been set to 
+      missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      26 at 396:37   
+NOTE: There were 2398 observations read from the data set WORK.PERCENT_PN.
+NOTE: The data set WORK.TEMP_NUT has 2269 observations and 58 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.02 seconds
+      
+
+401        
+402        proc print data = temp_nut;
+19                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+403        	var id day tube_kcal oral_kcal has_en;
+404        run;
+
+NOTE: There were 2269 observations read from the data set WORK.TEMP_NUT.
+NOTE: The PROCEDURE PRINT printed pages 1-42.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.05 seconds
+      
+
+405        
+406        		
+407        		* process the first week - get median EN per patient;
+408        			
+408      !    proc means data= temp_nut n median;
+409        				where (day < 8 ) ;
+410        				class id;
+411        				var percent_enteral;
+412        				output 	out = en_0_7
+413        						median(percent_enteral) = median_en 		sum(has_en) = sum_has_en; * also get the total days with EN day for the week;
+414        			run;
+
+NOTE: There were 873 observations read from the data set WORK.TEMP_NUT.
+      WHERE day<8;
+NOTE: The data set WORK.EN_0_7 has 130 observations and 5 variables.
+NOTE: The PROCEDURE MEANS printed pages 43-48.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.07 seconds
+      
+
+415        			
+415      !    data en_0_7;
+416        				set en_0_7;
+417        					day = 7;					* add day stamp for later processing;
+418        					if id = . then delete;		* get rid of cumulative info;
+419        			
+420        				drop _type_ _freq_;			* drop extra vars;
+421        			run;
+
+NOTE: There were 130 observations read from the data set WORK.EN_0_7.
+NOTE: The data set WORK.EN_0_7 has 129 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+422        		
+423        		* process the second week - get medians;
+424        			
+424      !    proc means data= temp_nut n median;
+425        				where ((day > 7 ) & (day < 15)) & ((still_in_hosp & (date() - dt_random > 7)) | (days_study > 7) ); * get all data
+425      ! for first 15 days of people hospitalized more than a week;
+426        
+427        				class id;
+428        				var percent_enteral;
+429        				output 	out = en_7_14
+430        						median(percent_enteral) = median_en 		sum(has_en) = sum_has_en; * also get the total days with EN day for the week;
+20                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+431        			run;
+
+NOTE: There were 680 observations read from the data set WORK.TEMP_NUT.
+      WHERE (day>7 and day<15) and ((still_in_hosp and ((DATE()-dt_random)>7)) or (days_study>7));
+NOTE: The data set WORK.EN_7_14 has 111 observations and 5 variables.
+NOTE: The PROCEDURE MEANS printed pages 49-53.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.06 seconds
+      
+
+432        			
+432      !    data en_7_14;
+433        				set en_7_14;
+434        					day = 14;					* add day stamp for later processing;
+435        					if id = . then delete;		* get rid of cumulative info;
+436        
+437        				drop _type_ _freq_;			* drop extra vars;
+438        			run;
+
+NOTE: There were 111 observations read from the data set WORK.EN_7_14.
+NOTE: The data set WORK.EN_7_14 has 110 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+439        
+440        		* process the third week - get medians;
+441        			
+441      !    proc means data= temp_nut n median;
+442        				where ((day > 14 ) & (day < 22)) & ((still_in_hosp & (date() - dt_random > 14)) | (days_study > 14) ); * get all data
+442      !  for first 15 days of people hospitalized more than a week;
+443        				class id;
+444        				var percent_enteral;
+445        				output 	out = en_14_21
+446        						median(percent_enteral) = median_en		sum(has_en) = sum_has_en; * also get the total days with EN day for the week;
+447        			run;
+
+NOTE: There were 461 observations read from the data set WORK.TEMP_NUT.
+      WHERE (day>14 and day<22) and ((still_in_hosp and ((DATE()-dt_random)>14)) or (days_study>14));
+NOTE: The data set WORK.EN_14_21 has 81 observations and 5 variables.
+NOTE: The PROCEDURE MEANS printed pages 54-57.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.06 seconds
+      
+
+448        			
+448      !    data en_14_21;
+449        				set en_14_21;
+450        					day = 21;					* add day stamp for later processing;
+451        					if id = . then delete;		* get rid of cumulative info;
+452        
+453        				drop _type_ _freq_;			* drop extra vars;
+454        			run;
+
+NOTE: There were 81 observations read from the data set WORK.EN_14_21.
+21                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+NOTE: The data set WORK.EN_14_21 has 80 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+455        
+456        		* process the fourth week - get medians;
+457        			
+457      !    proc means data= temp_nut n median;
+458        				where ((day > 21 ) & (day < 29)) & ((still_in_hosp & (date() - dt_random > 21)) | (days_study > 21) );  * get all
+458      ! data for first 15 days of people hospitalized more than a week;
+459        				class id;
+460        				var percent_enteral;
+461        				output 	out = en_21_28
+462        						median(percent_enteral) = median_en		sum(has_en) = sum_has_en; * also get the total days with EN day for the week;
+463        			run;
+
+NOTE: There were 255 observations read from the data set WORK.TEMP_NUT.
+      WHERE (day>21 and day<29) and ((still_in_hosp and ((DATE()-dt_random)>21)) or (days_study>21));
+NOTE: The data set WORK.EN_21_28 has 45 observations and 5 variables.
+NOTE: The PROCEDURE MEANS printed pages 58-59.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.06 seconds
+      
+
+464        			
+464      !    data en_21_28;
+465        				set en_21_28;
+466        					day = 28;					* add day stamp for later processing;
+467        					if id = . then delete;		* get rid of cumulative info;
+468        
+469        				drop _type_ _freq_;			* drop extra vars;
+470        			run;
+
+NOTE: There were 45 observations read from the data set WORK.EN_21_28.
+NOTE: The data set WORK.EN_21_28 has 44 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+471        
+472        		* process all time overall - get medians;
+473        			
+473      !    proc means data= temp_nut n median;
+474        				class id;
+475        				var percent_enteral;
+476        				output 	out = en_overall
+477        						median(percent_enteral) = median_en		sum(has_en) = sum_has_en; * also get the total days with EN day for the week;
+478        			run;
+
+NOTE: There were 2269 observations read from the data set WORK.TEMP_NUT.
+NOTE: The data set WORK.EN_OVERALL has 130 observations and 5 variables.
+NOTE: The PROCEDURE MEANS printed pages 60-65.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.06 seconds
+22                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+      cpu time            0.07 seconds
+      
+
+479        			
+479      !    data en_overall;
+480        				set en_overall;
+481        					day = 99;					* add day stamp for later processing;
+482        					if id = . then delete;		* get rid of cumulative info;
+483        
+484        				drop _type_ _freq_;			* drop extra vars;
+485        			run;
+
+NOTE: There were 130 observations read from the data set WORK.EN_OVERALL.
+NOTE: The data set WORK.EN_OVERALL has 129 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+486        		
+487        		
+487      !   data en_combined;
+488        			set 	en_0_7
+489        				en_7_14
+490        				en_14_21
+491        				en_21_28
+492        				en_overall
+493        			;
+494        		run;
+
+NOTE: There were 129 observations read from the data set WORK.EN_0_7.
+NOTE: There were 110 observations read from the data set WORK.EN_7_14.
+NOTE: There were 80 observations read from the data set WORK.EN_14_21.
+NOTE: There were 44 observations read from the data set WORK.EN_21_28.
+NOTE: There were 129 observations read from the data set WORK.EN_OVERALL.
+NOTE: The data set WORK.EN_COMBINED has 492 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+495        
+496        ods pdf file = "/glnd/sas/reporting/en.pdf" style = journal;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/en.pdf", printer "PDF".
+497        		
+497      !   proc print data= en_combined;
+498        		run;
+
+NOTE: There were 492 observations read from the data set WORK.EN_COMBINED.
+NOTE: The PROCEDURE PRINT printed pages 66-74.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.20 seconds
+      cpu time            0.20 seconds
+      
+
+499        ods pdf close;
+NOTE: ODS PDF printed 12 pages to /glnd/sas/reporting/en.pdf.
+500        
+23                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+501        		* now convert each person's median EN intake for each week into a category;
+502        		
+502      !   data en_combined;
+503        			set en_combined;
+504        
+505        				if (median_en >= 0) & (median_en < 25) then recv_0_25 = 1; else recv_0_25 = 0;		
+506        				if (median_en >= 25) & (median_en < 50) then recv_25_50 = 1; else recv_25_50 = 0;
+507        				if (median_en >= 50) & (median_en < 75) then recv_50_75 = 1; else recv_50_75 = 0;
+508        				if (median_en >= 75) then recv_75_100 = 1; else recv_75_100 = 0;
+509        
+510        				if sum_has_en > 0 then had_en = 1; else had_en = 0; 	* did each patient have EN over a given week? ;
+511        		run;
+
+NOTE: There were 492 observations read from the data set WORK.EN_COMBINED.
+NOTE: The data set WORK.EN_COMBINED has 492 observations and 9 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+511      !       	
+512        
+513        		* now sum, by week (labeled 'day'), the total people in each category;
+514        		
+514      !   proc sort data= en_combined; by day; run;
+
+NOTE: There were 492 observations read from the data set WORK.EN_COMBINED.
+NOTE: The data set WORK.EN_COMBINED has 492 observations and 9 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+515        		
+516        		
+516      !   proc means data= en_combined n sum mean ;
+517        			by day;
+518        			var recv_0_25 recv_25_50 recv_50_75 recv_75_100;
+519        
+520        			* collect results for table;
+521        			output 	out = tot_recv
+522        					n(recv_25_50) =  patients
+523        					sum(recv_0_25 recv_25_50 recv_50_75 recv_75_100 had_en) = recv_0_25_s recv_25_50_s recv_50_75_s recv_75_100_s
+523      ! had_en_s
+524        				;
+525        		run;
+
+NOTE: There were 492 observations read from the data set WORK.EN_COMBINED.
+NOTE: The data set WORK.TOT_RECV has 5 observations and 9 variables.
+NOTE: The PROCEDURE MEANS printed page 75.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+526        
+527        
+528        
+24                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+529        
+530        	* calculate percentages for final table;
+531        	
+531      !  data glnd_rep.percent_enteral;
+532        		set tot_recv;
+533        	
+534        		recv_0_25_percent= (recv_0_25_s / had_en_s) * 100;
+535        		recv_25_50_percent= (recv_25_50_s / had_en_s) * 100;
+536        		recv_50_75_percent= (recv_50_75_s / had_en_s) * 100;
+537        		recv_75_100_percent= (recv_75_100_s / had_en_s) * 100;
+538        
+539        		* format vars;
+540        		format recv_0_25_percent 4.1;
+541        		format recv_25_50_percent 4.1;
+542        		format recv_50_75_percent 4.1;
+543        		format recv_75_100_percent 4.1;
+544        
+545        		
+546        		* set up columns for display ;
+547        		col_0_25= put(recv_0_25_s, 3.) || " (" || left(put(recv_0_25_percent, 4.1)) || "%)"  ;
+548        		col_25_50= put(recv_25_50_s, 3.) || " (" || left(put(recv_25_50_percent, 4.1)) || "%)"  ;
+549        		col_50_75= put(recv_50_75_s, 3.) || " (" || left(put(recv_50_75_percent, 4.1)) || "%)"  ;
+550        		col_75_100= put(recv_75_100_s, 3.) || " (" || left(put(recv_75_100_percent, 4.1)) || "%)"  ;
+551        
+552        
+553        		* create labels ;
+554        		label 	day = '00'x  /* blank */
+555        				patients = "Patients with nutrition data"
+556        				had_en_s = "Patients with any enteral nutrition data"
+557        				col_0_25 = "Receiving 0 - 25% kcals enterally"
+558        				col_25_50 = "Receiving 25 - 50% kcals enterally"
+559        				col_50_75 = "Receiving 50 - 75% kcals enterally"
+560        				col_75_100 = "Receiving 75 - 100% kcals enterally"
+561        		;
+562        	
+563        		drop _type_ _freq_;
+564        	run;
+
+NOTE: There were 5 observations read from the data set WORK.TOT_RECV.
+NOTE: The data set GLND_REP.PERCENT_ENTERAL has 5 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.11 seconds
+      cpu time            0.02 seconds
+      
+
+565        
+566        	* set format for day;
+567        	
+567      !  proc format library = library;
+568        		
+568      !   value day_nut
+569        			7 = "through day 7"
+570        			14 = "through day 14"
+571        			21 = "through day 21"
+572        			28 = "through day 28"
+573        			99 = "overall"
+574        		;
+NOTE: Format DAY_NUT is already on the library.
+25                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+NOTE: Format DAY_NUT has been written to LIBRARY.FORMATS.
+575        	run;
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+      
+
+576        		
+577        
+578        
+579        
+580        
+581        
+582        /**	Part 4 - summary of % PN kcal given as lipid AND DEXTROSE **/
+583        
+584        * this is being done for days 0-7,7-14,14-21,21-28, overall separately.;
+585        		
+586        		
+586      !   data percent_lipid;
+587        			set percent_pn;
+588        			by id;
+589        
+590        			if last.id then delete; 	* remove the last row which is a descriptor that indicates the patient's study status  ;
+591        
+592        		run;
+
+NOTE: There were 2398 observations read from the data set WORK.PERCENT_PN.
+NOTE: The data set WORK.PERCENT_LIPID has 2269 observations and 57 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.23 seconds
+      cpu time            0.03 seconds
+      
+
+593        	
+594        		* process the first week - get median EN per patient;
+595        			
+595      !    proc means data= percent_lipid n median;
+596        				where (day < 8 ) ;
+597        				class id;
+598        				var percent_iv_lipid;
+599        				output 	out = lipid_0_7
+600        						median(percent_iv_lipid percent_iv_dextrose) = median_lipid median_dextrose	 sum(pn_aa_kcal) = sum_pn_aa_kcal; * PN
+600      !  AA kcal is a good surrogate indicator of whether a person was on PN ;
+601        			run;
+
+NOTE: There were 873 observations read from the data set WORK.PERCENT_LIPID.
+      WHERE day<8;
+NOTE: The data set WORK.LIPID_0_7 has 130 observations and 6 variables.
+NOTE: The PROCEDURE MEANS printed pages 76-81.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.06 seconds
+      
+
+602        
+603        			
+603      !    data lipid_0_7;
+26                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+604        				set lipid_0_7;
+605        					day = 7;					* add day stamp for later processing;
+606        					if id = . then delete;		* get rid of cumulative info;
+607        			
+608        				drop _type_ _freq_;			* drop extra vars;
+609        			run;
+
+NOTE: There were 130 observations read from the data set WORK.LIPID_0_7.
+NOTE: The data set WORK.LIPID_0_7 has 129 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+610        		
+611        		* process the second week - get medians;
+612        			
+612      !    proc means data= percent_lipid n median;
+613        				where ((day > 7 ) & (day < 15)) & ((still_in_hosp & (date() - dt_random > 7)) | (days_study > 7) ); * get all data
+613      ! for first 15 days of people hospitalized more than a week;
+614        
+615        				class id;
+616        				var percent_iv_lipid;
+617        				output 	out = lipid_7_14
+618        						median(percent_iv_lipid percent_iv_dextrose) = median_lipid median_dextrose	sum(pn_aa_kcal) = sum_pn_aa_kcal; * PN
+618      ! AA kcal is a good surrogate indicator of whether a person was on PN ;
+619        			run;
+
+NOTE: There were 680 observations read from the data set WORK.PERCENT_LIPID.
+      WHERE (day>7 and day<15) and ((still_in_hosp and ((DATE()-dt_random)>7)) or (days_study>7));
+NOTE: The data set WORK.LIPID_7_14 has 111 observations and 6 variables.
+NOTE: The PROCEDURE MEANS printed pages 82-86.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.05 seconds
+      
+
+620        
+621        			
+621      !    data lipid_7_14;
+622        				set lipid_7_14;
+623        					day = 14;					* add day stamp for later processing;
+624        					if id = . then delete;		* get rid of cumulative info;
+625        
+626        				drop _type_ _freq_;			* drop extra vars;
+627        			run;
+
+NOTE: There were 111 observations read from the data set WORK.LIPID_7_14.
+NOTE: The data set WORK.LIPID_7_14 has 110 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+628        
+629        		* process the third week - get medians;
+630        			
+630      !    proc means data= percent_lipid n median;
+27                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+631        				where ((day > 14 ) & (day < 22)) & ((still_in_hosp & (date() - dt_random > 14)) | (days_study > 14) ); * get all data
+631      !  for first 15 days of people hospitalized more than a week;
+632        				class id;
+633        				var percent_iv_lipid;
+634        				output 	out = lipid_14_21
+635        						median(percent_iv_lipid percent_iv_dextrose) = median_lipid median_dextrose	sum(pn_aa_kcal) = sum_pn_aa_kcal; * PN
+635      ! AA kcal is a good surrogate indicator of whether a person was on PN ;;
+636        			run;
+
+NOTE: There were 461 observations read from the data set WORK.PERCENT_LIPID.
+      WHERE (day>14 and day<22) and ((still_in_hosp and ((DATE()-dt_random)>14)) or (days_study>14));
+NOTE: The data set WORK.LIPID_14_21 has 81 observations and 6 variables.
+NOTE: The PROCEDURE MEANS printed pages 87-90.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.05 seconds
+      
+
+637        
+638        			
+638      !    data lipid_14_21;
+639        				set lipid_14_21;
+640        					day = 21;					* add day stamp for later processing;
+641        					if id = . then delete;		* get rid of cumulative info;
+642        
+643        				drop _type_ _freq_;			* drop extra vars;
+644        			run;
+
+NOTE: There were 81 observations read from the data set WORK.LIPID_14_21.
+NOTE: The data set WORK.LIPID_14_21 has 80 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+645        
+646        		* process the fourth week - get medians;
+647        			
+647      !    proc means data= percent_lipid n median;
+648        				where ((day > 21 ) & (day < 29)) & ((still_in_hosp & (date() - dt_random > 21)) | (days_study > 21) );  * get all
+648      ! data for first 15 days of people hospitalized more than a week;
+649        				class id;
+650        				var percent_iv_lipid;
+651        				output 	out = lipid_21_28
+652        						median(percent_iv_lipid percent_iv_dextrose) = median_lipid median_dextrose	 sum(pn_aa_kcal) = sum_pn_aa_kcal; * PN
+652      !  AA kcal is a good surrogate indicator of whether a person was on PN ;
+653        			run;
+
+NOTE: There were 255 observations read from the data set WORK.PERCENT_LIPID.
+      WHERE (day>21 and day<29) and ((still_in_hosp and ((DATE()-dt_random)>21)) or (days_study>21));
+NOTE: The data set WORK.LIPID_21_28 has 45 observations and 6 variables.
+NOTE: The PROCEDURE MEANS printed pages 91-92.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.04 seconds
+      
+
+654        
+28                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+655        			
+655      !    data lipid_21_28;
+656        				set lipid_21_28;
+657        					day = 28;					* add day stamp for later processing;
+658        					if id = . then delete;		* get rid of cumulative info;
+659        
+660        				drop _type_ _freq_;			* drop extra vars;
+661        			run;
+
+NOTE: There were 45 observations read from the data set WORK.LIPID_21_28.
+NOTE: The data set WORK.LIPID_21_28 has 44 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+662        
+663        		* process all time overall - get medians;
+664        			
+664      !    proc means data= percent_lipid n median;
+665        				class id;
+666        				var percent_iv_lipid;
+667        				output 	out = lipid_overall
+668        						median(percent_iv_lipid percent_iv_dextrose) = median_lipid median_dextrose	 sum(pn_aa_kcal) = sum_pn_aa_kcal; * PN
+668      !  AA kcal is a good surrogate indicator of whether a person was on PN ;
+669        			run;
+
+NOTE: There were 2269 observations read from the data set WORK.PERCENT_LIPID.
+NOTE: The data set WORK.LIPID_OVERALL has 130 observations and 6 variables.
+NOTE: The PROCEDURE MEANS printed pages 93-98.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.07 seconds
+      
+
+670        
+671        			
+671      !    data lipid_overall;
+672        				set lipid_overall;
+673        					day = 99;					* add day stamp for later processing;
+674        					if id = . then delete;		* get rid of cumulative info;
+675        
+676        				drop _type_ _freq_;			* drop extra vars;
+677        			run;
+
+NOTE: There were 130 observations read from the data set WORK.LIPID_OVERALL.
+NOTE: The data set WORK.LIPID_OVERALL has 129 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+678        		
+679        
+680        		
+680      !   data lipid_combined;
+681        			set 	lipid_0_7
+682        				lipid_7_14
+29                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+683        				lipid_14_21
+684        				lipid_21_28
+685        				lipid_overall
+686        			;
+687        		run;
+
+NOTE: There were 129 observations read from the data set WORK.LIPID_0_7.
+NOTE: There were 110 observations read from the data set WORK.LIPID_7_14.
+NOTE: There were 80 observations read from the data set WORK.LIPID_14_21.
+NOTE: There were 44 observations read from the data set WORK.LIPID_21_28.
+NOTE: There were 129 observations read from the data set WORK.LIPID_OVERALL.
+NOTE: The data set WORK.LIPID_COMBINED has 492 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+688        
+689        		
+689      !   proc print data= lipid_combined;
+690        		
+691        
+692        		* make LIPID table ;
+693        		* now convert each person's median lipid intake for each week into a category;
+694        		
+
+NOTE: There were 492 observations read from the data set WORK.LIPID_COMBINED.
+NOTE: The PROCEDURE PRINT printed pages 99-107.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+694      !   data lipid_combined;
+695        			set lipid_combined;
+696        
+697        				if (median_lipid = 0) then recv_0 = 1; else recv_0 = 0;
+698        				if (median_lipid > 0) & (median_lipid <=15 ) then recv_0_15 = 1; else recv_0_15 = 0;		
+699        				if (median_lipid > 15) & (median_lipid <=30 ) then recv_15_30 = 1; else recv_15_30 = 0;		
+700        				if (median_lipid > 30) then recv_30_100 = 1; else recv_30_100 = 0;
+701        
+702        				if (sum_pn_aa_kcal > 0) then had_pn = 1; else if (sum_pn_aa_kcal ~= .) then had_pn = 0; 	* did each patient have PN
+702      ! over a given week? ;
+703        		run;
+
+NOTE: There were 492 observations read from the data set WORK.LIPID_COMBINED.
+NOTE: The data set WORK.LIPID_COMBINED has 492 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+703      !       	
+704        
+705        		* now sum, by week (labeled 'day'), the total people in each category;
+706        		
+706      !   proc sort data= lipid_combined; by day; run;
+
+30                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+NOTE: There were 492 observations read from the data set WORK.LIPID_COMBINED.
+NOTE: The data set WORK.LIPID_COMBINED has 492 observations and 10 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+707        	
+708        		
+708      !   proc means data= lipid_combined n sum mean ;
+709        			by day;
+710        			var recv_0 recv_0_15 recv_15_30 recv_30_100;
+711        
+712        			where had_pn ; * do this only for those who had PN ;
+713        
+714        			* collect results for table;
+715        			output 	out = tot_recv_lipid
+716        					n(recv_15_30) =  patients
+717        					sum(recv_0 recv_0_15 recv_15_30 recv_30_100 had_pn) = recv_0_s recv_0_15_s recv_15_30_s recv_30_100_s had_pn_s
+718        				;
+719        		run;
+
+NOTE: There were 423 observations read from the data set WORK.LIPID_COMBINED.
+      WHERE had_pn;
+NOTE: The data set WORK.TOT_RECV_LIPID has 5 observations and 9 variables.
+NOTE: The PROCEDURE MEANS printed page 108.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+720        
+721        		* get total N for each week ;
+722        		
+722      !   proc means data= lipid_combined n sum mean ;
+723        			by day;
+724        			output 	out = tot_recv_lipid_n
+725        					n(recv_15_30) =  patients;
+726        		run;
+
+NOTE: There were 492 observations read from the data set WORK.LIPID_COMBINED.
+NOTE: The data set WORK.TOT_RECV_LIPID_N has 5 observations and 4 variables.
+NOTE: The PROCEDURE MEANS printed pages 109-110.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.02 seconds
+      
+
+727        		
+728        		* merge back in total n...;
+729        		
+729      !   data tot_recv_lipid;
+730        			merge 	tot_recv_lipid
+731        					tot_recv_lipid_n (keep = day patients);
+732        			by day;
+733        		run;
+
+NOTE: There were 5 observations read from the data set WORK.TOT_RECV_LIPID.
+31                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+NOTE: There were 5 observations read from the data set WORK.TOT_RECV_LIPID_N.
+NOTE: The data set WORK.TOT_RECV_LIPID has 5 observations and 9 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+734        
+735        
+736        	* calculate percentages for final table;
+737        	
+737      !  data glnd_rep.percent_iv_lipid;
+738        		set tot_recv_lipid;
+739        	
+740        		recv_0_percent= (recv_0_s / had_pn_s) * 100;
+741        		recv_0_15_percent= (recv_0_15_s / had_pn_s) * 100;
+742        		recv_15_30_percent= (recv_15_30_s / had_pn_s) * 100;
+743        		recv_30_100_percent= (recv_30_100_s / had_pn_s) * 100;
+744        
+745        		* format vars;
+746        		format recv_0_percent 4.1;
+747        		format recv_0_15_percent 4.1;
+748        		format recv_15_30_percent 4.1;
+749        		format recv_30_100_percent 4.1;
+750        
+751        		
+752        		* set up columns for display ;
+753        		col_0 = put(recv_0_s, 3.) || " (" || left(put(recv_0_percent, 4.1)) || "%)"  ;
+754        		col_0_15= put(recv_0_15_s, 3.) || " (" || left(put(recv_0_15_percent, 4.1)) || "%)"  ;
+755        		col_15_30= put(recv_15_30_s, 3.) || " (" || left(put(recv_15_30_percent, 4.1)) || "%)"  ;
+756        		col_30_100= put(recv_30_100_s, 3.) || " (" || left(put(recv_30_100_percent, 4.1)) || "%)"  ;
+757        format day day_nut.;
+758        
+759        		* create labels ;
+760        		label 	day = 'Period' /*'00'x  /* blank */
+761        				patients = "Total Patients"
+762        				had_pn_s = "Patients receiving any TPN"
+763        				col_0 = "Receiving 0% of IV kcals via lipid"
+764        				col_0_15 = "Receiving 1 - 15% of IV kcals via lipid"
+765        				col_15_30 = "Receiving 15 - 30% of IV kcals via lipid"
+766        				col_30_100 = "Receiving 30 - 100% of IV kcals via lipid"
+767        		;
+768        			keep day patients had_pn_s col_0 col_0_15 col_15_30 col_30_100;	
+769        *		drop _type_ _freq_;
+770        	run;
+
+NOTE: There were 5 observations read from the data set WORK.TOT_RECV_LIPID.
+NOTE: The data set GLND_REP.PERCENT_IV_LIPID has 5 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.02 seconds
+      
+
+771        
+772        
+773        
+774        
+775        * make DEXTROSE TABLE ;
+32                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+776        
+777        				
+778        		* now convert each person's median dextrose intake for each week into a category;
+779        		
+779      !   data dextrose_combined;
+780        			set lipid_combined;
+781        				if (median_dextrose = 0) then recv_0 = 1; else recv_0 = 0;
+782        				if (median_dextrose > 0) & (median_dextrose <= 30) then recv_0_30 = 1; else recv_0_30 = 0;
+783        				if (median_dextrose > 30) & (median_dextrose <= 60) then recv_30_60 = 1; else recv_30_60 = 0;		
+784        				if (median_dextrose > 60) then recv_60_100 = 1; else recv_60_100 = 0;
+785        		run;
+
+NOTE: There were 492 observations read from the data set WORK.LIPID_COMBINED.
+NOTE: The data set WORK.DEXTROSE_COMBINED has 492 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+785      !       	
+786        
+787        		* now sum, by week (labeled 'day'), the total people in each category;
+788        		
+788      !   proc sort data= dextrose_combined; by day; run;
+
+NOTE: There were 492 observations read from the data set WORK.DEXTROSE_COMBINED.
+NOTE: The data set WORK.DEXTROSE_COMBINED has 492 observations and 13 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+789        		
+790        		
+790      !   proc means data= dextrose_combined n sum mean ;
+791        			by day;
+792        			var recv_0 recv_0_30 recv_30_60 recv_60_100;
+793        
+794        			where had_pn ; * do this only for those who had PN ;
+795        
+796        
+797        			* collect results for table;
+798        			output 	out = tot_recv_dextrose
+799        					sum(recv_0 recv_0_30 recv_30_60 recv_60_100 had_pn) = recv_0_s recv_0_30_s recv_30_60_s recv_60_100_s had_pn_s
+800        				;
+801        		run;
+
+NOTE: There were 423 observations read from the data set WORK.DEXTROSE_COMBINED.
+      WHERE had_pn;
+NOTE: The data set WORK.TOT_RECV_DEXTROSE has 5 observations and 8 variables.
+NOTE: The PROCEDURE MEANS printed page 111.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+802        
+803        		* merge back in total n...;
+33                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+804        		
+804      !   data tot_recv_dextrose;
+805        			merge 	tot_recv_dextrose
+806        					tot_recv_lipid_n (keep = day patients); * the n is the same as in this dataset ;
+807        			by day;
+808        		run;
+
+NOTE: There were 5 observations read from the data set WORK.TOT_RECV_DEXTROSE.
+NOTE: There were 5 observations read from the data set WORK.TOT_RECV_LIPID_N.
+NOTE: The data set WORK.TOT_RECV_DEXTROSE has 5 observations and 9 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+809        
+810        	* calculate percentages for final table;
+811        	
+811      !  data glnd_rep.percent_iv_dextrose;
+812        		set tot_recv_dextrose;
+813        	
+814        		recv_0_percent= (recv_0_s / had_pn_s) * 100;
+815        		recv_0_30_percent= (recv_0_30_s / had_pn_s) * 100;
+816        		recv_30_60_percent= (recv_30_60_s / had_pn_s) * 100;
+817        		recv_60_100_percent= (recv_60_100_s / had_pn_s) * 100;
+818        
+819        		* format vars;
+820        		format recv_0_percent 4.1;
+821        		format recv_0_30_percent 4.1;
+822        		format recv_30_60_percent 4.1;
+823        		format recv_60_100_percent 4.1;
+824                            format day day_nut.;
+825        		
+826        		* set up columns for display ;
+827        		col_0= put(recv_0_s, 3.) || " (" || left(put(recv_0_percent, 4.1)) || "%)"  ;
+828        		col_0_30= put(recv_0_30_s, 3.) || " (" || left(put(recv_0_30_percent, 4.1)) || "%)"  ;
+829        		col_30_60= put(recv_30_60_s, 3.) || " (" || left(put(recv_30_60_percent, 4.1)) || "%)"  ;
+830        		col_60_100= put(recv_60_100_s, 3.) || " (" || left(put(recv_60_100_percent, 4.1)) || "%)"  ;
+831        
+832        
+833        		* create labels ;
+834        			label 	day = 'Period' /*' 00'x  /* blank */
+835        				patients = "Total Patients"
+836        				had_pn_s = "Patients receiving any TPN"
+837        				col_0 = "Receiving 0% of IV kcals via dextrose"
+838        				col_0_30 = "Receiving 0 - 30% of IV kcals via dextrose"
+839        				col_30_60 = "Receiving 30 - 60% of IV kcals via dextrose"
+840        				col_60_100 = "Receiving 60 - 100% of IV kcals via dextrose"
+841        		;
+842        		keep day patients had_pn_s col_0 col_0_30 col_30_60 col_60_100;
+843        		*drop _type_ _freq_;
+844        	run;
+
+NOTE: There were 5 observations read from the data set WORK.TOT_RECV_DEXTROSE.
+NOTE: The data set GLND_REP.PERCENT_IV_DEXTROSE has 5 observations and 7 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.01 seconds
+34                                                         The SAS System                        11:12 Wednesday, September 29, 2010
+
+      
+
+845        
+846        
+847        
+848        
+849        
+850        proc options group=listcontrol;run;
+
+    SAS (r) Proprietary Software Release 9.1  TS1M3
+
+ BYLINE            Print the by-line at the beginning of each by-group
+ CENTER            Center SAS procedure output
+ FORMCHAR=|----|+|---+=|-/\<>*
+                   Default output formatting characters for print device
+ FORMDLIM=         Character to delimit page breaks in SAS output
+ FORMS=DEFAULT     Default form used to customize appearance of interactive windowing output
+ LABEL             Allow procedures to use labels with variables
+ PAGENO=1          Beginning page number for the next page of output produced by the SAS System
+ NOPRINTINIT       Do not initialize SAS print file
+ SKIP=0            Number of lines to skip before title
+ SYSPRINTFONT=     Set the default font for printing
+ LPTYPE=           Specifies which UNIX command and options settings will be used to route files to the printer
+ PRINTCMD=         Specifies the print command the SAS System is to use
+ SYSPRINT=         Specifies the destination for printed output
+NOTE: PROCEDURE OPTIONS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+851        	options ls=100 nodate 	orientation = landscape center nonumber formdlim='-' formchar =
+851      ! "|----|+|---+=|-/\<>*";
+852        	ods pdf file = '/glnd/sas/reporting/nutrition_summaries_open.pdf' style = journal
+852      ! startpage=no /* contents */;
+NOTE: Writing ODS PDF output to DISK destination 
+      "/glnd/sas/reporting/nutrition_summaries_open.pdf", printer "PDF".
+853        	ods escapechar='^' ;
+854        		title1;
+855        
+856        		* Table 1a;
+857        		
+857      !   data _null_; file print; put / / / /  @25 "Summary of Parenteral and Enteral Nutrition
+857      ! at Baseline" ;	run;
+
+NOTE: 2 lines were written to file PRINT.
+NOTE: The DATASTEP printed page 112.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+858        		*title1 "Summary of Parenteral and Enteral Nutrition at Baseline";
+859        		
+859      !   proc print data= glnd_rep.en_pn_prior label noobs;
+860        		run;
+
+NOTE: There were 2 observations read from the data set GLND_REP.EN_PN_PRIOR.
+NOTE: The PROCEDURE PRINT printed page 113.
+                                           The SAS System
+
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+861        
+862        		* Table 1b ;
+863        		
+863      !   data _null_; file print; put / / / /  @25 "Summary of Time to Enteral Nutrition (n =
+863      ! &n_enteral)" ;	run;
+
+NOTE: 2 lines were written to file PRINT.
+NOTE: The DATASTEP printed page 114.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+864        		*title1 "Summary of Time to Enteral Nutrition (n = &n_enteral)";
+865        		
+865      !   proc print data= glnd_rep.days_to_en noobs label split= '*';
+866        			*var row  first_en_day_n first_en_day_med first_en_day_min first_en_day_max
+866      ! not_yet_en_n never_en_hospital_n;
+867        			var row n first_en_day_med first_en_day_min first_en_day_max ;
+868        		run;
+
+NOTE: There were 1 observations read from the data set GLND_REP.DAYS_TO_EN.
+NOTE: The PROCEDURE PRINT printed page 115.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+869        
+870        		* Table 2;
+871        		ods pdf startpage=yes; * create new pages for new procedures (next proc print);
+872        		*options number pageno=min; * start numbering these tables and from page 1;
+873        
+874        		options orientation = landscape;
+875        		
+875      !   proc sort  data = percent_pn; by center id; run;
+
+NOTE: There were 2398 observations read from the data set WORK.PERCENT_PN.
+NOTE: The data set WORK.PERCENT_PN has 2398 observations and 57 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.08 seconds
+      cpu time            0.03 seconds
+      
+
+876        
+877        		* for now just print individual listings. may eventually make line plots or summary
+877      ! tables as originally planned ;	
+878        		
+878      !   proc print data= percent_pn noobs label ;
+879        			by center id;
+880        			pageby center;
+881        			
+882        			title1 h=3 'Daily Nutritional kcal Summaries';
+                                           The SAS System
+
+883        			*title2 h=3 '#byval1';
+884        
+885        			label center = '00'x 'site' ;
+886        			label id = '00'x 'id';
+887        
+888        			var row /style(data) = [just=center];
+889        			var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid
+889      ! percent_iv_aa percent_iv_dextrose
+890        				 percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal tot_insulin
+890      ! percent_parenteral percent_enteral percent_overall
+891        
+892        				pn_aa_g tot_ent_prot tot_aa	 percent_parenteral_prot percent_enteral_prot
+892      ! 	percent_overall_prot;
+893        
+894        		;
+895        	
+896        
+897        		* Table 3;
+898        		
+
+NOTE: There were 2398 observations read from the data set WORK.PERCENT_PN.
+NOTE: The PROCEDURE PRINT printed pages 116-260.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           3.92 seconds
+      cpu time            3.92 seconds
+      
+
+898      !   data _null_; file print; put / / / /  @25 "Median proportion of Nutrition Received
+898      ! Enterally, Over Time" ;	run;
+
+NOTE: 2 lines were written to file PRINT.
+NOTE: The DATASTEP printed page 261.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+899        
+900        
+901        		*title1 "Proportion of Nutrition Received Enterally, Over Time";
+902        		
+902      !   proc print data= glnd_rep.percent_enteral label noobs;
+903        			var day patients had_en_s col_0_25 col_25_50 col_50_75 col_75_100;
+904        			format day day_nut.;
+905        		run;
+
+NOTE: There were 5 observations read from the data set GLND_REP.PERCENT_ENTERAL.
+NOTE: The PROCEDURE PRINT printed page 262.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+905      !       		
+906        		
+906      !   data _null_; file print; put / / / /  @25 "note: information on enteral nutrition is
+906      ! often unavailable" ;	run;
+
+                                           The SAS System
+
+NOTE: 2 lines were written to file PRINT.
+NOTE: The DATASTEP printed page 263.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+907        
+908        
+909        		* Table 4;
+910        		
+910      !   data _null_; file print; put / / / /  @25 "Median proportion of IV kcal composed of
+910      ! lipid, Over Time" ;	run;
+
+NOTE: 2 lines were written to file PRINT.
+NOTE: The DATASTEP printed page 264.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+911        		ods pdf startpage = no;
+912        		
+912      !   proc print data= glnd_rep.percent_iv_lipid label noobs;
+913        			var day patients had_pn_s col_0 col_0_15 col_15_30 col_30_100;
+914        			format day day_nut.;
+915        		run;
+
+NOTE: There were 5 observations read from the data set GLND_REP.PERCENT_IV_LIPID.
+NOTE: The PROCEDURE PRINT printed page 265.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+915      !       		
+916        		
+916      !   data _null_; file print; put / / / /  @25 "note: patients with daily information not
+916      ! yet submitted appear as not having IV kcal on those days" ;	run;
+
+NOTE: 2 lines were written to file PRINT.
+NOTE: The DATASTEP printed page 266.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+917        
+918        	
+919        
+920        		
+920      !   data _null_; file print; put / / / /  @25 "Median proportion of IV kcal composed of
+920      ! dextrose, Over Time" ;	run;
+
+NOTE: 2 lines were written to file PRINT.
+NOTE: The DATASTEP printed page 267.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+                                           The SAS System
+
+      cpu time            0.00 seconds
+      
+
+921        		ods pdf startpage = no;
+922        		
+922      !   proc print data= glnd_rep.percent_iv_dextrose label noobs;
+923        			var day patients had_pn_s col_0 col_0_30 col_30_60 col_60_100;
+924        			format day day_nut.;
+925        		run;
+
+NOTE: There were 5 observations read from the data set GLND_REP.PERCENT_IV_DEXTROSE.
+NOTE: The PROCEDURE PRINT printed page 268.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+925      !       	
+926        
+927        		run;
+928        	ods pdf close;
+NOTE: ODS PDF printed 123 pages to /glnd/sas/reporting/nutrition_summaries_open.pdf.
+929        
+930        quit;
+931        data glnd_rep.en_pn_prior1;
+932         set glnd_rep.en_pn_prior;
+933          label row="Summary";
+934        
+935        
+
+NOTE: There were 2 observations read from the data set GLND_REP.EN_PN_PRIOR.
+NOTE: The data set GLND_REP.EN_PN_PRIOR1 has 2 observations and 6 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.08 seconds
+      cpu time            0.02 seconds
+      
+
+936        data glnd_rep.days_to_en1;
+937         set glnd_rep.days_to_en;
+938          label row="Days";
+939        
+940        
+
+NOTE: There were 1 observations read from the data set GLND_REP.DAYS_TO_EN.
+NOTE: The data set GLND_REP.DAYS_TO_EN1 has 1 observations and 9 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.08 seconds
+      cpu time            0.01 seconds
+      
+
+941        data glnd_rep.percent_enteral1;
+942         set glnd_rep.percent_enteral;
+943          label day="Days";
+944          format day day_nut.;
+945          options orientation=landscape;
+946        
+947           options mprint symbolgen;
+948        
+                                           The SAS System
+
+949          %macro x(id);
+950          ods pdf file = "/glnd/sas/reporting/nut&id..pdf" style = journal startpage=no /*
+950      ! contents */;
+951        
+952        
+953        		proc print data= percent_pn noobs label ;
+954        			by center id;
+955        			pageby center;
+956                           where id=&id;			
+957        			title1 h=3 'Daily Nutritional kcal Summaries';
+958        			*title2 h=3 '#byval1';
+959        
+960        			label center = '00'x 'site' ;
+961        			label id = '00'x 'id';
+962        
+963        			var row /style(data) = [just=center];
+964        			var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid
+964      ! percent_iv_aa percent_iv_dextrose
+965        				 percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal tot_insulin
+965      ! percent_parenteral percent_enteral percent_overall
+966        
+967        				pn_aa_g tot_ent_prot tot_aa	 percent_parenteral_prot percent_enteral_prot
+967      ! percent_overall_prot;
+968        
+969        	
+970        		run;
+971        		ods pdf close;
+972           %mend;
+973        
+
+NOTE: There were 5 observations read from the data set GLND_REP.PERCENT_ENTERAL.
+NOTE: The data set GLND_REP.PERCENT_ENTERAL1 has 5 observations and 15 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.02 seconds
+      
+
+974        proc contents data=percent_pn;run;
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+NOTE: The PROCEDURE CONTENTS printed pages 269-270.
+
+975        
+976        * INDIVIDUAL LISTINGS for 7/2008 DSMB REPORT: ;
+977        
+978           %x(11348);
+SYMBOLGEN:  Macro variable ID resolves to 11348
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut11348.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut11348.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 11348
+MPRINT(X):   where id=11348;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+                                           The SAS System
+
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 26 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=11348;
+NOTE: The PROCEDURE PRINT printed pages 271-272.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.08 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 1 page to /glnd/sas/reporting/nut11348.pdf.
+979           %x(11369);
+SYMBOLGEN:  Macro variable ID resolves to 11369
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut11369.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut11369.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 11369
+MPRINT(X):   where id=11369;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 29 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=11369;
+NOTE: The PROCEDURE PRINT printed pages 273-274.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.10 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 2 pages to /glnd/sas/reporting/nut11369.pdf.
+980           %x(12358);
+SYMBOLGEN:  Macro variable ID resolves to 12358
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut12358.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut12358.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 12358
+                                           The SAS System
+
+MPRINT(X):   where id=12358;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 11 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=12358;
+NOTE: The PROCEDURE PRINT printed page 275.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.06 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 1 page to /glnd/sas/reporting/nut12358.pdf.
+981           %x(12370);
+SYMBOLGEN:  Macro variable ID resolves to 12370
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut12370.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut12370.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 12370
+MPRINT(X):   where id=12370;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 17 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=12370;
+NOTE: The PROCEDURE PRINT printed page 276.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.08 seconds
+      cpu time            0.07 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 1 page to /glnd/sas/reporting/nut12370.pdf.
+982           %x(12383);
+SYMBOLGEN:  Macro variable ID resolves to 12383
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut12383.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut12383.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+                                           The SAS System
+
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 12383
+MPRINT(X):   where id=12383;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 29 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=12383;
+NOTE: The PROCEDURE PRINT printed pages 277-278.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.10 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 2 pages to /glnd/sas/reporting/nut12383.pdf.
+983        
+984           %x(31292);
+SYMBOLGEN:  Macro variable ID resolves to 31292
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut31292.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut31292.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 31292
+MPRINT(X):   where id=31292;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 17 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=31292;
+NOTE: The PROCEDURE PRINT printed page 279.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.08 seconds
+      cpu time            0.08 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 1 page to /glnd/sas/reporting/nut31292.pdf.
+985           %x(32294);
+SYMBOLGEN:  Macro variable ID resolves to 32294
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut32294.pdf" style = journal startpage=no ;
+                                           The SAS System
+
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut32294.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 32294
+MPRINT(X):   where id=32294;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 14 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=32294;
+NOTE: The PROCEDURE PRINT printed page 280.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.07 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 1 page to /glnd/sas/reporting/nut32294.pdf.
+986           %x(32305);
+SYMBOLGEN:  Macro variable ID resolves to 32305
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut32305.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut32305.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 32305
+MPRINT(X):   where id=32305;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 15 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=32305;
+NOTE: The PROCEDURE PRINT printed page 281.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.07 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 1 page to /glnd/sas/reporting/nut32305.pdf.
+987           %x(32318);
+                                           The SAS System
+
+SYMBOLGEN:  Macro variable ID resolves to 32318
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut32318.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut32318.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 32318
+MPRINT(X):   where id=32318;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 2 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=32318;
+NOTE: The PROCEDURE PRINT printed page 282.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.05 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 1 page to /glnd/sas/reporting/nut32318.pdf.
+988        
+989           %x(41141);
+SYMBOLGEN:  Macro variable ID resolves to 41141
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut41141.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut41141.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 41141
+MPRINT(X):   where id=41141;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 9 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=41141;
+NOTE: The PROCEDURE PRINT printed page 283.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.07 seconds
+      
+
+                                           The SAS System
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 1 page to /glnd/sas/reporting/nut41141.pdf.
+990           %x(41143);
+SYMBOLGEN:  Macro variable ID resolves to 41143
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut41143.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut41143.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 41143
+MPRINT(X):   where id=41143;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 4 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=41143;
+NOTE: The PROCEDURE PRINT printed page 284.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.30 seconds
+      cpu time            0.06 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 1 page to /glnd/sas/reporting/nut41143.pdf.
+991           %x(41144);
+SYMBOLGEN:  Macro variable ID resolves to 41144
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut41144.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut41144.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 41144
+MPRINT(X):   where id=41144;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 29 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=41144;
+NOTE: The PROCEDURE PRINT printed pages 285-286.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.10 seconds
+                                           The SAS System
+
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 2 pages to /glnd/sas/reporting/nut41144.pdf.
+992           %x(41145);
+SYMBOLGEN:  Macro variable ID resolves to 41145
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut41145.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut41145.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 41145
+MPRINT(X):   where id=41145;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 29 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=41145;
+NOTE: The PROCEDURE PRINT printed pages 287-288.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.08 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 2 pages to /glnd/sas/reporting/nut41145.pdf.
+993           %x(41156);
+SYMBOLGEN:  Macro variable ID resolves to 41156
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut41156.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut41156.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 41156
+MPRINT(X):   where id=41156;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 29 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=41156;
+NOTE: The PROCEDURE PRINT printed pages 289-290.
+NOTE: PROCEDURE PRINT used (Total process time):
+                                           The SAS System
+
+      real time           0.10 seconds
+      cpu time            0.09 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 2 pages to /glnd/sas/reporting/nut41156.pdf.
+994           %x(41157);
+SYMBOLGEN:  Macro variable ID resolves to 41157
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut41157.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut41157.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 41157
+MPRINT(X):   where id=41157;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 29 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=41157;
+NOTE: The PROCEDURE PRINT printed pages 291-292.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.10 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 2 pages to /glnd/sas/reporting/nut41157.pdf.
+995           %x(42160);
+SYMBOLGEN:  Macro variable ID resolves to 42160
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut42160.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut42160.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 42160
+MPRINT(X):   where id=42160;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 20 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=42160;
+                                           The SAS System
+
+NOTE: The PROCEDURE PRINT printed page 293.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.08 seconds
+      cpu time            0.08 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 1 page to /glnd/sas/reporting/nut42160.pdf.
+996        
+997           %x(51052);
+SYMBOLGEN:  Macro variable ID resolves to 51052
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut51052.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut51052.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 51052
+MPRINT(X):   where id=51052;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 20 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=51052;
+NOTE: The PROCEDURE PRINT printed page 294.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.08 seconds
+      cpu time            0.08 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 1 page to /glnd/sas/reporting/nut51052.pdf.
+998           %x(52029);
+SYMBOLGEN:  Macro variable ID resolves to 52029
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut52029.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut52029.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 52029
+MPRINT(X):   where id=52029;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+                                           The SAS System
+
+
+NOTE: There were 15 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=52029;
+NOTE: The PROCEDURE PRINT printed page 295.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.06 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 1 page to /glnd/sas/reporting/nut52029.pdf.
+999           %x(52049);
+SYMBOLGEN:  Macro variable ID resolves to 52049
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut52049.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut52049.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 52049
+MPRINT(X):   where id=52049;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 17 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=52049;
+NOTE: The PROCEDURE PRINT printed page 296.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.08 seconds
+      cpu time            0.07 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 1 page to /glnd/sas/reporting/nut52049.pdf.
+1000       
+1001       
+1002        %x(11076);
+SYMBOLGEN:  Macro variable ID resolves to 11076
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut11076.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut11076.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 11076
+MPRINT(X):   where id=11076;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+                                           The SAS System
+
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 22 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=11076;
+NOTE: The PROCEDURE PRINT printed page 297.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.08 seconds
+      cpu time            0.07 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 1 page to /glnd/sas/reporting/nut11076.pdf.
+1003        %x(32262);
+SYMBOLGEN:  Macro variable ID resolves to 32262
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut32262.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut32262.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 32262
+MPRINT(X):   where id=32262;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 21 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=32262;
+NOTE: The PROCEDURE PRINT printed page 298.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.08 seconds
+      cpu time            0.08 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 1 page to /glnd/sas/reporting/nut32262.pdf.
+1004        %x(32270);
+SYMBOLGEN:  Macro variable ID resolves to 32270
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut32270.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut32270.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 32270
+MPRINT(X):   where id=32270;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+                                           The SAS System
+
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 16 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=32270;
+NOTE: The PROCEDURE PRINT printed page 299.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.07 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 1 page to /glnd/sas/reporting/nut32270.pdf.
+1005        %x(41068);
+SYMBOLGEN:  Macro variable ID resolves to 41068
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut41068.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut41068.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 41068
+MPRINT(X):   where id=41068;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 26 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=41068;
+NOTE: The PROCEDURE PRINT printed pages 300-301.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.07 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 1 page to /glnd/sas/reporting/nut41068.pdf.
+1006        %x(42115);
+SYMBOLGEN:  Macro variable ID resolves to 42115
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut42115.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut42115.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 42115
+MPRINT(X):   where id=42115;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+                                           The SAS System
+
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 29 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=42115;
+NOTE: The PROCEDURE PRINT printed pages 302-303.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.31 seconds
+      cpu time            0.10 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 2 pages to /glnd/sas/reporting/nut42115.pdf.
+1007        %x(42119);
+SYMBOLGEN:  Macro variable ID resolves to 42119
+MPRINT(X):   ods pdf file = "/glnd/sas/reporting/nut42119.pdf" style = journal startpage=no ;
+NOTE: Writing ODS PDF output to DISK destination "/glnd/sas/reporting/nut42119.pdf", printer "PDF".
+MPRINT(X):   proc print data= percent_pn noobs label ;
+MPRINT(X):   by center id;
+MPRINT(X):   pageby center;
+SYMBOLGEN:  Macro variable ID resolves to 42119
+MPRINT(X):   where id=42119;
+MPRINT(X):   title1 h=3 'Daily Nutritional kcal Summaries';
+MPRINT(X):   *title2 h=3 '#byval1';
+MPRINT(X):   label center = '00'x 'site' ;
+MPRINT(X):   label id = '00'x 'id';
+MPRINT(X):   var row /style(data) = [just=center];
+MPRINT(X):   var daily_kcal_goal daily_prot_goal iv_kcal prop_kcal pn_aa_kcal pn_cho pn_lipid 
+percent_iv_aa percent_iv_dextrose percent_iv_lipid tot_parent_kcal tot_ent_kcal tot_kcal 
+tot_insulin percent_parenteral percent_enteral percent_overall pn_aa_g tot_ent_prot tot_aa 
+percent_parenteral_prot percent_enteral_prot percent_overall_prot;
+MPRINT(X):   run;
+
+NOTE: There were 7 observations read from the data set WORK.PERCENT_PN.
+      WHERE id=42119;
+NOTE: The PROCEDURE PRINT printed page 304.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.06 seconds
+      
+
+MPRINT(X):   ods pdf close;
+NOTE: ODS PDF printed 1 page to /glnd/sas/reporting/nut42119.pdf.
+
+ERROR: Errors printed on pages 11,18.
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           12.23 seconds
+      cpu time            9.02 seconds
+      

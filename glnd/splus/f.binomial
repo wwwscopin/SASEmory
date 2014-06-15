@@ -1,0 +1,46 @@
+f.binomial <- function(x,n,alpha=0.05) 
+{
+# Pratt approximation. Review article JASA, 1996, v.81, page 843-855
+f.pratt <- function(x,n,alpha,upper=T) {
+ const <- qnorm(1-alpha/2)
+ if(upper==F) {  # alternative version of lower when upper=F
+  const <- -const
+  x <- x-1
+  }
+ return(1/(1+(((x+1)/(n-x))^2)*((81*(x+1)*(n-x) -9*n -8 -
+   3*const*sqrt(9*(x+1)*(n-x)*(9*n+5- const^2) + n +1))/
+  (81*(x+1)^2 - 9*(x+1)*(2+const^2) + 1)
+   )^3) )
+ }
+if(x==0) {
+ lower.exact <- lower.pratt <- 0
+ upper.exact <- upper.pratt <- 1 - (alpha)^(1/n)
+ }
+if(n > 1) {
+if(x==1) {
+ lower.exact <- 1 - qbeta(1-alpha/2,n-x+1,x) # same as lower.pratt
+ lower.pratt <- 1 - (1-alpha/2)^(1/n) 
+ upper.exact <- qbeta(1-alpha/2,x+1,n-x) 
+ upper.pratt <- f.pratt(x=x,n=n,alpha=alpha)
+ }
+if(x >= 2 & x <= n-2) { 
+ lower.exact <- 1 - qbeta(1-alpha/2,n-x+1,x)
+ upper.exact <- qbeta(1-alpha/2,x+1,n-x) 
+ lower.pratt <- 1 - f.pratt(x=n-x,n=n,alpha=alpha)
+ upper.pratt <- f.pratt(x=x,n=n,alpha=alpha)
+ } 
+if(x==(n-1)) {
+ lower.exact <- 1 - qbeta(1-alpha/2,n-x+1,x)
+ lower.pratt <- 1 - f.pratt(x=n-x,n=n,alpha=alpha)
+ upper.exact <- qbeta(1-alpha/2,x+1,n-x) # same as upper.pratt
+ upper.pratt <- (1-alpha/2)^{1/n}
+ }
+}
+if(x==n) {
+ lower.exact <- lower.pratt <- (alpha)^(1/n)
+ upper.exact <- upper.pratt <- 1
+ }
+return(list(x=x,n=n,p=x/n,exact.ci=paste(c(lower.exact,upper.exact)),
+ pratt.ci=paste(c(lower.pratt,upper.pratt)),
+ normal.ci=paste(x/n + c(-1,1)*1.96*sqrt((x/n)*(1-x/n)/n))))
+}

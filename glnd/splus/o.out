@@ -1,0 +1,1916 @@
+S-PLUS : Copyright (c) 1988, 2005 Insightful Corp.
+S : Copyright Insightful Corp.
+Version 7.0.0  for Sun SPARC, SunOS 5.8, 32-bit : 2005 
+Working data will be in /home/gcotson/MySwork 
+NULL
+NULL
+NULL
+NULL
+NULL
+
+[1] "reason : "
+NULL
+NULL
+
+[1] "reason : "
+NULL
+NULL
+
+[1] "reason : "
+NULL
+NULL
+
+[1] "reason : "
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+
+[1] "gender : "
+
+[1] "rac : "
+
+[1] "hispanic : "
+
+[1] "affil : "
+
+[1] "apache.id : "
+
+[1] "apachese : "
+
+[1] "ards : "
+
+[1] "mech.vent : "
+
+[1] "age : "
+NULL
+NULL
+
+[1] "bmi : "
+
+[1] "surg : "
+
+[1] "diag : "
+
+[1] "daysop : "
+NULL
+NULL
+
+[1] "indication.pn.1 : "
+
+[1] "indication.pn.2 : "
+
+[1] "indication.pn.3 : "
+
+[1] "indication.pn.4 : "
+
+[1] "indication.pn.5 : "
+
+[1] "indication.pn.6 : "
+
+[1] "ent.nutr : "
+
+[1] "parent.nutr : "
+
+[1] "apachesicu : "
+NULL
+NULL
+NULL
+
+[1] "days.hosp : "
+
+[1] "days.hosp.post.entry : "
+
+[1] "ever.on.ventilation.study : Patient ever on mechanical ventilation after study entry : all missing data"
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+This is TeX, Version 3.14159 (Web2C 7.4.5)
+(./open.tex
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, n
+ohyphenation, loaded.
+(/usr/local/share/texmf/tex/latex/base/article.cls
+Document Class: article 2001/04/21 v1.4e Standard LaTeX document class
+(/usr/local/share/texmf/tex/latex/base/size10.clo))
+(/usr/local/share/texmf/tex/latex/graphics/graphicx.sty
+(/usr/local/share/texmf/tex/latex/graphics/keyval.sty)
+(/usr/local/share/texmf/tex/latex/graphics/graphics.sty
+(/usr/local/share/texmf/tex/latex/graphics/trig.sty)
+(/usr/local/share/texmf/tex/latex/config/graphics.cfg)
+(/usr/local/share/texmf/tex/latex/graphics/dvips.def))) (./open.aux)
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     1
+[1] (./open.lot) (./open.lof
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     2
+[2]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     3
+[3])
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     4
+[4] <recruitment.ps> <rc.ps>
+Overfull \hbox (54.21352pt too wide) in paragraph at lines 124--125
+[][] 
+
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     5
+[5]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     6
+[6]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     7
+[7]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     8
+[8]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     9
+[9]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     10
+[10]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     11
+[11]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     12
+[12]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     13
+[13]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     14
+[14]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     15
+[15]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     16
+[16] <qc.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     17
+[17]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     18
+[18]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     19
+[19]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     20
+[20] <//glnd//sas//reporting//race_ethnic.ps>
+Overfull \hbox (54.23825pt too wide) in paragraph at lines 941--942
+[][] 
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     21
+[21] <icu_open.ps>
+Overfull \hbox (36.17358pt too wide) in paragraph at lines 1015--1016
+[][] 
+
+LaTeX Warning: Float too large for page by 38.8735pt on input line 1017.
+
+<mech_vent_open.ps>
+Overfull \hbox (36.17358pt too wide) in paragraph at lines 1020--1021
+[][] 
+
+LaTeX Warning: Float too large for page by 38.8735pt on input line 1022.
+
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     22
+[22]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     23
+[23]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     24
+[24]
+Overfull \hbox (41.97235pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Summary 
+
+Overfull \hbox (15.05556pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Yes 
+
+Overfull \hbox (32.94447pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Percent 
+
+Overfull \hbox (32.50008pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Median 
+
+Overfull \hbox (17.50005pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Min 
+
+Overfull \hbox (19.4445pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Max 
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     25
+[25]
+Overfull \hbox (10.80527pt too wide) in paragraph at lines 1074--1093
+ [] 
+<//glnd//sas//reporting//nut11132.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     26
+[26]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     27
+[27] <//glnd//sas//reporting//nut11141.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     28
+[28] <//glnd//sas//reporting//nut11146a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     29
+[29] <//glnd//sas//reporting//nut11146b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     30
+[30] <//glnd//sas//reporting//nut11151.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     31
+[31] <//glnd//sas//reporting//nut12155a.ps>
+<//glnd//sas//reporting//nut12155b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     32
+[32]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     33
+[33] <//glnd//sas//reporting//nut12170.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     34
+[34] <//glnd//sas//reporting//nut21039.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     35
+[35] <//glnd//sas//reporting//nut22040a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     36
+[36] <//glnd//sas//reporting//nut22040b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     37
+[37] <//glnd//sas//reporting//nut22042.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     38
+[38] <//glnd//sas//reporting//nut31144.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     39
+[39] <//glnd//sas//reporting//nut32120.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     40
+[40] <//glnd//sas//reporting//nut32125a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     41
+[41] <//glnd//sas//reporting//nut32125b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     42
+[42] <//glnd//sas//reporting//nut32145.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     43
+[43] <//glnd//sas//reporting//nut32156.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     44
+[44] <//glnd//sas//reporting//nut32160.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     45
+[45] <//glnd//sas//reporting//nut32165.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     46
+[46] <//glnd//sas//reporting//nut32175.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     47
+[47] <//glnd//sas//reporting//nut41076a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     48
+[48] <//glnd//sas//reporting//nut41076b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     49
+[49] <//glnd//sas//reporting//nut41090a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     50
+[50] <//glnd//sas//reporting//nut41090b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     51
+[51] <//glnd//sas//reporting//nut41091.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     52
+[52] <//glnd//sas//reporting//nut41102a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     53
+[53] <//glnd//sas//reporting//nut41102b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     54
+[54] <//glnd//sas//reporting//nut41103.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     55
+[55] <//glnd//sas//reporting//nut42092a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     56
+[56] <//glnd//sas//reporting//nut42092b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     57
+[57]
+Overfull \hbox (45.22197pt too wide) in paragraph at lines 1343--1364
+ [] 
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     58
+[58] <//glnd//sas//reporting//blood1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     59
+[59] <//glnd//sas//reporting//blood2.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     60
+[60] <//glnd//sas//reporting//blood3.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     61
+[61] <//glnd//sas//reporting//blood4.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     62
+[62] <//glnd//sas//reporting//bloodemory.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     63
+[63]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     64
+[64] <//glnd//sas//reporting//bloodmiriam.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     65
+[65] <//glnd//sas//reporting//bloodvanderbilt.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     66
+[66] <//glnd//sas//reporting//bloodcolorado.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     67
+[67] <bg.ps> <//glnd//sas//reporting//sofa.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     68
+[68]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     69
+[69]
+Underfull \hbox (badness 10000) in paragraph at lines 1521--1521
+
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     70
+[70] <//glnd//sas//reporting//deathdetailsa.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     71
+[71]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     72
+[72] <//glnd//sas//reporting//deathdetailsb.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     73
+[73] <//glnd//sas//reporting//mort.ps>
+<//glnd//sas//reporting//nosocomialopena.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     74
+[74]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     75
+[75] <//glnd//sas//reporting//nosocomialopenb.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     76
+[76] <//glnd//sas//reporting//nosoa.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     77
+[77] <//glnd//sas//reporting//nosob.ps> <//glnd//sas//reporting//nosoc.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     78
+[78]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     79
+[79] <//glnd//sas//reporting//nosocomial_center_table_open.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     80
+[80] <ns.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     81
+[81] <//glnd//sas//reporting//nosa.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     82
+[82] <//glnd//sas//reporting//nosb.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     83
+[83] <na.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     84
+[84]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     85
+[85] <//glnd//sas//reporting//organ1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     86
+[86] <//glnd//sas//reporting//organ2.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     87
+[87] <//glnd//sas//reporting//organ3.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     88
+[88] <//glnd//sas//reporting//organ4.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     89
+[89] <//glnd//sas//reporting//redox1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     90
+[90] <//glnd//sas//reporting//redox2.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     91
+[91] <//glnd//sas//reporting//redox3.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     92
+[92] <//glnd//sas//reporting//cytokine_plot_open_1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     93
+[93] <//glnd//sas//reporting//hsp_open.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     94
+[94] <//glnd//sas//reporting//flag_lps_tiled_1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     95
+[95] <//glnd//sas//reporting//flag_lps_tiled_2.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     96
+[96] <//glnd//sas//reporting//flag_lps_tiled_3.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     97
+[97] (./open.aux) )
+(see the transcript file for additional information)
+Output written on open.dvi (97 pages, 138348 bytes).
+Transcript written on open.log.
+[1] 0
+This is TeX, Version 3.14159 (Web2C 7.4.5)
+(./open.tex
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, n
+ohyphenation, loaded.
+(/usr/local/share/texmf/tex/latex/base/article.cls
+Document Class: article 2001/04/21 v1.4e Standard LaTeX document class
+(/usr/local/share/texmf/tex/latex/base/size10.clo))
+(/usr/local/share/texmf/tex/latex/graphics/graphicx.sty
+(/usr/local/share/texmf/tex/latex/graphics/keyval.sty)
+(/usr/local/share/texmf/tex/latex/graphics/graphics.sty
+(/usr/local/share/texmf/tex/latex/graphics/trig.sty)
+(/usr/local/share/texmf/tex/latex/config/graphics.cfg)
+(/usr/local/share/texmf/tex/latex/graphics/dvips.def))) (./open.aux)
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     1
+[1] (./open.lot) (./open.lof
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     2
+[2]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     3
+[3])
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     4
+[4] <recruitment.ps> <rc.ps>
+Overfull \hbox (54.21352pt too wide) in paragraph at lines 124--125
+[][] 
+
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     5
+[5]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     6
+[6]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     7
+[7]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     8
+[8]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     9
+[9]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     10
+[10]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     11
+[11]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     12
+[12]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     13
+[13]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     14
+[14]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     15
+[15]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     16
+[16] <qc.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     17
+[17]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     18
+[18]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     19
+[19]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     20
+[20] <//glnd//sas//reporting//race_ethnic.ps>
+Overfull \hbox (54.23825pt too wide) in paragraph at lines 941--942
+[][] 
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     21
+[21] <icu_open.ps>
+Overfull \hbox (36.17358pt too wide) in paragraph at lines 1015--1016
+[][] 
+
+LaTeX Warning: Float too large for page by 38.8735pt on input line 1017.
+
+<mech_vent_open.ps>
+Overfull \hbox (36.17358pt too wide) in paragraph at lines 1020--1021
+[][] 
+
+LaTeX Warning: Float too large for page by 38.8735pt on input line 1022.
+
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     22
+[22]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     23
+[23]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     24
+[24]
+Overfull \hbox (41.97235pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Summary 
+
+Overfull \hbox (15.05556pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Yes 
+
+Overfull \hbox (32.94447pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Percent 
+
+Overfull \hbox (32.50008pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Median 
+
+Overfull \hbox (17.50005pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Min 
+
+Overfull \hbox (19.4445pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Max 
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     25
+[25]
+Overfull \hbox (10.80527pt too wide) in paragraph at lines 1074--1093
+ [] 
+<//glnd//sas//reporting//nut11132.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     26
+[26]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     27
+[27] <//glnd//sas//reporting//nut11141.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     28
+[28] <//glnd//sas//reporting//nut11146a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     29
+[29] <//glnd//sas//reporting//nut11146b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     30
+[30] <//glnd//sas//reporting//nut11151.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     31
+[31] <//glnd//sas//reporting//nut12155a.ps>
+<//glnd//sas//reporting//nut12155b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     32
+[32]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     33
+[33] <//glnd//sas//reporting//nut12170.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     34
+[34] <//glnd//sas//reporting//nut21039.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     35
+[35] <//glnd//sas//reporting//nut22040a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     36
+[36] <//glnd//sas//reporting//nut22040b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     37
+[37] <//glnd//sas//reporting//nut22042.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     38
+[38] <//glnd//sas//reporting//nut31144.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     39
+[39] <//glnd//sas//reporting//nut32120.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     40
+[40] <//glnd//sas//reporting//nut32125a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     41
+[41] <//glnd//sas//reporting//nut32125b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     42
+[42] <//glnd//sas//reporting//nut32145.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     43
+[43] <//glnd//sas//reporting//nut32156.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     44
+[44] <//glnd//sas//reporting//nut32160.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     45
+[45] <//glnd//sas//reporting//nut32165.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     46
+[46] <//glnd//sas//reporting//nut32175.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     47
+[47] <//glnd//sas//reporting//nut41076a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     48
+[48] <//glnd//sas//reporting//nut41076b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     49
+[49] <//glnd//sas//reporting//nut41090a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     50
+[50] <//glnd//sas//reporting//nut41090b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     51
+[51] <//glnd//sas//reporting//nut41091.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     52
+[52] <//glnd//sas//reporting//nut41102a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     53
+[53] <//glnd//sas//reporting//nut41102b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     54
+[54] <//glnd//sas//reporting//nut41103.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     55
+[55] <//glnd//sas//reporting//nut42092a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     56
+[56] <//glnd//sas//reporting//nut42092b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     57
+[57]
+Overfull \hbox (45.22197pt too wide) in paragraph at lines 1343--1364
+ [] 
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     58
+[58] <//glnd//sas//reporting//blood1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     59
+[59] <//glnd//sas//reporting//blood2.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     60
+[60] <//glnd//sas//reporting//blood3.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     61
+[61] <//glnd//sas//reporting//blood4.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     62
+[62] <//glnd//sas//reporting//bloodemory.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     63
+[63]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     64
+[64] <//glnd//sas//reporting//bloodmiriam.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     65
+[65] <//glnd//sas//reporting//bloodvanderbilt.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     66
+[66] <//glnd//sas//reporting//bloodcolorado.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     67
+[67] <bg.ps> <//glnd//sas//reporting//sofa.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     68
+[68]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     69
+[69]
+Underfull \hbox (badness 10000) in paragraph at lines 1521--1521
+
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     70
+[70] <//glnd//sas//reporting//deathdetailsa.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     71
+[71]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     72
+[72] <//glnd//sas//reporting//deathdetailsb.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     73
+[73] <//glnd//sas//reporting//mort.ps>
+<//glnd//sas//reporting//nosocomialopena.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     74
+[74]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     75
+[75] <//glnd//sas//reporting//nosocomialopenb.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     76
+[76] <//glnd//sas//reporting//nosoa.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     77
+[77] <//glnd//sas//reporting//nosob.ps> <//glnd//sas//reporting//nosoc.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     78
+[78]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     79
+[79] <//glnd//sas//reporting//nosocomial_center_table_open.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     80
+[80] <ns.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     81
+[81] <//glnd//sas//reporting//nosa.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     82
+[82] <//glnd//sas//reporting//nosb.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     83
+[83] <na.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     84
+[84]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     85
+[85] <//glnd//sas//reporting//organ1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     86
+[86] <//glnd//sas//reporting//organ2.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     87
+[87] <//glnd//sas//reporting//organ3.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     88
+[88] <//glnd//sas//reporting//organ4.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     89
+[89] <//glnd//sas//reporting//redox1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     90
+[90] <//glnd//sas//reporting//redox2.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     91
+[91] <//glnd//sas//reporting//redox3.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     92
+[92] <//glnd//sas//reporting//cytokine_plot_open_1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     93
+[93] <//glnd//sas//reporting//hsp_open.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     94
+[94] <//glnd//sas//reporting//flag_lps_tiled_1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     95
+[95] <//glnd//sas//reporting//flag_lps_tiled_2.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     96
+[96] <//glnd//sas//reporting//flag_lps_tiled_3.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     97
+[97] (./open.aux) )
+(see the transcript file for additional information)
+Output written on open.dvi (97 pages, 138348 bytes).
+Transcript written on open.log.
+[1] 0
+This is TeX, Version 3.14159 (Web2C 7.4.5)
+(./open.tex
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, n
+ohyphenation, loaded.
+(/usr/local/share/texmf/tex/latex/base/article.cls
+Document Class: article 2001/04/21 v1.4e Standard LaTeX document class
+(/usr/local/share/texmf/tex/latex/base/size10.clo))
+(/usr/local/share/texmf/tex/latex/graphics/graphicx.sty
+(/usr/local/share/texmf/tex/latex/graphics/keyval.sty)
+(/usr/local/share/texmf/tex/latex/graphics/graphics.sty
+(/usr/local/share/texmf/tex/latex/graphics/trig.sty)
+(/usr/local/share/texmf/tex/latex/config/graphics.cfg)
+(/usr/local/share/texmf/tex/latex/graphics/dvips.def))) (./open.aux)
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     1
+[1] (./open.lot) (./open.lof
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     2
+[2]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     3
+[3])
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     4
+[4] <recruitment.ps> <rc.ps>
+Overfull \hbox (54.21352pt too wide) in paragraph at lines 124--125
+[][] 
+
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     5
+[5]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     6
+[6]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     7
+[7]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     8
+[8]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     9
+[9]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     10
+[10]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     11
+[11]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     12
+[12]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     13
+[13]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     14
+[14]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     15
+[15]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     16
+[16] <qc.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     17
+[17]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     18
+[18]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     19
+[19]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     20
+[20] <//glnd//sas//reporting//race_ethnic.ps>
+Overfull \hbox (54.23825pt too wide) in paragraph at lines 941--942
+[][] 
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     21
+[21] <icu_open.ps>
+Overfull \hbox (36.17358pt too wide) in paragraph at lines 1015--1016
+[][] 
+
+LaTeX Warning: Float too large for page by 38.8735pt on input line 1017.
+
+<mech_vent_open.ps>
+Overfull \hbox (36.17358pt too wide) in paragraph at lines 1020--1021
+[][] 
+
+LaTeX Warning: Float too large for page by 38.8735pt on input line 1022.
+
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     22
+[22]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     23
+[23]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     24
+[24]
+Overfull \hbox (41.97235pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Summary 
+
+Overfull \hbox (15.05556pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Yes 
+
+Overfull \hbox (32.94447pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Percent 
+
+Overfull \hbox (32.50008pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Median 
+
+Overfull \hbox (17.50005pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Min 
+
+Overfull \hbox (19.4445pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Max 
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     25
+[25]
+Overfull \hbox (10.80527pt too wide) in paragraph at lines 1074--1093
+ [] 
+<//glnd//sas//reporting//nut11132.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     26
+[26]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     27
+[27] <//glnd//sas//reporting//nut11141.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     28
+[28] <//glnd//sas//reporting//nut11146a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     29
+[29] <//glnd//sas//reporting//nut11146b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     30
+[30] <//glnd//sas//reporting//nut11151.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     31
+[31] <//glnd//sas//reporting//nut12155a.ps>
+<//glnd//sas//reporting//nut12155b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     32
+[32]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     33
+[33] <//glnd//sas//reporting//nut12170.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     34
+[34] <//glnd//sas//reporting//nut21039.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     35
+[35] <//glnd//sas//reporting//nut22040a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     36
+[36] <//glnd//sas//reporting//nut22040b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     37
+[37] <//glnd//sas//reporting//nut22042.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     38
+[38] <//glnd//sas//reporting//nut31144.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     39
+[39] <//glnd//sas//reporting//nut32120.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     40
+[40] <//glnd//sas//reporting//nut32125a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     41
+[41] <//glnd//sas//reporting//nut32125b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     42
+[42] <//glnd//sas//reporting//nut32145.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     43
+[43] <//glnd//sas//reporting//nut32156.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     44
+[44] <//glnd//sas//reporting//nut32160.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     45
+[45] <//glnd//sas//reporting//nut32165.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     46
+[46] <//glnd//sas//reporting//nut32175.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     47
+[47] <//glnd//sas//reporting//nut41076a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     48
+[48] <//glnd//sas//reporting//nut41076b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     49
+[49] <//glnd//sas//reporting//nut41090a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     50
+[50] <//glnd//sas//reporting//nut41090b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     51
+[51] <//glnd//sas//reporting//nut41091.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     52
+[52] <//glnd//sas//reporting//nut41102a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     53
+[53] <//glnd//sas//reporting//nut41102b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     54
+[54] <//glnd//sas//reporting//nut41103.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     55
+[55] <//glnd//sas//reporting//nut42092a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     56
+[56] <//glnd//sas//reporting//nut42092b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     57
+[57]
+Overfull \hbox (45.22197pt too wide) in paragraph at lines 1343--1364
+ [] 
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     58
+[58] <//glnd//sas//reporting//blood1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     59
+[59] <//glnd//sas//reporting//blood2.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     60
+[60] <//glnd//sas//reporting//blood3.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     61
+[61] <//glnd//sas//reporting//blood4.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     62
+[62] <//glnd//sas//reporting//bloodemory.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     63
+[63]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     64
+[64] <//glnd//sas//reporting//bloodmiriam.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     65
+[65] <//glnd//sas//reporting//bloodvanderbilt.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     66
+[66] <//glnd//sas//reporting//bloodcolorado.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     67
+[67] <bg.ps> <//glnd//sas//reporting//sofa.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     68
+[68]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     69
+[69]
+Underfull \hbox (badness 10000) in paragraph at lines 1521--1521
+
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     70
+[70] <//glnd//sas//reporting//deathdetailsa.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     71
+[71]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     72
+[72] <//glnd//sas//reporting//deathdetailsb.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     73
+[73] <//glnd//sas//reporting//mort.ps>
+<//glnd//sas//reporting//nosocomialopena.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     74
+[74]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     75
+[75] <//glnd//sas//reporting//nosocomialopenb.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     76
+[76] <//glnd//sas//reporting//nosoa.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     77
+[77] <//glnd//sas//reporting//nosob.ps> <//glnd//sas//reporting//nosoc.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     78
+[78]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     79
+[79] <//glnd//sas//reporting//nosocomial_center_table_open.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     80
+[80] <ns.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     81
+[81] <//glnd//sas//reporting//nosa.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     82
+[82] <//glnd//sas//reporting//nosb.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     83
+[83] <na.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     84
+[84]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     85
+[85] <//glnd//sas//reporting//organ1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     86
+[86] <//glnd//sas//reporting//organ2.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     87
+[87] <//glnd//sas//reporting//organ3.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     88
+[88] <//glnd//sas//reporting//organ4.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     89
+[89] <//glnd//sas//reporting//redox1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     90
+[90] <//glnd//sas//reporting//redox2.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     91
+[91] <//glnd//sas//reporting//redox3.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     92
+[92] <//glnd//sas//reporting//cytokine_plot_open_1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     93
+[93] <//glnd//sas//reporting//hsp_open.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     94
+[94] <//glnd//sas//reporting//flag_lps_tiled_1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     95
+[95] <//glnd//sas//reporting//flag_lps_tiled_2.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     96
+[96] <//glnd//sas//reporting//flag_lps_tiled_3.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     97
+[97] (./open.aux) )
+(see the transcript file for additional information)
+Output written on open.dvi (97 pages, 138348 bytes).
+Transcript written on open.log.
+**** Unable to open the initial device, quitting.
+[1] 256
+This is TeX, Version 3.14159 (Web2C 7.4.5)
+(./open.tex
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, n
+ohyphenation, loaded.
+(/usr/local/share/texmf/tex/latex/base/article.cls
+Document Class: article 2001/04/21 v1.4e Standard LaTeX document class
+(/usr/local/share/texmf/tex/latex/base/size10.clo))
+(/usr/local/share/texmf/tex/latex/graphics/graphicx.sty
+(/usr/local/share/texmf/tex/latex/graphics/keyval.sty)
+(/usr/local/share/texmf/tex/latex/graphics/graphics.sty
+(/usr/local/share/texmf/tex/latex/graphics/trig.sty)
+(/usr/local/share/texmf/tex/latex/config/graphics.cfg)
+(/usr/local/share/texmf/tex/latex/graphics/dvips.def))) (./open.aux)
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     1
+[1] (./open.lot) (./open.lof
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     2
+[2]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     3
+[3])
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     4
+[4] <recruitment.ps> <rc.ps>
+Overfull \hbox (54.21352pt too wide) in paragraph at lines 124--125
+[][] 
+
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     5
+[5]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     6
+[6]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     7
+[7]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     8
+[8]
+Overfull \hbox (35.72932pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     9
+[9]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     10
+[10]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     11
+[11]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     12
+[12]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     13
+[13]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     14
+[14]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     15
+[15]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     16
+[16] <qc.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     17
+[17]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     18
+[18]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     19
+[19]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     20
+[20] <//glnd//sas//reporting//race_ethnic.ps>
+Overfull \hbox (54.23825pt too wide) in paragraph at lines 941--942
+[][] 
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     21
+[21] <icu_open.ps>
+Overfull \hbox (36.17358pt too wide) in paragraph at lines 1015--1016
+[][] 
+
+LaTeX Warning: Float too large for page by 38.8735pt on input line 1017.
+
+<mech_vent_open.ps>
+Overfull \hbox (36.17358pt too wide) in paragraph at lines 1020--1021
+[][] 
+
+LaTeX Warning: Float too large for page by 38.8735pt on input line 1022.
+
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     22
+[22]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     23
+[23]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     24
+[24]
+Overfull \hbox (41.97235pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Summary 
+
+Overfull \hbox (15.05556pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Yes 
+
+Overfull \hbox (32.94447pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Percent 
+
+Overfull \hbox (32.50008pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Median 
+
+Overfull \hbox (17.50005pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Min 
+
+Overfull \hbox (19.4445pt too wide) in paragraph at lines 1033--1033
+ \OT1/cmr/m/n/10 Max 
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     25
+[25]
+Overfull \hbox (10.80527pt too wide) in paragraph at lines 1074--1093
+ [] 
+<//glnd//sas//reporting//nut11132.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     26
+[26]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     27
+[27] <//glnd//sas//reporting//nut11141.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     28
+[28] <//glnd//sas//reporting//nut11146a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     29
+[29] <//glnd//sas//reporting//nut11146b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     30
+[30] <//glnd//sas//reporting//nut11151.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     31
+[31] <//glnd//sas//reporting//nut12155a.ps>
+<//glnd//sas//reporting//nut12155b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     32
+[32]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     33
+[33] <//glnd//sas//reporting//nut12170.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     34
+[34] <//glnd//sas//reporting//nut21039.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     35
+[35] <//glnd//sas//reporting//nut22040a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     36
+[36] <//glnd//sas//reporting//nut22040b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     37
+[37] <//glnd//sas//reporting//nut22042.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     38
+[38] <//glnd//sas//reporting//nut31144.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     39
+[39] <//glnd//sas//reporting//nut32120.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     40
+[40] <//glnd//sas//reporting//nut32125a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     41
+[41] <//glnd//sas//reporting//nut32125b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     42
+[42] <//glnd//sas//reporting//nut32145.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     43
+[43] <//glnd//sas//reporting//nut32156.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     44
+[44] <//glnd//sas//reporting//nut32160.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     45
+[45] <//glnd//sas//reporting//nut32165.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     46
+[46] <//glnd//sas//reporting//nut32175.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     47
+[47] <//glnd//sas//reporting//nut41076a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     48
+[48] <//glnd//sas//reporting//nut41076b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     49
+[49] <//glnd//sas//reporting//nut41090a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     50
+[50] <//glnd//sas//reporting//nut41090b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     51
+[51] <//glnd//sas//reporting//nut41091.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     52
+[52] <//glnd//sas//reporting//nut41102a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     53
+[53] <//glnd//sas//reporting//nut41102b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     54
+[54] <//glnd//sas//reporting//nut41103.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     55
+[55] <//glnd//sas//reporting//nut42092a.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     56
+[56] <//glnd//sas//reporting//nut42092b.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     57
+[57]
+Overfull \hbox (45.22197pt too wide) in paragraph at lines 1343--1364
+ [] 
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     58
+[58] <//glnd//sas//reporting//blood1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     59
+[59] <//glnd//sas//reporting//blood2.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     60
+[60] <//glnd//sas//reporting//blood3.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     61
+[61] <//glnd//sas//reporting//blood4.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     62
+[62] <//glnd//sas//reporting//bloodemory.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     63
+[63]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     64
+[64] <//glnd//sas//reporting//bloodmiriam.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     65
+[65] <//glnd//sas//reporting//bloodvanderbilt.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     66
+[66] <//glnd//sas//reporting//bloodcolorado.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     67
+[67] <bg.ps> <//glnd//sas//reporting//sofa.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     68
+[68]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     69
+[69]
+Underfull \hbox (badness 10000) in paragraph at lines 1521--1521
+
+
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     70
+[70] <//glnd//sas//reporting//deathdetailsa.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     71
+[71]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     72
+[72] <//glnd//sas//reporting//deathdetailsb.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     73
+[73] <//glnd//sas//reporting//mort.ps>
+<//glnd//sas//reporting//nosocomialopena.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     74
+[74]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     75
+[75] <//glnd//sas//reporting//nosocomialopenb.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     76
+[76] <//glnd//sas//reporting//nosoa.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     77
+[77] <//glnd//sas//reporting//nosob.ps> <//glnd//sas//reporting//nosoc.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     78
+[78]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     79
+[79] <//glnd//sas//reporting//nosocomial_center_table_open.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     80
+[80] <ns.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     81
+[81] <//glnd//sas//reporting//nosa.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     82
+[82] <//glnd//sas//reporting//nosb.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     83
+[83] <na.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     84
+[84]
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     85
+[85] <//glnd//sas//reporting//organ1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     86
+[86] <//glnd//sas//reporting//organ2.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     87
+[87] <//glnd//sas//reporting//organ3.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     88
+[88] <//glnd//sas//reporting//organ4.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     89
+[89] <//glnd//sas//reporting//redox1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     90
+[90] <//glnd//sas//reporting//redox2.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     91
+[91] <//glnd//sas//reporting//redox3.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     92
+[92] <//glnd//sas//reporting//cytokine_plot_open_1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     93
+[93] <//glnd//sas//reporting//hsp_open.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     94
+[94] <//glnd//sas//reporting//flag_lps_tiled_1.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     95
+[95] <//glnd//sas//reporting//flag_lps_tiled_2.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     96
+[96] <//glnd//sas//reporting//flag_lps_tiled_3.ps>
+Overfull \hbox (40.72934pt too wide) has occurred while \output is active
+  \OT1/cmr/m/n/10 GLND DSMB Report - Recruitment, Baseline, and Follow-up OPEN 
+SESSION   Thu Mar 12 11:15:16 EDT 2009     97
+[97] (./open.aux) )
+(see the transcript file for additional information)
+Output written on open.dvi (97 pages, 138348 bytes).
+Transcript written on open.log.
+**** Unable to open the initial device, quitting.
+[1] 256

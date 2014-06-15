@@ -1,0 +1,177 @@
+1                                                          The SAS System                          16:20 Tuesday, September 28, 2010
+
+NOTE: Copyright (c) 2002-2003 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) 9.1 (TS1M3)
+      Licensed to EMORY UNIVERSITY - T&R, Site 0014217002.
+NOTE: This session is executing on the SunOS 5.9 platform.
+
+
+
+NOTE: SAS 9.1.3 Service Pack 4
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.22 seconds
+      cpu time            0.07 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is /home/bwu2/insulin/autoexec.sas.
+
+NOTE: Libref RAND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/randomization
+NOTE: Libref GLND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+NOTE: Libref GLND_REP was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting
+NOTE: Libref GLND_EXT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/external_data
+NOTE: Libname LIBRARY refers to the same physical library as GLND.
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+NOTE: Libname REPORT refers to the same physical library as GLND_REP.
+NOTE: Libref REPORT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting
+
+NOTE: AUTOEXEC processing completed.
+
+1          proc format;
+2                                                          The SAS System                          16:20 Tuesday, September 28, 2010
+
+2          
+3          value group 0='A'
+4          				 1='B'	
+5          				 2='C'	
+6          				 3='D'
+7          				 4='E'
+8          				;
+NOTE: Format GROUP has been output.
+9          run;
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+10         
+11         
+12         data insulin;
+13         	set glnd.followup_all_long(keep=id day gluc_mrn gluc_aft gluc_eve tot_insulin);
+14         	center=floor(id/10000);
+15         	format center center.;
+16         	gluc_mean=mean(gluc_mrn,gluc_aft,gluc_eve);
+17         	where gluc_mrn^=. or gluc_aft^=. or gluc_eve^=. or tot_insulin^=.;
+18         run;
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      17 at 16:12   
+NOTE: There were 2265 observations read from the data set GLND.FOLLOWUP_ALL_LONG.
+      WHERE (gluc_mrn not = .) or (gluc_aft not = .) or (gluc_eve not = .) or (tot_insulin not = .);
+NOTE: The data set WORK.INSULIN has 2265 observations and 8 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.04 seconds
+      
+
+19         
+20         proc sort data=insulin;by id;run;
+
+NOTE: There were 2265 observations read from the data set WORK.INSULIN.
+NOTE: The data set WORK.INSULIN has 2265 observations and 8 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+
+21         
+22         data insulin_group;
+23         	set insulin(keep=id);
+24         run;
+
+NOTE: There were 2265 observations read from the data set WORK.INSULIN.
+NOTE: The data set WORK.INSULIN_GROUP has 2265 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+3                                                          The SAS System                          16:20 Tuesday, September 28, 2010
+
+25         
+26         proc sort data=insulin_group nodup;by id;run;
+
+NOTE: There were 2265 observations read from the data set WORK.INSULIN_GROUP.
+NOTE: 2137 duplicate observations were deleted.
+NOTE: The data set WORK.INSULIN_GROUP has 128 observations and 1 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+27         
+28         data insulin_group;
+29         	set insulin_group;
+30            group=floor(ranuni(2000)*5);
+31            format group group.;
+32         run;
+
+NOTE: There were 128 observations read from the data set WORK.INSULIN_GROUP.
+NOTE: The data set WORK.INSULIN_GROUP has 128 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+33         
+34         data insulin;
+35         	merge insulin insulin_group;
+36         	by id;
+37         run;
+
+NOTE: There were 2265 observations read from the data set WORK.INSULIN.
+NOTE: There were 128 observations read from the data set WORK.INSULIN_GROUP.
+NOTE: The data set WORK.INSULIN has 2265 observations and 9 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+38         
+39         proc print data=insulin;run;
+
+NOTE: There were 2265 observations read from the data set WORK.INSULIN.
+NOTE: The PROCEDURE PRINT printed pages 1-42.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.06 seconds
+      
+
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           0.48 seconds
+      cpu time            0.24 seconds
+      

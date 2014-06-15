@@ -1,0 +1,3 @@
+pdf2ps /glnd/sas/reporting/mort.pdf /glnd/sas/reporting/mort.ps
+
+Splus7 < closed.in

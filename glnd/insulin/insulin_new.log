@@ -1,0 +1,283 @@
+1                                                          The SAS System                            10:23 Thursday, October 7, 2010
+
+NOTE: Copyright (c) 2002-2003 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) 9.1 (TS1M3)
+      Licensed to EMORY UNIVERSITY - T&R, Site 0014217002.
+NOTE: This session is executing on the SunOS 5.9 platform.
+
+
+
+NOTE: SAS 9.1.3 Service Pack 4
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.33 seconds
+      cpu time            0.06 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is /home/bwu2/insulin/autoexec.sas.
+
+NOTE: Libref RAND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/randomization
+NOTE: Libref GLND was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+NOTE: Libref GLND_REP was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting
+NOTE: Libref GLND_EXT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/external_data
+NOTE: Libname LIBRARY refers to the same physical library as GLND.
+NOTE: Libref LIBRARY was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas
+NOTE: Libname REPORT refers to the same physical library as GLND_REP.
+NOTE: Libref REPORT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: /glnd/sas/reporting
+
+NOTE: AUTOEXEC processing completed.
+
+1          proc format;
+2                                                          The SAS System                            10:23 Thursday, October 7, 2010
+
+2          	
+2        !  value  slope 1="+"
+3          					 -1="-"
+4          					 0="0"	
+5             ;
+NOTE: Format SLOPE has been output.
+6          run;
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+7          			
+8          data insulin;
+9          	set glnd.followup_all_long(keep=id day gluc_mrn gluc_aft gluc_eve tot_insulin);
+10         	center=floor(id/10000);
+11         	format center center.;
+12         	gluc_mean=mean(gluc_mrn,gluc_aft,gluc_eve);
+13         	where gluc_mrn^=. or gluc_aft^=. or gluc_eve^=. or tot_insulin^=.;
+14         	log_gluc_mean=log(gluc_mean);
+15         	log_tot_insulin=log(tot_insulin);
+16         	if id=12207 then delete;
+17         	format gluc_mean 5.1;
+18         run;
+
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11002 tot_insulin=0 gluc_eve=. gluc_mrn=120 gluc_aft=. day=6 center=Emory gluc_mean=120.0 log_gluc_mean=4.7874917428
+log_tot_insulin=. _ERROR_=1 _N_=6
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11004 tot_insulin=0 gluc_eve=112 gluc_mrn=108 gluc_aft=100 day=10 center=Emory gluc_mean=106.7 log_gluc_mean=4.6697087071
+log_tot_insulin=. _ERROR_=1 _N_=16
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11004 tot_insulin=0 gluc_eve=110 gluc_mrn=111 gluc_aft=117 day=11 center=Emory gluc_mean=112.7 log_gluc_mean=4.7244336068
+log_tot_insulin=. _ERROR_=1 _N_=17
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11004 tot_insulin=0 gluc_eve=120 gluc_mrn=106 gluc_aft=113 day=12 center=Emory gluc_mean=113.0 log_gluc_mean=4.7273878187
+log_tot_insulin=. _ERROR_=1 _N_=18
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11004 tot_insulin=0 gluc_eve=111 gluc_mrn=120 gluc_aft=. day=13 center=Emory gluc_mean=115.5 log_gluc_mean=4.74927053
+log_tot_insulin=. _ERROR_=1 _N_=19
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11009 tot_insulin=0 gluc_eve=99 gluc_mrn=107 gluc_aft=92 day=10 center=Emory gluc_mean=99.3 log_gluc_mean=4.5984811978
+log_tot_insulin=. _ERROR_=1 _N_=29
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11009 tot_insulin=0 gluc_eve=119 gluc_mrn=89 gluc_aft=96 day=11 center=Emory gluc_mean=101.3 log_gluc_mean=4.6184154127
+log_tot_insulin=. _ERROR_=1 _N_=30
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11009 tot_insulin=0 gluc_eve=117 gluc_mrn=96 gluc_aft=. day=12 center=Emory gluc_mean=106.5 log_gluc_mean=4.6681449851
+log_tot_insulin=. _ERROR_=1 _N_=31
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=119 gluc_mrn=116 gluc_aft=109 day=8 center=Emory gluc_mean=114.7 log_gluc_mean=4.7420293687
+log_tot_insulin=. _ERROR_=1 _N_=39
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=106 gluc_mrn=114 gluc_aft=. day=9 center=Emory gluc_mean=110.0 log_gluc_mean=4.7004803658
+log_tot_insulin=. _ERROR_=1 _N_=40
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=109 gluc_mrn=120 gluc_aft=. day=10 center=Emory gluc_mean=114.5 log_gluc_mean=4.740574823
+3                                                          The SAS System                            10:23 Thursday, October 7, 2010
+
+log_tot_insulin=. _ERROR_=1 _N_=41
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=103 gluc_mrn=108 gluc_aft=114 day=11 center=Emory gluc_mean=108.3 log_gluc_mean=4.6852128937
+log_tot_insulin=. _ERROR_=1 _N_=42
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=117 gluc_mrn=105 gluc_aft=130 day=12 center=Emory gluc_mean=117.3 log_gluc_mean=4.7650188869
+log_tot_insulin=. _ERROR_=1 _N_=43
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=118 gluc_mrn=132 gluc_aft=130 day=13 center=Emory gluc_mean=126.7 log_gluc_mean=4.8415589641
+log_tot_insulin=. _ERROR_=1 _N_=44
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=122 gluc_mrn=86 gluc_aft=. day=14 center=Emory gluc_mean=104.0 log_gluc_mean=4.6443908991
+log_tot_insulin=. _ERROR_=1 _N_=45
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=107 gluc_mrn=. gluc_aft=. day=15 center=Emory gluc_mean=107.0 log_gluc_mean=4.6728288345
+log_tot_insulin=. _ERROR_=1 _N_=46
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=126 gluc_mrn=. gluc_aft=. day=16 center=Emory gluc_mean=126.0 log_gluc_mean=4.836281907
+log_tot_insulin=. _ERROR_=1 _N_=47
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=113 gluc_mrn=. gluc_aft=. day=17 center=Emory gluc_mean=113.0 log_gluc_mean=4.7273878187
+log_tot_insulin=. _ERROR_=1 _N_=48
+NOTE: Invalid argument to function LOG at line 15 column 18.
+id=11012 tot_insulin=0 gluc_eve=108 gluc_mrn=. gluc_aft=. day=18 center=Emory gluc_mean=108.0 log_gluc_mean=4.6821312271
+log_tot_insulin=. _ERROR_=1 _N_=49
+NOTE: Invalid argument to function LOG at line 15 column 18.
+ERROR: Limit set by ERRORS= option reached.  Further errors of this type will not be printed.
+id=11012 tot_insulin=0 gluc_eve=109 gluc_mrn=. gluc_aft=. day=19 center=Emory gluc_mean=109.0 log_gluc_mean=4.6913478822
+log_tot_insulin=. _ERROR_=1 _N_=50
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      17 at 12:12   17 at 14:16   34 at 15:18   
+NOTE: Mathematical operations could not be performed at the following places. The results of the operations have been set to 
+      missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      357 at 15:18   
+NOTE: There were 2278 observations read from the data set GLND.FOLLOWUP_ALL_LONG.
+      WHERE (gluc_mrn not = .) or (gluc_aft not = .) or (gluc_eve not = .) or (tot_insulin not = .);
+NOTE: The data set WORK.INSULIN has 2277 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+
+19         
+20         
+21         ** Check the distribution of the gluc_mean ************************;
+22         *******************************************************************;
+23         
+24         ods pdf file="dist_gluc_mean.pdf";
+NOTE: Writing ODS PDF output to DISK destination "/home/bwu2/insulin/dist_gluc_mean.pdf", printer "PDF".
+25         title "Distribution for mean of blood glucose";
+26         
+27         proc univariate data=insulin plot;
+28         	var gluc_mean;
+29         run;
+
+NOTE: The PROCEDURE UNIVARIATE printed pages 1-2.
+4                                                          The SAS System                            10:23 Thursday, October 7, 2010
+
+NOTE: PROCEDURE UNIVARIATE used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.09 seconds
+      
+
+30         
+31         ods pdf close;
+NOTE: ODS PDF printed 2 pages to /home/bwu2/insulin/dist_gluc_mean.pdf.
+32         
+33         goptions rotate = landscape reset=global gsfmode=replace gunit=pct border
+34         ctext=black ftitle=swissb ftext=swiss htitle=3 htext=3;
+35         
+36         axis1 label=(a=90 h=4 c=Black "Blood glucose (mg/dL) / Insulin (units)") order=(0 to 500 by 100) minor=none;
+37         axis2 label=( h=4 c=Black "Day") order=(0 to 28 by 4) offset=(0cm, 0cm) minor=none;
+38         
+39         axis3 label=(a=90 h=4 c=Black "Blood glucose (mg/dL)") order=(0 to 300 by 50) minor=none;
+40         axis4 label=( h=4 c=Black "Total insulin adminstrated (units)") order=(0 to 500 by 50) minor=none;
+41         axis5 label=( h=4 c=Black "Total insulin adminstrated (units)") /*order=(0 to 200 by 20)*/ minor=none;
+42         
+43         legend1 across=1 down=4 label=none
+44         		mode=protect position=(top right inside)
+45                 value=('Morning' 'Afternoon' 'Evening' 'Mean') offset=(0cm, -0.5cm);
+46         
+47         legend2 across=1 down=2 label=none
+48         		mode=protect position=(top right inside)
+49                 value=('Blood glucose' 'Insulin') offset=(0cm, -0.5cm);
+50         
+51         
+52         symbol1 value=circle   i=none h=2 w=2 c=blue;  *repeat=130;
+53         
+54         
+55         
+56         ********** Make scatter plot for all id  **************************;
+57         *******************************************************************;
+58         
+59         data insulin_exclude;
+60         	set insulin(keep=id tot_insulin);
+61         	where tot_insulin^=0;
+62         	drop tot_insulin;
+63         run;
+
+NOTE: There were 1920 observations read from the data set WORK.INSULIN.
+      WHERE tot_insulin not = 0;
+NOTE: The data set WORK.INSULIN_EXCLUDE has 1920 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+64         
+65         
+66         Proc sql;
+67         	create table insulin_plot as
+68         	select insulin.*
+69         	from insulin, insulin_exclude
+70         	where insulin.id=insulin_exclude.id and insulin.center^=2;
+NOTE: Table WORK.INSULIN_PLOT created, with 36832 rows and 10 columns.
+
+5                                                          The SAS System                            10:23 Thursday, October 7, 2010
+
+71         quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.15 seconds
+      cpu time            0.07 seconds
+      
+
+72         
+73         
+74         proc gplot data=insulin_plot gout=cat1;
+75         	title "Blood glucose (mg/dL) vs Total insulin adminstrated (units)";
+76         	by center;
+77         	*plot gluc_mrn*tot_insulin gluc_aft*tot_insulin gluc_eve*tot_insulin gluc_mean*tot_insulin/overlay vaxis=axis3
+77       ! haxis=axis4;
+78         	plot gluc_mean*tot_insulin/vaxis=axis3 haxis=axis4 legend=legend1; *noframe;
+79         run;
+
+NOTE: 124 observation(s) contained a MISSING value for the gluc_mean * tot_insulin request.
+NOTE: 9 observation(s) outside the axis range for the gluc_mean * tot_insulin request.
+NOTE: The above message was for the following by-group:
+      center=Emory
+NOTE: 15 observation(s) contained a MISSING value for the gluc_mean * tot_insulin request.
+NOTE: 48 observation(s) outside the axis range for the gluc_mean * tot_insulin request.
+NOTE: The above message was for the following by-group:
+      center=Vanderbilt
+NOTE: 668 observation(s) contained a MISSING value for the gluc_mean * tot_insulin request.
+NOTE: 54 observation(s) outside the axis range for the gluc_mean * tot_insulin request.
+ERROR: User asked for termination
+NOTE: The SAS System stopped processing this step because of errors.
+NOTE: SAS set option OBS=0 and will continue to check statements. This may cause NOTE: No observations in data set.
+NOTE: There were 35705 observations read from the data set WORK.INSULIN_PLOT.
+NOTE: PROCEDURE GPLOT used (Total process time):
+      real time           10.61 seconds
+      cpu time            1.37 seconds
+      
+ERROR: Errors printed on pages 3,5.
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           11.44 seconds
+      cpu time            1.80 seconds
+      
